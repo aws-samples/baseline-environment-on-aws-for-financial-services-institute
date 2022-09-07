@@ -1,0 +1,30 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "593e4a0c-60df-4723-b0d9-b63c790ccf2d",
+  "Metadata": {
+    "entryPointPosition": { "x": 20, "y": 20 },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "593e4a0c-60df-4723-b0d9-b63c790ccf2d": { "position": { "x": 189, "y": 34 }, "useDynamic": false },
+      "3568bd08-3927-4f66-9e51-a45506bd4de9": { "position": { "x": 428, "y": 89 } }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "593e4a0c-60df-4723-b0d9-b63c790ccf2d",
+      "Parameters": { "Text": "Hello!" },
+      "Transitions": {
+        "NextAction": "3568bd08-3927-4f66-9e51-a45506bd4de9",
+        "Errors": [{ "NextAction": "3568bd08-3927-4f66-9e51-a45506bd4de9", "ErrorType": "NoMatchingError" }],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "3568bd08-3927-4f66-9e51-a45506bd4de9",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

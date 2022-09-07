@@ -1,0 +1,142 @@
+Resources:
+  BLEAFSICdkEnvVpcCodeArtifactRepoEndpointForPrivateEB5014A5:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .codeartifact.repositories
+      VpcId: !ImportValue BLEAFSICDKPrivateEnv-VpcID
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !ImportValue BLEAFSICDKPrivateEnv-VpceSgID
+      SubnetIds:
+        - !ImportValue BLEAFSICDKPrivateEnv-SubnetID
+      VpcEndpointType: Interface
+  BLEAFSICdkEnvVpcCodeArtifactApiEndpointForPrivate247216A9:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .codeartifact.api
+      VpcId: !ImportValue BLEAFSICDKPrivateEnv-VpcID
+      PrivateDnsEnabled: false
+      SecurityGroupIds:
+        - !ImportValue BLEAFSICDKPrivateEnv-VpceSgID
+      SubnetIds:
+        - !ImportValue BLEAFSICDKPrivateEnv-SubnetID
+      VpcEndpointType: Interface
+  BLEAFSICdkEnvCodeArtifactEncryptionKeyE7F7B902:
+    Type: AWS::KMS::Key
+    Properties:
+      KeyPolicy:
+        Statement:
+          - Action: kms:*
+            Effect: Allow
+            Principal:
+              AWS:
+                Fn::Join:
+                  - ''
+                  - - 'arn:'
+                    - Ref: AWS::Partition
+                    - ':iam::'
+                    - Ref: AWS::AccountId
+                    - :root
+            Resource: '*'
+        Version: '2012-10-17'
+      EnableKeyRotation: true
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+  BLEAFSICdkEnvCodeArtifactEncryptionKeyAlias9C4B4ED3:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/BLEAFSICdkEnvCodeArtifactEncryptionKey
+      TargetKeyId:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvCodeArtifactEncryptionKeyE7F7B902
+          - Arn
+  BLEAFSICdkEnvCodeArtifactDomain:
+    Type: AWS::CodeArtifact::Domain
+    Properties:
+      DomainName: bleafsicdkenvcodeartifactdomain
+      EncryptionKey:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvCodeArtifactEncryptionKeyE7F7B902
+          - Arn
+  BLEAFSICdkEnvCodeArtifactRepo:
+    Type: AWS::CodeArtifact::Repository
+    Properties:
+      DomainName:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvCodeArtifactDomain
+          - DomainName
+      RepositoryName: bleafsicdkenvcodeartifactrepo
+      ExternalConnections:
+        - public:npmjs
+  BLEAFSICodeArtifactReadPolicy87EAE315:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - codeartifact:DescribeRepository
+              - codeartifact:DescribeDomain
+              - codeartifact:DescribePackage
+              - codeartifact:DescribePackageVersion
+              - codeartifact:GetAuthorizationToken
+              - codeartifact:GetDomainPermissionsPolicy
+              - codeartifact:GetPackageVersionAsset
+              - codeartifact:GetPackageVersionReadme
+              - codeartifact:GetRepositoryEndpoint
+              - codeartifact:GetRepositoryPermissionsPolicy
+              - codeartifact:ListDomains
+              - codeartifact:ListPackageVersionAssets
+              - codeartifact:ListPackageVersionDependencies
+              - codeartifact:ListPackageVersions
+              - codeartifact:ListPackages
+              - codeartifact:ListRepositories
+              - codeartifact:ListRepositoriesInDomain
+              - codeartifact:ListTagsForResource
+              - codeartifact:ReadFromRepository
+            Effect: Allow
+            Resource:
+              - Ref: BLEAFSICdkEnvCodeArtifactRepo
+              - Ref: BLEAFSICdkEnvCodeArtifactDomain
+          - Action: sts:GetServiceBearerToken
+            Condition:
+              StringEquals:
+                sts:AWSServiceName: codeartifact.amazonaws.com
+            Effect: Allow
+            Resource: '*'
+          - Action: kms:Decrypt
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - BLEAFSICdkEnvCodeArtifactEncryptionKeyE7F7B902
+                - Arn
+        Version: '2012-10-17'
+      Description: ''
+      Path: /
+      Roles:
+        - !ImportValue BLEAFSICDKPrivateEnv-EC2RoleID
+Outputs:
+  CodeArtifactAPIEndpointUrl:
+    Description: URL of the CodeArtifact API Endpoint
+    Value:
+      Fn::Join:
+        - ''
+        - - 'https://'
+          - Fn::Select:
+              - 1
+              - Fn::Split:
+                  - ':'
+                  - Fn::Select:
+                      - 0
+                      - Fn::GetAtt:
+                          - BLEAFSICdkEnvVpcCodeArtifactApiEndpointForPrivate247216A9
+                          - DnsEntries

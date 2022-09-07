@@ -1,0 +1,963 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BLEA-FSI snapshot check Core banking sample Stacks 1`] = `
+Object {
+  "Outputs": Object {
+    "ExportsOutputFnGetAttBLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530OutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingpriFBF3A947": Object {
+      "Export": Object {
+        "Name": "BLEA-FSI-core-banking-primary:EAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530OutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingpriFBF3A947",
+      },
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530",
+          "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseAlb6A614E0BRef",
+        ],
+      },
+    },
+    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref8D2DF34C": Object {
+      "Export": Object {
+        "Name": "BLEA-FSI-core-banking-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref8D2DF34C",
+      },
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+          "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref",
+        ],
+      },
+    },
+    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet1SubnetDF7A8F6ERef17142782": Object {
+      "Export": Object {
+        "Name": "BLEA-FSI-core-banking-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet1SubnetDF7A8F6ERef17142782",
+      },
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+          "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet1SubnetDF7A8F6ERef",
+        ],
+      },
+    },
+    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet2Subnet9B4EF54FRef7FCB5ED6": Object {
+      "Export": Object {
+        "Name": "BLEA-FSI-core-banking-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet2Subnet9B4EF54FRef7FCB5ED6",
+      },
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+          "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet2Subnet9B4EF54FRef",
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/2a45e0b68490d627098477fb431c557da234521fe4b320e808beeb1704826d64.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIContainerImageNestedStackBLEAFSIContainerImageNestedStackResourceA2B5A1DC": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceE499256BOutputsBLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153ERef": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153ERef",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/0e295420383c769a3bfde9a50501a4f3c40a790ec2b83bc07a633afd50f3379a.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIDBAuroraPgNestedStackBLEAFSIDBAuroraPgNestedStackResourceA0A6393E": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource7FD8884BOutputsBLEAFSIcorebankingprimaryBLEAFSIAppKey4102456FArn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIAppKey4102456FArn",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceA5D0838BOutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSCF31303E": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseSgFargate6C6AC5E0GroupId",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource87DC287FOutputsBLEAFSIcorebankingprimaryBLEAFSIMonitorAlarmMonitorAlarmTopicDA60DC1BRef": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIMonitorAlarmMonitorAlarmTopicDA60DC1BRef",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet1Subnet67636C45Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet1Subnet67636C45Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet2Subnet44367261Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet2Subnet44367261Ref",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/d401a8257f8c50f98a9e25f42bc560c8b157b4fc3afcffa61aab6235e784841f.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource87DC287FOutputsBLEAFSIcorebankingprimaryBLEAFSIMonitorAlarmMonitorAlarmTopicDA60DC1BRef": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIMonitorAlarmMonitorAlarmTopicDA60DC1BRef",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/8a1774f0c67715e7450d1f1951b362b4217c609afe5a9517736e731bdd31f442.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIContainerImageNestedStackBLEAFSIContainerImageNestedStackResourceA2B5A1DC",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource7FD8884BOutputsBLEAFSIcorebankingprimaryBLEAFSIAppKey4102456FArn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIAppKey4102456FArn",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceE499256BOutputsBLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153EArn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153EArn",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceE499256BOutputsBLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153ERef": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153ERef",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet1Subnet67636C45Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet1Subnet67636C45Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet2Subnet44367261Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpcProtectedSubnet2Subnet44367261Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIWafNestedStackBLEAFSIWafNestedStackResource4A86DB35OutputsBLEAFSIcorebankingprimaryBLEAFSIWafWebAcl8A6A55C5Arn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIWafNestedStackBLEAFSIWafNestedStackResource9D8B0682",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIWafWebAcl8A6A55C5Arn",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/daa413d17c6a8ed2e139315cb11fd62949a7333398eb91e2d2c2e6fdaadc861b.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/956a34fabad732363ab37699b4e06fd1e48acf5be43569d297e4845102a1f225.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIPrivateHostedZoneNestedStackBLEAFSIPrivateHostedZoneNestedStackResource9B0E6320": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceA5D0838BOutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFS956C4841": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseAlb6A614E0BDNSName",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceA5D0838BOutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSA5F26799": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseAlb6A614E0BCanonicalHostedZoneID",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/f7d083d48f807303c4e72cae12e1ca66d64fa424305eedf12216d2e678d7dacb.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/d1f000abd44bd9fb6333955b6d0c6a7309646b161f80afb280e8dd1c5275d135.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIWafNestedStackBLEAFSIWafNestedStackResource9D8B0682": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/b51205d5d57774cf8d6c40964655d4d43cf9682c96e03c1e5ce38299a97e8b1f.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSItransactionDBDynamoDbNestedStackBLEAFSItransactionDBDynamoDbNestedStackResourceAABBC640": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
+      ],
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/9fa6d7c645a56a0bdc99f1e96f0056f0338b8fc951d900805e8273c411c64bdc.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`BLEA-FSI snapshot check Core banking sample Stacks 2`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/58dd28e73cfd95fccc5da4562cd8c2e89bf2d732b93b450330ab599303d30f15.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIAssociateVpcWithHostedZoneNestedStackBLEAFSIAssociateVpcWithHostedZoneNestedStackResourceAD97FF93": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/8e53639cd1d3948a7f50c82d39a536046a43e79304dd67037674b115c7fd1b92.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIDBAuroraPgNestedStackBLEAFSIDBAuroraPgNestedStackResourceA0A6393E": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResourceAEEA97A0OutputsBLEAFSIcorebankingsecondaryBLEAFSIAppKey2CEF58BCArn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIAppKey2CEF58BCArn",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResource7FD947E7OutputsBLEAFSIcorebankingsecondaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceDF3DA5BDOutputsBLB86678FA": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceDF3DA5BDOutputsBLEAFSIcorebankingsecondaryBLEAFSIECSAppcontainerAppSampleBaseSgFargate9E3B9B55GroupId",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource5D6C3F1COutputsBLEAFSIcorebankingsecondaryBLEAFSIMonitorAlarmMonitorAlarmTopicA5D6A32CRef": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIMonitorAlarmMonitorAlarmTopicA5D6A32CRef",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet1Subnet0CB71BC7Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet1Subnet0CB71BC7Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet2Subnet942B00D9Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet2Subnet942B00D9Ref",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/1617663a9758a0afed2e502d88ecf3c4c22408d0bfb110cc16f911208e68f664.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResourceAEEA97A0OutputsBLEAFSIcorebankingsecondaryBLEAFSIAppKey2CEF58BCArn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIAppKey2CEF58BCArn",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet1Subnet0CB71BC7Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet1Subnet0CB71BC7Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet2Subnet942B00D9Ref": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcProtectedSubnet2Subnet942B00D9Ref",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIWafNestedStackBLEAFSIWafNestedStackResource55DFBA53OutputsBLEAFSIcorebankingsecondaryBLEAFSIWafWebAclAC773B1DArn": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIWafNestedStackBLEAFSIWafNestedStackResource9D8B0682",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIWafWebAclAC773B1DArn",
+            ],
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/8732c7ffff6a02fa0ca0e903d402354ca2e621a799078a54bbcf7085c8a8309e.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/c6c60d4a97613918b22d00a7a8c01334df4f9360f339b43ce1ed8c415451194d.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/5e7931cd2ad19dbaecc044548621612fc695685578e6d76d4ac06efcac680ec1.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIWafNestedStackBLEAFSIWafNestedStackResource9D8B0682": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-3.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/bdc0fd1910d3c6d5064fd55daae86d3fa616e5abadf4e74b441aaa6d06e2d82f.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`BLEA-FSI snapshot check Core banking sample Stacks 3`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
+          "S3Key": "6dbd112fe448437b3438da4382c72fccbb7d2ee1543db222620d7447fffebc50.zip",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BLEAFSIAcceptTgwPeeringAttachment7CB5A6A6": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "BLEAFSIAcceptTgwPeeringAttachmentCustomResourcePolicy87FFD570",
+      ],
+      "Properties": Object {
+        "Create": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"EC2\\",\\"action\\":\\"acceptTransitGatewayPeeringAttachment\\",\\"parameters\\":{\\"TransitGatewayAttachmentId\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "BLEAFSIcrossRegionSsmParamNestedStackBLEAFSIcrossRegionSsmParamNestedStackResource58824659",
+                  "Outputs.BLEAFSIcorebankingaccepttgwpeeringBLEAFSIcrossRegionSsmParamSsmGetParamTgwPeeringAttachmentId96083B46ParameterValue",
+                ],
+              },
+              "\\",\\"DryRun\\":false},\\"region\\":\\"ap-northeast-1\\",\\"physicalResourceId\\":{\\"id\\":\\"BLEA-FSI-AcceptTgwPeeringAttachment\\"}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"EC2\\",\\"action\\":\\"acceptTransitGatewayPeeringAttachment\\",\\"parameters\\":{\\"TransitGatewayAttachmentId\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "BLEAFSIcrossRegionSsmParamNestedStackBLEAFSIcrossRegionSsmParamNestedStackResource58824659",
+                  "Outputs.BLEAFSIcorebankingaccepttgwpeeringBLEAFSIcrossRegionSsmParamSsmGetParamTgwPeeringAttachmentId96083B46ParameterValue",
+                ],
+              },
+              "\\",\\"DryRun\\":false},\\"region\\":\\"ap-northeast-1\\",\\"physicalResourceId\\":{\\"id\\":\\"BLEA-FSI-AcceptTgwPeeringAttachment\\"}}",
+            ],
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BLEAFSIAcceptTgwPeeringAttachmentCustomResourcePolicy87FFD570": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ec2:AcceptTransitGatewayPeeringAttachment",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "BLEAFSIAcceptTgwPeeringAttachmentCustomResourcePolicy87FFD570",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "BLEAFSIcrossRegionSsmParamNestedStackBLEAFSIcrossRegionSsmParamNestedStackResource58824659": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.ap-northeast-1.",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/9156649b495a7c7f3cf81eded58053f70e6b955b0338ef48cc6321a8ded48dad.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`BLEA-FSI snapshot check Core banking sample Stacks 4`] = `
+Object {
+  "Outputs": Object {
+    "TestNlbUrl": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "http://",
+            Object {
+              "Fn::GetAtt": Array [
+                "BLEAFSINlbOnlyForTestDCCFB3B9",
+                "DNSName",
+              ],
+            },
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "BLEAFSINlbOnlyForTestBLEAFSITestNlbListenerBAF67B89": Object {
+      "Properties": Object {
+        "DefaultActions": Array [
+          Object {
+            "TargetGroupArn": Object {
+              "Ref": "BLEAFSINlbOnlyForTestBLEAFSITestNlbListenerBLEAFSITargetAlbGroup8A35CF4C",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": Object {
+          "Ref": "BLEAFSINlbOnlyForTestDCCFB3B9",
+        },
+        "Port": 80,
+        "Protocol": "TCP",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "BLEAFSINlbOnlyForTestBLEAFSITestNlbListenerBLEAFSITargetAlbGroup8A35CF4C": Object {
+      "Properties": Object {
+        "Port": 80,
+        "Protocol": "TCP",
+        "TargetType": "alb",
+        "Targets": Array [
+          Object {
+            "Id": Object {
+              "Fn::ImportValue": "BLEA-FSI-core-banking-primary:EAFSIECSAppNestedStackBLEAFSIECSAppNestedStackResourceB0B57530OutputsBLEAFSIcorebankingprimaryBLEAFSIECSAppcontainerAppSampleBaseNestedStackcontainerAppSampleBaseNestedStackResourceB533502COutputsBLEAFSIcorebankingpriFBF3A947",
+            },
+            "Port": 80,
+          },
+        ],
+        "VpcId": Object {
+          "Fn::ImportValue": "BLEA-FSI-core-banking-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref8D2DF34C",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "BLEAFSINlbOnlyForTestDCCFB3B9": Object {
+      "Properties": Object {
+        "LoadBalancerAttributes": Array [
+          Object {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
+        "Scheme": "internet-facing",
+        "Subnets": Array [
+          Object {
+            "Fn::ImportValue": "BLEA-FSI-core-banking-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet1SubnetDF7A8F6ERef17142782",
+          },
+          Object {
+            "Fn::ImportValue": "BLEA-FSI-core-banking-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIcorebankingprimaryBLEAFSIVpcPublicSubnet2Subnet9B4EF54FRef7FCB5ED6",
+          },
+        ],
+        "Type": "network",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

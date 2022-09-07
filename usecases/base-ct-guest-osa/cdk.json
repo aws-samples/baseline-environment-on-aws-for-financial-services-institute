@@ -1,0 +1,38 @@
+{
+  "app": "npx ts-node --prefer-ts-exts bin/bleafsi-base-ct-guest-osa.ts",
+  "context": {
+    "pjPrefix": "BLEA-FSI-BASE",
+    "dev": {
+      "description": "Context samples for Dev - Anonymous account & region",
+      "env": {
+        "region": "ap-northeast-3"
+      },
+      "envName": "Development",
+      "securityNotifyEmail": "notify-security@example.com",
+      "targetGuestAccountId": "",
+      "cloudTrailBucketName": ""
+    },
+    "stage": {
+      "description": "Context samples for Staging - Specific account & region  ",
+      "env": {
+        "account": "111111111111",
+        "region": "ap-northeast-3"
+      },
+      "envName": "Staging",
+      "securityNotifyEmail": "notify-security@example.com",
+      "targetGuestAccountId": "",
+      "cloudTrailBucketName": ""
+    },
+    "prod": {
+      "description": "Context samples for Production - Specific account & region  ",
+      "env": {
+        "account": "222222222222",
+        "region": "ap-northeast-3"
+      },
+      "envName": "Production",
+      "securityNotifyEmail": "notify-security@example.com",
+      "targetGuestAccountId": "",
+      "cloudTrailBucketName": ""
+    }
+  }
+}
