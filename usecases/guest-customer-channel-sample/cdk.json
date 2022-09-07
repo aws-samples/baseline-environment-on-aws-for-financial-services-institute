@@ -1,0 +1,56 @@
+{
+  "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-customer-channel-sample.ts",
+  "watch": {
+    "include": ["**"],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "**/*.d.ts",
+      "**/*.js",
+      "tsconfig.json",
+      "package*.json",
+      "yarn.lock",
+      "node_modules",
+      "test"
+    ]
+  },
+  "context": {
+    "pjPrefix": "BLEA-FSI",
+    "dev": {
+      "description": "Context samples for Dev",
+      "envName": "Development",
+      "primaryRegion": {
+        "region": "ap-northeast-1",
+        "connectInstance": {
+          "instanceAlias": "my-connect-instance-yyyymmdd-primary",
+          "inboundCallsEnabled": true,
+          "outboundCallsEnabled": true,
+          "contactFlows": [
+            {
+              "type": "CONTACT_FLOW",
+              "name": "SampleInboundContactFlow"
+            }
+          ],
+          "identityManagementType": "CONNECT_MANAGED"
+        }
+      },
+      "secondaryRegion": {
+        "region": "ap-southeast-1",
+        "connectInstance": {
+          "instanceAlias": "my-connect-instance-yyyymmdd-secondary"
+        }
+      },
+      "tertiaryRegion": {
+        "region": "ap-northeast-3"
+      }
+    },
+    "stage": {
+      "description": "Context samples for Staging",
+      "envName": "Staging"
+    },
+    "prod": {
+      "description": "Context samples for Production",
+      "envName": "Production"
+    }
+  }
+}

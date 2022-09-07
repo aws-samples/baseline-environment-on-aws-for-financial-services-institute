@@ -1,0 +1,5863 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot check Customer channel sample stacks 1`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "AccessLogsBucket83982689": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-S1",
+              "reason": "CloudTrail record S3 accesses",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "OwnershipControls": Object {
+          "Rules": Array [
+            Object {
+              "ObjectOwnership": "BucketOwnerEnforced",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": Object {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "AccessLogsBucketPolicy7F77476F": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "AccessLogsBucket83982689",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "s3:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "AccessLogsBucket83982689",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "AccessLogsBucket83982689",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "s3:PutObject",
+              "Condition": Object {
+                "ArnLike": Object {
+                  "aws:SourceArn": Object {
+                    "Fn::GetAtt": Array [
+                      "RecordingBucket03AEF6D2",
+                      "Arn",
+                    ],
+                  },
+                },
+                "StringEquals": Object {
+                  "aws:SourceAccount": Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "logging.s3.amazonaws.com",
+              },
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "AccessLogsBucket83982689",
+                        "Arn",
+                      ],
+                    },
+                    "/access-logs/primary/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "ConnectInstance90E42A0C": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "IdentityManagementType": "CONNECT_MANAGED",
+        "InboundCallsEnabled": true,
+        "InstanceAlias": "my-connect-instance-yyyymmdd-primary",
+        "OutboundCallsEnabled": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkonEvent963FA0C2",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceCallRecordingConfigInstanceStorageConfig24667574": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+        "RecordingBucketPolicyE50392DB",
+        "RecordingBucket03AEF6D2",
+        "RecordingKey3B2234F2",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "CALL_RECORDINGS",
+          "StorageConfig": Object {
+            "S3Config": Object {
+              "BucketName": Object {
+                "Ref": "RecordingBucket03AEF6D2",
+              },
+              "BucketPrefix": "primary/call-recordings",
+              "EncryptionConfig": Object {
+                "EncryptionType": "KMS",
+                "KeyId": Object {
+                  "Fn::GetAtt": Array [
+                    "RecordingKey3B2234F2",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+            "StorageType": "S3",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceChatTranscriptConfigInstanceStorageConfig6EC12501": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+        "RecordingBucketPolicyE50392DB",
+        "RecordingBucket03AEF6D2",
+        "RecordingKey3B2234F2",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "CHAT_TRANSCRIPTS",
+          "StorageConfig": Object {
+            "S3Config": Object {
+              "BucketName": Object {
+                "Ref": "RecordingBucket03AEF6D2",
+              },
+              "BucketPrefix": "primary/chat-transcripts",
+              "EncryptionConfig": Object {
+                "EncryptionType": "KMS",
+                "KeyId": Object {
+                  "Fn::GetAtt": Array [
+                    "RecordingKey3B2234F2",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+            "StorageType": "S3",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceContactFlowSampleInboundContactFlowAFBD72DD": Object {
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+      ],
+      "Properties": Object {
+        "Content": "{
+  \\"Version\\": \\"2019-10-30\\",
+  \\"StartAction\\": \\"593e4a0c-60df-4723-b0d9-b63c790ccf2d\\",
+  \\"Metadata\\": {
+    \\"entryPointPosition\\": { \\"x\\": 20, \\"y\\": 20 },
+    \\"snapToGrid\\": false,
+    \\"ActionMetadata\\": {
+      \\"593e4a0c-60df-4723-b0d9-b63c790ccf2d\\": { \\"position\\": { \\"x\\": 189, \\"y\\": 34 }, \\"useDynamic\\": false },
+      \\"3568bd08-3927-4f66-9e51-a45506bd4de9\\": { \\"position\\": { \\"x\\": 428, \\"y\\": 89 } }
+    }
+  },
+  \\"Actions\\": [
+    {
+      \\"Identifier\\": \\"593e4a0c-60df-4723-b0d9-b63c790ccf2d\\",
+      \\"Parameters\\": { \\"Text\\": \\"Hello!\\" },
+      \\"Transitions\\": {
+        \\"NextAction\\": \\"3568bd08-3927-4f66-9e51-a45506bd4de9\\",
+        \\"Errors\\": [{ \\"NextAction\\": \\"3568bd08-3927-4f66-9e51-a45506bd4de9\\", \\"ErrorType\\": \\"NoMatchingError\\" }],
+        \\"Conditions\\": []
+      },
+      \\"Type\\": \\"MessageParticipant\\"
+    },
+    {
+      \\"Identifier\\": \\"3568bd08-3927-4f66-9e51-a45506bd4de9\\",
+      \\"Type\\": \\"DisconnectParticipant\\",
+      \\"Parameters\\": {},
+      \\"Transitions\\": {}
+    }
+  ]
+}
+",
+        "InstanceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:aws:connect:ap-northeast-1:",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":instance/",
+              Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstance90E42A0C",
+                  "InstanceId",
+                ],
+              },
+            ],
+          ],
+        },
+        "Name": "SampleInboundContactFlow",
+        "Type": "CONTACT_FLOW",
+      },
+      "Type": "AWS::Connect::ContactFlow",
+    },
+    "ConnectInstanceCtrDeliveryStreamCD0085B0": Object {
+      "DependsOn": Array [
+        "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D",
+        "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyARN": Object {
+            "Fn::GetAtt": Array [
+              "RecordingKey3B2234F2",
+              "Arn",
+            ],
+          },
+          "KeyType": "CUSTOMER_MANAGED_CMK",
+        },
+        "DeliveryStreamName": "CtrDeliveryStream",
+        "DeliveryStreamType": "DirectPut",
+        "S3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "RecordingBucket03AEF6D2",
+              "Arn",
+            ],
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingKey3B2234F2",
+                  "Arn",
+                ],
+              },
+            },
+          },
+          "Prefix": "primary/contact-trace-records/",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "ConnectInstanceCtrDeliveryStreamConfigInstanceStorageConfig3E752FF8": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstanceCtrDeliveryStreamCD0085B0",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "CONTACT_TRACE_RECORDS",
+          "StorageConfig": Object {
+            "KinesisFirehoseConfig": Object {
+              "FirehoseArn": Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstanceCtrDeliveryStreamCD0085B0",
+                  "Arn",
+                ],
+              },
+            },
+            "StorageType": "KINESIS_FIREHOSE",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Role for delivery stream requires wildcard to save contact trace records",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetBucketLocation",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingBucket03AEF6D2",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetObject",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "RecordingBucket03AEF6D2",
+                        "Arn",
+                      ],
+                    },
+                    "/primary/contact-trace-records/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "kms:Decrypt",
+                "kms:GenerateDataKey",
+              ],
+              "Condition": Object {
+                "StringEquals": Object {
+                  "kms:EncryptionContext:aws:s3:arn": Object {
+                    "Fn::GetAtt": Array [
+                      "RecordingBucket03AEF6D2",
+                      "Arn",
+                    ],
+                  },
+                  "kms:ViaService": "s3.ap-northeast-1.amazonaws.com",
+                },
+              },
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingKey3B2234F2",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D",
+        "Roles": Array [
+          Object {
+            "Ref": "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Role for delivery stream requires wildcard to save contact trace records",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ConnectInstanceScheduledReportsConfigInstanceStorageConfig84A05622": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+        "RecordingBucketPolicyE50392DB",
+        "RecordingBucket03AEF6D2",
+        "RecordingKey3B2234F2",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "SCHEDULED_REPORTS",
+          "StorageConfig": Object {
+            "S3Config": Object {
+              "BucketName": Object {
+                "Ref": "RecordingBucket03AEF6D2",
+              },
+              "BucketPrefix": "primary/scheduled-reports",
+              "EncryptionConfig": Object {
+                "EncryptionType": "KMS",
+                "KeyId": Object {
+                  "Fn::GetAtt": Array [
+                    "RecordingKey3B2234F2",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+            "StorageType": "S3",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CustomerIdentificationBot": Object {
+      "DependsOn": Array [
+        "CustomerIdentificationBotRoleDefaultPolicy6AD07907",
+        "CustomerIdentificationBotRole07BABB34",
+      ],
+      "Properties": Object {
+        "BotLocales": Array [
+          Object {
+            "Intents": Array [
+              Object {
+                "Name": "FallbackIntent",
+                "ParentIntentSignature": "AMAZON.FallbackIntent",
+              },
+              Object {
+                "Name": "CustomerIdentificationIntent",
+                "SampleUtterances": Array [
+                  Object {
+                    "Utterance": "担当者と話したいです",
+                  },
+                ],
+                "Slots": Array [
+                  Object {
+                    "Name": "CustomerNumber",
+                    "SlotTypeName": "AMAZON.Number",
+                    "ValueElicitationSetting": Object {
+                      "PromptSpecification": Object {
+                        "MaxRetries": 4,
+                        "MessageGroupsList": Array [
+                          Object {
+                            "Message": Object {
+                              "SSMLMessage": Object {
+                                "Value": "<speak><prosody rate=\\"120%\\">
+ご本人様確認のため、
+お客様番号をゆっくり、
+はっきりとおっしゃってください。
+</prosody></speak>",
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "SlotConstraint": "Required",
+                    },
+                  },
+                  Object {
+                    "Name": "BirthDate",
+                    "SlotTypeName": "AMAZON.Date",
+                    "ValueElicitationSetting": Object {
+                      "PromptSpecification": Object {
+                        "MaxRetries": 4,
+                        "MessageGroupsList": Array [
+                          Object {
+                            "Message": Object {
+                              "SSMLMessage": Object {
+                                "Value": "<speak><prosody rate=\\"120%\\"><phoneme alphabet=\\"x-amazon-pron-kana\\" ph=\\"ゴケーヤ'クシャサマノ\\">ご契約者様の</phoneme><phoneme alphabet=\\"x-amazon-pron-kana\\" ph=\\"セーネンガ'ッピ\\">生年月日</phoneme>をおっしゃってください。</prosody></speak>",
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "SlotConstraint": "Required",
+                    },
+                  },
+                ],
+              },
+            ],
+            "LocaleId": "ja_JP",
+            "NluConfidenceThreshold": 0.4,
+          },
+        ],
+        "DataPrivacy": Object {
+          "ChildDirected": false,
+        },
+        "IdleSessionTTLInSeconds": 300,
+        "Name": "CustomerIdentificationBot",
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "CustomerIdentificationBotRole07BABB34",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lex::Bot",
+    },
+    "CustomerIdentificationBotAlias": Object {
+      "Properties": Object {
+        "BotAliasName": "CustomerIdentificationBotAlias",
+        "BotId": Object {
+          "Fn::GetAtt": Array [
+            "CustomerIdentificationBot",
+            "Id",
+          ],
+        },
+        "BotVersion": Object {
+          "Fn::GetAtt": Array [
+            "CustomerIdentificationBotVersion",
+            "BotVersion",
+          ],
+        },
+      },
+      "Type": "AWS::Lex::BotAlias",
+    },
+    "CustomerIdentificationBotAssociationLexBotAssociationDF7717A6": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstanceCallRecordingConfigInstanceStorageConfig24667574",
+        "ConnectInstanceChatTranscriptConfigInstanceStorageConfig6EC12501",
+        "ConnectInstanceContactFlowSampleInboundContactFlowAFBD72DD",
+        "ConnectInstanceCtrDeliveryStreamCD0085B0",
+        "ConnectInstanceCtrDeliveryStreamConfigInstanceStorageConfig3E752FF8",
+        "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D",
+        "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+        "ConnectInstance90E42A0C",
+        "ConnectInstanceScheduledReportsConfigInstanceStorageConfig84A05622",
+        "CustomerIdentificationBot",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "LexV2Bot": Object {
+            "AliasArn": Object {
+              "Fn::GetAtt": Array [
+                "CustomerIdentificationBotAlias",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "LexBotAssociationProviderframeworkonEventCFCA5349",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CustomerIdentificationBotRole07BABB34": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to use polly",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lexv2.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomerIdentificationBotRoleDefaultPolicy6AD07907": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to use polly",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "polly:SynthesizeSpeech",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomerIdentificationBotRoleDefaultPolicy6AD07907",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomerIdentificationBotRole07BABB34",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomerIdentificationBotVersion": Object {
+      "Properties": Object {
+        "BotId": Object {
+          "Fn::GetAtt": Array [
+            "CustomerIdentificationBot",
+            "Id",
+          ],
+        },
+        "BotVersionLocaleSpecification": Array [
+          Object {
+            "BotVersionLocaleDetails": Object {
+              "SourceBotVersion": "DRAFT",
+            },
+            "LocaleId": "ja_JP",
+          },
+        ],
+      },
+      "Type": "AWS::Lex::BotVersion",
+    },
+    "InstanceProviderIsCompleteHandlerE43F2F73": Object {
+      "DependsOn": Array [
+        "InstanceProviderIsCompleteHandlerServiceRoleDefaultPolicyD784B681",
+        "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "19ce0a19474e5407b0fdb039e5ce700d8f4225638e1da6943193dde2b24290dd.zip",
+        },
+        "Description": "Provider handler for Connect.describeInstance()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.isComplete",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderIsCompleteHandlerServiceRoleDefaultPolicyD784B681": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:DescribeInstance",
+                "ds:DescribeDirectories",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderIsCompleteHandlerServiceRoleDefaultPolicyD784B681",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderOnEventHandlerCDB7D5B8": Object {
+      "DependsOn": Array [
+        "InstanceProviderOnEventHandlerServiceRoleDefaultPolicyC5145360",
+        "InstanceProviderOnEventHandlerServiceRoleE2CDC320",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "f6294eb79e4dc80740d85bee08dfe963fbede11251710f9d1b8077e6bf323746.zip",
+        },
+        "Description": "Provider handler for Connect.createInstance() & deleteInstance()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderOnEventHandlerServiceRoleE2CDC320",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderOnEventHandlerServiceRoleDefaultPolicyC5145360": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:CreateInstance",
+                "connect:DescribeInstance",
+                "connect:DeleteInstance",
+                "connect:UpdateInstanceAttribute",
+                "ds:CheckAlias",
+                "ds:CreateAlias",
+                "ds:CreateIdentityPoolDirectory",
+                "ds:DescribeDirectories",
+                "ds:CreateDirectory",
+                "ds:DeleteDirectory",
+                "ds:AuthorizeApplication",
+                "ds:UnauthorizeApplication",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "iam:CreateServiceLinkedRole",
+              "Condition": Object {
+                "StringLike": Object {
+                  "iam:AWSServiceName": "connect.amazonaws.com",
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderOnEventHandlerServiceRoleDefaultPolicyC5145360",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderOnEventHandlerServiceRoleE2CDC320",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderOnEventHandlerServiceRoleE2CDC320": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkisComplete68BCC0D8": Object {
+      "DependsOn": Array [
+        "InstanceProviderframeworkisCompleteServiceRoleDefaultPolicyAFC3AADB",
+        "InstanceProviderframeworkisCompleteServiceRole8D05D0FE",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - isComplete (CustomerChannelPrimaryStack/InstanceProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_IS_COMPLETE_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderIsCompleteHandlerE43F2F73",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderOnEventHandlerCDB7D5B8",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.isComplete",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkisCompleteServiceRole8D05D0FE",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderframeworkisCompleteServiceRole8D05D0FE": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkisCompleteServiceRoleDefaultPolicyAFC3AADB": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderOnEventHandlerCDB7D5B8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderOnEventHandlerCDB7D5B8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderIsCompleteHandlerE43F2F73",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderIsCompleteHandlerE43F2F73",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderframeworkisCompleteServiceRoleDefaultPolicyAFC3AADB",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderframeworkisCompleteServiceRole8D05D0FE",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderframeworkonEvent963FA0C2": Object {
+      "DependsOn": Array [
+        "InstanceProviderframeworkonEventServiceRoleDefaultPolicy129D159F",
+        "InstanceProviderframeworkonEventServiceRoleCEA506E0",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelPrimaryStack/InstanceProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_IS_COMPLETE_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderIsCompleteHandlerE43F2F73",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderOnEventHandlerCDB7D5B8",
+                "Arn",
+              ],
+            },
+            "WAITER_STATE_MACHINE_ARN": Object {
+              "Ref": "InstanceProviderwaiterstatemachineA2C8D42D",
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkonEventServiceRoleCEA506E0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderframeworkonEventServiceRoleCEA506E0": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkonEventServiceRoleDefaultPolicy129D159F": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderOnEventHandlerCDB7D5B8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderOnEventHandlerCDB7D5B8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderIsCompleteHandlerE43F2F73",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderIsCompleteHandlerE43F2F73",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "InstanceProviderwaiterstatemachineA2C8D42D",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderframeworkonEventServiceRoleDefaultPolicy129D159F",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderframeworkonEventServiceRoleCEA506E0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderframeworkonTimeoutE1C9D87C": Object {
+      "DependsOn": Array [
+        "InstanceProviderframeworkonTimeoutServiceRoleDefaultPolicyBC76C244",
+        "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onTimeout (CustomerChannelPrimaryStack/InstanceProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_IS_COMPLETE_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderIsCompleteHandlerE43F2F73",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderOnEventHandlerCDB7D5B8",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onTimeout",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkonTimeoutServiceRoleDefaultPolicyBC76C244": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderOnEventHandlerCDB7D5B8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderOnEventHandlerCDB7D5B8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderIsCompleteHandlerE43F2F73",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderIsCompleteHandlerE43F2F73",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderframeworkonTimeoutServiceRoleDefaultPolicyBC76C244",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderwaiterstatemachineA2C8D42D": Object {
+      "DependsOn": Array [
+        "InstanceProviderwaiterstatemachineRoleDefaultPolicy182AF42F",
+        "InstanceProviderwaiterstatemachineRole1F2D0456",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"framework-isComplete-task\\",\\"States\\":{\\"framework-isComplete-task\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":5,\\"MaxAttempts\\":360,\\"BackoffRate\\":1}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"framework-onTimeout-task\\"}],\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "InstanceProviderframeworkisComplete68BCC0D8",
+                  "Arn",
+                ],
+              },
+              "\\"},\\"framework-onTimeout-task\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "InstanceProviderframeworkonTimeoutE1C9D87C",
+                  "Arn",
+                ],
+              },
+              "\\"}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderwaiterstatemachineRole1F2D0456",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "InstanceProviderwaiterstatemachineRole1F2D0456": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "states.ap-northeast-1.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderwaiterstatemachineRoleDefaultPolicy182AF42F": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderframeworkisComplete68BCC0D8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderframeworkisComplete68BCC0D8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderframeworkonTimeoutE1C9D87C",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderframeworkonTimeoutE1C9D87C",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderwaiterstatemachineRoleDefaultPolicy182AF42F",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderwaiterstatemachineRole1F2D0456",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceStorageConfigProviderOnEventHandlerA1455F6A": Object {
+      "DependsOn": Array [
+        "InstanceStorageConfigProviderOnEventHandlerServiceRoleDefaultPolicy727529C4",
+        "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "283f6545fe88770043efdfe33e7f535da938a0b75503dce3f453f7d8cd4d30b9.zip",
+        },
+        "Description": "Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceStorageConfigProviderOnEventHandlerServiceRoleDefaultPolicy727529C4": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:AssociateInstanceStorageConfig",
+                "connect:UpdateInstanceStorageConfig",
+                "connect:DisassociateInstanceStorageConfig",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:aws:connect:ap-northeast-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":instance/",
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "ConnectInstance90E42A0C",
+                        "InstanceId",
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PutRolePolicy",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstance90E42A0C",
+                  "ServiceRole",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:GetBucketLocation",
+                "s3:GetBucketAcl",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::",
+                    Object {
+                      "Ref": "RecordingBucket03AEF6D2",
+                    },
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "kms:CreateGrant",
+                "kms:DescribeKey",
+                "kms:ListAliases",
+                "kms:RetireGrant",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingKey3B2234F2",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "firehose:DescribeDeliveryStream",
+                "firehose:PutRecord",
+                "firehose:PutRecordBatch",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstanceCtrDeliveryStreamCD0085B0",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceStorageConfigProviderOnEventHandlerServiceRoleDefaultPolicy727529C4",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceStorageConfigProviderframeworkonEventF4B82BDF": Object {
+      "DependsOn": Array [
+        "InstanceStorageConfigProviderframeworkonEventServiceRoleDefaultPolicy1C78B94B",
+        "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelPrimaryStack/InstanceStorageConfigProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceStorageConfigProviderOnEventHandlerA1455F6A",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceStorageConfigProviderframeworkonEventServiceRoleDefaultPolicy1C78B94B": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceStorageConfigProviderOnEventHandlerA1455F6A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceStorageConfigProviderOnEventHandlerA1455F6A",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceStorageConfigProviderframeworkonEventServiceRoleDefaultPolicy1C78B94B",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LexBotAssociationProviderOnEventHandler1090ED28": Object {
+      "DependsOn": Array [
+        "LexBotAssociationProviderOnEventHandlerServiceRoleDefaultPolicyFAFC1156",
+        "LexBotAssociationProviderOnEventHandlerServiceRoleA3FBF339",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "d6eb194ff3c3896034c7a11eab11a5aee9c4d2c61a70b3c0e94309dbfa0e53fd.zip",
+        },
+        "Description": "Provider handler for Connect.associateBot() & disassociateBot()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LexBotAssociationProviderOnEventHandlerServiceRoleA3FBF339",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LexBotAssociationProviderOnEventHandlerServiceRoleA3FBF339": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LexBotAssociationProviderOnEventHandlerServiceRoleDefaultPolicyFAFC1156": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:AssociateBot",
+                "connect:DisassociateBot",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:aws:connect:ap-northeast-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":instance/",
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "ConnectInstance90E42A0C",
+                        "InstanceId",
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "lex:CreateResourcePolicy",
+                "lex:DeleteResourcePolicy",
+                "lex:UpdateResourcePolicy",
+                "lex:DescribeBotAlias",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "CustomerIdentificationBotAlias",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LexBotAssociationProviderOnEventHandlerServiceRoleDefaultPolicyFAFC1156",
+        "Roles": Array [
+          Object {
+            "Ref": "LexBotAssociationProviderOnEventHandlerServiceRoleA3FBF339",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LexBotAssociationProviderframeworkonEventCFCA5349": Object {
+      "DependsOn": Array [
+        "LexBotAssociationProviderframeworkonEventServiceRoleDefaultPolicy3EA64DCF",
+        "LexBotAssociationProviderframeworkonEventServiceRole0724DBEC",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelPrimaryStack/LexBotAssociationProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "LexBotAssociationProviderOnEventHandler1090ED28",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LexBotAssociationProviderframeworkonEventServiceRole0724DBEC",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LexBotAssociationProviderframeworkonEventServiceRole0724DBEC": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LexBotAssociationProviderframeworkonEventServiceRoleDefaultPolicy3EA64DCF": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "LexBotAssociationProviderOnEventHandler1090ED28",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "LexBotAssociationProviderOnEventHandler1090ED28",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LexBotAssociationProviderframeworkonEventServiceRoleDefaultPolicy3EA64DCF",
+        "Roles": Array [
+          Object {
+            "Ref": "LexBotAssociationProviderframeworkonEventServiceRole0724DBEC",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": Object {
+      "DependsOn": Array [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "LogRetention uses AWSLambdaBasicExecutionRole",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "LogRetention uses wildcard policy",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "eb5b005c858404ea0c8f68098ed5dcdf5340e02461f149751d10f59c210d5ef8.zip",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "LogRetention uses AWSLambdaBasicExecutionRole",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "LogRetention uses wildcard policy",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "LogRetention uses AWSLambdaBasicExecutionRole",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "LogRetention uses wildcard policy",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": Array [
+          Object {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RecordingBucket03AEF6D2": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-S1",
+              "reason": "CloudTrail record S3 accesses",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "BucketKeyEnabled": true,
+              "ServerSideEncryptionByDefault": Object {
+                "KMSMasterKeyID": Object {
+                  "Fn::GetAtt": Array [
+                    "RecordingKey3B2234F2",
+                    "Arn",
+                  ],
+                },
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": Object {
+          "DestinationBucketName": Object {
+            "Ref": "AccessLogsBucket83982689",
+          },
+          "LogFilePrefix": "access-logs/primary/",
+        },
+        "OwnershipControls": Object {
+          "Rules": Array [
+            Object {
+              "ObjectOwnership": "BucketOwnerEnforced",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "ReplicationConfiguration": Object {
+          "Role": Object {
+            "Fn::GetAtt": Array [
+              "RecordingReplicationReplicationRole94AE1FAF",
+              "Arn",
+            ],
+          },
+          "Rules": Array [
+            Object {
+              "Destination": Object {
+                "Bucket": Object {
+                  "Fn::GetAtt": Array [
+                    "TertiaryStackOutputsSsmParameters6A17FF8B",
+                    "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                  ],
+                },
+                "EncryptionConfiguration": Object {
+                  "ReplicaKmsKeyID": Object {
+                    "Fn::GetAtt": Array [
+                      "TertiaryStackOutputsSsmParameters6A17FF8B",
+                      "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                    ],
+                  },
+                },
+              },
+              "SourceSelectionCriteria": Object {
+                "SseKmsEncryptedObjects": Object {
+                  "Status": "Enabled",
+                },
+              },
+              "Status": "Enabled",
+            },
+          ],
+        },
+        "VersioningConfiguration": Object {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "RecordingBucketPolicyE50392DB": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "RecordingBucket03AEF6D2",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "s3:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "RecordingBucket03AEF6D2",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "RecordingBucket03AEF6D2",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "RecordingKey3B2234F2": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "EnableKeyRotation": true,
+        "KeyPolicy": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "RecordingReplicationReplicationRole94AE1FAF": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is used to replicate all of the objects in the source bucket",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "s3.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RecordingReplicationReplicationRoleDefaultPolicy37D642CB": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is used to replicate all of the objects in the source bucket",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetReplicationConfiguration",
+                "s3:ListBucket",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingBucket03AEF6D2",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObjectVersionForReplication",
+                "s3:GetObjectVersionAcl",
+                "s3:GetObjectVersionTagging",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "RecordingBucket03AEF6D2",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingKey3B2234F2",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "kms:GenerateDataKey",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "RecordingKey3B2234F2",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:ReplicateObject",
+                "s3:ReplicateDelete",
+                "s3:ReplicateTags",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "TertiaryStackOutputsSsmParameters6A17FF8B",
+                        "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                ],
+              },
+            },
+            Object {
+              "Action": "kms:GenerateDataKey",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RecordingReplicationReplicationRoleDefaultPolicy37D642CB",
+        "Roles": Array [
+          Object {
+            "Ref": "RecordingReplicationReplicationRole94AE1FAF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TertiaryStackOutputsMyHandler7E3A17D8": Object {
+      "DependsOn": Array [
+        "TertiaryStackOutputsMyHandlerServiceRoleDefaultPolicy14393B6D",
+        "TertiaryStackOutputsMyHandlerServiceRole6DFF8061",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "3803df2f6849acf50bb6577ee095a669940670e799f70a2be34893a399777bc3.zip",
+        },
+        "Handler": "remote-parameters.on_event",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "TertiaryStackOutputsMyHandlerServiceRole6DFF8061",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "TertiaryStackOutputsMyHandlerServiceRole6DFF8061": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TertiaryStackOutputsMyHandlerServiceRoleDefaultPolicy14393B6D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParametersByPath",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TertiaryStackOutputsMyHandlerServiceRoleDefaultPolicy14393B6D",
+        "Roles": Array [
+          Object {
+            "Ref": "TertiaryStackOutputsMyHandlerServiceRole6DFF8061",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEvent99B0C45B": Object {
+      "DependsOn": Array [
+        "TertiaryStackOutputsMyProviderframeworkonEventServiceRoleDefaultPolicyAA327F35",
+        "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelPrimaryStack/TertiaryStackOutputs/MyProvider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "TertiaryStackOutputsMyHandler7E3A17D8",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEventLogRetention47B49687": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "TertiaryStackOutputsMyProviderframeworkonEvent99B0C45B",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEventServiceRoleDefaultPolicyAA327F35": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "TertiaryStackOutputsMyHandler7E3A17D8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "TertiaryStackOutputsMyHandler7E3A17D8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TertiaryStackOutputsMyProviderframeworkonEventServiceRoleDefaultPolicyAA327F35",
+        "Roles": Array [
+          Object {
+            "Ref": "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TertiaryStackOutputsSsmParameters6A17FF8B": Object {
+      "DeletionPolicy": "Delete",
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "TertiaryStackOutputsMyProviderframeworkonEvent99B0C45B",
+            "Arn",
+          ],
+        },
+        "parameterPath": "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack",
+        "regionName": "ap-northeast-3",
+        "stackName": "CustomerChannelPrimaryStack",
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshot check Customer channel sample stacks 2`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "ConnectInstance90E42A0C": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "IdentityManagementType": "CONNECT_MANAGED",
+        "InboundCallsEnabled": true,
+        "InstanceAlias": "my-connect-instance-yyyymmdd-secondary",
+        "OutboundCallsEnabled": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkonEvent963FA0C2",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceCallRecordingConfigInstanceStorageConfig24667574": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "CALL_RECORDINGS",
+          "StorageConfig": Object {
+            "S3Config": Object {
+              "BucketName": Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "/",
+                      Object {
+                        "Fn::Select": Array [
+                          5,
+                          Object {
+                            "Fn::Split": Array [
+                              ":",
+                              Object {
+                                "Fn::GetAtt": Array [
+                                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              "BucketPrefix": "secondary/call-recordings",
+              "EncryptionConfig": Object {
+                "EncryptionType": "KMS",
+                "KeyId": Object {
+                  "Fn::GetAtt": Array [
+                    "TertiaryStackOutputsSsmParameters6A17FF8B",
+                    "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                  ],
+                },
+              },
+            },
+            "StorageType": "S3",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceChatTranscriptConfigInstanceStorageConfig6EC12501": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "CHAT_TRANSCRIPTS",
+          "StorageConfig": Object {
+            "S3Config": Object {
+              "BucketName": Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "/",
+                      Object {
+                        "Fn::Select": Array [
+                          5,
+                          Object {
+                            "Fn::Split": Array [
+                              ":",
+                              Object {
+                                "Fn::GetAtt": Array [
+                                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              "BucketPrefix": "secondary/chat-transcripts",
+              "EncryptionConfig": Object {
+                "EncryptionType": "KMS",
+                "KeyId": Object {
+                  "Fn::GetAtt": Array [
+                    "TertiaryStackOutputsSsmParameters6A17FF8B",
+                    "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                  ],
+                },
+              },
+            },
+            "StorageType": "S3",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceCtrDeliveryStreamCD0085B0": Object {
+      "DependsOn": Array [
+        "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D",
+        "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyARN": Object {
+            "Fn::GetAtt": Array [
+              "LocalRecordingKey898BA0F1",
+              "Arn",
+            ],
+          },
+          "KeyType": "CUSTOMER_MANAGED_CMK",
+        },
+        "DeliveryStreamName": "CtrDeliveryStream",
+        "DeliveryStreamType": "DirectPut",
+        "S3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "TertiaryStackOutputsSsmParameters6A17FF8B",
+              "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+            ],
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::GetAtt": Array [
+                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                ],
+              },
+            },
+          },
+          "Prefix": "secondary/contact-trace-records/",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "ConnectInstanceCtrDeliveryStreamConfigInstanceStorageConfig3E752FF8": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstanceCtrDeliveryStreamCD0085B0",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "CONTACT_TRACE_RECORDS",
+          "StorageConfig": Object {
+            "KinesisFirehoseConfig": Object {
+              "FirehoseArn": Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstanceCtrDeliveryStreamCD0085B0",
+                  "Arn",
+                ],
+              },
+            },
+            "StorageType": "KINESIS_FIREHOSE",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Role for delivery stream requires wildcard to save contact trace records",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetBucketLocation",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetObject",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "TertiaryStackOutputsSsmParameters6A17FF8B",
+                        "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                      ],
+                    },
+                    "/secondary/contact-trace-records/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "kms:Decrypt",
+                "kms:GenerateDataKey",
+              ],
+              "Condition": Object {
+                "StringEquals": Object {
+                  "kms:EncryptionContext:aws:s3:arn": Object {
+                    "Fn::GetAtt": Array [
+                      "TertiaryStackOutputsSsmParameters6A17FF8B",
+                      "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                    ],
+                  },
+                  "kms:ViaService": "s3.ap-southeast-1.amazonaws.com",
+                },
+              },
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ConnectInstanceCtrDeliveryStreamRoleDefaultPolicy41AFA80D",
+        "Roles": Array [
+          Object {
+            "Ref": "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ConnectInstanceCtrDeliveryStreamRoleF6F5DD9F": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Role for delivery stream requires wildcard to save contact trace records",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ConnectInstanceScheduledReportsConfigInstanceStorageConfig84A05622": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ConnectInstance90E42A0C",
+      ],
+      "Properties": Object {
+        "Parameters": Object {
+          "InstanceId": Object {
+            "Fn::GetAtt": Array [
+              "ConnectInstance90E42A0C",
+              "InstanceId",
+            ],
+          },
+          "ResourceType": "SCHEDULED_REPORTS",
+          "StorageConfig": Object {
+            "S3Config": Object {
+              "BucketName": Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "/",
+                      Object {
+                        "Fn::Select": Array [
+                          5,
+                          Object {
+                            "Fn::Split": Array [
+                              ":",
+                              Object {
+                                "Fn::GetAtt": Array [
+                                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              "BucketPrefix": "secondary/scheduled-reports",
+              "EncryptionConfig": Object {
+                "EncryptionType": "KMS",
+                "KeyId": Object {
+                  "Fn::GetAtt": Array [
+                    "TertiaryStackOutputsSsmParameters6A17FF8B",
+                    "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                  ],
+                },
+              },
+            },
+            "StorageType": "S3",
+          },
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventF4B82BDF",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "InstanceProviderIsCompleteHandlerE43F2F73": Object {
+      "DependsOn": Array [
+        "InstanceProviderIsCompleteHandlerServiceRoleDefaultPolicyD784B681",
+        "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "19ce0a19474e5407b0fdb039e5ce700d8f4225638e1da6943193dde2b24290dd.zip",
+        },
+        "Description": "Provider handler for Connect.describeInstance()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.isComplete",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderIsCompleteHandlerServiceRoleDefaultPolicyD784B681": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:DescribeInstance",
+                "ds:DescribeDirectories",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderIsCompleteHandlerServiceRoleDefaultPolicyD784B681",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderIsCompleteHandlerServiceRoleE885FB3D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderOnEventHandlerCDB7D5B8": Object {
+      "DependsOn": Array [
+        "InstanceProviderOnEventHandlerServiceRoleDefaultPolicyC5145360",
+        "InstanceProviderOnEventHandlerServiceRoleE2CDC320",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "f6294eb79e4dc80740d85bee08dfe963fbede11251710f9d1b8077e6bf323746.zip",
+        },
+        "Description": "Provider handler for Connect.createInstance() & deleteInstance()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderOnEventHandlerServiceRoleE2CDC320",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderOnEventHandlerServiceRoleDefaultPolicyC5145360": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:CreateInstance",
+                "connect:DescribeInstance",
+                "connect:DeleteInstance",
+                "connect:UpdateInstanceAttribute",
+                "ds:CheckAlias",
+                "ds:CreateAlias",
+                "ds:CreateIdentityPoolDirectory",
+                "ds:DescribeDirectories",
+                "ds:CreateDirectory",
+                "ds:DeleteDirectory",
+                "ds:AuthorizeApplication",
+                "ds:UnauthorizeApplication",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "iam:CreateServiceLinkedRole",
+              "Condition": Object {
+                "StringLike": Object {
+                  "iam:AWSServiceName": "connect.amazonaws.com",
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderOnEventHandlerServiceRoleDefaultPolicyC5145360",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderOnEventHandlerServiceRoleE2CDC320",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderOnEventHandlerServiceRoleE2CDC320": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard is required to create a new Amazon Connect instance",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkisComplete68BCC0D8": Object {
+      "DependsOn": Array [
+        "InstanceProviderframeworkisCompleteServiceRoleDefaultPolicyAFC3AADB",
+        "InstanceProviderframeworkisCompleteServiceRole8D05D0FE",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - isComplete (CustomerChannelSecondaryStack/InstanceProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_IS_COMPLETE_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderIsCompleteHandlerE43F2F73",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderOnEventHandlerCDB7D5B8",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.isComplete",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkisCompleteServiceRole8D05D0FE",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderframeworkisCompleteServiceRole8D05D0FE": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkisCompleteServiceRoleDefaultPolicyAFC3AADB": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderOnEventHandlerCDB7D5B8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderOnEventHandlerCDB7D5B8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderIsCompleteHandlerE43F2F73",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderIsCompleteHandlerE43F2F73",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderframeworkisCompleteServiceRoleDefaultPolicyAFC3AADB",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderframeworkisCompleteServiceRole8D05D0FE",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderframeworkonEvent963FA0C2": Object {
+      "DependsOn": Array [
+        "InstanceProviderframeworkonEventServiceRoleDefaultPolicy129D159F",
+        "InstanceProviderframeworkonEventServiceRoleCEA506E0",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelSecondaryStack/InstanceProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_IS_COMPLETE_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderIsCompleteHandlerE43F2F73",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderOnEventHandlerCDB7D5B8",
+                "Arn",
+              ],
+            },
+            "WAITER_STATE_MACHINE_ARN": Object {
+              "Ref": "InstanceProviderwaiterstatemachineA2C8D42D",
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkonEventServiceRoleCEA506E0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderframeworkonEventServiceRoleCEA506E0": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkonEventServiceRoleDefaultPolicy129D159F": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderOnEventHandlerCDB7D5B8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderOnEventHandlerCDB7D5B8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderIsCompleteHandlerE43F2F73",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderIsCompleteHandlerE43F2F73",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "InstanceProviderwaiterstatemachineA2C8D42D",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderframeworkonEventServiceRoleDefaultPolicy129D159F",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderframeworkonEventServiceRoleCEA506E0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderframeworkonTimeoutE1C9D87C": Object {
+      "DependsOn": Array [
+        "InstanceProviderframeworkonTimeoutServiceRoleDefaultPolicyBC76C244",
+        "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onTimeout (CustomerChannelSecondaryStack/InstanceProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_IS_COMPLETE_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderIsCompleteHandlerE43F2F73",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceProviderOnEventHandlerCDB7D5B8",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onTimeout",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderframeworkonTimeoutServiceRoleDefaultPolicyBC76C244": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderOnEventHandlerCDB7D5B8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderOnEventHandlerCDB7D5B8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderIsCompleteHandlerE43F2F73",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderIsCompleteHandlerE43F2F73",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderframeworkonTimeoutServiceRoleDefaultPolicyBC76C244",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderframeworkonTimeoutServiceRole82B2F9DA",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceProviderwaiterstatemachineA2C8D42D": Object {
+      "DependsOn": Array [
+        "InstanceProviderwaiterstatemachineRoleDefaultPolicy182AF42F",
+        "InstanceProviderwaiterstatemachineRole1F2D0456",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"framework-isComplete-task\\",\\"States\\":{\\"framework-isComplete-task\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":5,\\"MaxAttempts\\":360,\\"BackoffRate\\":1}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"framework-onTimeout-task\\"}],\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "InstanceProviderframeworkisComplete68BCC0D8",
+                  "Arn",
+                ],
+              },
+              "\\"},\\"framework-onTimeout-task\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "InstanceProviderframeworkonTimeoutE1C9D87C",
+                  "Arn",
+                ],
+              },
+              "\\"}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "InstanceProviderwaiterstatemachineRole1F2D0456",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "InstanceProviderwaiterstatemachineRole1F2D0456": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "states.ap-southeast-1.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceProviderwaiterstatemachineRoleDefaultPolicy182AF42F": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderframeworkisComplete68BCC0D8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderframeworkisComplete68BCC0D8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceProviderframeworkonTimeoutE1C9D87C",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceProviderframeworkonTimeoutE1C9D87C",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceProviderwaiterstatemachineRoleDefaultPolicy182AF42F",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceProviderwaiterstatemachineRole1F2D0456",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceStorageConfigProviderOnEventHandlerA1455F6A": Object {
+      "DependsOn": Array [
+        "InstanceStorageConfigProviderOnEventHandlerServiceRoleDefaultPolicy727529C4",
+        "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "283f6545fe88770043efdfe33e7f535da938a0b75503dce3f453f7d8cd4d30b9.zip",
+        },
+        "Description": "Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceStorageConfigProviderOnEventHandlerServiceRoleDefaultPolicy727529C4": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "connect:AssociateInstanceStorageConfig",
+                "connect:UpdateInstanceStorageConfig",
+                "connect:DisassociateInstanceStorageConfig",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:aws:connect:ap-southeast-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":instance/",
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "ConnectInstance90E42A0C",
+                        "InstanceId",
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PutRolePolicy",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstance90E42A0C",
+                  "ServiceRole",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:GetBucketLocation",
+                "s3:GetBucketAcl",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::",
+                    Object {
+                      "Fn::Select": Array [
+                        0,
+                        Object {
+                          "Fn::Split": Array [
+                            "/",
+                            Object {
+                              "Fn::Select": Array [
+                                5,
+                                Object {
+                                  "Fn::Split": Array [
+                                    ":",
+                                    Object {
+                                      "Fn::GetAtt": Array [
+                                        "TertiaryStackOutputsSsmParameters6A17FF8B",
+                                        "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "kms:CreateGrant",
+                "kms:DescribeKey",
+                "kms:ListAliases",
+                "kms:RetireGrant",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TertiaryStackOutputsSsmParameters6A17FF8B",
+                  "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "firehose:DescribeDeliveryStream",
+                "firehose:PutRecord",
+                "firehose:PutRecordBatch",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ConnectInstanceCtrDeliveryStreamCD0085B0",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceStorageConfigProviderOnEventHandlerServiceRoleDefaultPolicy727529C4",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceStorageConfigProviderOnEventHandlerServiceRole054F441A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "InstanceStorageConfigProviderframeworkonEventF4B82BDF": Object {
+      "DependsOn": Array [
+        "InstanceStorageConfigProviderframeworkonEventServiceRoleDefaultPolicy1C78B94B",
+        "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelSecondaryStack/InstanceStorageConfigProvider/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "InstanceStorageConfigProviderOnEventHandlerA1455F6A",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InstanceStorageConfigProviderframeworkonEventServiceRoleDefaultPolicy1C78B94B": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "InstanceStorageConfigProviderOnEventHandlerA1455F6A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "InstanceStorageConfigProviderOnEventHandlerA1455F6A",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InstanceStorageConfigProviderframeworkonEventServiceRoleDefaultPolicy1C78B94B",
+        "Roles": Array [
+          Object {
+            "Ref": "InstanceStorageConfigProviderframeworkonEventServiceRole9EA1F8D0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LocalRecordingKey898BA0F1": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "EnableKeyRotation": true,
+        "KeyPolicy": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": Object {
+      "DependsOn": Array [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "eb5b005c858404ea0c8f68098ed5dcdf5340e02461f149751d10f59c210d5ef8.zip",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": Array [
+          Object {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TertiaryStackOutputsMyHandler7E3A17D8": Object {
+      "DependsOn": Array [
+        "TertiaryStackOutputsMyHandlerServiceRoleDefaultPolicy14393B6D",
+        "TertiaryStackOutputsMyHandlerServiceRole6DFF8061",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "3803df2f6849acf50bb6577ee095a669940670e799f70a2be34893a399777bc3.zip",
+        },
+        "Handler": "remote-parameters.on_event",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "TertiaryStackOutputsMyHandlerServiceRole6DFF8061",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "TertiaryStackOutputsMyHandlerServiceRole6DFF8061": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TertiaryStackOutputsMyHandlerServiceRoleDefaultPolicy14393B6D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParametersByPath",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TertiaryStackOutputsMyHandlerServiceRoleDefaultPolicy14393B6D",
+        "Roles": Array [
+          Object {
+            "Ref": "TertiaryStackOutputsMyHandlerServiceRole6DFF8061",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEvent99B0C45B": Object {
+      "DependsOn": Array [
+        "TertiaryStackOutputsMyProviderframeworkonEventServiceRoleDefaultPolicyAA327F35",
+        "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4",
+      ],
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (CustomerChannelSecondaryStack/TertiaryStackOutputs/MyProvider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "TertiaryStackOutputsMyHandler7E3A17D8",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEventLogRetention47B49687": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "TertiaryStackOutputsMyProviderframeworkonEvent99B0C45B",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TertiaryStackOutputsMyProviderframeworkonEventServiceRoleDefaultPolicyAA327F35": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "TertiaryStackOutputsMyHandler7E3A17D8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "TertiaryStackOutputsMyHandler7E3A17D8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TertiaryStackOutputsMyProviderframeworkonEventServiceRoleDefaultPolicyAA327F35",
+        "Roles": Array [
+          Object {
+            "Ref": "TertiaryStackOutputsMyProviderframeworkonEventServiceRole1E76C4C4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TertiaryStackOutputsSsmParameters6A17FF8B": Object {
+      "DeletionPolicy": "Delete",
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside RemoteParameters",
+            },
+            Object {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside RemoteParameters",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "TertiaryStackOutputsMyProviderframeworkonEvent99B0C45B",
+            "Arn",
+          ],
+        },
+        "parameterPath": "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack",
+        "regionName": "ap-northeast-3",
+        "stackName": "CustomerChannelSecondaryStack",
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshot check Customer channel sample stacks 3`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "BackupAccessLogsBucketDD8A3B82": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-S1",
+              "reason": "CloudTrail record S3 accesses",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "OwnershipControls": Object {
+          "Rules": Array [
+            Object {
+              "ObjectOwnership": "BucketOwnerEnforced",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": Object {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "BackupAccessLogsBucketPolicyA7A9C77D": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "BackupAccessLogsBucketDD8A3B82",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "s3:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "BackupAccessLogsBucketDD8A3B82",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "BackupAccessLogsBucketDD8A3B82",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "s3:PutObject",
+              "Condition": Object {
+                "ArnLike": Object {
+                  "aws:SourceArn": Object {
+                    "Fn::GetAtt": Array [
+                      "BackupBucket26B8E51C",
+                      "Arn",
+                    ],
+                  },
+                },
+                "StringEquals": Object {
+                  "aws:SourceAccount": Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "logging.s3.amazonaws.com",
+              },
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "BackupAccessLogsBucketDD8A3B82",
+                        "Arn",
+                      ],
+                    },
+                    "/access-logs/tertiary/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "BackupBucket26B8E51C": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "AwsSolutions-S1",
+              "reason": "CloudTrail record S3 accesses",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "BucketKeyEnabled": true,
+              "ServerSideEncryptionByDefault": Object {
+                "KMSMasterKeyID": Object {
+                  "Fn::GetAtt": Array [
+                    "BackupKey60B97760",
+                    "Arn",
+                  ],
+                },
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": Object {
+          "DestinationBucketName": Object {
+            "Ref": "BackupAccessLogsBucketDD8A3B82",
+          },
+          "LogFilePrefix": "access-logs/tertiary/",
+        },
+        "OwnershipControls": Object {
+          "Rules": Array [
+            Object {
+              "ObjectOwnership": "BucketOwnerEnforced",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": Object {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "BackupBucketArnParameter292DFA4A": Object {
+      "Properties": Object {
+        "Name": "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupBucketArn",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "BackupBucket26B8E51C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
+    "BackupBucketPolicy8C403F71": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "BackupBucket26B8E51C",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "s3:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "BackupBucket26B8E51C",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "BackupBucket26B8E51C",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "BackupKey60B97760": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "EnableKeyRotation": true,
+        "KeyPolicy": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "BackupKeyArnParameterF14A94B3": Object {
+      "Properties": Object {
+        "Name": "/CustomerChannelTertiaryStack/CustomerChannelTertiaryStack/backupKeyArn",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "BackupKey60B97760",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

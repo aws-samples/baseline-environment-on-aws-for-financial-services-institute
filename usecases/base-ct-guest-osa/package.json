@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "name": "bleafsi-base-ct-guest-osa",
+  "version": "1.0.0",
+  "description": "BLEA FSI Extention for AWS Control Tower guest account on Osaka region",
+  "license": "MIT-0",
+  "bin": {
+    "bleafsi-base-ct-guest-osa": "bin/bleafsi-base-ct-guest-osa.js"
+  },
+  "scripts": {
+    "synth:dev": "npx cdk synth -c environment=dev",
+    "depcheck": "npx depcheck --ignore-dirs cdk.out",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean && rm -rf cdk.out",
+    "watch": "tsc -w",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/node": "17.0.45",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "aws-cdk": "^2.35.0",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.7.1",
+    "ts-jest": "^27.1.5",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.7.4"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.35.0",
+    "constructs": "^10.1.70",
+    "source-map-support": "^0.5.21"
+  }
+}

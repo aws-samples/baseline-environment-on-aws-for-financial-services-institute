@@ -1,0 +1,574 @@
+Parameters:
+  VpcCidr:
+    Type: String
+    Default: 192.168.2.0/24
+    Description: CIDR of VPC (must be larger than /28)
+  PrivateSubnetCidr:
+    Type: String
+    Default: 192.168.2.16/28
+    Description: CIDR of Private Subnet (must be larger than /28 and included in the vpcCidr)
+  PublicSubnetCidr:
+    Type: String
+    Default: 192.168.2.0/28
+    Description: CIDR of Public Subnet (must be larger than /28 and included in the vpcCidr)
+  AL2AMIID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+    Description: SSM Parameter path of the latest Amazon Linux 2 AMI
+Resources:
+  # vpc, subnect
+  BLEAFSICdkEnvVpcAB92406E:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Ref: VpcCidr
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR
+  BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock:
+        Ref: PrivateSubnetCidr
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: private-subnet-1
+        - Key: aws-cdk:subnet-type
+          Value: Private
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR/cdk-privateSubnet1
+  BLEAFSICdkEnvprivatesubnet1Subnet1RouteTable835C67EC:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR/cdk-privateSubnet1
+  BLEAFSICdkEnvprivatesubnet1Subnet1RouteTableAssociation23A0B486:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: BLEAFSICdkEnvprivatesubnet1Subnet1RouteTable835C67EC
+      SubnetId:
+        Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+  BLEAFSICdkEnvprivatesubnet1Subnet1DefaultRouteA0454E25:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: BLEAFSICdkEnvprivatesubnet1Subnet1RouteTable835C67EC
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1NATGateway942EDB19
+  BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock:
+        Ref: PublicSubnetCidr
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: public-subnet-1
+        - Key: aws-cdk:subnet-type
+          Value: Public
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR/cdk-publicSubnet1
+  BLEAFSICdkEnvpublicsubnet1Subnet1RouteTable6A80E080:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR/cdk-publicSubnet1
+  BLEAFSICdkEnvpublicsubnet1Subnet1RouteTableAssociation4EA5E68E:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1RouteTable6A80E080
+      SubnetId:
+        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33
+  BLEAFSICdkEnvpublicsubnet1Subnet1DefaultRouteFA7AA37B:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1RouteTable6A80E080
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: BLEAFSICdkEnvIGWBC63FA4A
+    DependsOn:
+      - BLEAFSICdkEnvVPCGWF7F7A58F
+  BLEAFSICdkEnvpublicsubnet1Subnet1EIPA934A9CE:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+  BLEAFSICdkEnvpublicsubnet1Subnet1NATGateway942EDB19:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      SubnetId:
+        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33
+      AllocationId:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvpublicsubnet1Subnet1EIPA934A9CE
+          - AllocationId
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR/cdk-publicSubnet
+  BLEAFSICdkEnvIGWBC63FA4A:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvVpcMR
+  BLEAFSICdkEnvVPCGWF7F7A58F:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      InternetGatewayId:
+        Ref: BLEAFSICdkEnvIGWBC63FA4A
+
+  # vpc endpoints
+  BLEAFSIVpcEndpointSg29588707:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: PrivateCdkEnvStack/BLEAFSIVpcEndpointSg
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow https traffic only
+          FromPort: 443
+          ToPort: 443
+          IpProtocol: 'tcp'
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+  BLEAFSIVpcEndpointSg29588707Ingress1:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: VPC Endpoint Access
+      FromPort: 443
+      GroupId:
+        Fn::GetAtt:
+          - BLEAFSIVpcEndpointSg29588707
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvInstanceSg17EEF39A
+          - GroupId
+      ToPort: 443
+  BLEAFSIVpcEndpointSg29588707Ingress2:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: VPC Endpoint Access
+      FromPort: 443
+      GroupId:
+        Fn::GetAtt:
+          - BLEAFSIVpcEndpointSg29588707
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvInstanceSg17EEF39B
+          - GroupId
+      ToPort: 443
+  BLEAFSICdkEnvVpcS3EndpointForPrivateF27895DB:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .s3
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      RouteTableIds:
+        - Ref: BLEAFSICdkEnvprivatesubnet1Subnet1RouteTable835C67EC
+      VpcEndpointType: Gateway
+  BLEAFSICdkEnvVpcSsmEndpointForPrivate42415D22:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .ssm
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - BLEAFSIVpcEndpointSg29588707
+            - GroupId
+      SubnetIds:
+        - Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+      VpcEndpointType: Interface
+  BLEAFSICdkEnvVpcSsmMessagesEndpointForPrivateCFC2C728:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .ssmmessages
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - BLEAFSIVpcEndpointSg29588707
+            - GroupId
+      SubnetIds:
+        - Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+      VpcEndpointType: Interface
+  BLEAFSICdkEnvVpcEc2EndpointForPrivate550F8BA3:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .ec2
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - BLEAFSIVpcEndpointSg29588707
+            - GroupId
+      SubnetIds:
+        - Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+      VpcEndpointType: Interface
+  BLEAFSICdkEnvVpcEc2MessagesEndpointForPrivateC44CE188:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ''
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .ec2messages
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - BLEAFSIVpcEndpointSg29588707
+            - GroupId
+      SubnetIds:
+        - Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+      VpcEndpointType: Interface
+
+  # EC2 instance
+  BLEAFSICdkEnvInstanceSg17EEF39A:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: PrivateCdkEnvStack/BLEAFSICdkEnvInstanceSg
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow https traffic only
+          FromPort: 443
+          ToPort: 443
+          IpProtocol: 'tcp'
+        - CidrIp: 0.0.0.0/0
+          Description: Allow https traffic only
+          FromPort: 3128
+          ToPort: 3128
+          IpProtocol: 'tcp'
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+  BLEAFSICdkEnvInstanceSg17EEF39B:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: PrivateCdkEnvStack/BLEAFSICdkEnvProxyInstanceSg
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow https traffic only
+          FromPort: 443
+          ToPort: 443
+          IpProtocol: 'tcp'
+      VpcId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+  BLEAFSICdkEnvInstanceSgIngress17EEF39B:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: Proxy Access
+      FromPort: 3128
+      GroupId:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvInstanceSg17EEF39B
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvInstanceSg17EEF39A
+          - GroupId
+      ToPort: 3128
+  BLEAFSICdkSharedBucketAccessPolicy52ABA4FE:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: s3:ListBucket
+            Effect: Allow
+            Resource: arn:aws:s3:::bleafsi-share
+          - Action: s3:GetObject
+            Effect: Allow
+            Resource: arn:aws:s3:::bleafsi-share/*
+        Version: '2012-10-17'
+      Description: ''
+      Path: /
+  BLEAFSICdkExecRole2FD1DD02:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                Fn::Join:
+                  - ''
+                  - - ec2.
+                    - Ref: AWS::URLSuffix
+        Version: '2012-10-17'
+      Description: EC2 instance role for cdk execution
+      ManagedPolicyArns:
+        - Ref: BLEAFSICdkSharedBucketAccessPolicy52ABA4FE
+        - Fn::Join:
+            - ''
+            - - 'arn:'
+              - Ref: AWS::Partition
+              - :iam::aws:policy/AmazonSSMManagedInstanceCore
+  BLEAFSICdkEnvInstanceInstanceProfile9EEF2E01:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Fn::Select:
+            - 1
+            - Fn::Split:
+                - /
+                - Fn::Select:
+                    - 5
+                    - Fn::Split:
+                        - ':'
+                        - Fn::GetAtt:
+                            - BLEAFSICdkExecRole2FD1DD02
+                            - Arn
+  BLEAFSICdkEnvInstance72D4CD20:
+    Type: AWS::EC2::Instance
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT15M
+    DependsOn: [BLEAFSICdkEnvInstance72D4CD21, BLEAFSICdkEnvVpcS3EndpointForPrivateF27895DB]
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ''
+      IamInstanceProfile:
+        Ref: BLEAFSICdkEnvInstanceInstanceProfile9EEF2E01
+      ImageId:
+        Ref: AL2AMIID
+      InstanceType: t3.medium
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - BLEAFSICdkEnvInstanceSg17EEF39A
+            - GroupId
+      SubnetId:
+        Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+      BlockDeviceMappings:
+        - DeviceName: '/dev/xvda'
+          Ebs:
+            VolumeType: 'gp3'
+            VolumeSize: '8'
+            Encrypted: 'true'
+      DisableApiTermination: true
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSICdkEnvInstance
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            whoami
+            pwd
+            cd /tmp
+            aws s3api get-object --bucket bleafsi-share --key node-v16.15.0-linux-x64.tar.gz ./node-v16.15.0-linux-x64.tar.gz
+            aws s3api get-object --bucket bleafsi-share --key awscli-exe-linux-x86_64.zip ./awscli-exe-linux-x86_64.zip
+            tar xzvf node-v16.15.0-linux-x64.tar.gz -C /opt/
+            unzip awscli-exe-linux-x86_64.zip
+            ./aws/install
+            sudo tee /etc/profile.d/nodejs.sh << EOF
+            #!/bin/bash
+            export PATH=/opt/node-v16.15.0-linux-x64/bin:$PATH
+            EOF
+            source /etc/profile
+            yum install git -y
+            yum remove awscli -y
+            sudo sed -i "$ a export HTTPS_PROXY=http://${privateIp}:3128" /etc/profile
+            echo "HTTPS_PROXY=http://${privateIp}:3128"
+            aws --version
+            if [[ $? == 0 ]]; then iawscli=true; else iawscli=false; fi
+            npm -v
+            if [[ $? == 0 ]]; then inpm=true; else inpm=false; fi
+            if [[ $iawscli && $inpm ]]; then err=0; else err=1; fi
+            echo "last result code=${!err}"
+            /opt/aws/bin/cfn-signal -e $err --stack ${AWS::StackName} \
+            --resource BLEAFSICdkEnvInstance72D4CD20 --region ${AWS::Region}
+          - { privateIp: !GetAtt BLEAFSICdkEnvInstance72D4CD21.PrivateIp }
+
+  BLEAFSICdkEnvInstance72D4CD21:
+    Type: AWS::EC2::Instance
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT15M
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ''
+      IamInstanceProfile:
+        Ref: BLEAFSICdkEnvInstanceInstanceProfile9EEF2E01
+      ImageId:
+        Ref: AL2AMIID
+      InstanceType: t3.medium
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - BLEAFSICdkEnvInstanceSg17EEF39B
+            - GroupId
+      SubnetId:
+        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33
+      BlockDeviceMappings:
+        - DeviceName: '/dev/xvda'
+          Ebs:
+            VolumeType: 'gp3'
+            VolumeSize: '8'
+            Encrypted: 'true'
+      DisableApiTermination: true
+      Tags:
+        - Key: Name
+          Value: PrivateCdkEnvStack/BLEAFSIProxyInstance
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          whoami
+          pwd
+          cd /tmp
+          # setup squid
+          sudo yum update
+          sudo yum install -y squid
+          squid -v
+          sudo systemctl enable squid
+          # update squid conf
+          sudo sed -i '54i acl allowlist dstdomain "/etc/squid/allowlist"' /etc/squid/squid.conf
+          sudo sed -i '55i http_access allow allowlist' /etc/squid/squid.conf
+
+          # setup squid allowlist
+          sudo tee /etc/squid/allowlist << EOF
+          ssm.ap-northeast-1.amazonaws.com
+          ssm.ap-northeast-3.amazonaws.com
+          sts.ap-northeast-1.amazonaws.com
+          sts.ap-northeast-3.amazonaws.com
+          s3.ap-northeast-1.amazonaws.com
+          s3.ap-northeast-3.amazonaws.com
+          cloudformation.ap-northeast-1.amazonaws.com
+          cloudformation.ap-northeast-3.amazonaws.com
+          EOF
+          sudo lsof -i:3128
+          sudo systemctl restart squid
+          if [[ $? == 0 ]]; then err=0; else err=1; fi
+          echo 'last result code=$err'
+          /opt/aws/bin/cfn-signal -e $err --stack ${AWS::StackName} \
+          --resource BLEAFSICdkEnvInstance72D4CD21 --region ${AWS::Region}
+  # VPC Flow Logs
+  VpcFlowLogsE6FFDEF9:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/vpc/flowlogs
+      RetentionInDays: 731
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+  BLEAFSICdkEnvs3IAMRole3A51CC7C:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: vpc-flow-logs.amazonaws.com
+        Version: '2012-10-17'
+  BLEAFSICdkEnvs3IAMRoleDefaultPolicyA7072C52:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogStreams
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - VpcFlowLogsE6FFDEF9
+                - Arn
+          - Action: iam:PassRole
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - BLEAFSICdkEnvs3IAMRole3A51CC7C
+                - Arn
+        Version: '2012-10-17'
+      PolicyName: BLEAFSICdkEnvs3IAMRoleDefaultPolicyA7072C52
+      Roles:
+        - Ref: BLEAFSICdkEnvs3IAMRole3A51CC7C
+  BLEAFSICdkEnvs3FlowLogCEDD55A6:
+    Type: AWS::EC2::FlowLog
+    Properties:
+      ResourceId:
+        Ref: BLEAFSICdkEnvVpcAB92406E
+      ResourceType: VPC
+      TrafficType: ALL
+      DeliverLogsPermissionArn:
+        Fn::GetAtt:
+          - BLEAFSICdkEnvs3IAMRole3A51CC7C
+          - Arn
+      LogDestinationType: cloud-watch-logs
+      LogGroupName:
+        Ref: VpcFlowLogsE6FFDEF9
+      Tags:
+        - Key: Name
+          Value: CREATE-PRIVATE-ENV-ProxyEc2/BLEAFSICdkEnv
+
+Outputs:
+  VpcId:
+    Description: VPC ID
+    Value: !Ref BLEAFSICdkEnvVpcAB92406E
+    Export:
+      Name: 'BLEAFSICDKPrivateEnvMR-VpcID'
+  PrivateSubnetId:
+    Description: Private Subnet ID
+    Value: !Ref BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
+    Export:
+      Name: 'BLEAFSICDKPrivateEnvMR-PrivateSubnetID'
+  PublicSubnetId:
+    Description: Public Subnet ID
+    Value: !Ref BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33
+    Export:
+      Name: 'BLEAFSICDKPrivateEnvMR-PublicSubnetID'

@@ -1,0 +1,58 @@
+Resources:
+  ConfigRoleF94F46B6:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: config.amazonaws.com
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ''
+            - - 'arn:'
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWS_ConfigRole
+      Tags:
+        - Key: Environment
+          Value: audit
+    Metadata:
+      aws:cdk:path: BLEA-FSI-BASE-Config/ConfigRole/Resource
+  ConfigRecorder:
+    Type: AWS::Config::ConfigurationRecorder
+    Properties:
+      RoleARN:
+        Fn::GetAtt:
+          - ConfigRoleF94F46B6
+          - Arn
+      RecordingGroup:
+        AllSupported: true
+        IncludeGlobalResourceTypes: true
+    Metadata:
+      aws:cdk:path: BLEA-FSI-BASE-Config/ConfigRecorder
+  ConfigDeliveryChannel:
+    Type: AWS::Config::DeliveryChannel
+    Properties:
+      S3BucketName: blea-fsi-base-s3bucket-logsbucketxxxx-xxxx
+    Metadata:
+      aws:cdk:path: BLEA-FSI-BASE-Config/ConfigDeliveryChannel
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Rules:
+  CheckBootstrapVersion:
+    Assertions:
+      - Assert:
+          Fn::Not:
+            - Fn::Contains:
+                - - '1'
+                  - '2'
+                  - '3'
+                  - '4'
+                  - '5'
+                - Ref: BootstrapVersion
+        AssertDescription: CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.
