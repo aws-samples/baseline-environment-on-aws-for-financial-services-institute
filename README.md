@@ -30,7 +30,7 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
   - [FISC 実務基準対策 一覧 [勘定系]
     ](doc/reference-arc-core-banking/FISC_Mapping_core-banking.md)
   - [CDK サンプルコード [勘定系]
-    ](doc/deploy-core-banking-sample.md)
+    ](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 
 - **顧客チャネル**
 
@@ -39,7 +39,7 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
   - [FISC 実務基準対策 一覧 [顧客チャネル]
     ](doc/reference-arc-customer-channel/FISC_Mapping_customer-channel.md)
   - [CDK サンプルコード [顧客チャネル]
-    ](doc/deploy-customer-channel-sample.md)
+    ](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 
 - **オープン API**
 
@@ -48,7 +48,7 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
   - [FISC 実務基準対策 一覧 [オープン API]
     ](doc/reference-arc-open-api/FISC_Mapping_OpenAPI.md)
   - [CDK サンプルコード [オープン API]  
-    ](doc/deploy-open-api-sample.md)
+    ](doc/reference-arc-open-api/deploy-open-api-sample.md)
 
 - **マーケットデータ**
   - [金融ワークロードアーキテクチャ解説 [マーケットデータ]
@@ -56,7 +56,7 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
   - [FISC 実務基準対策 一覧 [マーケットデータ]
     ](doc/reference-arc-market-data/FISC_Mapping_market-data.md)
   - [CDK サンプルコード [マーケットデータ]  
-    ](doc/deploy-market-data-sample.md)
+    ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
@@ -71,6 +71,9 @@ Baseline Environment on AWS for Financial Services Institute(BLEA for FSI)は「
 
 BLEA for FSI のガバナンスベースライン および 各サンプルアプリケーションの FISC 安全対策基準（第 10 版 ）実務基準への対応については、
 [金融ワークロードのベストプラクティス](#金融ワークロードのベストプラクティス)を参照してください。
+
+> **:warning: BLEA for FSI の利用に関する注意**  
+> 本 CDK テンプレートは、金融ワークロードのベストプラクティスと IaC コードの実装サンプルとして提供するものです。利用者の要件に応じてカスタマイズを行う事が必須であり、このテンプレートを本番環境でそのままプロビジョニングして利用することは想定しておりません。検証環境にプロビジョニングして確認してください。
 
 Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI ガバナンスベースのデプロイ](doc/DeployBleaForFIS.md) |
 
@@ -152,6 +155,8 @@ BLEA for FSI は AWS Control Tower によるマルチアカウント環境を前
 - [1. BLEA for FSI ガバナンスベース のセットアップ手順](doc/deploy-governance-base.md)
 - [2. [勘定系] サンプルアプリケーションのセットアップ手順](doc/deploy-core-banking-sample.md)
 - [3. [顧客チャネル] サンプルアプリケーションのセットアップ手順](doc/deploy-customer-channel-sample.md)
+- [4. [Open API] サンプルアプリケーションのセットアップ手順](doc/deploy-customer-channel-sample.md)
+- [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/deploy-customer-channel-sample.md)
 
 ## 独自のアプリケーションを開発する
 

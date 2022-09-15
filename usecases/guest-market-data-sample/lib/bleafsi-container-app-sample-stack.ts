@@ -84,6 +84,16 @@ export class ContainerAppSampleBaseStack extends cdk.NestedStack {
       vpc: props.myVpc,
       allowAllOutbound: true, // for AWS APIs
     });
+    securityGroupForFargate.addEgressRule(
+      ec2.Peer.ipv4('0.0.0.0/0'),
+      ec2.Port.tcp(22),
+      'exsample description', //インバウンドルールの説明
+    );
+    securityGroupForFargate.addEgressRule(
+      ec2.Peer.ipv4('0.0.0.0/0'),
+      ec2.Port.tcp(443),
+      'exsample description', //インバウンドルールの説明
+    );
     this.appServerSecurityGroup = securityGroupForFargate;
 
     // CloudWatch Logs Group for Container

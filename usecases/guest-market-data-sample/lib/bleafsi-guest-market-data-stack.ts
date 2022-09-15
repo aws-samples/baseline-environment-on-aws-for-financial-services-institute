@@ -44,7 +44,7 @@ export class GuestMarketDataStack extends cdk.Stack {
     // Build Container Image
     const build_handler_container = new BuildContainerStack(this, `${pjPrefix}-Handler-Container-Image`, {
       ecrRepository: ecr.repository,
-      appName: 'sample_composer',
+      appName: 'sample_handler',
       appKey: appKey,
     });
 
@@ -98,7 +98,7 @@ export class GuestMarketDataStack extends cdk.Stack {
     // Build Container Image
     const build_composer_distributor = new BuildContainerStack(this, `${pjPrefix}-Distributor-Container-Image`, {
       ecrRepository: ecr.repository,
-      appName: 'sample_handler',
+      appName: 'sample_distributor',
       appKey: appKey,
     });
 

@@ -12,7 +12,7 @@ AWS Control Tower Landing Zone ver.3.0 より、CloudTrail の設定を有効化
 
 ## BLEA for FSI の対応方針
 
-BLEA for FSI では、ベースとなった BLEA と同様にゲストアカウントのログ監視はゲストアカウントの管理者が実施すべきと考えるため、これまで AWS Control Tower Landing Zone がアカウントのプロビジョニング時に作成していた AWS CloudTrail 証跡と AWS CloudWatch Logs のリソースを CDK テンプレートによるガバナンスベースのセットアップ時に生成するように修正しました。
+BLEA for FSI では、ベースとなった BLEA と同様にゲストアカウントのログ監視はゲストアカウントの管理者が実施すべきと考えるため、これまで AWS Control Tower Landing Zone がアカウントのプロビジョニング時に作成していた AWS CloudTrail 証跡と AWS CloudWatch Logs のリソースを CDK テンプレートによるガバナンスベースのセットアップ時に生成するように修正しました。この対応によりゲストアカウントでの CloudTrail 証跡が二重に取得される（Control Tower がセットアップする組織レベルの証跡と BLEA for FSI によりセットアップされるゲストアカウント内での証跡）ことに注意して下さい。
 
 ただし、適用する Control Tower Landing Zone のバージョンが 3.0 より前であった場合や、3.0 以降へのアップデート時に CloudTrail の設定を有効にしない場合は、デフォルトの状態では CDK スタック（usecase/base-ct-guest/bleafsi-base-ct-guest.ts）により不要な CloudTrail 証跡ログが作成されてしまうため、ご自身の環境に合わせてソースコードを一部修正することを推奨します。
 
@@ -29,9 +29,9 @@ BLEA for FSI では、ベースとなった BLEA と同様にゲストアカウ�
 ```mermaid
 flowchart TD
 A[START] --> B{CT LZを<br>v3.0より前から<br>利用している}
-B -->|YES| D{LZのCTrailの設定を<br>有効化する}
-D -->|YES| F[ケース1: 修正要]
-D -->|NO| G[ケース2: 修正不要]
+B -->|YES| D{LZのバージョンを3.0<br<に更新して、CTrailの設定を<br>有効化する}
+D -->|NO| F[ケース1: 修正要]
+D -->|YES| G[ケース2: 修正不要]
 B -->|NO| G
 ```
 

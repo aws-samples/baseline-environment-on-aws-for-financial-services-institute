@@ -25,7 +25,7 @@ Best practices for financial workloads is an asset provided as a part of "Financ
   - [Countermeasures for FISC practical standards [Core Banking]
     ](doc/reference-arc-core-banking/FISC_Mapping_core-banking.md)
   - [CDK sample code [Core Banking]
-    ](doc/deploy-core-banking-sample.md)
+    ](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 
 - **Customer Channel**
 
@@ -34,7 +34,7 @@ Best practices for financial workloads is an asset provided as a part of "Financ
   - [Countermeasures for FISC practical standards [Customer Channel]
     ](doc/reference-arc-customer-channel/FISC_Mapping_customer-channel.md)
   - [CDK sample code [Customer Channel]
-    ](doc/deploy-customer-channel-sample.md)
+    ](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 
 - **Open API**
 
@@ -43,7 +43,7 @@ Best practices for financial workloads is an asset provided as a part of "Financ
   - [Countermeasures for FISC practical standards [Open API]
     ](doc/reference-arc-open-api/FISC_Mapping_OpenAPI.md)
   - [CDK sample code [Open API]
-    ](doc/deploy-open-api-sample.md)
+    ](doc/reference-arc-open-api/deploy-open-api-sample.md)
 
 - **Market Data**
   - [Architecture overview [Market Data]
@@ -51,7 +51,7 @@ Best practices for financial workloads is an asset provided as a part of "Financ
   - [Countermeasures for FISC practical standards [Market Data]
     ](doc/reference-arc-market-data/FISC_Mapping_market-data.md)
   - [CDK sample code [Market Data]
-    ](doc/deploy-market-data-sample.md)
+    ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
@@ -147,7 +147,10 @@ If you cannot directly connect to the Internet from the client environment, plea
 ### Deployment Procedure
 
 - [1. 'BLEA for FSI' Governance Base Setup Instructions](doc/deploy-governance-base.md)
-- [2. [Banking] Sample Application Setup Instructions](doc/deploy-core-banking-sample.md)
+- [2. [Core Banking] Sample Application Setup Instructions](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
+- [3. [Customer Channel] Sample Application Setup Instructions](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
+- [4. [Open API] Sample Application Setup Instructions](doc/reference-arc-open-api/deploy-open-api-sample.md)
+- [5. [Market Data] Sample Application Setup Instructions](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 ## Develop your own application
 

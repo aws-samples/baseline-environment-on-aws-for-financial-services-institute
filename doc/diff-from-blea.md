@@ -18,10 +18,10 @@ BLEA for FSI はセキュアなベースラインを確立するための リフ
   - [CloudTrail S3 データイベント記録](./deploy-governance-base.md#7-5-オプション-他のベースラインセットアップを手動でセットアップするmc)
   - [SSM セッションマネージャーの S3 ログ出力](./manual-deploy-governance-base.md#ssm-セッションマネージャーの-s3-ログ出力を手動でセットアップ)
 - 金融ワークロード CDK サンプルコード
-  - [勘定系](./deploy-core-banking-sample.md)
-  - [顧客チャネル](./deploy-customer-channel-sample.md)
-  - [オープン API](./deploy-open-api-sample.md)
-  - [マーケットデータ](./deploy-market-data-sample.md)
+  - [勘定系](./reference-arc-core-banking/deploy-core-banking-sample.md)
+  - [顧客チャネル](./reference-arc-customer-channel/deploy-customer-channel-sample.md)
+  - [オープン API](./reference-arc-open-api/deploy-open-api-sample.md)
+  - [マーケットデータ](./reference-arc-market-data/deploy-market-data-sample.md)
 
 また、下記の機能を BLEA から削除しています。
 
