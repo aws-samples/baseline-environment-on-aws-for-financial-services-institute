@@ -17,5 +17,6 @@ aws cognito-idp admin-set-user-password --user-pool-id $POOLID --username $USER 
 #Get ID Token from Cognito
 export TOKEN=`aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH --client-id $CLIENTID --auth-parameter USERNAME=$USER,PASSWORD=$PASSWORD |grep IdToken |awk '{print $2}'`
 
+#Print ID Token
 echo "ID Token =" $TOKEN
 

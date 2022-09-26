@@ -40,7 +40,7 @@ export class ContainerAppSampleBaseStack extends cdk.NestedStack {
     //Security Group of ALB for App
     const securityGroupForAlb = new ec2.SecurityGroup(this, 'SgAlb', {
       vpc: props.myVpc,
-      allowAllOutbound: true,
+      allowAllOutbound: false,
     });
     this.appAlbSecurityGroup = securityGroupForAlb;
 
@@ -131,8 +131,25 @@ export class ContainerAppSampleBaseStack extends cdk.NestedStack {
     // https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html
     const executionRole = new iam.Role(this, `EcsTaskExecutionRole`, {
       assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
-      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
     });
+    executionRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: ['ecr:BatchCheckLayerAvailability', 'ecr:GetDownloadUrlForLayer', 'ecr:BatchGetImage'],
+        resources: [props.repository.repositoryArn],
+      }),
+    );
+    executionRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: ['logs:CreateLogStream', 'logs:PutLogEvents'],
+        resources: ['*'],
+      }),
+    );
+    executionRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: ['ecr:GetAuthorizationToken'],
+        resources: ['*'],
+      }),
+    );
 
     // Role for Container
     // With IAM roles for Amazon ECS tasks, you can specify an IAM role that can be used by the containers in a task.
@@ -146,8 +163,10 @@ export class ContainerAppSampleBaseStack extends cdk.NestedStack {
     // - Outbound access will be used for DB and AWS APIs
     const securityGroupForFargate = new ec2.SecurityGroup(this, 'SgFargate', {
       vpc: props.myVpc,
-      allowAllOutbound: true, // for AWS APIs
+      allowAllOutbound: false,
     });
+    securityGroupForFargate.addEgressRule(ec2.Peer.ipv4(props.myVpc.vpcCidrBlock), ec2.Port.allTcp());
+    this.appAlbSecurityGroup.addEgressRule(securityGroupForFargate, ec2.Port.tcp(80));
     this.appServerSecurityGroup = securityGroupForFargate;
 
     // CloudWatch Logs Group for Container

@@ -154,7 +154,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/d401a8257f8c50f98a9e25f42bc560c8b157b4fc3afcffa61aab6235e784841f.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/0768b4ca20ae36696700beae769aa0b96d9b71166ebf4995a42e99ccbe67f952.json",
             ],
           ],
         },
@@ -214,6 +214,12 @@ Object {
               "Outputs.BLEAFSIcorebankingprimaryBLEAFSIECRapprepo1E28153ERef",
             ],
           },
+          "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38CidrBlock": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38CidrBlock",
+            ],
+          },
           "referencetoBLEAFSIcorebankingprimaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource40F15229OutputsBLEAFSIcorebankingprimaryBLEAFSIVpc1D98DF38Ref": Object {
             "Fn::GetAtt": Array [
               "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
@@ -247,7 +253,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/daa413d17c6a8ed2e139315cb11fd62949a7333398eb91e2d2c2e6fdaadc861b.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/1eb2833bc5529e311fde443ef8f52d57dd73c9f41829a9f5316fc8665ae5f9d8.json",
             ],
           ],
         },
@@ -327,7 +333,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/d1f000abd44bd9fb6333955b6d0c6a7309646b161f80afb280e8dd1c5275d135.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/d1d4de079e1e9e4b4ba20b948e4c008448fd6afd7bb3d5dce5691304aa0c0db7.json",
             ],
           ],
         },
@@ -518,7 +524,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/1617663a9758a0afed2e502d88ecf3c4c22408d0bfb110cc16f911208e68f664.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/d88835e083f21d6cea1cb94f5ee6fb473191c7c3bfd5415a65e1091c935be91c.json",
             ],
           ],
         },
@@ -534,6 +540,12 @@ Object {
             "Fn::GetAtt": Array [
               "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
               "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIAppKey2CEF58BCArn",
+            ],
+          },
+          "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913CidrBlock": Object {
+            "Fn::GetAtt": Array [
+              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
+              "Outputs.BLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913CidrBlock",
             ],
           },
           "referencetoBLEAFSIcorebankingsecondaryBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceC6B94332OutputsBLEAFSIcorebankingsecondaryBLEAFSIVpcA1FB0913Ref": Object {
@@ -569,7 +581,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/8732c7ffff6a02fa0ca0e903d402354ca2e621a799078a54bbcf7085c8a8309e.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/36227a257de4aeb84e959830cbbbc23ebc48a39b881f689da5f0f89a485dd2a6.json",
             ],
           ],
         },
@@ -607,7 +619,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/5e7931cd2ad19dbaecc044548621612fc695685578e6d76d4ac06efcac680ec1.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-3/7f81fc94714b57ac5035b4b160392d26cadf2c69c48dad769246614656e05b40.json",
             ],
           ],
         },
@@ -748,6 +760,21 @@ Object {
             ],
           ],
         },
+        "Delete": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"EC2\\",\\"action\\":\\"deleteTransitGatewayPeeringAttachment\\",\\"parameters\\":{\\"TransitGatewayAttachmentId\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "BLEAFSIcrossRegionSsmParamNestedStackBLEAFSIcrossRegionSsmParamNestedStackResource58824659",
+                  "Outputs.BLEAFSIcorebankingaccepttgwpeeringBLEAFSIcrossRegionSsmParamSsmGetParamTgwPeeringAttachmentId96083B46ParameterValue",
+                ],
+              },
+              "\\",\\"DryRun\\":false},\\"region\\":\\"ap-northeast-1\\",\\"physicalResourceId\\":{\\"id\\":\\"BLEA-FSI-AcceptTgwPeeringAttachment\\"}}",
+            ],
+          ],
+        },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -780,6 +807,11 @@ Object {
           "Statement": Array [
             Object {
               "Action": "ec2:AcceptTransitGatewayPeeringAttachment",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "ec2:DeleteTransitGatewayPeeringAttachment",
               "Effect": "Allow",
               "Resource": "*",
             },
