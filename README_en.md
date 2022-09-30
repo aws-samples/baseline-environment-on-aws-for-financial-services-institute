@@ -21,35 +21,35 @@ Best practices for financial workloads is an asset provided as a part of "Financ
 - **Core Banking**
 
   - [Architecture overview [Core Banking]
-    ](doc/reference-arc-core-banking/FinRA-core-banking-Arch-readme.md)
+    ](doc/reference-arc-core-banking/core-banking-arch-readme.md)
   - [Countermeasures for FISC practical standards [Core Banking]
-    ](doc/reference-arc-core-banking/FISC_Mapping_core-banking.md)
+    ](doc/reference-arc-core-banking/fisc-mapping-core-banking.md)
   - [CDK sample code [Core Banking]
     ](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 
 - **Customer Channel**
 
   - [Architecture overview [Customer Channel]
-    ](doc/reference-arc-customer-channel/FinRA-customer-channel-Arch-readme.md)
+    ](doc/reference-arc-customer-channel/customer-channel-arch-readme.md)
   - [Countermeasures for FISC practical standards [Customer Channel]
-    ](doc/reference-arc-customer-channel/FISC_Mapping_customer-channel.md)
+    ](doc/reference-arc-customer-channel/fisc-mapping-customer-channel.md)
   - [CDK sample code [Customer Channel]
     ](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 
 - **Open API**
 
   - [Architecture overview [Open API]
-    ](doc/reference-arc-open-api/FinRA-OpenAPI-Arch-readme.md)
+    ](doc/reference-arc-open-api/open-api-arch-readme.md)
   - [Countermeasures for FISC practical standards [Open API]
-    ](doc/reference-arc-open-api/FISC_Mapping_OpenAPI.md)
+    ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
   - [CDK sample code [Open API]
     ](doc/reference-arc-open-api/deploy-open-api-sample.md)
 
 - **Market Data**
   - [Architecture overview [Market Data]
-    ](doc/reference-arc-market-data/FinRA-market-data-Arch-readme.md)
+    ](doc/reference-arc-market-data/market-data-arch-readme.md)
   - [Countermeasures for FISC practical standards [Market Data]
-    ](doc/reference-arc-market-data/FISC_Mapping_market-data.md)
+    ](doc/reference-arc-market-data/fisc-mapping-market-data.md)
   - [CDK sample code [Market Data]
     ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 

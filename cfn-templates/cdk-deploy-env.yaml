@@ -303,7 +303,6 @@ Resources:
             VolumeType: 'gp3'
             VolumeSize: '8'
             Encrypted: 'true'
-      DisableApiTermination: true
       Tags:
         - Key: Name
           Value: PrivateCdkEnvStack/BLEAFSICdkEnvInstance
