@@ -26,35 +26,37 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
 - **勘定系システム**
 
   - [金融ワークロードアーキテクチャ解説 [勘定系]
-    ](doc/reference-arc-core-banking/FinRA-core-banking-Arch-readme.md)
+    ](doc/reference-arc-core-banking/core-banking-arch-readme.md)
   - [FISC 実務基準対策 一覧 [勘定系]
-    ](doc/reference-arc-core-banking/FISC_Mapping_core-banking.md)
+    ](doc/reference-arc-core-banking/fisc-mapping-core-banking.md)
   - [CDK サンプルコード [勘定系]
     ](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 
 - **顧客チャネル**
 
   - [金融ワークロードアーキテクチャ解説 [顧客チャネル]
-    ](doc/reference-arc-customer-channel/FinRA-customer-channel-Arch-readme.md)
+    ](doc/reference-arc-customer-channel/customer-channel-arch-readme.md)
   - [FISC 実務基準対策 一覧 [顧客チャネル]
-    ](doc/reference-arc-customer-channel/FISC_Mapping_customer-channel.md)
+    ](doc/reference-arc-customer-channel/fisc-mapping-customer-channel.md)
   - [CDK サンプルコード [顧客チャネル]
     ](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 
 - **オープン API**
 
   - [金融ワークロードアーキテクチャ解説 [オープン API]
-    ](doc/reference-arc-open-api/FinRA-OpenAPI-Arch-readme.md)
+    ](doc/reference-arc-open-api/open-api-arch-readme.md)
   - [FISC 実務基準対策 一覧 [オープン API]
-    ](doc/reference-arc-open-api/FISC_Mapping_OpenAPI.md)
-  - [CDK サンプルコード [オープン API]  
-    ](doc/reference-arc-open-api/deploy-open-api-sample.md)
+    ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
+  - [CDK サンプルコード [オープン API 参照・照会系]  
+    ](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+  - [CDK サンプルコード [オープン API 更新・実行系]  
+    ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **マーケットデータ**
   - [金融ワークロードアーキテクチャ解説 [マーケットデータ]
-    ](doc/reference-arc-market-data/FinRA-market-data-Arch-readme.md)
+    ](doc/reference-arc-market-data/market-data-arch-readme.md)
   - [FISC 実務基準対策 一覧 [マーケットデータ]
-    ](doc/reference-arc-market-data/FISC_Mapping_market-data.md)
+    ](doc/reference-arc-market-data/fisc-mapping-market-data.md)
   - [CDK サンプルコード [マーケットデータ]  
     ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 

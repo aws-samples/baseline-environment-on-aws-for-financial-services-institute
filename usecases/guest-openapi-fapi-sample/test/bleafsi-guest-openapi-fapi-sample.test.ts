@@ -31,7 +31,7 @@ const procEnv: ProcessEnv = {
 };
 
 const openApiFapiStackProps: OpenApiFapiStackContextProps = {
-  pjPrefix: 'BLEA-FSI',
+  pjPrefix: 'BLEA-FSI-OpenApi',
   envKey: 'test',
   dbUser: 'dbadmin',
   keycloakContainerImageName: 'jboss/keycloak',

@@ -39,32 +39,32 @@
 
 - アーキテクチャ一覧
 
-![Overview](images/FInRA-OpenAPI-Arch-Pattern.png)
+![Overview](images/open-api-Arch-Pattern.png)
 
 - ベーシック API アーキテクチャ図
 
-![Read-Diag](images/FinAR-OpenAPI-Arch-Basic-Diag.png)
+![Read-Diag](images/open-api-Arch-Basic-Diag.png)
 
 - ベーシック API データフロー
 
-![Read-Flow](images/FinAR-OpenAPI-Arch-Basic-Flow.png)
+![Read-Flow](images/open-api-Arch-Basic-Flow.png)
 
 - 金融グレード API(FAPI/3rd Party)アーキテクチャ図
 
-![FAPI-Diag](images/FinAR-OpenAPI-Arch-FAPI-Authlete-Diag.png)
+![FAPI-Diag](images/open-api-Arch-FAPI-Authlete-Diag.png)
 
 - 金融グレード API(FAPI/3rd Party)データフロー
 
-![FAPI-Flow](images/FinAR-OpenAPI-Arch-FAPI-Authlete-Flow.png)
+![FAPI-Flow](images/open-api-Arch-FAPI-Authlete-Flow.png)
 
 - 金融グレード API(FAPI/OSS)アーキテクチャ図
 
-![FAPI-Diag](images/FinAR-OpenAPI-Arch-FAPI-keycloak-Diag.png)
+![FAPI-Diag](images/open-api-Arch-FAPI-keycloak-Diag.png)
 
 - 金融グレード API(FAPI/OSS)データフロー
 
-![FAPI-Flow](images/FinAR-OpenAPI-Arch-FAPI-keycloak-Flow.png)
+![FAPI-Flow](images/open-api-Arch-FAPI-keycloak-Flow.png)
 
 - マルチリージョン・アーキテクチャ図
 
-![Multi-region](images/FinRA-OpenAPI-Arch-Multi-region.png)
+![Multi-region](images/open-api-Arch-Multi-region.png)

@@ -23,11 +23,11 @@ export class WafStack extends cdk.NestedStack {
     //
     const webAcl = new wafv2.CfnWebACL(this, 'WebAcl', {
       defaultAction: { allow: {} },
-      name: 'BLEAFSIAWebAcl',
+      name: `BLEAFSIWebAcl-${id}`,
       scope: props.scope,
       visibilityConfig: {
         cloudWatchMetricsEnabled: true,
-        metricName: 'BLEAFSIWebAcl',
+        metricName: `BLEAFSIWebAcl-${id}`,
         sampledRequestsEnabled: true,
       },
       rules: [

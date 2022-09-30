@@ -397,7 +397,6 @@ Resources:
             VolumeType: 'gp3'
             VolumeSize: '8'
             Encrypted: 'true'
-      DisableApiTermination: true
       Tags:
         - Key: Name
           Value: PrivateCdkEnvStack/BLEAFSICdkEnvInstance
@@ -453,14 +452,13 @@ Resources:
             - BLEAFSICdkEnvInstanceSg17EEF39B
             - GroupId
       SubnetId:
-        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33
+        Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
       BlockDeviceMappings:
         - DeviceName: '/dev/xvda'
           Ebs:
             VolumeType: 'gp3'
             VolumeSize: '8'
             Encrypted: 'true'
-      DisableApiTermination: true
       Tags:
         - Key: Name
           Value: PrivateCdkEnvStack/BLEAFSIProxyInstance

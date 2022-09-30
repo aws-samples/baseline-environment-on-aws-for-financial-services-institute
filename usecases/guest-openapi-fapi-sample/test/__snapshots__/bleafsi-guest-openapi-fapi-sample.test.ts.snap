@@ -1,93 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BLEA-FSI snapshot check OpenAPI FAPI sample Stacks 1`] = `
+exports[`BLEA-FSI-OpenApi snapshot check OpenAPI FAPI sample Stacks 1`] = `
 Object {
   "Outputs": Object {
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628CidrBlock04BD46CA": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628CidrBlock04BD46CA",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628CidrBlock",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlock",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628Ref1F1ECCE4": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628Ref1F1ECCE4",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628Ref",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet1Subnet6455CFF5Ref7C5381EE": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRefB894E373": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet1Subnet6455CFF5Ref7C5381EE",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRefB894E373",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet1Subnet6455CFF5Ref",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRef",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet2Subnet49911956Ref7036099B": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4RefD90F2F3D": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet2Subnet49911956Ref7036099B",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4RefD90F2F3D",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet2Subnet49911956Ref",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4Ref",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet1SubnetA7E8F33DRefBBF402E3": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef04FAF44F": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet1SubnetA7E8F33DRefBBF402E3",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef04FAF44F",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet1SubnetA7E8F33DRef",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet2Subnet28BF78C7Ref41D202FC": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERefF0FBFD99": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet2Subnet28BF78C7Ref41D202FC",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERefF0FBFD99",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet2Subnet28BF78C7Ref",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERef",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet1SubnetD285F8DERefFC68CD5D": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref0B4BF8FE": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet1SubnetD285F8DERefFC68CD5D",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref0B4BF8FE",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet1SubnetD285F8DERef",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref",
         ],
       },
     },
-    "ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet2Subnet237C5DB1RefB628E2AB": Object {
+    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRefB34E15B3": Object {
       "Export": Object {
-        "Name": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet2Subnet237C5DB1RefB628E2AB",
+        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRefB34E15B3",
       },
       "Value": Object {
         "Fn::GetAtt": Array [
-          "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-          "Outputs.BLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet2Subnet237C5DB1Ref",
+          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
+          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRef",
         ],
       },
     },
@@ -100,7 +100,7 @@ Object {
     },
   },
   "Resources": Object {
-    "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924": Object {
+    "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "TemplateURL": Object {
@@ -115,7 +115,7 @@ Object {
               Object {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
               },
-              "/4af4e150b568392a74df9e770215f47302b8d208b5eca2e64a3b73184b46688c.json",
+              "/822e4caa9eec0d3bb9d438613588813ad45a73cf25bc1a6c0294a7e2d79d474d.json",
             ],
           ],
         },
@@ -123,7 +123,7 @@ Object {
       "Type": "AWS::CloudFormation::Stack",
       "UpdateReplacePolicy": "Delete",
     },
-    "BLEAFSIopenapifapikeycloakprimaryNestedStackBLEAFSIopenapifapikeycloakprimaryNestedStackResource93787F38": Object {
+    "BLEAFSIOpenApiopenapifapikeycloakprimaryNestedStackBLEAFSIOpenApiopenapifapikeycloakprimaryNestedStackResourceBCF76B6D": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "TemplateURL": Object {
@@ -138,7 +138,7 @@ Object {
               Object {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
               },
-              "/a8ae17d0e9b48a2463e906daf763cd52ebdde3633858a9534b0899140cae7173.json",
+              "/86c5ebdc900fb4425229a1de026f431c9eb4cb841905c65a9fa9ad862f1e63d1.json",
             ],
           ],
         },
@@ -177,7 +177,7 @@ Object {
 }
 `;
 
-exports[`BLEA-FSI snapshot check OpenAPI FAPI sample Stacks 2`] = `
+exports[`BLEA-FSI-OpenApi snapshot check OpenAPI FAPI sample Stacks 2`] = `
 Object {
   "Description": "(SO8021) - Deploy keycloak on AWS with cdk-keycloak construct library",
   "Outputs": Object {
@@ -224,7 +224,7 @@ Object {
     },
   },
   "Resources": Object {
-    "BLEAFSIopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret2A23C6B23fdaad7efa858a3daf9490cf0a702aeb": Object {
+    "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret9A7F4C593fdaad7efa858a3daf9490cf0a702aeb": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "Description": Object {
@@ -268,7 +268,7 @@ Object {
             Array [
               "{{resolve:secretsmanager:",
               Object {
-                "Ref": "BLEAFSIopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret2A23C6B23fdaad7efa858a3daf9490cf0a702aeb",
+                "Ref": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret9A7F4C593fdaad7efa858a3daf9490cf0a702aeb",
               },
               ":SecretString:password::}}",
             ],
@@ -325,7 +325,7 @@ Object {
     "KeycloakDatabaseDBClusterSecretAttachment90E0A69B": Object {
       "Properties": Object {
         "SecretId": Object {
-          "Ref": "BLEAFSIopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret2A23C6B23fdaad7efa858a3daf9490cf0a702aeb",
+          "Ref": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret9A7F4C593fdaad7efa858a3daf9490cf0a702aeb",
         },
         "TargetId": Object {
           "Ref": "KeycloakDatabaseDBClusterE8251B52",
@@ -347,7 +347,7 @@ Object {
         "SecurityGroupIngress": Array [
           Object {
             "CidrIp": Object {
-              "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628CidrBlock04BD46CA",
+              "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
             },
             "Description": Object {
               "Fn::Join": Array [
@@ -355,7 +355,7 @@ Object {
                 Array [
                   "from ",
                   Object {
-                    "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628CidrBlock04BD46CA",
+                    "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
                   },
                   ":3306",
                 ],
@@ -367,14 +367,14 @@ Object {
           },
         ],
         "VpcId": Object {
-          "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628Ref1F1ECCE4",
+          "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecurityGroupA0DC2AFA33066AD6FA50": Object {
+    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecurityGroupD14A25643306386E54D9": Object {
       "Properties": Object {
-        "Description": "from BLEAFSIopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecurityGroupA0DC2AFA:3306",
+        "Description": "from BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecurityGroupD14A2564:3306",
         "FromPort": 3306,
         "GroupId": Object {
           "Fn::GetAtt": Array [
@@ -393,9 +393,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroupDEA650A9IndirectPortCEACDD10": Object {
+    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5CIndirectPortBDCCC2DB": Object {
       "Properties": Object {
-        "Description": "from BLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroupDEA650A9:{IndirectPort}",
+        "Description": "from BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5C:{IndirectPort}",
         "FromPort": Object {
           "Fn::GetAtt": Array [
             "KeycloakDatabaseDBClusterE8251B52",
@@ -430,10 +430,10 @@ Object {
         "DBSubnetGroupDescription": "Subnets for DBCluster database",
         "SubnetIds": Array [
           Object {
-            "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet1Subnet6455CFF5Ref7C5381EE",
+            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRefB894E373",
           },
           Object {
-            "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPrivateSubnet2Subnet49911956Ref7036099B",
+            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4RefD90F2F3D",
           },
         ],
       },
@@ -487,10 +487,10 @@ Object {
         "Scheme": "internet-facing",
         "Subnets": Array [
           Object {
-            "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet1SubnetD285F8DERefFC68CD5D",
+            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref0B4BF8FE",
           },
           Object {
-            "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcPublicSubnet2Subnet237C5DB1RefB628E2AB",
+            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRefB34E15B3",
           },
         ],
         "Type": "network",
@@ -518,7 +518,7 @@ Object {
         ],
         "TargetType": "ip",
         "VpcId": Object {
-          "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628Ref1F1ECCE4",
+          "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
         },
       },
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
@@ -580,10 +580,10 @@ Object {
             ],
             "Subnets": Array [
               Object {
-                "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet1SubnetA7E8F33DRefBBF402E3",
+                "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef04FAF44F",
               },
               Object {
-                "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcProtectedSubnet2Subnet28BF78C7Ref41D202FC",
+                "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERefF0FBFD99",
               },
             ],
           },
@@ -596,7 +596,7 @@ Object {
     },
     "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C": Object {
       "Properties": Object {
-        "GroupDescription": "BLEA-FSI-openapi-fapi-keycloak-primary/Keycloak/KeyCloakContainerSerivce/Service/SecurityGroup",
+        "GroupDescription": "BLEA-FSI-OpenApi-openapi-fapi-keycloak-primary/Keycloak/KeyCloakContainerSerivce/Service/SecurityGroup",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -607,7 +607,7 @@ Object {
         "SecurityGroupIngress": Array [
           Object {
             "CidrIp": Object {
-              "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628CidrBlock04BD46CA",
+              "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
             },
             "Description": "vpc local",
             "FromPort": 8443,
@@ -616,12 +616,12 @@ Object {
           },
         ],
         "VpcId": Object {
-          "Fn::ImportValue": "BLEA-FSI-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924OutputsBLEAFSIopenapifapiprimaryBLEAFSIVpcB103C628Ref1F1ECCE4",
+          "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroupDEA650A95760072D691E9": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5C57600DEDC2D1B": Object {
       "Properties": Object {
         "Description": "kc jgroups-tcp-fd",
         "FromPort": 57600,
@@ -642,7 +642,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroupDEA650A97600015E57B7": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5C7600379CA31A": Object {
       "Properties": Object {
         "Description": "kc jgroups-tcp",
         "FromPort": 7600,
@@ -663,7 +663,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroupDEA650A9UDP542009A2841CE": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5CUDP54200B6AB9274": Object {
       "Properties": Object {
         "Description": "kc jgroups-udp-fd",
         "FromPort": 54200,
@@ -684,7 +684,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroupDEA650A9UDP55200827798E8": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5CUDP5520055731D5C": Object {
       "Properties": Object {
         "Description": "kc jgroups-udp",
         "FromPort": 55200,
@@ -750,7 +750,7 @@ Object {
     },
     "KeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScalingBFB05580": Object {
       "Properties": Object {
-        "PolicyName": "BLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScaling50FE009D",
+        "PolicyName": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScalingAB2D7AE0",
         "PolicyType": "TargetTrackingScaling",
         "ScalingTargetId": Object {
           "Ref": "KeycloakKeyCloakContainerSerivceServiceTaskCountTarget4E91B2A9",
@@ -901,7 +901,7 @@ Object {
             "Arn",
           ],
         },
-        "Family": "BLEAFSIopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceTaskDef4AEABE50",
+        "Family": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceTaskDef71B89677",
         "Memory": "2048",
         "NetworkMode": "awsvpc",
         "RequiresCompatibilities": Array [
