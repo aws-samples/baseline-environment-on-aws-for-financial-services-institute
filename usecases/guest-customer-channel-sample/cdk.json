@@ -15,7 +15,7 @@
     ]
   },
   "context": {
-    "pjPrefix": "BLEA-FSI",
+    "pjPrefix": "BLEA-FSI-CustomerChannel",
     "dev": {
       "description": "Context samples for Dev",
       "envName": "Development",

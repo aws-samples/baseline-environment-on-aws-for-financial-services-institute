@@ -61,11 +61,13 @@ Control Tower を使って新しいアカウント（ゲストアカウント）
 
 #### 3-1. リポジトリの取得
 
-BLEA for FSI の git リポジトリは、AWS 金融ソリューションの担当 SA から入手して下さい。
+github から BLEA for FSI の git リポジトリを clone して下さい。
 
 ```sh
-cd baseline-environment-on-aws-for-fsi
+git clone https://github.com/aws-samples/baseline-environment-on-aws-for-financial-services-institute.git
 ```
+
+[https でコードを取得する例]
 
 #### 3-2. 依存する NPM パッケージのインストール
 
@@ -256,6 +258,10 @@ cd usecases/base-ct-logging
 npx cdk deploy --all -c environment=dev --profile ct-logging-exec
 ```
 
+> NOTE:  
+> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
+> `--require-approval never` オプションを指定して下さい
+
 この CDK テンプレートのデプロイによって以下の機能がセットアップされます
 
 - S3 バケット作成 [CloudTrail データイベント, 大阪リージョン用の Config データ]
@@ -355,6 +361,10 @@ npx cdk bootstrap -c environment=dev --profile ct-guest-sso
 cd usecases/base-ct-guest
 npx cdk deploy --all -c environment=dev --profile ct-guest-sso
 ```
+
+> NOTE:  
+> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
+> `--require-approval never` オプションを指定して下さい
 
 CDK テンプレートの実行後に Session Manager ログを保管する S3 バケット名が出力されますので、記録しておいて下さい。
 

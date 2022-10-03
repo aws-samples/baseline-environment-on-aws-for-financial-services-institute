@@ -64,12 +64,22 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 aws sso login --profile ct-guest-sso
 ```
 
-サンプルアプリケーションをデプロイします。
+ゲストアカウントで CDK ブートストラップを実行します（Context に指定した 2 つのリージョンでブートストラップ処理が行われます）。
 
 ```sh
 cd usecases/guest-core-banking-sample
+npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+```
+
+サンプルアプリケーションをデプロイします。
+
+```sh
 npx cdk deploy --all -c environment=dev --profile ct-guest-sso
 ```
+
+> NOTE:  
+> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
+> `--require-approval never` オプションを指定して下さい
 
 #### 1-3. (オプション) 動作確認用 NLB にアクセスし動作確認する
 

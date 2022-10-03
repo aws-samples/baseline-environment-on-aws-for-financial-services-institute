@@ -43,11 +43,6 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
   beforeAll(() => {
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Vpc/FlowLogBucket/Resource',
-      [{ id: 'AwsSolutions-S1', reason: 'It is a log bucket.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
       '/BLEA-FSI-market-data/BLEA-FSI-Handler-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
     );
