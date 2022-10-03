@@ -8,7 +8,7 @@
 
 - [Well-Architected Framework FSI Lens for FISC](#well-architected-framework-fsi-lens-for-fisc)
 - [金融ワークロードのベストプラクティス](#金融ワークロードのベストプラクティス)
-- [Baseline Environment on AWS for FSI](#baseline-environment-on-aws-for-fsi)
+- [Baseline Environment on AWS for FSI](#Baseline Environment on AWS for Financial Services Institute)
 
 # Well-Architected Framework FSI Lens for FISC
 
@@ -26,37 +26,39 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
 - **勘定系システム**
 
   - [金融ワークロードアーキテクチャ解説 [勘定系]
-    ](doc/reference-arc-core-banking/FinRA-core-banking-Arch-readme.md)
+    ](doc/reference-arc-core-banking/core-banking-arch-readme.md)
   - [FISC 実務基準対策 一覧 [勘定系]
-    ](doc/reference-arc-core-banking/FISC_Mapping_core-banking.md)
+    ](doc/reference-arc-core-banking/fisc-mapping-core-banking.md)
   - [CDK サンプルコード [勘定系]
-    ](doc/deploy-core-banking-sample.md)
+    ](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 
 - **顧客チャネル**
 
   - [金融ワークロードアーキテクチャ解説 [顧客チャネル]
-    ](doc/reference-arc-customer-channel/FinRA-customer-channel-Arch-readme.md)
+    ](doc/reference-arc-customer-channel/customer-channel-arch-readme.md)
   - [FISC 実務基準対策 一覧 [顧客チャネル]
-    ](doc/reference-arc-customer-channel/FISC_Mapping_customer-channel.md)
+    ](doc/reference-arc-customer-channel/fisc-mapping-customer-channel.md)
   - [CDK サンプルコード [顧客チャネル]
-    ](doc/deploy-customer-channel-sample.md)
+    ](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 
 - **オープン API**
 
   - [金融ワークロードアーキテクチャ解説 [オープン API]
-    ](doc/reference-arc-open-api/FinRA-OpenAPI-Arch-readme.md)
+    ](doc/reference-arc-open-api/open-api-arch-readme.md)
   - [FISC 実務基準対策 一覧 [オープン API]
-    ](doc/reference-arc-open-api/FISC_Mapping_OpenAPI.md)
-  - [CDK サンプルコード [オープン API]  
-    ](doc/deploy-open-api-sample.md)
+    ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
+  - [CDK サンプルコード [オープン API 参照・照会系]  
+    ](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+  - [CDK サンプルコード [オープン API 更新・実行系]  
+    ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **マーケットデータ**
   - [金融ワークロードアーキテクチャ解説 [マーケットデータ]
-    ](doc/reference-arc-market-data/FinRA-market-data-Arch-readme.md)
+    ](doc/reference-arc-market-data/market-data-arch-readme.md)
   - [FISC 実務基準対策 一覧 [マーケットデータ]
-    ](doc/reference-arc-market-data/FISC_Mapping_market-data.md)
+    ](doc/reference-arc-market-data/fisc-mapping-market-data.md)
   - [CDK サンプルコード [マーケットデータ]  
-    ](doc/deploy-market-data-sample.md)
+    ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
@@ -72,7 +74,10 @@ Baseline Environment on AWS for Financial Services Institute(BLEA for FSI)は「
 BLEA for FSI のガバナンスベースライン および 各サンプルアプリケーションの FISC 安全対策基準（第 10 版 ）実務基準への対応については、
 [金融ワークロードのベストプラクティス](#金融ワークロードのベストプラクティス)を参照してください。
 
-Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI ガバナンスベースのデプロイ](doc/DeployBleaForFIS.md) |
+> **:warning: BLEA for FSI の利用に関する注意**  
+> 本 CDK テンプレートは、金融ワークロードのベストプラクティスと IaC コードの実装サンプルとして提供するものです。利用者の要件に応じてカスタマイズを行う事が必須であり、このテンプレートを本番環境でそのままプロビジョニングして利用することは想定しておりません。検証環境にプロビジョニングして確認してください。
+
+Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI ガバナンスベースのデプロイ](doc/deploy-governance-base.md) |
 
 ## ガバナンスアーキテクチャ
 
@@ -150,8 +155,11 @@ BLEA for FSI は AWS Control Tower によるマルチアカウント環境を前
 ### 導入手順
 
 - [1. BLEA for FSI ガバナンスベース のセットアップ手順](doc/deploy-governance-base.md)
-- [2. [勘定系] サンプルアプリケーションのセットアップ手順](doc/deploy-core-banking-sample.md)
-- [3. [顧客チャネル] サンプルアプリケーションのセットアップ手順](doc/deploy-customer-channel-sample.md)
+- [2. [勘定系] サンプルアプリケーションのセットアップ手順](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
+- [3. [顧客チャネル] サンプルアプリケーションのセットアップ手順](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
+- [4-1. [Open API 参照・照会系 ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+- [4-2. [Open API 更新・実行系] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
+- [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 ## 独自のアプリケーションを開発する
 
@@ -159,10 +167,6 @@ BLEA for FSI 導入後はサンプルコードを起点にして、自分のユ�
 
 - [通常の開発の流れ](doc/how-to.md#通常の開発の流れ)
 - [依存パッケージの最新化](doc/how-to.md#依存パッケージの最新化)
-
-## Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
 ## License
 

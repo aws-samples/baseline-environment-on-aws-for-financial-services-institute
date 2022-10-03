@@ -34,6 +34,16 @@ export class AcceptTgwPeeringStack extends cdk.Stack {
         region: cdk.Stack.of(this).region,
         physicalResourceId: cr.PhysicalResourceId.of(crStackId),
       },
+      onDelete: {
+        service: 'EC2',
+        action: 'deleteTransitGatewayPeeringAttachment',
+        parameters: {
+          TransitGatewayAttachmentId: tgwPeeringAttachmentId,
+          DryRun: false,
+        },
+        region: cdk.Stack.of(this).region,
+        physicalResourceId: cr.PhysicalResourceId.of(crStackId),
+      },
       policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
         resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
       }),

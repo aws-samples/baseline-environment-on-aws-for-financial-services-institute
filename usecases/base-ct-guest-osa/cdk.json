@@ -1,7 +1,7 @@
 {
   "app": "npx ts-node --prefer-ts-exts bin/bleafsi-base-ct-guest-osa.ts",
   "context": {
-    "pjPrefix": "BLEA-FSI-BASE",
+    "pjPrefix": "BLEA-FSI-Base",
     "dev": {
       "description": "Context samples for Dev - Anonymous account & region",
       "env": {

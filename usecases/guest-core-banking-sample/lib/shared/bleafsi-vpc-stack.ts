@@ -5,6 +5,7 @@ import { aws_s3 as s3 } from 'aws-cdk-lib';
 import { aws_kms as kms } from 'aws-cdk-lib';
 import { aws_iam as iam } from 'aws-cdk-lib';
 import { custom_resources as cr } from 'aws-cdk-lib';
+import { aws_route53resolver as route53resolver } from 'aws-cdk-lib';
 import { RegionEnv } from '../shared/bleafsi-types';
 import { CrossRegionSsmParamName } from './bleafsi-constants';
 import { CrossRegionSsmParam } from './bleafsi-cross-region-ssm-param-stack';
@@ -74,6 +75,22 @@ export class VpcStack extends cdk.NestedStack {
         destinationCidrBlock: props.oppositeRegionEnv.vpcCidr,
         transitGatewayId: this.tgw.ref,
       }).addDependsOn(tgwAttachment);
+    });
+
+    // Route 53 resolver endpoints
+    const OnPremCidr = '10.0.0.0/16'; // 環境に合わせて変更してください
+    const r53ResolverEndpointSg = new ec2.SecurityGroup(this, 'R53ResolverEndpointSg', {
+      vpc: myVpc,
+      allowAllOutbound: false,
+    });
+    r53ResolverEndpointSg.addIngressRule(ec2.Peer.ipv4(OnPremCidr), ec2.Port.tcp(53));
+
+    new route53resolver.CfnResolverEndpoint(this, 'R53ResolverEndpoint', {
+      direction: 'INBOUND',
+      ipAddresses: myVpc.isolatedSubnets.map((subnet) => ({
+        subnetId: subnet.subnetId,
+      })),
+      securityGroupIds: [r53ResolverEndpointSg.securityGroupId],
     });
 
     //  --------------------------------------------------------------
@@ -148,19 +165,25 @@ export class VpcStack extends cdk.NestedStack {
       ruleAction: ec2.Action.ALLOW,
     });
 
-    // VPC Endpoint for DynamoDB
+    // Secrets Manager VPC endpoint
+    myVpc.addInterfaceEndpoint('SecretsManagerEndpointForPrivate', {
+      service: ec2.InterfaceVpcEndpointAwsService.SECRETS_MANAGER,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+    });
+
+    // DynamoDB VPC endpoint
     myVpc.addGatewayEndpoint('DynamoDbEndpoint', {
       service: ec2.GatewayVpcEndpointAwsService.DYNAMODB,
       subnets: [{ subnetType: ec2.SubnetType.PRIVATE_ISOLATED }],
     });
 
-    // VPC Endpoint for Fargate
+    // CloudWatch Logs VPC endpoint
     myVpc.addInterfaceEndpoint('LogsEndpointForPrivate', {
       service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
       subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
     });
 
-    // VPC Endpoint for ECR
+    // VPC endpoints for ECR
     myVpc.addInterfaceEndpoint('EcrEndpoint', {
       service: ec2.InterfaceVpcEndpointAwsService.ECR,
       subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },

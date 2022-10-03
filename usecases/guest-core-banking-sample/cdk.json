@@ -1,7 +1,7 @@
 {
   "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-core-banking-sample.ts",
   "context": {
-    "pjPrefix": "BLEA-FSI",
+    "pjPrefix": "BLEA-FSI-CoreBanking",
     "dev": {
       "description": "Context samples for Dev",
       "envName": "Development",

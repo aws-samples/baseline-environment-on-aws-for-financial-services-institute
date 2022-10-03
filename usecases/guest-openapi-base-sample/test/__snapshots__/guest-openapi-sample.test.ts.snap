@@ -812,6 +812,39 @@ Object {
                 },
               ],
             },
+            Object {
+              "Action": "s3:*",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "cloudfront.amazonaws.com",
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:s3:::",
+                      Object {
+                        "Ref": "AppLogBucket71C94073",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:s3:::",
+                      Object {
+                        "Ref": "AppLogBucket71C94073",
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+              "Sid": "AllowCloudFrontOnly",
+            },
           ],
           "Version": "2012-10-17",
         },

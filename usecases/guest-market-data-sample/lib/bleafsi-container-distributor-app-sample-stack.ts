@@ -3,9 +3,7 @@ import { ContainerAppSampleBaseStack } from './bleafsi-container-app-sample-stac
 import { Construct } from 'constructs';
 import { aws_ec2 as ec2 } from 'aws-cdk-lib';
 import { aws_iam as iam } from 'aws-cdk-lib';
-import { aws_logs as cwl } from 'aws-cdk-lib';
 import { aws_kms as kms } from 'aws-cdk-lib';
-import { aws_ecs as ecs } from 'aws-cdk-lib';
 import { aws_ecr as ecr } from 'aws-cdk-lib';
 import { aws_wafv2 as wafv2 } from 'aws-cdk-lib';
 import { aws_elasticloadbalancingv2 as elbv2 } from 'aws-cdk-lib';
@@ -43,8 +41,19 @@ export class ContainerDistributorAppSampleStack extends cdk.NestedStack {
     //Security Group of ALB for App
     const securityGroupForAlb = new ec2.SecurityGroup(this, 'SgAlb', {
       vpc: props.myVpc,
-      allowAllOutbound: true,
+      allowAllOutbound: false,
     });
+    securityGroupForAlb.addEgressRule(
+      ec2.Peer.ipv4('0.0.0.0/0'),
+      ec2.Port.tcp(22),
+      'exsample description', //インバウンドルールの説明
+    );
+    securityGroupForAlb.addEgressRule(
+      ec2.Peer.ipv4('0.0.0.0/0'),
+      ec2.Port.tcp(443),
+      'exsample description', //インバウンドルールの説明
+    );
+
     this.appAlbSecurityGroup = securityGroupForAlb;
 
     // ------------ Application LoadBalancer ---------------

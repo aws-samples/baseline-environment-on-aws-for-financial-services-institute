@@ -65,7 +65,7 @@ function getProcessEnv(): ProcessEnv {
 const procEnv = getProcessEnv();
 
 const appContext: OpenApiFapiStackContextProps = {
-  pjPrefix: 'BLEA-FSI',
+  pjPrefix: app.node.tryGetContext('pjPrefix'),
   envKey: envKey as string,
   dbUser: envVals['dbUser'],
   keycloakContainerImageName: procEnv.keycloakContainerImageName,

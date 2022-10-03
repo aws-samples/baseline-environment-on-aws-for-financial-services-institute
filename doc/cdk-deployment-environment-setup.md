@@ -6,11 +6,9 @@ CloudFormation テンプレートを使って、AWS アカウント上に閉域�
 
 > NOTE: EC2 インスンタスのプロビジョニング時に、共有 S3 バケットから CDK 実行のために必要な資材を EC2 インスタンスにコピーします
 >
-> aws s3 cp s3://bleafsi-share/baseline-environment-on-aws-for-fsi-2022xxxx.zip ./
+> aws s3 cp s3://bleafsi-share/baseline-environment-on-aws-for-fsi-202xxxxx.zip ./
 
 > NOTE: 任意のアカウントに本環境は構築可能です
-
-> NOTE: Preview 版では大阪リージョンに対して本環境を使ってデプロイできない制限があります
 
 ## 構築する環境の構成
 
@@ -28,6 +26,7 @@ CloudFormation テンプレートを使って、AWS アカウント上に閉域�
 - Private Subnet
 - NACL, Security Group
 - EC2 インスタンス（Amazon Linux2, T3 Medium）
+- VPC FlowLogs と LogGroup
 - VPC Endpoint
   - ec2
   - ec2messages
@@ -52,6 +51,7 @@ CloudFormation テンプレートを使って、AWS アカウント上に閉域�
 - Private Subnet
 - NACL, Security Group
 - NAT Gateway, Internet Gateway
+- VPC FlowLogs と LogGroup
 - EC2 インスタンス（Amazon Linux2, T3 Medium）: CDK 実行用
 - EC2 インスタンス（Amazon Linux2, T3 Medium）: Squid Proxy 用
 - VPC Endpoint

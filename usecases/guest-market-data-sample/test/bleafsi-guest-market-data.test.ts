@@ -43,12 +43,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
   beforeAll(() => {
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Vpc/FlowLogBucket/Resource',
-      [{ id: 'AwsSolutions-S1', reason: 'It is a log bucket.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Handler-Container-Image/sample_composer-project/Role/DefaultPolicy/Resource',
+      '/BLEA-FSI-market-data/BLEA-FSI-Handler-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
@@ -70,16 +65,6 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
       marketDataApp,
       '/BLEA-FSI-market-data/BLEA-FSI-Handler-App/EcsTaskExecutionRole/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'Target repo are narrowed to Specified account and region' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Composer-Container-Image/sample_composer-project/Role/DefaultPolicy/Resource',
-      [
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'Policies are managed by L2 construct and target resources are properly controlled',
-        },
-      ],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
@@ -123,7 +108,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
+      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/sample_distributor-project/Role/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-IAM5',
@@ -133,7 +118,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
+      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/sample_distributor-project/Role/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-IAM5',

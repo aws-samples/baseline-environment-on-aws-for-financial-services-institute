@@ -23,6 +23,11 @@ export class DbAuroraPgGlobalMemberStack extends cdk.NestedStack {
   constructor(scope: Construct, id: string, props: DbAuroraPgGlobalMemberProps) {
     super(scope, id, props);
 
+    const rdsSecurityGroup = new ec2.SecurityGroup(this, 'SgRds', {
+      vpc: props.myVpc,
+      allowAllOutbound: false,
+    });
+
     const cluster = new rds.DatabaseCluster(this, 'AuroraCluster', {
       engine: rds.DatabaseClusterEngine.auroraPostgres({
         version: rds.AuroraPostgresEngineVersion.VER_11_9,
@@ -34,6 +39,7 @@ export class DbAuroraPgGlobalMemberStack extends cdk.NestedStack {
         enablePerformanceInsights: true,
         performanceInsightEncryptionKey: props.appKey,
         performanceInsightRetention: rds.PerformanceInsightRetention.DEFAULT, // 7 days
+        securityGroups: [rdsSecurityGroup],
       },
       removalPolicy: cdk.RemovalPolicy.SNAPSHOT,
       storageEncrypted: true,
@@ -44,6 +50,9 @@ export class DbAuroraPgGlobalMemberStack extends cdk.NestedStack {
     });
 
     cluster.connections.allowDefaultPortFrom(props.appServerSecurityGroup);
+
+    // パスワードをローテーションする
+    // cluster.addRotationSingleUser();
 
     const cfnCluster = cluster.node.defaultChild as rds.CfnDBCluster;
     cfnCluster.masterUsername = undefined;

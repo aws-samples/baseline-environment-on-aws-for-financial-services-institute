@@ -87,7 +87,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
       '/BLEA-FSI-core-banking-primary/BLEA-FSI-MonitorAlarm/MonitorAlarmTopic/Resource',
-      [{ id: 'AwsSolutions-SNS2', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-SNS2', reason: 'SNS encryption is an option.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
@@ -141,18 +141,13 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
-      '/BLEA-FSI-core-banking-primary/BLEA-FSI-ECSApp/containerAppSampleBase/EcsTaskExecutionRole/Resource',
-      [{ id: 'AwsSolutions-IAM4', reason: 'To be implemented later.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      primaryApp,
       '/BLEA-FSI-core-banking-primary/BLEA-FSI-ECSApp/containerAppSampleBase/EcsTaskExecutionRole/DefaultPolicy/Resource',
-      [{ id: 'AwsSolutions-IAM5', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-IAM5', reason: 'Target repo are narrowed to specified account and region.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
       '/BLEA-FSI-core-banking-primary/BLEA-FSI-ECSApp/containerAppSampleBase/EcsTask/Resource',
-      [{ id: 'AwsSolutions-ECS2', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-ECS2', reason: 'Not secrets value, just a environment values.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
@@ -191,23 +186,13 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
-      '/BLEA-FSI-core-banking-primary/BLEA-FSI-DBAuroraPg/AuroraCluster/Secret/Resource',
-      [{ id: 'AwsSolutions-SMG4', reason: 'To be implemented later.' }],
+      '/BLEA-FSI-core-banking-primary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
+      [{ id: 'AwsSolutions-RDS6', reason: 'It is not used for performance considerations.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
       '/BLEA-FSI-core-banking-primary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
-      [{ id: 'AwsSolutions-RDS6', reason: 'To be implemented later.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      primaryApp,
-      '/BLEA-FSI-core-banking-primary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
-      [{ id: 'AwsSolutions-RDS10', reason: 'To be reviewed later.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      primaryApp,
-      '/BLEA-FSI-core-banking-primary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
-      [{ id: 'AwsSolutions-RDS15', reason: 'To be reviewed later.' }],
+      [{ id: 'AwsSolutions-RDS10', reason: 'This sample must be easy to remove.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
@@ -244,7 +229,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEA-FSI-core-banking-secondary/BLEA-FSI-MonitorAlarm/MonitorAlarmTopic/Resource',
-      [{ id: 'AwsSolutions-SNS2', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-SNS2', reason: 'SNS encryption is an option.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
@@ -383,38 +368,34 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
-      '/BLEA-FSI-core-banking-secondary/BLEA-FSI-ECSApp/containerAppSampleBase/EcsTaskExecutionRole/Resource',
-      [{ id: 'AwsSolutions-IAM4', reason: 'To be implemented later.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      secondaryApp,
       '/BLEA-FSI-core-banking-secondary/BLEA-FSI-ECSApp/containerAppSampleBase/EcsTaskExecutionRole/DefaultPolicy/Resource',
-      [{ id: 'AwsSolutions-IAM5', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-IAM5', reason: 'Target repo are narrowed to specified account and region.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEA-FSI-core-banking-secondary/BLEA-FSI-ECSApp/containerAppSampleBase/EcsTask/Resource',
-      [{ id: 'AwsSolutions-ECS2', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-ECS2', reason: 'Not secrets value, just a environment values.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEA-FSI-core-banking-secondary/BLEA-FSI-DBAuroraPg/AuroraCluster/Secret/Resource',
-      [{ id: 'AwsSolutions-SMG4', reason: 'To be implemented later.' }],
+      [
+        {
+          id: 'AwsSolutions-SMG4',
+          reason:
+            'It is difficult to implement the rotation because Serverless Application Repository is not supported in ap-northeast-3.',
+        },
+      ],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEA-FSI-core-banking-secondary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
-      [{ id: 'AwsSolutions-RDS6', reason: 'To be implemented later.' }],
+      [{ id: 'AwsSolutions-RDS6', reason: 'It is not used for performance considerations.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEA-FSI-core-banking-secondary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
-      [{ id: 'AwsSolutions-RDS10', reason: 'To be reviewed later.' }],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      secondaryApp,
-      '/BLEA-FSI-core-banking-secondary/BLEA-FSI-DBAuroraPg/AuroraCluster/Resource',
-      [{ id: 'AwsSolutions-RDS15', reason: 'To be reviewed later.' }],
+      [{ id: 'AwsSolutions-RDS10', reason: 'This sample must be easy to remove.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,

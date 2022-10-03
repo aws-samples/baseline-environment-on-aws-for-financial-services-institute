@@ -397,7 +397,6 @@ Resources:
             VolumeType: 'gp3'
             VolumeSize: '8'
             Encrypted: 'true'
-      DisableApiTermination: true
       Tags:
         - Key: Name
           Value: PrivateCdkEnvStack/BLEAFSICdkEnvInstance
@@ -426,7 +425,7 @@ Resources:
             if [[ $? == 0 ]]; then iawscli=true; else iawscli=false; fi
             npm -v
             if [[ $? == 0 ]]; then inpm=true; else inpm=false; fi
-            if [[ $iawscli && $inpm ]]; then err=0; else err=1; fi
+            if [[ "$iawscli" == true && "$inpm" == true ]]; then err=0; else err=1; fi
             echo "last result code=${!err}"
             /opt/aws/bin/cfn-signal -e $err --stack ${AWS::StackName} \
             --resource BLEAFSICdkEnvInstance72D4CD20 --region ${AWS::Region}
@@ -453,14 +452,13 @@ Resources:
             - BLEAFSICdkEnvInstanceSg17EEF39B
             - GroupId
       SubnetId:
-        Ref: BLEAFSICdkEnvpublicsubnet1Subnet1Subnet7627FC33
+        Ref: BLEAFSICdkEnvprivatesubnet1Subnet1Subnet72240A4F
       BlockDeviceMappings:
         - DeviceName: '/dev/xvda'
           Ebs:
             VolumeType: 'gp3'
             VolumeSize: '8'
             Encrypted: 'true'
-      DisableApiTermination: true
       Tags:
         - Key: Name
           Value: PrivateCdkEnvStack/BLEAFSIProxyInstance

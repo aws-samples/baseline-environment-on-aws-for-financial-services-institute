@@ -6,7 +6,7 @@ Finance reference architecture for Japan consists of three contents.
 
 - [Well-Architected Framework FSI Lens for FISC](#well-architected-framework-fsi-lens-for-fisc)
 - [Best practices for financial workloads](#best-practices-for-financial-workloads)
-- [Baseline Environment on AWS for Financial Services Institute](#baseline-environment-on-aws-for-fsi)
+- [Baseline Environment on AWS for Financial Services Institute](#Baseline Environment on AWS for Financial Services Institute)
 
 # Well-Architected Framework FSI Lens for FISC
 
@@ -21,37 +21,39 @@ Best practices for financial workloads is an asset provided as a part of "Financ
 - **Core Banking**
 
   - [Architecture overview [Core Banking]
-    ](doc/reference-arc-core-banking/FinRA-core-banking-Arch-readme.md)
+    ](doc/reference-arc-core-banking/core-banking-arch-readme.md)
   - [Countermeasures for FISC practical standards [Core Banking]
-    ](doc/reference-arc-core-banking/FISC_Mapping_core-banking.md)
+    ](doc/reference-arc-core-banking/fisc-mapping-core-banking.md)
   - [CDK sample code [Core Banking]
-    ](doc/deploy-core-banking-sample.md)
+    ](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 
 - **Customer Channel**
 
   - [Architecture overview [Customer Channel]
-    ](doc/reference-arc-customer-channel/FinRA-customer-channel-Arch-readme.md)
+    ](doc/reference-arc-customer-channel/customer-channel-arch-readme.md)
   - [Countermeasures for FISC practical standards [Customer Channel]
-    ](doc/reference-arc-customer-channel/FISC_Mapping_customer-channel.md)
+    ](doc/reference-arc-customer-channel/fisc-mapping-customer-channel.md)
   - [CDK sample code [Customer Channel]
-    ](doc/deploy-customer-channel-sample.md)
+    ](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 
 - **Open API**
 
-  - [Architecture overview [Open API]
-    ](doc/reference-arc-open-api/FinRA-OpenAPI-Arch-readme.md)
-  - [Countermeasures for FISC practical standards [Open API]
-    ](doc/reference-arc-open-api/FISC_Mapping_OpenAPI.md)
-  - [CDK sample code [Open API]
-    ](doc/deploy-open-api-sample.md)
+  - [Architecture overview [Open API]  
+    ](doc/reference-arc-open-api/open-api-arch-readme.md)
+  - [Countermeasures for FISC practical standards [Open API]  
+    ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
+  - [CDK sample code [Open API Basic]  
+    ](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+  - [CDK sample code [Open API FAPI]  
+    ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **Market Data**
   - [Architecture overview [Market Data]
-    ](doc/reference-arc-market-data/FinRA-market-data-Arch-readme.md)
+    ](doc/reference-arc-market-data/market-data-arch-readme.md)
   - [Countermeasures for FISC practical standards [Market Data]
-    ](doc/reference-arc-market-data/FISC_Mapping_market-data.md)
+    ](doc/reference-arc-market-data/fisc-mapping-market-data.md)
   - [CDK sample code [Market Data]
-    ](doc/deploy-market-data-sample.md)
+    ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
@@ -64,15 +66,7 @@ Based on [BLEA](https://github.com/aws-samples/baseline-environment-on-aws/), a 
 - Customer Channels
 - Market Data
 
-> NOTE: BLEA for FSI is based on the secure baseline provided by BLEA for AWS Control Tower and Multi-Account Edition [v2.0.0].  
-> See BLEA v2.0.0: [https://github.com/aws-samples/baseline-environment-on-aws/tree/v2.0.0]
-
-See below for the Governance Baseline of 'BLEA for FSI' and each sample application's compliance with the FISC Security Standards (9th edition, December 2021) , Code of Practice.
-
-- [1. [Account] Sample Applications
-  ](doc/fiscmapping-core-banking-sample.md)
-
-Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI governance-based deployment](/doc/DeployBleaForFIS.md) | [Pipeline deployment](lib/ blea/tools/cicd/README_en.md)
+Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI governance-based deployment](doc/deploy-governance-base.md) | [Pipeline deployment](lib/ blea/tools/cicd/README_en.md)
 
 ## Governance Architecture
 
@@ -147,18 +141,18 @@ If you cannot directly connect to the Internet from the client environment, plea
 ### Deployment Procedure
 
 - [1. 'BLEA for FSI' Governance Base Setup Instructions](doc/deploy-governance-base.md)
-- [2. [Banking] Sample Application Setup Instructions](doc/deploy-core-banking-sample.md)
+- [2. [Core Banking] Sample Application Setup Instructions](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
+- [3. [Customer Channel] Sample Application Setup Instructions](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
+- [4-1. [Open API] Sample Application Setup Instructions Base](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+- [4-2. [Open API] Sample Application Setup Instructions FAPI](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
+- [5. [Market Data] Sample Application Setup Instructions](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 ## Develop your own application
 
 After deploying 'BLEA for FSI', you will use the sample code as a starting point to develop your own application for your own use case. The following is the information required for general development.
 
-- [Normal development Flow](doc/doc/how-to.md#通常の開発の流れ)
+- [Normal development Flow](doc/how-to.md#通常の開発の流れ)
 - [Updating Dependent Packages](doc/how-to.md#依存パッケージの最新化)
-
-## Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
 ## License
 

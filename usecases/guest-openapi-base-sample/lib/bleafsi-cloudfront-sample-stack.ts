@@ -4,6 +4,7 @@ import { aws_cloudfront as cloudfront } from 'aws-cdk-lib';
 import { aws_cloudfront_origins as cloudfront_origins } from 'aws-cdk-lib';
 import { aws_certificatemanager as acm } from 'aws-cdk-lib';
 import { aws_s3 as s3 } from 'aws-cdk-lib';
+import { aws_iam as iam } from 'aws-cdk-lib';
 
 import { OpenApiBaseContextProps } from '../lib/shared/bleafsi-types';
 
@@ -29,6 +30,15 @@ export class SampleCfStack extends cdk.Stack {
       versioned: true,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
+    appLogBucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        sid: 'AllowCloudFrontOnly',
+        effect: iam.Effect.ALLOW,
+        actions: ['s3:*'],
+        resources: [`arn:aws:s3:::${appLogBucket.bucketName}`, `arn:aws:s3:::${appLogBucket.bucketName}/*`],
+        principals: [new iam.ServicePrincipal('cloudfront.amazonaws.com')],
+      }),
+    );
 
     // Create CF distribution
     new cloudfront.Distribution(this, 'OpenApiDistribution', {

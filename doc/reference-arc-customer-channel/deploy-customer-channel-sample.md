@@ -1,6 +1,6 @@
 # [顧客チャネル] サンプルアプリケーションのデプロイ手順
 
-[リポジトリの README に戻る](../README.md)
+[リポジトリの README に戻る](../../README.md)
 
 ここでは BLEA for FSI のガバナンスベースがデプロイされたアカウントに [顧客チャネル] サンプルアプリケーションを導入する手順について記述します。
 
@@ -13,15 +13,15 @@
 AWS IAM Identity Center の設定を行うために管理者アカウントでマネジメントコンソールを開きます。
 以下の手順に従い、アプリケーションを追加します。
 
-[AWS Single Sign-On ユーザーガイド > アプリケーションへの SSO を管理する > クラウドアプリケーション](https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/saasapps.html#saasapps-addconfigapp)
+[AWS IAM Identity Center ユーザーガイド > アプリケーションの割り当て > クラウドアプリケーション](https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/saasapps.html#saasapps-addconfigapp)
 
 - 追加するアプリケーションとして **Amazon Connect** を選択します。
-- **AWS SSO メタデータ** の項にある **AWS SSO SAML メタデータファイル** をダウンロードします。
+- **IAM Identity Center メタデータ** の項にある **IAM Identity Center SAML メタデータファイル** をダウンロードします。
 - それ以外の項目は一旦全てデフォルトで追加します。
 
 AWS IAM Identity Center（旧 AWS SSO) と Amazon Connect の連携については以下の資料も参照してください。
 
-[AWS SSO を使用して Amazon Connect インスタンスの SAML 2.0 ベースの認証をセットアップするにはどうすればよいですか?](https://aws.amazon.com/jp/premiumsupport/knowledge-center/connect-saml-2-authentication-aws-sso/)
+[IAM アイデンティティーセンター を使用して Amazon Connect インスタンスの SAML 2.0 ベースの認証をセットアップするにはどうすればよいですか?](https://aws.amazon.com/jp/premiumsupport/knowledge-center/connect-saml-2-authentication-aws-sso/)
 
 ### 2. サンプルアプリケーションをデプロイする (Local)
 
@@ -106,18 +106,28 @@ SAML 連携時は `identityManagementType` の部分を以下の様に書き換�
 
 #### 2-2. ゲストアプリケーションをデプロイする
 
-（ログインしていない場合） AWS SSO を使ってゲストアカウントにログインします。
+（ログインしていない場合） AWS IAM Identity Center（旧 AWS SSO) を使ってゲストアカウントにログインします。
 
 ```sh
 aws sso login --profile ct-guest-sso
 ```
 
-サンプルアプリケーションをデプロイします。
+ゲストアカウントで CDK ブートストラップを実行します（Context に指定した 3 つのリージョンでブートストラップ処理が行われます）。
 
 ```sh
 cd usecases/guest-customer-channel-sample
+npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+```
+
+サンプルアプリケーションをデプロイします。
+
+```sh
 npx cdk deploy --all -c environment=dev --profile ct-guest-sso
 ```
+
+> NOTE:  
+> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
+> `--require-approval never` オプションを指定して下さい
 
 ### 3. （AWS IAM Identity Center（旧 AWS SSO) との SAML 連携時のみ） AWS IAM Identity Center クラウドアプリケーションの設定を変更する (MC)
 
@@ -151,7 +161,8 @@ BLEAFSICustomerChannelPrimaryStack.ConnectInstanceSamlRoleArnD5AF7EEB = arn:aws:
 
 #### 3-2. リレーステートを変更する
 
-**アプリケーションのプロパティ** の項目から **リレーステート** を変更します。
+クラウドアプリケーションの画面で、右上の **アクション** を選択し、 **設定の編集** を選択します。
+**アプリケーションのプロパティ** の項目から **リレー状態** を変更します。
 上のスタックの出力においては、 `https://ap-northeast-1.console.aws.amazon.com/connect/federate/aaaaaaaa-0000-bbbb-1111-cccccccccccc` をリレーステートとして指定します。
 
 ### 4. (オプション) Amazon Connect インスタンスにアクセスして動作確認する (MC)

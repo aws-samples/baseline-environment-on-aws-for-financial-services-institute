@@ -129,7 +129,7 @@ aws sso logout --profile ct-guest-sso
 aws sso login --profile ct-management-sso
 ```
 
-大阪リージョンで CDK ブートストラップを実行します。
+管理アカウントの大阪リージョンで CDK ブートストラップを実行します。
 
 ```sh
 cd usecases/base-ct-guest-osa
@@ -139,9 +139,9 @@ npx cdk bootstrap -c environment=dev --profile ct-management-sso
 CDK を使い StackSet を経由してゲストアカウントに対して Config 設定をデプロイします。
 
 ```sh
-npx cdk synthesize --all --app "npx ts-node --prefer-ts-exts bin/bleafsi-base-generate-stack.ts" --no-rollback -c environment=dev --profile ct-management-sso > bleafsi-base-ct-config.yaml
+npx cdk synthesize --all --app "npx ts-node --prefer-ts-exts bin/bleafsi-base-generate-stack.ts" -c environment=dev --profile ct-management-sso > bleafsi-base-ct-config.yaml
 
-npx cdk deploy --all --app "npx ts-node --prefer-ts-exts bin/bleafsi-base-ct-guest-config.ts" -c environment=dev --profile ct-management-sso
+npx cdk deploy --all --app "npx ts-node --prefer-ts-exts bin/bleafsi-base-ct-guest-config.ts" --no-rollback -c environment=dev --profile ct-management-sso
 ```
 
 ### 5-3. ゲストアカウントにガバナンスベースをデプロイする(Local)

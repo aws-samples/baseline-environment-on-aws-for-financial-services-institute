@@ -61,11 +61,13 @@ Control Tower を使って新しいアカウント（ゲストアカウント）
 
 #### 3-1. リポジトリの取得
 
-BLEA for FSI の git リポジトリは、AWS 金融ソリューションの担当 SA から入手して下さい。
+github から BLEA for FSI の git リポジトリを clone して下さい。
 
 ```sh
-cd baseline-environment-on-aws-for-fsi
+git clone https://github.com/aws-samples/baseline-environment-on-aws-for-financial-services-institute.git
 ```
+
+[https でコードを取得する例]
 
 #### 3-2. 依存する NPM パッケージのインストール
 
@@ -256,6 +258,10 @@ cd usecases/base-ct-logging
 npx cdk deploy --all -c environment=dev --profile ct-logging-exec
 ```
 
+> NOTE:  
+> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
+> `--require-approval never` オプションを指定して下さい
+
 この CDK テンプレートのデプロイによって以下の機能がセットアップされます
 
 - S3 バケット作成 [CloudTrail データイベント, 大阪リージョン用の Config データ]
@@ -356,6 +362,10 @@ cd usecases/base-ct-guest
 npx cdk deploy --all -c environment=dev --profile ct-guest-sso
 ```
 
+> NOTE:  
+> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
+> `--require-approval never` オプションを指定して下さい
+
 CDK テンプレートの実行後に Session Manager ログを保管する S3 バケット名が出力されますので、記録しておいて下さい。
 
 | 表示名                     | 用途                                   |
@@ -383,16 +393,22 @@ CDK テンプレートの実行後に Session Manager ログを保管する S3 �
 
 - [手順] [アカウントのパブリックアクセスブロック設定の構成](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/configuring-block-public-access-account.html)
 
-#### 7-4. (オプション) SSM セッションマネージャーの S3 ログ出力を手動でセットアップする(MC)
+#### 7-4. セキュリティ指摘事項の修復
+
+ガバナンスベースをデプロイした後でも、Security Hub のベンチマークレポートで 重要度が CRITICAL あるいは HIGH のレベルでレポートされる検出項目があります。これらに対しては手動で対応が必要です。必要に応じて修復(Remediation)を実施してください。
+
+- [セキュリティ指摘事項の修復](HowTo.md#セキュリティ指摘事項の修復)
+
+#### 7-5. (オプション) SSM セッションマネージャーの S3 ログ出力を手動でセットアップする(MC)
 
 - [手順] [SSM セッションマネージャーの S3 ログ出力を手動でセットアップ](./manual-deploy-governance-base.md#ssm-セッションマネージャーの-s3-ログ出力を手動でセットアップ)
 
-#### 7-5. (オプション) 他のベースラインセットアップを手動でセットアップする(MC)
+#### 7-6. (オプション) 他のベースラインセットアップを手動でセットアップする(MC)
 
 ガバナンスベースでセットアップする他に
 AWS はいくつかの運用上のベースラインサービスを提供しています。必要に応じてこれらのサービスのセットアップを行なってください。
 
-##### a. EC2 管理のため AWS Systems Manager Quick Setup を実施する
+#### a. EC2 管理のため AWS Systems Manager Quick Setup を実施する
 
 EC2 を利用する場合は Systems Manager を利用して管理することをお勧めします。AWS Systems Manager Quick Setup を使うことで、EC2 の管理に必要な基本的なセットアップを自動化できます。
 
@@ -407,13 +423,19 @@ Quick Setup は以下の機能を提供します:
 - 初回のみの、Amazon CloudWatch agent のインストールと設定
 - CloudWatch agent の月次自動アップデート
 
-##### b. Trusted Advisor の検知結果レポート
+#### b. Trusted Advisor の検知結果レポート
 
 Trusted Advisor は AWS のベストプラクティスをフォローするためのアドバイスを提供します。レポート内容を定期的にメールで受け取ることが可能です。詳細は下記ドキュメントを参照してください。
 
 - [AWS ドキュメント: AWS Trusted Advisor 開始方法](https://docs.aws.amazon.com/awssupport/latest/user/get-started-with-aws-trusted-advisor.html#preferences-trusted-advisor-console)
 
-##### c. CloudTrail による S3 データイベントの記録
+#### c. Amazon Macie による S3 バケットの機密データ保護
+
+Amazon Macie は機械学習とパターンマッチングにより S3 バケット上に保管された機密データの検出と保護を行うデータプライバシーのサービスです。Macie により自動で継続的に全ての S3 バケットが評価され、PII などの機密データの特定、暗号化されていない／パブリックアクセスが許可された/Organizatios 外のアカウントからの共有などの情報を含む S3 インベントが作成され、アラートが送信されます。
+
+- [AWS ドキュメント: Amazon Macie 開始方法](https://docs.aws.amazon.com/ja_jp/macie/latest/user/getting-started.html)
+
+#### d. CloudTrail による S3 データイベントの記録
 
 デフォルトでは全てのアカウントで CloudTrail が有効化され、管理操作に対する API 呼出が記録されます。データイベントに対する CloudTrail の有効化は必要に応じて実施して下さい。FISC 実務基準への対応の観点では、ユーザーデータが保管される S3 バケットに対しては CloudTrail データイベントの記録を行うことを推奨します。
 
@@ -449,12 +471,6 @@ cdk.json に必要な値を設定した後に、下記のコマンドを実行�
 cd usecases/base-ct-guest
 npx cdk deploy --all --app "npx ts-node --prefer-ts-exts bin/bleafsi-base-ct-guest-trail-dataevent.ts" -c environment=dev --profile ct-guest-sso
 ```
-
-#### 7-6. セキュリティ指摘事項の修復
-
-ガバナンスベースをデプロイした後でも、Security Hub のベンチマークレポートで 重要度が CRITICAL あるいは HIGH のレベルでレポートされる検出項目があります。これらに対しては手動で対応が必要です。必要に応じて修復(Remediation)を実施してください。
-
-- [セキュリティ指摘事項の修復](HowTo.md#セキュリティ指摘事項の修復)
 
 以上でガバナンスベースラインのデプロイは完了です。
 
