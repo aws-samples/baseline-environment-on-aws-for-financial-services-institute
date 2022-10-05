@@ -47,9 +47,9 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
     ](doc/reference-arc-open-api/open-api-arch-readme.md)
   - [FISC 実務基準対策 一覧 [オープン API]
     ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
-  - [CDK サンプルコード [オープン API 参照・照会系]  
+  - [CDK サンプルコード [オープン API ベーシック]  
     ](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
-  - [CDK サンプルコード [オープン API 更新・実行系]  
+  - [CDK サンプルコード [オープン API 金融グレード(FAPI)]  
     ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **マーケットデータ**
@@ -157,8 +157,8 @@ BLEA for FSI は AWS Control Tower によるマルチアカウント環境を前
 - [1. BLEA for FSI ガバナンスベース のセットアップ手順](doc/deploy-governance-base.md)
 - [2. [勘定系] サンプルアプリケーションのセットアップ手順](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 - [3. [顧客チャネル] サンプルアプリケーションのセットアップ手順](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
-- [4-1. [Open API 参照・照会系 ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
-- [4-2. [Open API 更新・実行系] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
+- [4-1. [Open API ベーシック ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+- [4-2. [Open API 金融グレード(FAPI)] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 - [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 ## 独自のアプリケーションを開発する

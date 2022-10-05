@@ -1,8 +1,8 @@
-# [OpenAPI] 更新・実行系 サンプル環境のデプロイ手順
+# [OpenAPI] 金融グレード(FAPI) サンプル環境のデプロイ手順
 
 [リポジトリの README に戻る](../../README.md)
 
-ここでは BLEA for FSI のガバナンスベースがデプロイされたアカウントに [OpenAPI] FAPI(更新・実行系） サンプル環境を導入する手順について記述します。
+ここでは BLEA for FSI のガバナンスベースがデプロイされたアカウントに [OpenAPI] 金融グレード(FAPI) サンプル環境を導入する手順について記述します。
 
 > `MC`はマネジメントコンソールでの作業を、`Local`は手元環境での作業を示します。
 
@@ -263,6 +263,13 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 | primaryRegion.vpcCidr       | 作成する VPC の CIDR                           |
 
 #### 2-2. ゲストアプリケーションをデプロイする(Local)
+
+ゲストアカウントで CDK ブートストラップを実行します。(すでに実行済みの場合は不要)
+
+```sh
+cd usecases/guest-openapi-fapi-sample
+npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+```
 
 サンプル環境をデプロイします。
 

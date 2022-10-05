@@ -44,7 +44,7 @@ Best practices for financial workloads is an asset provided as a part of "Financ
     ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
   - [CDK sample code [Open API Basic]  
     ](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
-  - [CDK sample code [Open API FAPI]  
+  - [CDK sample code [Open API Financial Grade(FAPI)]  
     ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **Market Data**
@@ -143,8 +143,8 @@ If you cannot directly connect to the Internet from the client environment, plea
 - [1. 'BLEA for FSI' Governance Base Setup Instructions](doc/deploy-governance-base.md)
 - [2. [Core Banking] Sample Application Setup Instructions](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 - [3. [Customer Channel] Sample Application Setup Instructions](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
-- [4-1. [Open API] Sample Application Setup Instructions Base](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
-- [4-2. [Open API] Sample Application Setup Instructions FAPI](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
+- [4-1. [Open API] Sample Application Setup Instructions Basic](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
+- [4-2. [Open API] Sample Application Setup Instructions Financial Grade(FAPI)](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 - [5. [Market Data] Sample Application Setup Instructions](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 ## Develop your own application

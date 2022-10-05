@@ -1,8 +1,8 @@
-# [OpenAPI] 参照・照会系 API サンプル環境のデプロイ手順
+# [OpenAPI] ベーシック API サンプル環境のデプロイ手順
 
 [リポジトリの README に戻る](../../README.md)
 
-ここでは BLEA for FSI のガバナンスベースがデプロイされたアカウントに [OpenAPI] ベーシック（参照・照会系） API サンプル環境を導入する手順について記述します。
+ここでは BLEA for FSI のガバナンスベースがデプロイされたアカウントに [OpenAPI] ベーシック API サンプル環境を導入する手順について記述します。
 
 > `MC`はマネジメントコンソールでの作業を、`Local`は手元環境での作業を示します。
 
@@ -45,7 +45,7 @@ aws sso login --profile ct-guest-sso
 
 ACM に登録後、各証明書の ARN を AWS マネージメントコンソール で確認し、後続の `2-1` で Context として設定します。
 
-### 2. 参照系 API サンプル環境をデプロイする(Local)
+### 2. ベース API サンプル環境をデプロイする(Local)
 
 ゲストアカウントに IAM Access Identity で認証している状態からのデプロイメントの手順を示します。
 
@@ -82,6 +82,13 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 | certIdarnCf      | AWS CloudFront 用サーバー証明書の ARN        |
 
 #### 2-2. ゲストアプリケーションをデプロイする(Local)
+
+ゲストアカウントで CDK ブートストラップを実行します。(すでに実行済みの場合は不要)
+
+```sh
+$ cd usecases/guest-openapi-base-sample
+$ npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+```
 
 サンプル環境をデプロイします。
 
