@@ -131,7 +131,7 @@ region = ap-northeast-1
 
 > NOTE:
 >
-> Control Tower の仕様により、Audit アカウントにデプロイするためには、まずマネジメントアカウントの `AWSAdministratorAccess` ロールでログインし、Audit アカウントの`WSAdministratorAccess`ロールにスイッチして処理を実行する必要があります。
+> Control Tower の仕様により、Audit アカウントにデプロイするためには、まずマネジメントアカウントの `AWSAdministratorAccess` ロールでログインし、Audit アカウントの`AWSAdministratorAccess`ロールにスイッチして処理を実行する必要があります。
 >
 > `ct-management-sso`プロファイルで SSO ログインすることで、`ct-logging-exec-role`プロファイルを使って Audit アカウント上での操作が可能です。これに CDK からアクセスするため、ラッピングされたプロファイルである `ct-logging-exec` を使用します。
 
@@ -164,8 +164,6 @@ aws sso login --profile ct-guest-sso
 ```
 
 このコマンドによって ブラウザが起動し、AWS IAM Identity Center のログイン画面が表示されます。ゲストアカウントの管理者ユーザー名（メールアドレス）とパスワードを正しく入力すると画面がターミナルに戻り、 AWS CLI で ゲストアカウントでの作業が可能になります。
-
-> NOTE: `ct-guest`プロファイルは aws2-warp を経由した認証を行なっており、CDK を実行する場合に使用します。
 
 ### 5. Control Tower 管理者 アカウントでの追加設定(MC)
 
@@ -205,8 +203,7 @@ usecases/base-ct-logging/cdk.json
   "context": {
     "dev": {
       "description": "Context samples for Dev - Anonymous account & region",
-      "envName": "Development",
-      "securityNotifyEmail": "notify-security@example.com"
+      "envName": "Development"
     },
     "stage": {
       "description": "Context samples for Staging - Specific account & region  ",
@@ -214,22 +211,21 @@ usecases/base-ct-logging/cdk.json
         "account": "111111111111",
         "region": "ap-northeast-1"
       },
-      "envName": "Staging",
-      "securityNotifyEmail": "notify-security@example.com"
-    }
+      "envName": "Staging"
+    },
+    ・・・
   }
 }
 ```
 
 この設定内容は以下の通りです。
 
-| key                 | value                                                                                        |
-| ------------------- | -------------------------------------------------------------------------------------------- |
-| description         | 設定についてのコメント                                                                       |
-| env.account         | デプロイ対象のアカウント ID。CLI の profile で指定するアカウントと一致している必要があります |
-| env.region          | デプロイ対象のリージョン。CLI の profile で指定するリージョンと一致している必要があります    |
-| envName             | 環境名。これが各々のリソースタグに設定されます                                               |
-| securityNotifyEmail | セキュリティに関する通知が送られるメールアドレス。                                           |
+| key         | value                                                                                        |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| description | 設定についてのコメント                                                                       |
+| env.account | デプロイ対象のアカウント ID。CLI の profile で指定するアカウントと一致している必要があります |
+| env.region  | デプロイ対象のリージョン。CLI の profile で指定するリージョンと一致している必要があります    |
+| envName     | 環境名。これが各々のリソースタグに設定されます                                               |
 
 #### 6-2. Log Archive アカウントにガバナンスベースをデプロイする
 
@@ -250,6 +246,7 @@ npx cdk bootstrap -c environment=dev --profile ct-logging-exec
 >
 > - ここでは BLEA 環境にインストールしたローカルの cdk を利用するため、`npx`を使用しています。直接`cdk`からコマンドを始めた場合は、グローバルインストールされた cdk が利用されます。
 > - cdk コマンドを利用するときに便利なオプションがあります。[デプロイ時の承認をスキップしロールバックさせない](how-to.md#デプロイ時の承認をスキップしロールバックさせない)を参照してください。
+> - デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は `--require-approval never` オプションを指定して下さい
 
 Log Archive アカウントのガバナンスベースをデプロイします。
 
@@ -257,10 +254,6 @@ Log Archive アカウントのガバナンスベースをデプロイします�
 cd usecases/base-ct-logging
 npx cdk deploy --all -c environment=dev --profile ct-logging-exec
 ```
-
-> NOTE:  
-> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
-> `--require-approval never` オプションを指定して下さい
 
 この CDK テンプレートのデプロイによって以下の機能がセットアップされます
 
