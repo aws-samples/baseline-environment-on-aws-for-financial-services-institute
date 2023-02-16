@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { BaseCTStack } from '../lib/bleafsi-base-ct-logging-stack';
-import { DevParameter } from './parameter';
+import { PjPrefix, DevParameter, StageParameter, ProdParameter } from './parameter';
 
 /*
  * Control Tower Log Archiveアカウントにログ集約 S3 バケットを作成
@@ -10,11 +10,23 @@ import { DevParameter } from './parameter';
 const app = new cdk.App();
 
 // スタック作成
-new BaseCTStack(app, `${DevParameter.pjPrefix}-Dev`, {
+// for Development
+const DevStack = new BaseCTStack(app, `${PjPrefix}-Dev`, {
   env: DevParameter.env,
+});
+
+// for Staging
+const StageStack = new BaseCTStack(app, `${PjPrefix}-Stage`, {
+  env: StageParameter.env,
+});
+
+// for Production
+const ProdStack = new BaseCTStack(app, `${PjPrefix}-Prod`, {
+  env: ProdParameter.env,
 });
 
 // Tagging "Environment" tag to all resources in this app
 const envTagName = 'Environment';
-const envTagVal = 'logging';
-cdk.Tags.of(app).add(envTagName, envTagVal);
+cdk.Tags.of(DevStack).add(envTagName, DevParameter.envName);
+cdk.Tags.of(StageStack).add(envTagName, StageParameter.envName);
+cdk.Tags.of(ProdStack).add(envTagName, ProdParameter.envName);

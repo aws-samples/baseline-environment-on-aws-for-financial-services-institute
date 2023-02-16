@@ -198,21 +198,15 @@ usecases/base-ct-logging/bin/parameter.ts
 usecases/base-ct-logging/bin/parameter.ts
 
 ```js
-// ----------------------- Environment variables for stack ------------------------------
-// for Dev - Anonymous account & region
+// Parameter for Dev - Anonymous account & region
 export const DevParameter: StackParameter = {
   envName: 'Development',
-  pjPrefix: PjPrefix,
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+  env: EnvDefault,
 };
 
-//for Staging
+// Parameter for Staging
 export const StageParameter: StackParameter = {
   envName: 'Staging',
-  pjPrefix: PjPrefix,
   env: {
     account: '111111111111',
     region: 'ap-northeast-1',
@@ -290,25 +284,19 @@ usecases/base-ct-guest/bin/parameter.ts
 usecases/base-ct-guest/bin/parameter.ts
 
 ```js
-// ----------------------- Environment variables for stack ------------------------------
-// for Dev - Anonymous account & region
+// Parameter for Dev - Anonymous account & region
 export const DevParameter: StackParameter = {
   envName: 'Development',
-  pjPrefix: PjPrefix,
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+  env: EnvDefault,
   securityNotifyEmail: 'notify-security@example.com',
   controlTowerKMSKeyArn: 'dummy-key-arn',
   cloudTrailBucketName: 'dummy-bucket-name',
-  targetBuckets: ['dummy-bucket-name'],
+  targetBuckets: ['dummy-bucekt-name'],
 };
 
-//for Staging
+// Parameter for Staging
 export const StageParameter: StackParameter = {
   envName: 'Staging',
-  pjPrefix: PjPrefix,
   env: {
     account: '111111111111',
     region: 'ap-northeast-1',
@@ -443,14 +431,10 @@ Amazon Macie は機械学習とパターンマッチングにより S3 バケッ
 
 ```js
 // ----------------------- Environment variables for stack ------------------------------
-// for Dev - Anonymous account & region
+// Parameter for Dev - Anonymous account & region
 export const DevParameter: StackParameter = {
   envName: 'Development',
-  pjPrefix: PjPrefix,
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+  env: EnvDefault,
   securityNotifyEmail: 'notify-security@example.com',
   controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:111111111111:key/11111111-2222-3333-4444-555555555555',
   cloudTrailBucketName: 'bleafsi-base-dev-bucket22222222-xxxxxxxxxxxxx',

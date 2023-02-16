@@ -1,13 +1,17 @@
 import { Environment } from 'aws-cdk-lib';
 
-// ----------------------- Environment variables interface definition ------------------------------
-const PjPrefix = 'BLEAFSI-Base';
+// ----------------------- constant definition ------------------------------
+//Default environment
+const EnvDefault = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
 
+// ----------------------- Environment variables interface definition ------------------------------
 //Default parameter definition
 interface DefaultParameter {
-  pjPrefix: string;
-  env?: Environment;
   envName: string;
+  env?: Environment;
 }
 
 //specific parameter definition
@@ -19,24 +23,22 @@ export interface StackParameter extends DefaultParameter {
 }
 
 // ----------------------- Environment variables for stack ------------------------------
-// for Dev - Anonymous account & region
+// Unique project prefix
+export const PjPrefix = 'BLEAFSI-Base';
+
+// Parameter for Dev - Anonymous account & region
 export const DevParameter: StackParameter = {
   envName: 'Development',
-  pjPrefix: PjPrefix,
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+  env: EnvDefault,
   securityNotifyEmail: 'notify-security@example.com',
-  controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:702542056474:key/17bbcb5a-9b91-40a9-b08f-5d9710e40e70',
-  cloudTrailBucketName: 'bleafsi-base-sharedlogs-resource-ygxephon83n9',
-  targetBuckets: ['bleafsi-base-cloudtrail-bucketaccesslogs0aa7ed48-il7d6f9z75h0'],
+  controlTowerKMSKeyArn: 'dummy-key-arn',
+  cloudTrailBucketName: 'dummy-bucket-name',
+  targetBuckets: ['dummy-bucekt-name'],
 };
 
-//for Staging
+// Parameter for Staging
 export const StageParameter: StackParameter = {
   envName: 'Staging',
-  pjPrefix: PjPrefix,
   env: {
     account: '111111111111',
     region: 'ap-northeast-1',
@@ -47,10 +49,9 @@ export const StageParameter: StackParameter = {
   targetBuckets: ['dummy-bucekt-name'],
 };
 
-//for Prod
+// Parameter for Production
 export const ProdParameter: StackParameter = {
   envName: 'Production',
-  pjPrefix: PjPrefix,
   env: {
     account: '222222222222',
     region: 'ap-northeast-1',

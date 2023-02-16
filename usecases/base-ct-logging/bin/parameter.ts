@@ -1,43 +1,44 @@
 import { Environment } from 'aws-cdk-lib';
 
-// ----------------------- Environment variables interface definition ------------------------------
-const PjPrefix = 'BLEAFSI-Base';
+// ----------------------- constant definition ------------------------------
+//Default environment
+const EnvDefault = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
 
+// ----------------------- Environment variables interface definition ------------------------------
 //Default parameter definition
 interface DefaultParameter {
-  pjPrefix: string;
-  env?: Environment;
   envName: string;
+  env?: Environment;
 }
 
 //specific parameter definition
 export type StackParameter = DefaultParameter; // パラメータを追加しない
 
 // ----------------------- Environment variables for stack ------------------------------
-// for Dev - Anonymous account & region
+//Unique project prefix
+export const PjPrefix = 'BLEAFSI-Base';
+
+// Parameter for Dev - Anonymous account & region
 export const DevParameter: StackParameter = {
   envName: 'Development',
-  pjPrefix: PjPrefix,
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+  env: EnvDefault,
 };
 
-//for Staging
+// Parameter for Staging
 export const StageParameter: StackParameter = {
   envName: 'Staging',
-  pjPrefix: PjPrefix,
   env: {
     account: '111111111111',
     region: 'ap-northeast-1',
   },
 };
 
-//for Prod
+// Parameter for Prod
 export const ProdParameter: StackParameter = {
   envName: 'Production',
-  pjPrefix: PjPrefix,
   env: {
     account: '222222222222',
     region: 'ap-northeast-1',
