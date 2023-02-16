@@ -3,43 +3,30 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { Annotations, Match } from 'aws-cdk-lib/assertions';
 import { AwsSolutionsChecks } from 'cdk-nag';
 import { NagSuppressions } from 'cdk-nag';
-
-import { IamStack } from '../lib/bleafsi-iam-stack';
-import { ConfigRulesStack } from '../lib/bleafsi-config-rules-stack';
-import { SecurityAlarmStack } from '../lib/bleafsi-security-alarm-stack';
-import { SessionManagerLogStack } from '../lib/bleafsi-session-manager-log-stack';
-
-const procEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
+import { BaseCTStack } from '../lib/bleafsi-base-ct-guest-stack';
 
 const app = new cdk.App();
-const pjPrefix = 'BLEA-FSI-BASE';
+const pjPrefix = 'BLEAFSI-BASE';
 
-let stack1: cdk.Stack;
-let stack2: cdk.Stack;
-let stack3: cdk.Stack;
-let stack4: cdk.Stack;
+let stack: cdk.Stack;
 
 //jest snapshot check
-describe(`${pjPrefix} ControlTower Stacks`, () => {
+describe(`${pjPrefix} Compare Snapshot test`, () => {
   test('GuestAccount Stacks', () => {
     //create stacks
-    stack1 = new IamStack(app, `${pjPrefix}-iam`, { env: procEnv });
-    stack2 = new ConfigRulesStack(app, `${pjPrefix}-configRule`, { env: procEnv });
-    stack3 = new SecurityAlarmStack(app, `${pjPrefix}-securityAlarm`, {
+    stack = new BaseCTStack(app, `${pjPrefix}-Dev`, {
       notifyEmail: 'dummy@amazon.co.jp',
-      cloudTrailLogGroupName: 'dummy/logs',
-      env: procEnv,
+      cloudTrailBucketName: 'dummy-bucket',
+      targetBuckets: ['dummy-bucket'],
+      controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:701111111111:key/11111111-1111-2222-3333-123456789012',
+      env: {
+        account: process.env.CDK_DEFAULT_ACCOUNT,
+        region: process.env.CDK_DEFAULT_REGION,
+      },
     });
-    stack4 = new SessionManagerLogStack(app, `${pjPrefix}-sessionManagerLog`, { env: procEnv });
 
     // test with snapshot
-    expect(Template.fromStack(stack1)).toMatchSnapshot();
-    expect(Template.fromStack(stack2)).toMatchSnapshot();
-    expect(Template.fromStack(stack3)).toMatchSnapshot();
-    expect(Template.fromStack(stack4)).toMatchSnapshot();
+    expect(Template.fromStack(stack)).toMatchSnapshot();
   });
 });
 
@@ -51,17 +38,17 @@ describe(`${pjPrefix} cdk-nag AwsSolutions Pack`, () => {
     // IAM4: The IAM user, role, or group uses AWS managed policies.
     // SNS2: The SNS Topic does not have server-side encryption enabled.
     // S1: The S3 Bucket has server access logs disabled.
-    //for stack1
-    NagSuppressions.addStackSuppressions(stack1, [
+
+    NagSuppressions.addStackSuppressions(stack, [
       {
         id: 'AwsSolutions-IAM5',
         reason: 'this stack is used for administrative task',
       },
     ]);
-    //for stack2
+    //for security-auto-remediation construct
     NagSuppressions.addResourceSuppressionsByPath(
-      stack2,
-      '/BLEA-FSI-BASE-configRule/RemoveSecGroupRemediationRole/Resource',
+      stack,
+      '/BLEAFSI-BASE-Dev/SecurityAutoRemediation/AutoRemediation/IamRole/Resource',
       [
         {
           id: 'AwsSolutions-IAM4',
@@ -70,8 +57,8 @@ describe(`${pjPrefix} cdk-nag AwsSolutions Pack`, () => {
       ],
     );
     NagSuppressions.addResourceSuppressionsByPath(
-      stack2,
-      '/BLEA-FSI-BASE-configRule/RemoveSecGroupRemediationRole/DefaultPolicy/Resource',
+      stack,
+      '/BLEAFSI-BASE-Dev/SecurityAutoRemediation/AutoRemediation/IamRole/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-IAM5',
@@ -79,23 +66,32 @@ describe(`${pjPrefix} cdk-nag AwsSolutions Pack`, () => {
         },
       ],
     );
-    //for stack3
-    NagSuppressions.addResourceSuppressionsByPath(stack3, '/BLEA-FSI-BASE-securityAlarm/SecurityAlarmTopic/Resource', [
+    //for security-alarm construct
+    NagSuppressions.addResourceSuppressionsByPath(stack, '/BLEAFSI-BASE-Dev/SecurityAlarm/SnsTopic/Default/Resource', [
       {
         id: 'AwsSolutions-SNS2',
         reason: 'SNS encryption is an option',
       },
     ]);
-    //for stack4
-    NagSuppressions.addResourceSuppressionsByPath(stack4, '/BLEA-FSI-BASE-sessionManagerLog/WritePolicy/Resource', [
-      {
-        id: 'AwsSolutions-IAM5',
-        reason: 'this stack is used for administrative task',
-      },
-    ]);
+    //for cloudtrail-trail construct
     NagSuppressions.addResourceSuppressionsByPath(
-      stack4,
-      '/BLEA-FSI-BASE-sessionManagerLog/ArchiveLogsBucket/Resource',
+      stack,
+      '/BLEAFSI-BASE-Dev/CloudTrail/Bucket/AccessLogs/Default/Resource',
+      [
+        {
+          id: 'AwsSolutions-IAM5',
+          reason: 'this stack is used for administrative task',
+        },
+        {
+          id: 'AwsSolutions-S1',
+          reason: 'this s3 bucket is used to store server access log itself',
+        },
+      ],
+    );
+    //for session-manager-log construct
+    NagSuppressions.addResourceSuppressionsByPath(
+      stack,
+      '/BLEAFSI-BASE-Dev/SessionManagerLog/Bucket/AccessLogs/Default/Resource',
       [
         {
           id: 'AwsSolutions-S1',
@@ -105,43 +101,16 @@ describe(`${pjPrefix} cdk-nag AwsSolutions Pack`, () => {
     );
 
     //cdk-nag check
-    cdk.Aspects.of(stack1).add(new AwsSolutionsChecks());
-    cdk.Aspects.of(stack2).add(new AwsSolutionsChecks());
-    cdk.Aspects.of(stack3).add(new AwsSolutionsChecks());
-    cdk.Aspects.of(stack4).add(new AwsSolutionsChecks());
+    cdk.Aspects.of(stack).add(new AwsSolutionsChecks());
   });
 
   test('No unsupressed Errors', () => {
-    const errors1 = Annotations.fromStack(stack1).findError('*', Match.stringLikeRegexp('AwsSolutions-.*'));
-    const errors2 = Annotations.fromStack(stack2).findError('*', Match.stringLikeRegexp('AwsSolutions-.*'));
-    const errors3 = Annotations.fromStack(stack3).findError('*', Match.stringLikeRegexp('AwsSolutions-.*'));
-    const errors4 = Annotations.fromStack(stack4).findError('*', Match.stringLikeRegexp('AwsSolutions-.*'));
+    const errors = Annotations.fromStack(stack).findError('*', Match.stringLikeRegexp('AwsSolutions-.*'));
     try {
-      expect(errors1).toHaveLength(0);
-      console.log('cdk-nag: no errors for stack ' + stack1.stackName);
+      expect(errors).toHaveLength(0);
+      console.log('cdk-nag: no errors for stack ' + stack.stackName);
     } catch (e) {
-      console.error(errors1);
-      throw e;
-    }
-    try {
-      expect(errors2).toHaveLength(0);
-      console.log('cdk-nag: no errors for stack ' + stack2.stackName);
-    } catch (e) {
-      console.error(errors2);
-      throw e;
-    }
-    try {
-      expect(errors3).toHaveLength(0);
-      console.log('cdk-nag: no errors for stack ' + stack3.stackName);
-    } catch (e) {
-      console.error(errors3);
-      throw e;
-    }
-    try {
-      expect(errors4).toHaveLength(0);
-      console.log('cdk-nag: no errors for stack ' + stack4.stackName);
-    } catch (e) {
-      console.error(errors4);
+      console.error(errors);
       throw e;
     }
   });

@@ -181,48 +181,49 @@ FISC 安全対策基準への対策のために、Control Tower 管理者アカ�
 
 ### 6. Log Archive アカウント用ガバナンスベースをデプロイする(Local)
 
-#### 6-1. デプロイ情報(Context)を設定する
+#### 6-1. 環境別の設定を指定する
 
-デプロイのため CDK Context (cdk.json) にパラメータを指定する必要があります。 BLEA for FSI 版の Log Archive アカウント ガバナンスベースの設定ファイルはこちらです。
+デプロイ前に環境別（開発、ステージング、本番等）の情報を指定する必要があります。下記の typescript ファイルを編集します。
 
 ```sh
-usecases/base-ct-logging/cdk.json
+usecases/base-ct-logging/bin/parameter.ts
 ```
 
-このサンプルは `dev`と`staging` という Context を定義する例です。同様の設定を検証、本番アカウントにもデプロイできるようにするには、`staging`や`prod`といった Context を用意します。
+このサンプルは `dev`と`staging` という 開発、検証用の設定を定義する例です。本番アカウントにもデプロイできるようにするには、`prod`用の定義を追加します。
 
 > NOTE:
 >
-> デプロイ対象のアカウントを明示的に指定したい場合は`env`を指定してください。これによって CLI Profile で指定するアカウント-リージョンと、`env`で指定するものが一致していないとデプロイできなくなります。アカウントに設定したパラメータを確実に管理し、誤ったアカウントにデプロイすることを防ぐことができます。できるだけ`env`も指定することをお勧めします。
+> 開発環境では、AWS SSO でログインしているアカウントにデプロイするように環境変数からアカウントとリージョンを取得しています。`env`にデプロイ対象のアカウントを明示的に指定した場合は、 CLI Profile で指定するアカウント-リージョンと、`env`で指定するものが一致していないとデプロイできなくなります。これによりアカウントに設定したパラメータを確実に管理し、誤ったアカウントにデプロイすることを防ぐことができます。Staging 以降の環境では、できるだけ`env`も指定することをお勧めします。
 
-usecases/base-ct-logging/cdk.json
+usecases/base-ct-logging/bin/parameter.ts
 
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/blea-base-ct-logging.ts",
-  "context": {
-    "dev": {
-      "description": "Context samples for Dev - Anonymous account & region",
-      "envName": "Development"
-    },
-    "stage": {
-      "description": "Context samples for Staging - Specific account & region  ",
-      "env": {
-        "account": "111111111111",
-        "region": "ap-northeast-1"
-      },
-      "envName": "Staging"
-    },
-    ・・・
-  }
-}
+```js
+// ----------------------- Environment variables for stack ------------------------------
+// for Dev - Anonymous account & region
+export const DevParameter: StackParameter = {
+  envName: 'Development',
+  pjPrefix: PjPrefix,
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+};
+
+//for Staging
+export const StageParameter: StackParameter = {
+  envName: 'Staging',
+  pjPrefix: PjPrefix,
+  env: {
+    account: '111111111111',
+    region: 'ap-northeast-1',
+  },
+};
 ```
 
 この設定内容は以下の通りです。
 
 | key         | value                                                                                        |
 | ----------- | -------------------------------------------------------------------------------------------- |
-| description | 設定についてのコメント                                                                       |
 | env.account | デプロイ対象のアカウント ID。CLI の profile で指定するアカウントと一致している必要があります |
 | env.region  | デプロイ対象のリージョン。CLI の profile で指定するリージョンと一致している必要があります    |
 | envName     | 環境名。これが各々のリソースタグに設定されます                                               |
@@ -239,7 +240,7 @@ CDK 用バケットをブートストラップします(初回のみ)。
 
 ```sh
 cd usecases/base-ct-logging
-npx cdk bootstrap -c environment=dev --profile ct-logging-exec
+npx cdk bootstrap --profile ct-logging-exec
 ```
 
 > NOTE:
@@ -252,7 +253,7 @@ Log Archive アカウントのガバナンスベースをデプロイします�
 
 ```sh
 cd usecases/base-ct-logging
-npx cdk deploy --all -c environment=dev --profile ct-logging-exec
+npx cdk deploy BLEAFSI-Base-Dev --profile ct-logging-exec
 ```
 
 この CDK テンプレートのデプロイによって以下の機能がセットアップされます
@@ -268,9 +269,9 @@ npx cdk deploy --all -c environment=dev --profile ct-logging-exec
 
 CDK によるデプロイが完了すると、作成された S3 バケット名がコンソールに表示されますので、記録しておいて下さい。
 
-| 表示名                            | 用途                       |
-| --------------------------------- | -------------------------- |
-| BLEA-FSI-BASE-S3Bucket.LogsBucket | 集約ログ用の S3 バケット名 |
+| 表示名                               | 用途                       |
+| ------------------------------------ | -------------------------- |
+| BLEAFSI-Base-xx.ConslidatedLogBucket | 集約ログ用の S3 バケット名 |
 
 ### 7. ゲストアカウント用ガバナンスベースをデプロイする(Local/MC)
 
@@ -281,50 +282,48 @@ CDK によるデプロイが完了すると、作成された S3 バケット名
 デプロイのため CDK Context (cdk.json) にパラメータを指定する必要があります。 BLEA for FSI 版のゲストアカウント ガバナンスベースの設定ファイルはこちらです。
 
 ```sh
-usecases/base-ct-guest/cdk.json
+usecases/base-ct-guest/bin/parameter.ts
 ```
 
-このサンプルは `dev`と`staging` という Context を定義する例です。同様の設定を検証、本番アカウントにもデプロイできるようにするには、`staging`や`prod`といった Context を用意します。
+このサンプルは `dev`と`staging` という 開発、検証用の設定を定義する例です。本番アカウントにもデプロイできるようにするには、`prod`用の定義を追加します。
 
-> NOTE:
->
-> デプロイ対象のアカウントを明示的に指定したい場合は`env`を指定してください。これによって CLI Profile で指定するアカウント-リージョンと、`env`で指定するものが一致していないとデプロイできなくなります。アカウントに設定したパラメータを確実に管理し、誤ったアカウントにデプロイすることを防ぐことができます。できるだけ`env`も指定することをお勧めします。
+usecases/base-ct-guest/bin/parameter.ts
 
-usecases/base-ct-guest/cdk.json
+```js
+// ----------------------- Environment variables for stack ------------------------------
+// for Dev - Anonymous account & region
+export const DevParameter: StackParameter = {
+  envName: 'Development',
+  pjPrefix: PjPrefix,
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  securityNotifyEmail: 'notify-security@example.com',
+  controlTowerKMSKeyArn: 'dummy-key-arn',
+  cloudTrailBucketName: 'dummy-bucket-name',
+  targetBuckets: ['dummy-bucket-name'],
+};
 
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/blea-base-ct-guest.ts",
-  "context": {
-    "dev": {
-      "description": "Context samples for Dev - Anonymous account & region",
-      "envName": "Development",
-      "securityNotifyEmail": "notify-security@example.com",
-      "controlTowerKMSKeyArn": "dummy-key-arn",
-      "cloudTrailBucketName": "dummy-bucket-name",
-      "targetBuckets": ["dummy-bucekt-name"]
-    },
-    "stage": {
-      "description": "Context samples for Staging - Specific account & region  ",
-      "env": {
-        "account": "111111111111",
-        "region": "ap-northeast-1"
-      },
-      "envName": "Staging",
-      "securityNotifyEmail": "notify-security@example.com",
-      "controlTowerKMSKeyArn": "dummy-key-arn",
-      "cloudTrailBucketName": "dummy-bucket-name",
-      "targetBuckets": ["dummy-bucekt-name"]
-    }
-  }
-}
+//for Staging
+export const StageParameter: StackParameter = {
+  envName: 'Staging',
+  pjPrefix: PjPrefix,
+  env: {
+    account: '111111111111',
+    region: 'ap-northeast-1',
+  },
+  securityNotifyEmail: 'notify-security@example.com',
+  controlTowerKMSKeyArn: 'dummy-key-arn',
+  cloudTrailBucketName: 'dummy-bucket-name',
+  targetBuckets: ['dummy-bucekt-name'],
+};
 ```
 
 この設定内容は以下の通りです。
 
 | key                   | value                                                                                        |
 | --------------------- | -------------------------------------------------------------------------------------------- |
-| description           | 設定についてのコメント                                                                       |
 | env.account           | デプロイ対象のアカウント ID。CLI の profile で指定するアカウントと一致している必要があります |
 | env.region            | デプロイ対象のリージョン。CLI の profile で指定するリージョンと一致している必要があります    |
 | envName               | 環境名。これが各々のリソースタグに設定されます                                               |
@@ -345,14 +344,14 @@ CDK 用バケットをブートストラップします(初回のみ)。
 
 ```sh
 cd usecases/base-ct-guest
-npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+npx cdk bootstrap --profile ct-guest-sso
 ```
 
 ゲストアカウントのガバナンスベースをデプロイします。
 
 ```sh
 cd usecases/base-ct-guest
-npx cdk deploy --all -c environment=dev --profile ct-guest-sso
+npx cdk deploy BLEAFSI-Base-Dev --profile ct-guest-sso
 ```
 
 > NOTE:  
@@ -361,9 +360,9 @@ npx cdk deploy --all -c environment=dev --profile ct-guest-sso
 
 CDK テンプレートの実行後に Session Manager ログを保管する S3 バケット名が出力されますので、記録しておいて下さい。
 
-| 表示名                     | 用途                                   |
-| -------------------------- | -------------------------------------- |
-| SSMSessionManagerLogBucket | Session Manager ログ用の S3 バケット名 |
+| 表示名                                     | 用途                                   |
+| ------------------------------------------ | -------------------------------------- |
+| BLEAFSI-Base-xx.SSMSessionManagerLogBucket | Session Manager ログ用の S3 バケット名 |
 
 この CDK テンプレートのデプロイによって以下の機能がセットアップされます
 
@@ -432,9 +431,9 @@ Amazon Macie は機械学習とパターンマッチングにより S3 バケッ
 
 デフォルトでは全てのアカウントで CloudTrail が有効化され、管理操作に対する API 呼出が記録されます。データイベントに対する CloudTrail の有効化は必要に応じて実施して下さい。FISC 実務基準への対応の観点では、ユーザーデータが保管される S3 バケットに対しては CloudTrail データイベントの記録を行うことを推奨します。
 
-ゲストアカウントへの CloudTrail データイベント取得の有効化には、CDK テンプレート(bin/bleafsi-base-ct-guest-trail-dataevent.ts)をデプロイします。Log Archive アカウントに準備した集約 S3 バケットに CloudTrail のログを出力するように CloudTrail 証跡が作成されます。
+ゲストアカウントへの CloudTrail データイベント取得の有効化には、CDK テンプレート(lib/bleafsi-base-ct-guest-stack.ts)を修正してデプロイします。Log Archive アカウントに準備した集約 S3 バケットに CloudTrail のログを出力するように CloudTrail 証跡が作成されます。
 
-デプロイする前に cdk.json ファイル（usecases/base-ct-guest/cdk.json）を修正して、下記の 3 つの要素を指定して下さい。
+デプロイする前に パラメータファイル（usecases/base-ct-guest/bin/parameter.ts）を修正して、下記の 3 つの要素を指定して下さい。
 
 | 変数名                | 値                                                                                                                                                                                          |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -443,11 +442,20 @@ Amazon Macie は機械学習とパターンマッチングにより S3 バケッ
 | targetBuckets         | CloudTrail データイベント取得の対象となる S3 バケット名 (リスト形式で複数指定可)                                                                                                            |
 
 ```js
-      "securityNotifyEmail": "xxxx@example.com",
-      "controlTowerKMSKeyArn": "dummy-key-arn",
-      "cloudTrailBucketName": "blea-fsi-base-s3bucket-cloudtraildataeventbuckete-1234567890123",
-      "targetBuckets": ['cdk-hnb222fds-assets-123456789012-ap-northeast-1']
-    },
+// ----------------------- Environment variables for stack ------------------------------
+// for Dev - Anonymous account & region
+export const DevParameter: StackParameter = {
+  envName: 'Development',
+  pjPrefix: PjPrefix,
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  securityNotifyEmail: 'notify-security@example.com',
+  controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:111111111111:key/11111111-2222-3333-4444-555555555555',
+  cloudTrailBucketName: 'bleafsi-base-dev-bucket22222222-xxxxxxxxxxxxx',
+  targetBuckets: ['dummy-bucket-name'],
+};
 ```
 
 [修正の例]
@@ -458,11 +466,23 @@ Amazon Macie は機械学習とパターンマッチングにより S3 バケッ
 > 2. Control Tower サービスを表示し、メニューから「ランディングゾーン設定」を選択
 > 3. 「設定」タブを選択し、"KMS 暗号化" > "キー ARN" の値をコピー
 
-cdk.json に必要な値を設定した後に、下記のコマンドを実行して下さい。
+パラメータファイルに必要な値を設定した後に、CDK テンプレート(lib/bleafsi-base-ct-guest-stack.ts)の項番 6 のコメントを外します。
+
+```js
+//6 (オプション) CloudTrail S3データイベントの有効化
+//コメントを外して、コードを有効化する
+new CloudTrailDataEvent(this, `CloudTrail-DataEvent`, {
+  cloudTrailBucketName: props.cloudTrailBucketName,
+  targetBuckets: props.targetBuckets,
+  controlTowerKMSKeyArn: props.controlTowerKMSKeyArn,
+});
+```
+
+下記のコマンドを実行して下さい。
 
 ```sh
 cd usecases/base-ct-guest
-npx cdk deploy --all --app "npx ts-node --prefer-ts-exts bin/bleafsi-base-ct-guest-trail-dataevent.ts" -c environment=dev --profile ct-guest-sso
+npx cdk deploy BLEAFSI-Base-Dev --profile ct-guest-sso
 ```
 
 以上でガバナンスベースラインのデプロイは完了です。

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BLEA-FSI-BASE ControlTower Stacks LoggingAccount Stacks 1`] = `
+exports[`BLEAFSI-BASE Compare Snapshot test LoggingAccount Stacks 1`] = `
 Object {
   "Outputs": Object {
-    "LogsBucket": Object {
-      "Description": "Bucket for CloudTrail/Config log",
+    "ConslidatedLogBucket": Object {
+      "Description": "Bucket for CloudTrail log",
       "Value": Object {
-        "Ref": "logsBucket35870DE7",
+        "Ref": "Bucket83908E77",
       },
     },
   },
@@ -18,7 +18,38 @@ Object {
     },
   },
   "Resources": Object {
-    "ArchiveLogsBucketBC7EE643": Object {
+    "Bucket83908E77": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AccessControl": "Private",
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": Object {
+          "DestinationBucketName": Object {
+            "Ref": "BucketAccessLogs0AA7ED48",
+          },
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": Object {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "BucketAccessLogs0AA7ED48": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "AccessControl": "LogDeliveryWrite",
@@ -58,10 +89,10 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "ArchiveLogsBucketPolicy06092225": Object {
+    "BucketAccessLogsPolicy6EEF3369": Object {
       "Properties": Object {
         "Bucket": Object {
-          "Ref": "ArchiveLogsBucketBC7EE643",
+          "Ref": "BucketAccessLogs0AA7ED48",
         },
         "PolicyDocument": Object {
           "Statement": Array [
@@ -79,7 +110,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "ArchiveLogsBucketBC7EE643",
+                    "BucketAccessLogs0AA7ED48",
                     "Arn",
                   ],
                 },
@@ -89,7 +120,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "ArchiveLogsBucketBC7EE643",
+                          "BucketAccessLogs0AA7ED48",
                           "Arn",
                         ],
                       },
@@ -111,7 +142,7 @@ Object {
                   Array [
                     Object {
                       "Fn::GetAtt": Array [
-                        "ArchiveLogsBucketBC7EE643",
+                        "BucketAccessLogs0AA7ED48",
                         "Arn",
                       ],
                     },
@@ -127,41 +158,10 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "logsBucket35870DE7": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AccessControl": "Private",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "LoggingConfiguration": Object {
-          "DestinationBucketName": Object {
-            "Ref": "ArchiveLogsBucketBC7EE643",
-          },
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-        "VersioningConfiguration": Object {
-          "Status": "Enabled",
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "logsBucketPolicy8D917E95": Object {
+    "BucketPolicyE9A3008A": Object {
       "Properties": Object {
         "Bucket": Object {
-          "Ref": "logsBucket35870DE7",
+          "Ref": "Bucket83908E77",
         },
         "PolicyDocument": Object {
           "Statement": Array [
@@ -179,7 +179,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "logsBucket35870DE7",
+                    "Bucket83908E77",
                     "Arn",
                   ],
                 },
@@ -189,7 +189,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "logsBucket35870DE7",
+                          "Bucket83908E77",
                           "Arn",
                         ],
                       },
@@ -211,7 +211,7 @@ Object {
                   Array [
                     Object {
                       "Fn::GetAtt": Array [
-                        "logsBucket35870DE7",
+                        "Bucket83908E77",
                         "Arn",
                       ],
                     },
@@ -235,7 +235,7 @@ Object {
               },
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "logsBucket35870DE7",
+                  "Bucket83908E77",
                   "Arn",
                 ],
               },
@@ -261,7 +261,7 @@ Object {
                   Array [
                     Object {
                       "Fn::GetAtt": Array [
-                        "logsBucket35870DE7",
+                        "Bucket83908E77",
                         "Arn",
                       ],
                     },

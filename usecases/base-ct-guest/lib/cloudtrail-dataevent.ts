@@ -11,36 +11,35 @@ import { S3EventSelector } from 'aws-cdk-lib/aws-cloudtrail';
  * ログはLog Archiveアカウントの集約バケットに保管される
  */
 
-interface TrailStackProps extends cdk.StackProps {
+interface CloudTrailStackDataEventProps extends cdk.StackProps {
   cloudTrailBucketName: string; //Log Archiveアカウントに作成したS3バケット名（cdk.jsonで設定）
   targetBuckets: string[]; //CloudTrailデータイベント取得の対象となるS3バケット名を指定（cdk.jsonで指定）
   controlTowerKMSKeyArn: string; //CloudTrail 暗号化キー（ControlTowerの暗号化キーを使用. cdk.jsonで指定）
 }
 
-export class TrailDataEventStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: TrailStackProps) {
-    super(scope, id, props);
+export class CloudTrailDataEvent extends Construct {
+  constructor(scope: Construct, id: string, props: CloudTrailStackDataEventProps) {
+    super(scope, id);
 
-    // Enryption key for CloudTrail. Use KMS key in Control Tower
+    //1 find a bucket for cloudtrail
+    const cloudTrailBucket = s3.Bucket.fromBucketName(this, 'cloudTrailBucket', props.cloudTrailBucketName);
+
+    //2 get KMS CMK for CloudTrail. it usually use KMS key created in Control Tower
     const ctKmsKey = kms.Key.fromKeyArn(this, 'ct-kmskey', props.controlTowerKMSKeyArn);
 
-    // CloudWatch Logs Group for CloudTrail data logging
-    const cloudTrailLogGroup = new cwl.LogGroup(this, 'CloudTrailLogGroup', {
+    //3 create CloudWatch Logs Group for CloudTrail data logging
+    const cloudTrailLogGroup = new cwl.LogGroup(this, 'LogGroup', {
       retention: cwl.RetentionDays.TWO_WEEKS,
     });
 
-    //find a bucket for cloudtrail
-    const cloudTrailBucket = s3.Bucket.fromBucketName(this, 'cloudTrailBucket', props.cloudTrailBucketName);
-
-    // generate resources arn for field selectors
+    //4 add target S3 buckets for data event to the selector
     const s3eventSelectors: S3EventSelector[] = [];
     for (const bucketName of props.targetBuckets) {
       s3eventSelectors.push({ bucket: s3.Bucket.fromBucketName(this, bucketName, bucketName) });
     }
 
-    // Create CloudTrail for data logging
-    const cloudtrail = new trail.Trail(this, 'CloudTrail', {
-      trailName: 's3-dataevent-trail',
+    //5 Create CloudTrail data event Trails
+    const cloudtrail = new trail.Trail(this, 'Default', {
       bucket: cloudTrailBucket,
       enableFileValidation: true,
       includeGlobalServiceEvents: true,
