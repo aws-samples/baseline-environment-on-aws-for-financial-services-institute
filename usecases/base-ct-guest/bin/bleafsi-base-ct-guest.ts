@@ -20,25 +20,25 @@ const DevStack = new BaseCTStack(app, `${PjPrefix}-Dev`, {
 });
 
 // for Staging
-const StageStack = new BaseCTStack(app, `${PjPrefix}-Stage`, {
+/*const StageStack = new BaseCTStack(app, `${PjPrefix}-Stage`, {
   env: StageParameter.env,
   notifyEmail: StageParameter.securityNotifyEmail,
   cloudTrailBucketName: StageParameter.cloudTrailBucketName,
   targetBuckets: StageParameter.targetBuckets,
   controlTowerKMSKeyArn: StageParameter.controlTowerKMSKeyArn,
-});
+});*/
 
 // for Production
-const ProdStack = new BaseCTStack(app, `${PjPrefix}-Prod`, {
+/*const ProdStack = new BaseCTStack(app, `${PjPrefix}-Prod`, {
   env: ProdParameter.env,
   notifyEmail: ProdParameter.securityNotifyEmail,
   cloudTrailBucketName: ProdParameter.cloudTrailBucketName,
   targetBuckets: ProdParameter.targetBuckets,
   controlTowerKMSKeyArn: ProdParameter.controlTowerKMSKeyArn,
-});
+});*/
 
 // Tagging "Environment" tag to all resources in this app
 const envTagName = 'Environment';
 cdk.Tags.of(DevStack).add(envTagName, DevParameter.envName);
-cdk.Tags.of(StageStack).add(envTagName, StageParameter.envName);
-cdk.Tags.of(ProdStack).add(envTagName, ProdParameter.envName);
+//cdk.Tags.of(StageStack).add(envTagName, StageParameter.envName);
+//cdk.Tags.of(ProdStack).add(envTagName, ProdParameter.envName);

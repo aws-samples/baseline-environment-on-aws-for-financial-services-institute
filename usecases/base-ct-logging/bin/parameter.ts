@@ -19,7 +19,7 @@ export type StackParameter = DefaultParameter; // パラメータを追加しな
 
 // ----------------------- Environment variables for stack ------------------------------
 //Unique project prefix
-export const PjPrefix = 'BLEAFSI-Base';
+export const PjPrefix = 'BLEAFSI-LogBase';
 
 // Parameter for Dev - Anonymous account & region
 export const DevParameter: StackParameter = {
