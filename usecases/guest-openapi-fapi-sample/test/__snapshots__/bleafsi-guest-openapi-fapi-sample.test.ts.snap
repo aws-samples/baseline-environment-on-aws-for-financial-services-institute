@@ -115,7 +115,7 @@ Object {
               Object {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
               },
-              "/822e4caa9eec0d3bb9d438613588813ad45a73cf25bc1a6c0294a7e2d79d474d.json",
+              "/cf7a0c2c8547c3307239ca63b45fd839624562b08218d8da57676cf37825002f.json",
             ],
           ],
         },
@@ -138,7 +138,7 @@ Object {
               Object {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
               },
-              "/86c5ebdc900fb4425229a1de026f431c9eb4cb841905c65a9fa9ad862f1e63d1.json",
+              "/967427b2bf7025a8ab5088a80ca68f4da20bba9e250d7cdc163580d319667d4a.json",
             ],
           ],
         },
@@ -299,7 +299,6 @@ Object {
           "Ref": "KeycloakDatabaseDBClusterSubnets28319191",
         },
         "Engine": "aurora-mysql",
-        "EngineVersion": "5.7.mysql_aurora.2.09.1",
         "PubliclyAccessible": false,
       },
       "Type": "AWS::RDS::DBInstance",
@@ -316,7 +315,6 @@ Object {
           "Ref": "KeycloakDatabaseDBClusterSubnets28319191",
         },
         "Engine": "aurora-mysql",
-        "EngineVersion": "5.7.mysql_aurora.2.09.1",
         "PubliclyAccessible": false,
       },
       "Type": "AWS::RDS::DBInstance",

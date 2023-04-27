@@ -50,7 +50,7 @@ export class SampleOpenApiStack extends cdk.Stack {
     });
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler',
     });
