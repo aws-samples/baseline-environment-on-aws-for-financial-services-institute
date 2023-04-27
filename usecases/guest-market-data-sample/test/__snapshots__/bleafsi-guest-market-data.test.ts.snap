@@ -114,7 +114,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/02f43b43f063bfd765f782ae49c4b248d7155ecf3d49734ad6ff67b20f75d36d.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/4e821f59274b6885b7521fed6438383cfdee85769d90e1c73f10fb6d33c521af.json",
             ],
           ],
         },
@@ -213,7 +213,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/f6d225ef472a63c2cc3109517fe1656c34e36d23a210696652157ed9bfbe74f9.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/6ab2a37d311f302e1610dfad8f46e2e0d015606915a41888304a9c0a3057102c.json",
             ],
           ],
         },
@@ -333,7 +333,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/ebfbf7b94ae8ab1295e1c2b8b1e182f70fe2609f3d10a0a92ec19076d76ad27a.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/a6ee4bf5e19fa4af8fbed8a79d9ff90b4c861bdaefc815d999d33fffa0179dd2.json",
             ],
           ],
         },
@@ -379,7 +379,7 @@ Object {
               Object {
                 "Ref": "AWS::URLSuffix",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/4e1be6122552f0d1fa8a8de57083a5e8c11abb6270e53f6038c74f81c6c32a20.json",
+              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/948d8f1282db27e400c459704ff6ca2ca835bba1d996cae4fc4e60b3bbc45b4c.json",
             ],
           ],
         },
@@ -456,9 +456,6 @@ Object {
             ],
           },
         },
-        "StreamModeDetails": Object {
-          "StreamMode": "PROVISIONED",
-        },
       },
       "Type": "AWS::Kinesis::Stream",
     },
@@ -474,9 +471,6 @@ Object {
               "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
             ],
           },
-        },
-        "StreamModeDetails": Object {
-          "StreamMode": "PROVISIONED",
         },
       },
       "Type": "AWS::Kinesis::Stream",
