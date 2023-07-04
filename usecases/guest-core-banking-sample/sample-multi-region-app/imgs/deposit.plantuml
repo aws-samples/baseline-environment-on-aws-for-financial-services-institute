@@ -1,0 +1,40 @@
+@startuml deposit sequence
+title The deposit sequence
+
+participant "User" as User
+participant "Transaction service" as TxService
+participant "Balance Service" as Balance
+participant "DynamoDB" as DynamoDB
+participant "Postgres" as Postgres
+
+User->TxService: POST /deposit
+TxService->DynamoDB: Create a transaction step "balance" \nTry to acquire a lock
+DynamoDB-->TxService: Success
+TxService->User: transactionId
+
+alt failed to acquire a lock
+    DynamoDB-->TxService: Conditional Check Failed
+    TxService->User: 429 Failed
+end
+
+TxService->Balance: POST /deposit
+Balance->Postgres: Increment balance
+Postgres-->Balance: Success
+Balance-->TxService: Success
+alt failed to deposit
+    Balance-->TxService: Failure
+    TxService->DynamoDB: Create a new transaction step "balance_comp" \nComplete the previous step "balance"
+    DynamoDB-->TxService: Success
+    TxService->Balance: PUT /cancel_deposit
+    Balance->Postgres: Decrement balance if necessary
+    Postgres-->Balance: Success
+    Balance-->TxService: Success
+    TxService->DynamoDB: Complete the transaction step "balance_comp" \nRelease the lock
+    DynamoDB-->TxService: Success
+end
+
+TxService->DynamoDB: Complete the transaction step "balance" \nRelease the lock
+DynamoDB-->TxService: Success
+
+User->TxService: GET \n/transaction/:id
+TxService->User: status of \nthe transaction

@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // for optimistic locking https://github.com/prisma/prisma/issues/18095
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+model Balance {
+  accountId                  String   @id
+  quantity                   Int
+  lastProcessedTransactionId String?
+  updatedAt                  DateTime @default(now())
+  createdAt                  DateTime @default(now())
+}

@@ -1,8 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template, Annotations, Match } from 'aws-cdk-lib/assertions';
+import { PjPrefix, StackParameter } from '../bin/parameter';
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
 import { GuestMarketDataStack } from '../lib/bleafsi-guest-market-data-stack';
-import { MarketDataContextProps } from '../lib/bleafsi-market-data-context-props';
 
 const app = new cdk.App();
 
@@ -13,20 +13,18 @@ const procEnv = {
   region: process.env.CDK_DEFAULT_REGION ?? 'ap-northeast-1',
 };
 
-const appProps: MarketDataContextProps = {
-  pjPrefix: 'BLEA-FSI',
+const appProps: StackParameter = {
   envName: 'test',
   vpcCidr: '10.100.0.0/16',
-  region: procEnv.region,
-  account: procEnv.account,
-  notifyEmail: 'exsample@exsample.com',
+  env: { region: procEnv.region, account: procEnv.account },
+  securityNotifyEmail: 'exsample@exsample.com',
 };
 
 let marketDataApp: GuestMarketDataStack;
 
-describe(`${appProps.pjPrefix} snapshot check`, () => {
+describe(`${PjPrefix} snapshot check`, () => {
   test('market data sample Stacks', () => {
-    marketDataApp = new GuestMarketDataStack(app, `${appProps.pjPrefix}-market-data`, {
+    marketDataApp = new GuestMarketDataStack(app, `${PjPrefix}`, {
       ...appProps,
       env: {
         account: procEnv.account,
@@ -39,36 +37,51 @@ describe(`${appProps.pjPrefix} snapshot check`, () => {
   });
 });
 
-describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => {
+describe(`${PjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => {
   beforeAll(() => {
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Handler-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
+      '/BLEAFSI-MarketData/Handler-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Handler-Container-Image/AWS679f53fac002430cb0da5b7982bd2287/Resource',
+      '/BLEAFSI-MarketData/AWS679f53fac002430cb0da5b7982bd2287/Resource',
       [{ id: 'AwsSolutions-L1', reason: 'It is used only when deploying.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Handler-Container-Image/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource',
-      [{ id: 'AwsSolutions-IAM4', reason: 'It is used only when deploying.' }],
+      '/BLEAFSI-MarketData/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'This role is managed by custom_resources and only used for build' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Handler-App/EcsServiceTaskRole/DefaultPolicy/Resource',
+      '/BLEAFSI-MarketData/Handler-Container-Image/sample_handler-project/Role/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      marketDataApp,
+      '/BLEAFSI-MarketData/Handler-App/EcsServiceTaskRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      marketDataApp,
+      '/BLEAFSI-MarketData/Distributor-App/containerBaseApp/EcsTaskExecutionRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      marketDataApp,
+      '/BLEAFSI-MarketData/Handler-App/EcsTaskExecutionRole/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'App can read,write variety of streams' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Handler-App/EcsTaskExecutionRole/DefaultPolicy/Resource',
+      '/BLEAFSI-MarketData/Composer-Container-Image/sample_composer-project/Role/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'Target repo are narrowed to Specified account and region' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Composer-Container-Image/sample_composer-project/Role/DefaultPolicy/Resource',
+      '/BLEAFSI-MarketData/Composer-App/EcsTaskExecutionRole/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-IAM5',
@@ -78,17 +91,17 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Composer-Container-Image/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource',
+      '/BLEAFSI-MarketData/Distributor-Container-Image/sample_distributor-project/Role/DefaultPolicy/Resource',
       [
         {
-          id: 'AwsSolutions-IAM4',
+          id: 'AwsSolutions-IAM5',
           reason: 'Policies are managed by L2 construct and resouce target is only to log',
         },
       ],
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Composer-Container-Image/AWS679f53fac002430cb0da5b7982bd2287/Resource',
+      '/BLEAFSI-MarketData/Distributor-App/containerBaseApp/EcsTaskExecutionRole/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-L1',
@@ -98,7 +111,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Composer-App/EcsServiceTaskRole/DefaultPolicy/Resource',
+      '/BLEAFSI-MarketData/Composer-App/EcsServiceTaskRole/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-IAM5',
@@ -108,7 +121,7 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
     );
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/sample_distributor-project/Role/DefaultPolicy/Resource',
+      '/BLEAFSI-MarketData/Distributor-App/containerBaseApp/EcsServiceTaskRole/DefaultPolicy/Resource',
       [
         {
           id: 'AwsSolutions-IAM5',
@@ -116,90 +129,23 @@ describe(`${appProps.pjPrefix} cdk-nag AwsSolutions Pack: marketDataApp`, () => 
         },
       ],
     );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/sample_distributor-project/Role/DefaultPolicy/Resource',
-      [
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'Default policy is managed by aws_codebuild construct and only used for build image',
-        },
-      ],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource',
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'This role is managed by custom_resources and only used for build',
-        },
-      ],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-Container-Image/AWS679f53fac002430cb0da5b7982bd2287/Resource',
-      [
-        {
-          id: 'AwsSolutions-L1',
-          reason: 'This role is managed by custom_resources and only used for build',
-        },
-      ],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-App/containerAppSampleBase/EcsServiceTaskRole/DefaultPolicy/Resource',
-      [
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'App can read,write variety of streams',
-        },
-      ],
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-App/SgAlb/Resource',
-      [
-        {
-          id: 'AwsSolutions-EC23',
-          reason: 'This is for just sample app',
-        },
-      ],
-    );
+    NagSuppressions.addResourceSuppressionsByPath(marketDataApp, '/BLEAFSI-MarketData/Distributor-App/SgAlb/Resource', [
+      {
+        id: 'AwsSolutions-EC23',
+        reason: 'This is for just sample app',
+      },
+    ]);
 
     NagSuppressions.addResourceSuppressionsByPath(
       marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-App/alb-log-bucket/Resource',
+      '/BLEAFSI-MarketData/Distributor-App/alb-log-bucket/AccessLogs/Default/Resource',
       [
         {
           id: 'AwsSolutions-S1',
-          reason: 'This is log bucket',
+          reason: 'This is an access log bucket',
         },
       ],
     );
-
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Composer-App/EcsTaskExecutionRole/DefaultPolicy/Resource',
-      [
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'target resource on ecr:GetAuthorizationToken is always *',
-        },
-      ],
-    );
-
-    NagSuppressions.addResourceSuppressionsByPath(
-      marketDataApp,
-      '/BLEA-FSI-market-data/BLEA-FSI-Distributor-App/containerAppSampleBase/EcsTaskExecutionRole/DefaultPolicy/Resource',
-      [
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'target resource on ecr:GetAuthorizationToken is always *',
-        },
-      ],
-    );
-
     cdk.Aspects.of(marketDataApp).add(new AwsSolutionsChecks());
   });
 

@@ -1,0 +1,536 @@
+{
+  "AwsAccountId": "<account-id>",
+  "DataSetId": "bleafsi-simple-datalake-dataset",
+  "Name": "bleafsi simple datalake dataset",
+  "ImportMode": "SPICE",
+  "PhysicalTableMap": {
+    "4d0684c3-840b-4db9-aaf1-0ba71e3602e3": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "master",
+        "Name": "master_branch",
+        "InputColumns": [
+          {
+            "Name": "base_date",
+            "Type": "DATETIME"
+          },
+          {
+            "Name": "bank_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "bank_name_half_kana",
+            "Type": "STRING"
+          },
+          {
+            "Name": "bank_name_kanji",
+            "Type": "STRING"
+          },
+          {
+            "Name": "branch_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "branch_name_half_kana",
+            "Type": "STRING"
+          },
+          {
+            "Name": "branch_name_kanji",
+            "Type": "STRING"
+          }
+        ]
+      }
+    },
+    "63286c6a-f782-44e3-bd7c-101e28869b80": {
+      "CustomSql": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Name": "GetGeoInfo4QuickSightSQL",
+        "SqlQuery": "SELECT\r\n  cif_num,\r\n  REPLACE(post_code, '-', '') AS post_code_without_hyphen,\r\n  SUBSTR(address,1, IF(SUBSTR(address, 4, 1)='県', 4, 3)) AS prefecture\r\nFROM \"normalized\".\"customer\"",
+        "Columns": [
+          {
+            "Name": "cif_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "post_code_without_hyphen",
+            "Type": "STRING"
+          },
+          {
+            "Name": "prefecture",
+            "Type": "STRING"
+          }
+        ]
+      }
+    },
+    "6db902ed-c5ab-4d80-94a5-e884bb6a31c2": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "analytics",
+        "Name": "internetbankingperiod",
+        "InputColumns": [
+          {
+            "Name": "cif_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "base_date",
+            "Type": "DATETIME"
+          },
+          {
+            "Name": "inban_period",
+            "Type": "INTEGER"
+          }
+        ]
+      }
+    },
+    "a21dbaea-e429-4686-90cd-0e1b4d935eeb": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "normalized",
+        "Name": "internetbankinguser",
+        "InputColumns": [
+          {
+            "Name": "cif_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "email_address",
+            "Type": "STRING"
+          },
+          {
+            "Name": "userid",
+            "Type": "STRING"
+          },
+          {
+            "Name": "join_date",
+            "Type": "DATETIME"
+          }
+        ]
+      }
+    },
+    "a75aa4cf-dda5-484d-ab6b-e25faa5af060": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "master",
+        "Name": "master_acct",
+        "InputColumns": [
+          {
+            "Name": "acct_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "acct_name",
+            "Type": "STRING"
+          }
+        ]
+      }
+    },
+    "b51a018c-291f-4865-bdba-089affff0361": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "normalized",
+        "Name": "customer",
+        "InputColumns": [
+          {
+            "Name": "cif_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "town_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "post_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "address",
+            "Type": "STRING"
+          },
+          {
+            "Name": "birthday",
+            "Type": "DATETIME"
+          },
+          {
+            "Name": "income_range",
+            "Type": "STRING"
+          },
+          {
+            "Name": "marriage",
+            "Type": "STRING"
+          },
+          {
+            "Name": "br_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "acct_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "account_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "sex",
+            "Type": "STRING"
+          }
+        ]
+      }
+    },
+    "e3114262-9ee5-4950-b917-2e49221c3d04": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "analytics",
+        "Name": "customerdepositinfo",
+        "InputColumns": [
+          {
+            "Name": "cif_num",
+            "Type": "STRING"
+          },
+          {
+            "Name": "base_date",
+            "Type": "DATETIME"
+          },
+          {
+            "Name": "sum_balance_all",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "sum_balance_ordinary",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "sum_balance_checking",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "sum_balance_saving",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "sum_balance_notice",
+            "Type": "DECIMAL"
+          }
+        ]
+      }
+    },
+    "f86f4248-829e-4e52-ba4a-1a982428b79b": {
+      "CustomSql": {
+        "DataSourceArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:datasource/bleafsi-simple-datalake-athena-datasource",
+        "Name": "master_income_range",
+        "SqlQuery": "WITH dataset AS (\r\n  SELECT * FROM (VALUES\r\n    (JSON '{\"code\": \"0\", \"value\": \"300万円未満\"}'),\r\n    (JSON '{\"code\": \"1\", \"value\": \"500万円未満\"}'),\r\n    (JSON '{\"code\": \"2\", \"value\": \"800万円未満\"}'),\r\n    (JSON '{\"code\": \"3\", \"value\": \"1000万円未満\"}'),\r\n    (JSON '{\"code\": \"4\", \"value\": \"1500万円未満\"}'),\r\n    (JSON '{\"code\": \"5\", \"value\": \"2000万円未満\"}'),\r\n    (JSON '{\"code\": \"6\", \"value\": \"2000万円以上\"}')\r\n  ) AS t (jsonline)\r\n)\r\nSELECT\r\n    json_extract_scalar(jsonline, '$.code') as income_range_code,\r\n    json_extract_scalar(jsonline, '$.value') as income_range_value\r\nFROM\r\n    dataset",
+        "Columns": [
+          {
+            "Name": "income_range_code",
+            "Type": "STRING"
+          },
+          {
+            "Name": "income_range_value",
+            "Type": "STRING"
+          }
+        ]
+      }
+    }
+  },
+  "LogicalTableMap": {
+    "1c885b8e-2404-495f-8fc5-6bc7c88ecdbf": {
+      "Alias": "Intermediate Table (2)",
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "9df18b7a-6fad-4c5f-ac2c-f5f4fc841036",
+          "RightOperand": "e3114262-9ee5-4950-b917-2e49221c3d04",
+          "Type": "LEFT",
+          "OnClause": "{cif_num} = {cif_num[customerdepositinfo]}"
+        }
+      }
+    },
+    "3d5a90b5-5da2-4b74-98cd-35b680e798a1": {
+      "Alias": "Intermediate Table (6)",
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "55c61c1e-98f7-4fe9-9aaa-7a02438a77ff",
+          "RightOperand": "97fbb108-50a3-4569-ae60-9ca456439201",
+          "Type": "LEFT",
+          "OnClause": "{br_num} = {branch_code}"
+        }
+      }
+    },
+    "5114ac41-0315-48b8-8bb9-35b14cf8ae89": {
+      "Alias": "GetGeoInfo4QuickSightSQL",
+      "DataTransforms": [
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "cif_num",
+            "NewColumnName": "cif_num[GetPrefectureSQL]"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "63286c6a-f782-44e3-bd7c-101e28869b80"
+      }
+    },
+    "55c61c1e-98f7-4fe9-9aaa-7a02438a77ff": {
+      "Alias": "Intermediate Table (5)",
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "d2e87ec4-ba69-4041-9696-0c249eb3b82c",
+          "RightOperand": "944578a4-b916-49fc-be2f-7044b91d3b16",
+          "Type": "LEFT",
+          "OnClause": "{acct_code} = {acct_code[master_acct]}"
+        }
+      }
+    },
+    "6db902ed-c5ab-4d80-94a5-e884bb6a31c2": {
+      "Alias": "internetbankingperiod",
+      "DataTransforms": [
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "cif_num",
+            "NewColumnName": "cif_num[internetbankingperiod]"
+          }
+        },
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "base_date",
+            "NewColumnName": "base_date[internetbankingperiod]"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "6db902ed-c5ab-4d80-94a5-e884bb6a31c2"
+      }
+    },
+    "81a8746f-3f45-4a77-9433-3077aac0e4ec": {
+      "Alias": "Intermediate Table (3)",
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "1c885b8e-2404-495f-8fc5-6bc7c88ecdbf",
+          "RightOperand": "6db902ed-c5ab-4d80-94a5-e884bb6a31c2",
+          "Type": "LEFT",
+          "OnClause": "{cif_num} = {cif_num[internetbankingperiod]}"
+        }
+      }
+    },
+    "944578a4-b916-49fc-be2f-7044b91d3b16": {
+      "Alias": "master_acct",
+      "DataTransforms": [
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "acct_code",
+            "NewColumnName": "acct_code[master_acct]"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "a75aa4cf-dda5-484d-ab6b-e25faa5af060"
+      }
+    },
+    "97fbb108-50a3-4569-ae60-9ca456439201": {
+      "Alias": "master_branch",
+      "Source": {
+        "PhysicalTableId": "4d0684c3-840b-4db9-aaf1-0ba71e3602e3"
+      }
+    },
+    "9df18b7a-6fad-4c5f-ac2c-f5f4fc841036": {
+      "Alias": "Intermediate Table",
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "b51a018c-291f-4865-bdba-089affff0361",
+          "RightOperand": "a21dbaea-e429-4686-90cd-0e1b4d935eeb",
+          "Type": "LEFT",
+          "OnClause": "{cif_num} = {cif_num[internetbankinguser]}"
+        }
+      }
+    },
+    "a21dbaea-e429-4686-90cd-0e1b4d935eeb": {
+      "Alias": "internetbankinguser",
+      "DataTransforms": [
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "cif_num",
+            "NewColumnName": "cif_num[internetbankinguser]"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb"
+      }
+    },
+    "b1016526-3cb6-490d-8e7f-85a4548858e8": {
+      "Alias": "Intermediate Table (7)",
+      "DataTransforms": [
+        {
+          "TagColumnOperation": {
+            "ColumnName": "town_code",
+            "Tags": [
+              {
+                "ColumnGeographicRole": "CITY"
+              }
+            ]
+          }
+        },
+        {
+          "TagColumnOperation": {
+            "ColumnName": "post_code_without_hyphen",
+            "Tags": [
+              {
+                "ColumnGeographicRole": "POSTCODE"
+              }
+            ]
+          }
+        },
+        {
+          "TagColumnOperation": {
+            "ColumnName": "prefecture",
+            "Tags": [
+              {
+                "ColumnGeographicRole": "STATE"
+              }
+            ]
+          }
+        },
+        {
+          "ProjectOperation": {
+            "ProjectedColumns": [
+              "cif_num",
+              "town_code",
+              "post_code",
+              "address",
+              "sex",
+              "birthday",
+              "marriage",
+              "br_num",
+              "acct_code",
+              "account_num",
+              "income_range",
+              "cif_num[internetbankinguser]",
+              "email_address",
+              "userid",
+              "join_date",
+              "cif_num[customerdepositinfo]",
+              "base_date[customerdepositinfo]",
+              "sum_balance_all",
+              "sum_balance_ordinary",
+              "sum_balance_checking",
+              "sum_balance_saving",
+              "sum_balance_notice",
+              "cif_num[internetbankingperiod]",
+              "base_date[internetbankingperiod]",
+              "inban_period",
+              "cif_num[GetPrefectureSQL]",
+              "post_code_without_hyphen",
+              "prefecture",
+              "acct_code[master_acct]",
+              "acct_name",
+              "base_date",
+              "bank_code",
+              "bank_name_half_kana",
+              "bank_name_kanji",
+              "branch_code",
+              "branch_name_half_kana",
+              "branch_name_kanji",
+              "income_range_code",
+              "income_range_value"
+            ]
+          }
+        }
+      ],
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "3d5a90b5-5da2-4b74-98cd-35b680e798a1",
+          "RightOperand": "c5c18695-79cb-43cb-90ec-1c293d84f37f",
+          "Type": "LEFT",
+          "OnClause": "{income_range} = {income_range_code}"
+        }
+      }
+    },
+    "b51a018c-291f-4865-bdba-089affff0361": {
+      "Alias": "customer",
+      "Source": {
+        "PhysicalTableId": "b51a018c-291f-4865-bdba-089affff0361"
+      }
+    },
+    "c5c18695-79cb-43cb-90ec-1c293d84f37f": {
+      "Alias": "master_income_range",
+      "Source": {
+        "PhysicalTableId": "f86f4248-829e-4e52-ba4a-1a982428b79b"
+      }
+    },
+    "d2e87ec4-ba69-4041-9696-0c249eb3b82c": {
+      "Alias": "Intermediate Table (4)",
+      "Source": {
+        "JoinInstruction": {
+          "LeftOperand": "81a8746f-3f45-4a77-9433-3077aac0e4ec",
+          "RightOperand": "5114ac41-0315-48b8-8bb9-35b14cf8ae89",
+          "Type": "LEFT",
+          "OnClause": "{cif_num} = {cif_num[GetPrefectureSQL]}"
+        }
+      }
+    },
+    "e3114262-9ee5-4950-b917-2e49221c3d04": {
+      "Alias": "customerdepositinfo",
+      "DataTransforms": [
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "cif_num",
+            "NewColumnName": "cif_num[customerdepositinfo]"
+          }
+        },
+        {
+          "RenameColumnOperation": {
+            "ColumnName": "base_date",
+            "NewColumnName": "base_date[customerdepositinfo]"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "e3114262-9ee5-4950-b917-2e49221c3d04"
+      }
+    }
+  },
+  "ColumnGroups": [
+    {
+      "GeoSpatialColumnGroup": {
+        "Name": "JapanGeoHierarchy",
+        "CountryCode": "JP",
+        "Columns": ["prefecture"]
+      }
+    }
+  ],
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:ap-northeast-1:<account-id>:user/default/<QuickSight-username>",
+      "Actions": [
+        "quicksight:DeleteDataSet",
+        "quicksight:UpdateDataSetPermissions",
+        "quicksight:PutDataSetRefreshProperties",
+        "quicksight:CreateRefreshSchedule",
+        "quicksight:CancelIngestion",
+        "quicksight:DeleteRefreshSchedule",
+        "quicksight:ListRefreshSchedules",
+        "quicksight:UpdateRefreshSchedule",
+        "quicksight:DescribeDataSetRefreshProperties",
+        "quicksight:DescribeDataSet",
+        "quicksight:CreateIngestion",
+        "quicksight:PassDataSet",
+        "quicksight:DescribeRefreshSchedule",
+        "quicksight:ListIngestions",
+        "quicksight:DescribeDataSetPermissions",
+        "quicksight:UpdateDataSet",
+        "quicksight:DeleteDataSetRefreshProperties",
+        "quicksight:DescribeIngestion"
+      ]
+    }
+  ],
+  "DataSetUsageConfiguration": {
+    "DisableUseAsDirectQuerySource": false,
+    "DisableUseAsImportedSource": false
+  }
+}

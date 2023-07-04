@@ -1,0 +1,11 @@
+{
+  "AwsAccountId": "<account-id>",
+  "Name": "bleafsi simple datalake athena datasource",
+  "DataSourceId": "bleafsi-simple-datalake-athena-datasource",
+  "Type": "ATHENA",
+  "DataSourceParameters": {
+    "AthenaParameters": {
+      "WorkGroup": "bleafsi-analyticsplatform-workgroup"
+    }
+  }
+}

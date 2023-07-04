@@ -1,0 +1,713 @@
+{
+  "AwsAccountId": "<account-id>",
+  "AnalysisId": "bleafsi-analytics-platform-sample",
+  "Name": "bleafsi-analytics-platform-sample",
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:ap-northeast-1:<account-id>:user/default/<QuickSight-username>",
+      "Actions": [
+        "quicksight:RestoreAnalysis",
+        "quicksight:UpdateAnalysisPermissions",
+        "quicksight:DeleteAnalysis",
+        "quicksight:DescribeAnalysisPermissions",
+        "quicksight:QueryAnalysis",
+        "quicksight:DescribeAnalysis",
+        "quicksight:UpdateAnalysis"
+      ]
+    }
+  ],
+  "Definition": {
+    "DataSetIdentifierDeclarations": [
+      {
+        "Identifier": "customer",
+        "DataSetArn": "arn:aws:quicksight:ap-northeast-1:<account-id>:dataset/bleafsi-simple-datalake-dataset"
+      }
+    ],
+    "Sheets": [
+      {
+        "SheetId": "df5c3e22-eff4-49e4-a93f-d31f29eebd46",
+        "Name": "シート 1",
+        "FilterControls": [
+          {
+            "Dropdown": {
+              "FilterControlId": "6072be00-23e2-4517-9ac5-d1fb8a728ef5",
+              "Title": "支店フィルタ",
+              "SourceFilterId": "b9b7015d-4842-4657-8fc3-154aee86cc43",
+              "DisplayOptions": {
+                "SelectAllOptions": {
+                  "Visibility": "VISIBLE"
+                },
+                "TitleOptions": {
+                  "Visibility": "VISIBLE",
+                  "FontConfiguration": {
+                    "FontSize": {
+                      "Relative": "MEDIUM"
+                    }
+                  }
+                }
+              },
+              "Type": "MULTI_SELECT"
+            }
+          }
+        ],
+        "Visuals": [
+          {
+            "FilledMapVisual": {
+              "VisualId": "958315a9-cc88-4086-9472-65c3a091d484",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>インバン契約者分布</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "FilledMapAggregatedFieldWells": {
+                    "Geospatial": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "5114ac41-0315-48b8-8bb9-35b14cf8ae89.prefecture.1.1685691370493",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "prefecture"
+                          },
+                          "HierarchyId": "1911385d-ba78-418b-a0b2-81fc984e7621"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.cif_num.1.1685691445880",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "cif_num[internetbankinguser]"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {},
+                "Legend": {
+                  "Title": {
+                    "CustomLabel": "契約者数"
+                  }
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "5114ac41-0315-48b8-8bb9-35b14cf8ae89.prefecture.1.1685691370493",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.cif_num.1.1685691445880",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "WindowOptions": {
+                  "Bounds": {
+                    "North": 45.966846365404706,
+                    "South": 26.322711438914283,
+                    "West": 122.7906677265766,
+                    "East": 148.73629751395964
+                  },
+                  "MapZoomMode": "MANUAL"
+                }
+              },
+              "ColumnHierarchies": [
+                {
+                  "PredefinedHierarchy": {
+                    "HierarchyId": "1911385d-ba78-418b-a0b2-81fc984e7621",
+                    "Columns": [
+                      {
+                        "DataSetIdentifier": "customer",
+                        "ColumnName": "prefecture"
+                      }
+                    ],
+                    "DrillDownFilters": []
+                  }
+                }
+              ],
+              "Actions": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "366dee1a-de45-4a86-ac0c-ad3383b183aa",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>インバン新規契約者数推移（年次）</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685008026060",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "join_date"
+                          },
+                          "DateGranularity": "YEAR",
+                          "HierarchyId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685008026060",
+                          "FormatConfiguration": {
+                            "DateTimeFormat": "YYYY"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.cif_num.0.1685008010102",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "cif_num[internetbankinguser]"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685008026060",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "CLUSTERED",
+                "CategoryAxis": {
+                  "ScrollbarOptions": {
+                    "VisibleRange": {
+                      "PercentRange": {
+                        "From": 14.927048260381593,
+                        "To": 100.0
+                      }
+                    }
+                  }
+                },
+                "CategoryLabelOptions": {
+                  "Visibility": "HIDDEN"
+                },
+                "ValueAxis": {
+                  "TickLabelOptions": {
+                    "LabelOptions": {
+                      "Visibility": "VISIBLE",
+                      "FontConfiguration": {
+                        "FontSize": {
+                          "Relative": "MEDIUM"
+                        }
+                      }
+                    }
+                  },
+                  "GridLineVisibility": "VISIBLE"
+                },
+                "ValueLabelOptions": {
+                  "Visibility": "HIDDEN",
+                  "SortIconVisibility": "VISIBLE"
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "BASIC",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.cif_num.0.1685008010102",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685008026060",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685008026060"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "KPIVisual": {
+              "VisualId": "0d3121f1-3abb-4cb0-ab41-91fb4d2d3e03",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>インバン契約者数（前年比）</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "Values": [
+                    {
+                      "CategoricalMeasureField": {
+                        "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.cif_num.0.1685079882868",
+                        "Column": {
+                          "DataSetIdentifier": "customer",
+                          "ColumnName": "cif_num[internetbankinguser]"
+                        },
+                        "AggregationFunction": "COUNT"
+                      }
+                    }
+                  ],
+                  "TargetValues": [],
+                  "TrendGroups": [
+                    {
+                      "DateDimensionField": {
+                        "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685079903071",
+                        "Column": {
+                          "DataSetIdentifier": "customer",
+                          "ColumnName": "join_date"
+                        },
+                        "DateGranularity": "YEAR",
+                        "HierarchyId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685079903071",
+                        "FormatConfiguration": {
+                          "DateTimeFormat": "YYYY年"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "SortConfiguration": {
+                  "TrendGroupSort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685079903071",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ]
+                },
+                "KPIOptions": {
+                  "ProgressBar": {
+                    "Visibility": "HIDDEN"
+                  },
+                  "TrendArrows": {
+                    "Visibility": "VISIBLE"
+                  },
+                  "Comparison": {
+                    "ComparisonMethod": "PERCENT"
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.join_date.1.1685079903071"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "PivotTableVisual": {
+              "VisualId": "8e097c03-0c2c-4cc0-876e-ee3f266f16fb",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  インバン\n  <b>未</b>\n  契約者（支店-収入レンジ）\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "97fbb108-50a3-4569-ae60-9ca456439201.branch_code.5.1687326377589",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "branch_code"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "97fbb108-50a3-4569-ae60-9ca456439201.branch_name_kanji.3.1687267170726",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "branch_name_kanji"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "c5c18695-79cb-43cb-90ec-1c293d84f37f.income_range_code.4.1687326304814",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "income_range_code"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "c5c18695-79cb-43cb-90ec-1c293d84f37f.income_range_value.2.1687326163653",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "income_range_value"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "b51a018c-291f-4865-bdba-089affff0361.cif_num.3.1685539613416",
+                          "Column": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "cif_num"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": [
+                    {
+                      "FieldId": "c5c18695-79cb-43cb-90ec-1c293d84f37f.income_range_value.2.1687326163653",
+                      "SortBy": {
+                        "Column": {
+                          "SortBy": {
+                            "DataSetIdentifier": "customer",
+                            "ColumnName": "income_range_code"
+                          },
+                          "Direction": "ASC",
+                          "AggregationFunction": {
+                            "CategoricalAggregationFunction": "COUNT"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "WRAP",
+                    "Height": 25
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE",
+                    "HorizontalTextAlignment": "RIGHT",
+                    "BackgroundColor": "#C6F0D7"
+                  },
+                  "CollapsedRowDimensionsVisibility": "HIDDEN"
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "97fbb108-50a3-4569-ae60-9ca456439201.branch_code.5.1687326377589",
+                      "Visibility": "HIDDEN"
+                    },
+                    {
+                      "FieldId": "97fbb108-50a3-4569-ae60-9ca456439201.branch_name_kanji.3.1687267170726",
+                      "CustomLabel": "支店名",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "c5c18695-79cb-43cb-90ec-1c293d84f37f.income_range_code.4.1687326304814",
+                      "Visibility": "HIDDEN"
+                    },
+                    {
+                      "FieldId": "c5c18695-79cb-43cb-90ec-1c293d84f37f.income_range_value.2.1687326163653",
+                      "CustomLabel": "収入レンジ",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "b51a018c-291f-4865-bdba-089affff0361.cif_num.3.1685539613416",
+                      "CustomLabel": "未契約者数",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": [
+                    {
+                      "DataPathList": [
+                        {
+                          "FieldId": "b51a018c-291f-4865-bdba-089affff0361.cif_num.3.1685539613416",
+                          "FieldValue": "cif_num"
+                        }
+                      ],
+                      "Width": "122px"
+                    }
+                  ]
+                }
+              },
+              "ConditionalFormatting": {
+                "ConditionalFormattingOptions": [
+                  {
+                    "Cell": {
+                      "FieldId": "b51a018c-291f-4865-bdba-089affff0361.cif_num.3.1685539613416",
+                      "TextFormat": {
+                        "Icon": {
+                          "CustomCondition": {
+                            "Expression": "COUNT({cif_num}) >= 2",
+                            "IconOptions": {
+                              "Icon": "FLAG"
+                            },
+                            "Color": "#DE3B00"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Cell": {
+                      "FieldId": "b51a018c-291f-4865-bdba-089affff0361.cif_num.3.1685539613416",
+                      "TextFormat": {
+                        "Icon": {
+                          "CustomCondition": {
+                            "Expression": "(COUNT({cif_num}) >= 1) AND (COUNT({cif_num}) <= 2)",
+                            "IconOptions": {
+                              "Icon": "FLAG"
+                            },
+                            "Color": "#FFB500"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Actions": []
+            }
+          },
+          {
+            "GaugeChartVisual": {
+              "VisualId": "da1adac8-1248-472e-9af5-b809a8c998a4",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>インバン契約者比率</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "Values": [
+                    {
+                      "CategoricalMeasureField": {
+                        "FieldId": "a21dbaea-e429-4686-90cd-0e1b4d935eeb.cif_num.1.1685087978759",
+                        "Column": {
+                          "DataSetIdentifier": "customer",
+                          "ColumnName": "cif_num[internetbankinguser]"
+                        },
+                        "AggregationFunction": "COUNT"
+                      }
+                    }
+                  ],
+                  "TargetValues": [
+                    {
+                      "CategoricalMeasureField": {
+                        "FieldId": "b51a018c-291f-4865-bdba-089affff0361.cif_num.0.1685087975573",
+                        "Column": {
+                          "DataSetIdentifier": "customer",
+                          "ColumnName": "cif_num"
+                        },
+                        "AggregationFunction": "COUNT"
+                      }
+                    }
+                  ]
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                }
+              },
+              "Actions": []
+            }
+          }
+        ],
+        "TextBoxes": [
+          {
+            "SheetTextBoxId": "5ebcf6ee-4d27-4b74-bf15-b1c8f3666d75",
+            "Content": "<text-box>\n  <block align=\"center\">\n    <inline font-size=\"16px\">\n      <b>（サンプル）AWS銀行インバンマーケティングダッシュボード</b>\n    </inline>\n  </block>\n</text-box>"
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "5ebcf6ee-4d27-4b74-bf15-b1c8f3666d75",
+                    "ElementType": "TEXT_BOX",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 36,
+                    "RowIndex": 0,
+                    "RowSpan": 1
+                  },
+                  {
+                    "ElementId": "6072be00-23e2-4517-9ac5-d1fb8a728ef5",
+                    "ElementType": "FILTER_CONTROL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 6,
+                    "RowIndex": 1,
+                    "RowSpan": 3
+                  },
+                  {
+                    "ElementId": "0d3121f1-3abb-4cb0-ab41-91fb4d2d3e03",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 6,
+                    "ColumnSpan": 8,
+                    "RowIndex": 1,
+                    "RowSpan": 3
+                  },
+                  {
+                    "ElementId": "366dee1a-de45-4a86-ac0c-ad3383b183aa",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 14,
+                    "ColumnSpan": 22,
+                    "RowIndex": 1,
+                    "RowSpan": 10
+                  },
+                  {
+                    "ElementId": "da1adac8-1248-472e-9af5-b809a8c998a4",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 14,
+                    "RowIndex": 4,
+                    "RowSpan": 5
+                  },
+                  {
+                    "ElementId": "958315a9-cc88-4086-9472-65c3a091d484",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 14,
+                    "RowIndex": 9,
+                    "RowSpan": 11
+                  },
+                  {
+                    "ElementId": "8e097c03-0c2c-4cc0-876e-ee3f266f16fb",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 14,
+                    "ColumnSpan": 22,
+                    "RowIndex": 11,
+                    "RowSpan": 9
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      }
+    ],
+    "CalculatedFields": [],
+    "ParameterDeclarations": [],
+    "FilterGroups": [
+      {
+        "FilterGroupId": "4e5299eb-0f3d-4e37-8796-d09f8cd53b26",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "b9b7015d-4842-4657-8fc3-154aee86cc43",
+              "Column": {
+                "DataSetIdentifier": "customer",
+                "ColumnName": "branch_name_kanji"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "SelectAllOptions": "FILTER_ALL_VALUES"
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "df5c3e22-eff4-49e4-a93f-d31f29eebd46",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "ALL_DATASETS"
+      }
+    ],
+    "AnalysisDefaults": {
+      "DefaultNewSheetConfiguration": {
+        "InteractiveLayoutConfiguration": {
+          "Grid": {
+            "CanvasSizeOptions": {
+              "ScreenCanvasSizeOptions": {
+                "ResizeOption": "FIXED",
+                "OptimizedViewPortWidth": "1600px"
+              }
+            }
+          }
+        },
+        "SheetContentType": "INTERACTIVE"
+      }
+    }
+  }
+}

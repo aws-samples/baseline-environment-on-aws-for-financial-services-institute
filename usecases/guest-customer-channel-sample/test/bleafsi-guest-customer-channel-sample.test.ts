@@ -3,18 +3,10 @@ import { Template, Annotations, Match } from 'aws-cdk-lib/assertions';
 import { CustomerChannelPrimaryStack } from '../lib/bleafsi-customer-channel-primary-stack';
 import { CustomerChannelSecondaryStack } from '../lib/bleafsi-customer-channel-secondary-stack';
 import { CustomerChannelTertiaryStack } from '../lib/bleafsi-customer-channel-tertiary-stack';
-import { AppEnvConfig, assertAppEnvConfig } from '../lib/bleafsi-customer-channel-config';
+import { AppEnvConfig } from '../lib/config';
+import { PjPrefix, DevParameter } from '../bin/parameter';
+import { CustomerChannelStacks, createStacks } from '../bin/bleafsi-guest-customer-channel-sample';
 import { AwsSolutionsChecks } from 'cdk-nag';
-
-import * as fs from 'fs';
-import * as path from 'path';
-
-const confPath = path.join(__dirname, '..', 'cdk.json');
-
-function loadAppEnv() {
-  const confRaw = JSON.parse(fs.readFileSync(confPath, 'utf-8'));
-  return assertAppEnvConfig('AppEnvConfig', confRaw['context']['dev']);
-}
 
 function createPrimaryStack(appEnv: AppEnvConfig, app: cdk.App, tertiaryStack: CustomerChannelTertiaryStack) {
   return new CustomerChannelPrimaryStack(app, 'CustomerChannelPrimaryStack', {
@@ -25,7 +17,7 @@ function createPrimaryStack(appEnv: AppEnvConfig, app: cdk.App, tertiaryStack: C
 }
 function createSecondaryStack(appEnv: AppEnvConfig, app: cdk.App, tertiaryStack: CustomerChannelTertiaryStack) {
   if (!appEnv.secondaryRegion || !appEnv.tertiaryRegion) {
-    throw Error(`Required regions are missing in ${confPath}`);
+    throw Error(`Required regions are missing in appEnv`);
   }
   return new CustomerChannelSecondaryStack(app, 'CustomerChannelSecondaryStack', {
     env: { account: appEnv.account, region: appEnv.secondaryRegion.region },
@@ -35,42 +27,46 @@ function createSecondaryStack(appEnv: AppEnvConfig, app: cdk.App, tertiaryStack:
 }
 function createTertiaryStack(appEnv: AppEnvConfig, app: cdk.App) {
   if (!appEnv.tertiaryRegion) {
-    throw Error(`Required region is missing in ${confPath}`);
+    throw Error(`Required region is missing in appEnv`);
   }
   return new CustomerChannelTertiaryStack(app, 'CustomerChannelTertiaryStack', {
     env: { account: appEnv.account, region: appEnv.tertiaryRegion.region },
   });
 }
 
+function getStackList(stacks: CustomerChannelStacks): cdk.Stack[] {
+  return [stacks.primaryStack, stacks.secondaryStack, stacks.tertiaryStack].filter(
+    (stack): stack is cdk.Stack => stack != undefined,
+  );
+}
+
 describe('snapshot check', () => {
   test('Customer channel sample stacks', () => {
-    const appEnv = loadAppEnv();
-    if (!appEnv.secondaryRegion || !appEnv.tertiaryRegion) {
-      throw Error(`Required regions are missing in ${confPath}`);
+    const appParam = DevParameter;
+    if (!appParam.secondaryRegion || !appParam.tertiaryRegion) {
+      throw Error(`Required regions are missing in DevParameter`);
     }
-    const app = new cdk.App();
-    const tertiaryStack = createTertiaryStack(appEnv, app);
-    const primaryStack = createPrimaryStack(appEnv, app, tertiaryStack);
-    const secondaryStack = createSecondaryStack(appEnv, app, tertiaryStack);
 
-    [primaryStack, secondaryStack, tertiaryStack].forEach((stack) => {
+    const app = new cdk.App();
+    const stacks = createStacks(app, PjPrefix, appParam);
+    getStackList(stacks).forEach((stack) => {
       expect(Template.fromStack(stack)).toMatchSnapshot();
     });
   });
 });
 
 function createPrimaryStackForNagTest(app: cdk.App): cdk.Stack {
-  const appEnv = loadAppEnv();
-  const tertiaryStack = createTertiaryStack(appEnv, app);
-  return createPrimaryStack(appEnv, app, tertiaryStack);
+  const appEnv = DevParameter;
+  const stacks = createStacks(app, PjPrefix, appEnv);
+  return stacks.primaryStack;
 }
 function createSecondaryStackForNagTest(app: cdk.App): cdk.Stack {
-  const appEnv = loadAppEnv();
+  const appEnv = DevParameter;
   const tertiaryStack = createTertiaryStack(appEnv, app);
   return createPrimaryStack(appEnv, app, tertiaryStack);
 }
 function createTertiaryStackForNagTest(app: cdk.App): cdk.Stack {
-  const appEnv = loadAppEnv();
+  const appEnv = DevParameter;
   return createTertiaryStack(appEnv, app);
 }
 

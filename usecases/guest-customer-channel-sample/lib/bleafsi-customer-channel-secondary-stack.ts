@@ -3,10 +3,10 @@ import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as kms from 'aws-cdk-lib/aws-kms';
 import { CustomerChannelTertiaryStack } from './bleafsi-customer-channel-tertiary-stack';
-import { CustomerChannelConnectInstance } from './bleafsi-customer-channel-connect-instance';
-import { ConnectInstanceConfig } from './bleafsi-customer-channel-config';
+import { CustomerChannelConnectInstance } from './connect-instance';
+import { ConnectInstanceConfig } from './config';
 import { RemoteParameters } from 'cdk-remote-stack';
-import * as nag_suppressions from './bleafsi-nag-suppressions';
+import * as nag_suppressions from './nag-suppressions';
 
 export interface CustomerChannelSecondaryStackProps extends StackProps {
   readonly connectInstance: ConnectInstanceConfig;

@@ -1,0 +1,590 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "18cfbfa6-46ed-4cde-986f-410d858277c1",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "3cff7668-4b01-4d4f-8d4b-71d742ac1b0e": {
+        "position": {
+          "x": 614.4000000000001,
+          "y": 39.2
+        },
+        "children": ["783c84db-e551-4182-b190-99d3e08671a6"],
+        "overrideConsoleVoice": true,
+        "fragments": {
+          "SetContactData": "783c84db-e551-4182-b190-99d3e08671a6"
+        },
+        "overrideLanguageAttribute": true
+      },
+      "783c84db-e551-4182-b190-99d3e08671a6": {
+        "position": {
+          "x": 614.4000000000001,
+          "y": 39.2
+        },
+        "dynamicParams": []
+      },
+      "c9099a6c-b014-4f8f-aff9-f2b6f3314ad4": {
+        "position": {
+          "x": 1079.2,
+          "y": 40
+        },
+        "children": ["d5969db0-c4b2-48c3-b500-5e6235b05e86"],
+        "dynamicParams": []
+      },
+      "d5969db0-c4b2-48c3-b500-5e6235b05e86": {
+        "position": {
+          "x": 1079.2,
+          "y": 40
+        },
+        "voiceAuthenticationUseDynamic": false,
+        "voiceAuthenticationResponseTimeUseDynamic": false,
+        "fraudDetectionUseDynamic": false,
+        "fragments": {
+          "SetContactData": "c9099a6c-b014-4f8f-aff9-f2b6f3314ad4"
+        }
+      },
+      "18cfbfa6-46ed-4cde-986f-410d858277c1": {
+        "position": {
+          "x": 152,
+          "y": 43.2
+        }
+      },
+      "27c05c76-c55b-43ef-8536-14d616097589": {
+        "position": {
+          "x": 378.40000000000003,
+          "y": 42.400000000000006
+        }
+      },
+      "067cda22-daf5-474d-bdd4-35c994a80e4b": {
+        "position": {
+          "x": 851.2,
+          "y": 39.2
+        }
+      },
+      "672848c8-ab5a-4259-b472-2d7bfbdf5f64": {
+        "position": {
+          "x": 590.4,
+          "y": 286.40000000000003
+        }
+      },
+      "c2e317b5-4df1-4b6c-93e1-067ccd952e51": {
+        "position": {
+          "x": 348.8,
+          "y": 279.2
+        },
+        "parameters": {
+          "CustomerId": {
+            "useDynamic": true
+          }
+        },
+        "dynamicParams": ["customerId"]
+      },
+      "2974aa32-c91d-472d-88ea-881437be1049": {
+        "position": {
+          "x": 216.8,
+          "y": 572
+        }
+      },
+      "5d41c3f0-6d95-449f-8e6e-13c479bf5d27": {
+        "position": {
+          "x": 63.2,
+          "y": 234.4
+        },
+        "parameters": {
+          "LexV2Bot": {
+            "AliasArn": {
+              "displayName": "IdentificationBotAlias",
+              "useLexBotDropdown": true,
+              "lexV2BotName": "IdentificationBot"
+            }
+          }
+        },
+        "useLexBotDropdown": true,
+        "lexV2BotName": "IdentificationBot",
+        "lexV2BotAliasName": "IdentificationBotAlias",
+        "conditionMetadata": [
+          {
+            "id": "8eee9198-d59d-4020-be18-263c8eee0cbc",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "CustomerIdentificationIntent"
+          }
+        ]
+      },
+      "19795223-ec94-49f9-bdb3-218fb4d0ed80": {
+        "position": {
+          "x": 900.8000000000001,
+          "y": 277.6
+        }
+      },
+      "a82b236c-3bb8-4740-a809-d4c4ef732c82": {
+        "position": {
+          "x": 904,
+          "y": 459.20000000000005
+        }
+      },
+      "bb8e603d-e51e-4cab-aa3e-a25cdc03e490": {
+        "position": {
+          "x": 884.8000000000001,
+          "y": 663.2
+        }
+      },
+      "b9e070bd-bf37-418b-acb8-d340e8cfad76": {
+        "position": {
+          "x": 887.2,
+          "y": 844.8000000000001
+        }
+      },
+      "a2531b23-3140-4b13-9ab9-0836d855093c": {
+        "position": {
+          "x": 837.6,
+          "y": 1039.2
+        }
+      },
+      "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c": {
+        "position": {
+          "x": 1145.6000000000001,
+          "y": 336
+        }
+      },
+      "73151cab-18dd-411b-bedb-b431a0d10886": {
+        "position": {
+          "x": 1476.8000000000002,
+          "y": 820.8000000000001
+        }
+      },
+      "66cbb408-8eee-446f-9093-78c9909967ae": {
+        "position": {
+          "x": 1396,
+          "y": 336.8
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "BasicQueue"
+          }
+        },
+        "queue": {
+          "text": "BasicQueue"
+        }
+      },
+      "a465f433-9163-4069-875f-c90723cb92f4": {
+        "position": {
+          "x": 1240.8000000000002,
+          "y": 791.2
+        }
+      },
+      "8a54eec9-82be-4ecb-8bc2-a078cdb32804": {
+        "position": {
+          "x": 1260.8000000000002,
+          "y": 564.8000000000001
+        },
+        "parameters": {
+          "EventHooks": {
+            "AgentWhisper": {
+              "displayName": "IdentificationAgentWhisperFlow"
+            }
+          }
+        },
+        "contactFlow": {
+          "text": "IdentificationAgentWhisperFlow",
+          "id": "%AGENT_WHISPER_FLOW_ARN%"
+        },
+        "customerOrAgent": false
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "TextToSpeechVoice": "Takumi",
+        "TextToSpeechEngine": "Neural",
+        "TextToSpeechStyle": "None"
+      },
+      "Identifier": "3cff7668-4b01-4d4f-8d4b-71d742ac1b0e",
+      "Type": "UpdateContactTextToSpeechVoice",
+      "Transitions": {
+        "NextAction": "783c84db-e551-4182-b190-99d3e08671a6"
+      }
+    },
+    {
+      "Parameters": {
+        "LanguageCode": "ja-JP"
+      },
+      "Identifier": "783c84db-e551-4182-b190-99d3e08671a6",
+      "Type": "UpdateContactData",
+      "Transitions": {
+        "NextAction": "067cda22-daf5-474d-bdd4-35c994a80e4b",
+        "Errors": [
+          {
+            "NextAction": "067cda22-daf5-474d-bdd4-35c994a80e4b",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "IsVoiceIdStreamingEnabled": "true",
+        "IsFraudDetectionEnabled": "true",
+        "IsVoiceAuthenticationEnabled": "true",
+        "VoiceAuthenticationThreshold": "90",
+        "VoiceAuthenticationResponseTime": "5",
+        "FraudDetectionThreshold": "50"
+      },
+      "Identifier": "c9099a6c-b014-4f8f-aff9-f2b6f3314ad4",
+      "Type": "UpdateContactData",
+      "Transitions": {
+        "NextAction": "d5969db0-c4b2-48c3-b500-5e6235b05e86",
+        "Errors": [
+          {
+            "NextAction": "5d41c3f0-6d95-449f-8e6e-13c479bf5d27",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "d5969db0-c4b2-48c3-b500-5e6235b05e86",
+      "Type": "StartVoiceIdStream",
+      "Transitions": {
+        "NextAction": "5d41c3f0-6d95-449f-8e6e-13c479bf5d27",
+        "Errors": [
+          {
+            "NextAction": "5d41c3f0-6d95-449f-8e6e-13c479bf5d27",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Identifier": "18cfbfa6-46ed-4cde-986f-410d858277c1",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Transitions": {
+        "NextAction": "27c05c76-c55b-43ef-8536-14d616097589"
+      }
+    },
+    {
+      "Parameters": {
+        "RecordingBehavior": {
+          "RecordedParticipants": ["Agent", "Customer"]
+        },
+        "AnalyticsBehavior": {
+          "Enabled": "True",
+          "AnalyticsLanguage": "ja-JP",
+          "AnalyticsRedactionBehavior": "Disabled",
+          "AnalyticsRedactionResults": "None",
+          "ChannelConfiguration": {
+            "Chat": {
+              "AnalyticsModes": ["ContactLens"]
+            },
+            "Voice": {
+              "AnalyticsModes": ["RealTime"]
+            }
+          }
+        }
+      },
+      "Identifier": "27c05c76-c55b-43ef-8536-14d616097589",
+      "Type": "UpdateContactRecordingBehavior",
+      "Transitions": {
+        "NextAction": "3cff7668-4b01-4d4f-8d4b-71d742ac1b0e"
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">お電話ありがとうございます。アマゾンコネクト株式会社でございます。</prosody></speak>"
+      },
+      "Identifier": "067cda22-daf5-474d-bdd4-35c994a80e4b",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "c9099a6c-b014-4f8f-aff9-f2b6f3314ad4",
+        "Errors": [
+          {
+            "NextAction": "c9099a6c-b014-4f8f-aff9-f2b6f3314ad4",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "CheckVoiceIdOption": "voiceAuthentication"
+      },
+      "Identifier": "672848c8-ab5a-4259-b472-2d7bfbdf5f64",
+      "Type": "CheckVoiceId",
+      "Transitions": {
+        "NextAction": "2974aa32-c91d-472d-88ea-881437be1049",
+        "Conditions": [
+          {
+            "NextAction": "19795223-ec94-49f9-bdb3-218fb4d0ed80",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": ["Authenticated"]
+            }
+          },
+          {
+            "NextAction": "a82b236c-3bb8-4740-a809-d4c4ef732c82",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": ["NotAuthenticated"]
+            }
+          },
+          {
+            "NextAction": "bb8e603d-e51e-4cab-aa3e-a25cdc03e490",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": ["Inconclusive"]
+            }
+          },
+          {
+            "NextAction": "b9e070bd-bf37-418b-acb8-d340e8cfad76",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": ["NotEnrolled"]
+            }
+          },
+          {
+            "NextAction": "a2531b23-3140-4b13-9ab9-0836d855093c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": ["OptedOut"]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "2974aa32-c91d-472d-88ea-881437be1049",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "CustomerId": "$.Lex.Slots.CustomerNumber"
+      },
+      "Identifier": "c2e317b5-4df1-4b6c-93e1-067ccd952e51",
+      "Type": "UpdateContactData",
+      "Transitions": {
+        "NextAction": "672848c8-ab5a-4259-b472-2d7bfbdf5f64",
+        "Errors": [
+          {
+            "NextAction": "2974aa32-c91d-472d-88ea-881437be1049",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">恐れ入りますが、最初からやり直してください。</prosody></speak>"
+      },
+      "Identifier": "2974aa32-c91d-472d-88ea-881437be1049",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5d41c3f0-6d95-449f-8e6e-13c479bf5d27",
+        "Errors": [
+          {
+            "NextAction": "5d41c3f0-6d95-449f-8e6e-13c479bf5d27",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">ご用件をおっしゃってください。</prosody></speak>",
+        "LexV2Bot": {
+          "AliasArn": "%BOT_ALIAS_ARN%"
+        }
+      },
+      "Identifier": "5d41c3f0-6d95-449f-8e6e-13c479bf5d27",
+      "Type": "ConnectParticipantWithLexBot",
+      "Transitions": {
+        "NextAction": "2974aa32-c91d-472d-88ea-881437be1049",
+        "Conditions": [
+          {
+            "NextAction": "c2e317b5-4df1-4b6c-93e1-067ccd952e51",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": ["CustomerIdentificationIntent"]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "2974aa32-c91d-472d-88ea-881437be1049",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "2974aa32-c91d-472d-88ea-881437be1049",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">声紋によりお客様ご本人と確認できました。</prosody></speak>"
+      },
+      "Identifier": "19795223-ec94-49f9-bdb3-218fb4d0ed80",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+        "Errors": [
+          {
+            "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">声紋による認証ができませんでした。詳細はオペレーターに確認してください。</prosody></speak>"
+      },
+      "Identifier": "a82b236c-3bb8-4740-a809-d4c4ef732c82",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+        "Errors": [
+          {
+            "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">恐れ入りますが、声紋によりお客様と判断できませんでした。詳細はオペレーターに確認してください。</prosody></speak>"
+      },
+      "Identifier": "bb8e603d-e51e-4cab-aa3e-a25cdc03e490",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+        "Errors": [
+          {
+            "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">お客様はまだ声紋を登録されていないようです。</prosody></speak>"
+      },
+      "Identifier": "b9e070bd-bf37-418b-acb8-d340e8cfad76",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+        "Errors": [
+          {
+            "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">声紋による認証がオプトアウトされています。</prosody></speak>"
+      },
+      "Identifier": "a2531b23-3140-4b13-9ab9-0836d855093c",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+        "Errors": [
+          {
+            "NextAction": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">オペレーターにおつなぎいたします。</prosody></speak>"
+      },
+      "Identifier": "f2ef3d8b-7281-4bbc-b286-03ff3ef1516c",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "66cbb408-8eee-446f-9093-78c9909967ae",
+        "Errors": [
+          {
+            "NextAction": "66cbb408-8eee-446f-9093-78c9909967ae",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "73151cab-18dd-411b-bedb-b431a0d10886",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "QueueId": "%QUEUE_ARN%"
+      },
+      "Identifier": "66cbb408-8eee-446f-9093-78c9909967ae",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "8a54eec9-82be-4ecb-8bc2-a078cdb32804",
+        "Errors": [
+          {
+            "NextAction": "8a54eec9-82be-4ecb-8bc2-a078cdb32804",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "a465f433-9163-4069-875f-c90723cb92f4",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "73151cab-18dd-411b-bedb-b431a0d10886",
+        "Errors": [
+          {
+            "NextAction": "73151cab-18dd-411b-bedb-b431a0d10886",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "73151cab-18dd-411b-bedb-b431a0d10886",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "EventHooks": {
+          "AgentWhisper": "%AGENT_WHISPER_FLOW_ARN%"
+        }
+      },
+      "Identifier": "8a54eec9-82be-4ecb-8bc2-a078cdb32804",
+      "Type": "UpdateContactEventHooks",
+      "Transitions": {
+        "NextAction": "a465f433-9163-4069-875f-c90723cb92f4",
+        "Errors": [
+          {
+            "NextAction": "a465f433-9163-4069-875f-c90723cb92f4",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

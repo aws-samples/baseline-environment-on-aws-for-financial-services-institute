@@ -53,33 +53,43 @@ ACM に登録後、各証明書の ARN を AWS マネージメントコンソー
 
 BLEA for FSI 版と同じ手順で Context を設定します。
 
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-openapi-base-sample.ts",
-  "context": {
-    "pjPrefix": "BLEA-FSI-OpenApi",
-    "dev": {
-      "description": "Context samples for Dev",
-      "envName": "Development",
-      "customdomainName": "api.xxxx.xxxx",
-      "alterdomainName": "openapi.xxxx.xxxx",
-      "certIdarnApigw": "arn:aws:acm:ap-northeast-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-      "certIdarnCf": "arn:aws:acm:us-east-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    }
-  }
-}
+ファイル名: usecases/guest-openapi-base-sample/bin/parameter.ts
+
+```js
+//// Development environment parameters ////
+export const DevParameter: StackParameter = {
+  envName: 'Development',
+  customdomainName: 'api.xxxx.xxxxx',
+  alterdomainName: 'openapi.xxxx.xxxx',
+  certIdarnApigw: 'arn:aws:acm:ap-northeast-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  certIdarnCf: 'arn:aws:acm:us-east-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+};
+
+//// Staging environment parameters ////
+export const StageParameter: StackParameter = {
+  envName: 'Staging',
+  customdomainName: 'api.xxxx.xxxxx',
+  alterdomainName: 'openapi.xxxx.xxxx',
+  certIdarnApigw: 'arn:aws:acm:ap-northeast-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  certIdarnCf: 'arn:aws:acm:us-east-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  env: {
+    account: '111111111111',
+    region: 'ap-northeast-1',
+  },
+};
 ```
 
 この設定内容は以下の通りです。
 
-| key              | value                                        |
-| ---------------- | -------------------------------------------- |
-| description      | 設定についてのコメント                       |
-| envName          | 環境名                                       |
-| customdomainName | AWS API Gateway に設定するカスタムドメイン名 |
-| alterdomainName  | AWS CloudFront に設定する代替ドメイン名      |
-| certIdarnApigw   | AWS API Gateway 用サーバー証明書の ARN       |
-| certIdarnCf      | AWS CloudFront 用サーバー証明書の ARN        |
+| key              | value                                                                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| envName          | 環境名                                                                                                                                  |
+| customdomainName | AWS API Gateway に設定するカスタムドメイン名                                                                                            |
+| alterdomainName  | AWS CloudFront に設定する代替ドメイン名                                                                                                 |
+| certIdarnApigw   | AWS API Gateway 用サーバー証明書の ARN <br> 例 arn:aws:acm:ap-northeast-1:444412345678:certificate/a92d01bd-8dd3-4b3b-9b66-1d5826288664 |
+| certIdarnCf      | AWS CloudFront 用サーバー証明書の ARN                                                                                                   |
+| env.account      | デプロイ対象のアカウント ID。 profile で指定するアカウントと一致している必要があります                                                  |
+| env.region       | デプロイ対象のリージョン                                                                                                                |
 
 #### 2-2. ゲストアプリケーションをデプロイする(Local)
 
@@ -87,14 +97,14 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 
 ```sh
 $ cd usecases/guest-openapi-base-sample
-$ npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+$ npx cdk bootstrap --profile ct-guest-sso
 ```
 
 サンプル環境をデプロイします。
 
 ```sh
 $ cd usecases/guest-openapi-base-sample
-$ npx cdk deploy --all -c environment=dev --profile ct-guest-sso
+$ npx cdk deploy --profile ct-guest-sso
 ```
 
 $ cdk deploy コマンドが正常に終了することを確認します。

@@ -228,33 +228,41 @@ $ docker push <アカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/fapidemo/
 
 #### 2-1. ゲストアプリケーションの Context を設定する
 
-BLEA for FSI 版と同じ手順で Context を設定します。
+BLEA for FSI と同じ手順で Context を設定します。
 
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-openapi-fapi-sample.ts",
-  "context": {
-    "pjPrefix": "BLEA-FSI",
-    "dev": {
-      "description": "Context samples for Dev",
-      "envName": "Development",
-      "dbUser": "dbadmin",
-      "keycloakContainerVersionTag": "16.1.1",
-      "keycloakContainerImageName": "fapidemo/keycloak",
-      "primaryRegion": {
-        "region": "ap-northeast-1",
-        "vpcCidr": "10.110.0.0/16"
-      }
-    }
-  }
-}
+ファイル名: usecases/guest-openapi-fapi-sample/bin/parameter.ts
+
+```js
+//// Development environment parameters ////
+export const DevParameter: StackParameter = {
+  envName: 'Development',
+  dbUser: 'dbadmin',
+  keycloakContainerVersionTag: '16.1.1',
+  keycloakContainerImageName: 'fapidemo/keycloak',
+  primaryRegion: {
+    region: 'ap-northeast-1',
+    vpcCidr: '10.110.0.0/16',
+  },
+};
+
+//// Staging environment parameters ////
+export const StageParameter: StackParameter = {
+  envName: 'Staging',
+  account: '111111111111',
+  dbUser: 'dbadmin',
+  keycloakContainerVersionTag: '16.1.1',
+  keycloakContainerImageName: 'fapidemo/keycloak',
+  primaryRegion: {
+    region: 'ap-northeast-1',
+    vpcCidr: '10.110.0.0/16',
+  },
+};
 ```
 
 この設定内容は以下の通りです。
 
 | key                         | value                                          |
 | --------------------------- | ---------------------------------------------- |
-| description                 | 設定についてのコメント                         |
 | envName                     | 環境名。これが各々のリソースタグに設定されます |
 | dbUser                      | Aurora MySQL データベースへのログインユーザ名  |
 | keycloakContainerImageName  | カスタム Keycloak コンテナイメージ名           |
@@ -268,15 +276,17 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 
 ```sh
 cd usecases/guest-openapi-fapi-sample
-npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+npx cdk bootstrap --profile ct-guest-sso
 ```
 
 サンプル環境をデプロイします。
 
 ```sh
 cd usecases/guest-openapi-fapi-sample
-npx cdk deploy --all -c environment=dev --profile ct-guest-sso
+npx cdk deploy BLEAFSI-OpenApi-Fapi-primary-Dev --profile ct-guest-sso
 ```
+
+> `BLEAFSI-OpenApi-Fapi-primary-Dev` はデプロイする開発環境用のスタック名です。環境（開発、ステージング、本番）によってスタック名は異なります。
 
 cdk deploy コマンドが正常に終了し、Outputs に以下が出力されていることを確認します
 

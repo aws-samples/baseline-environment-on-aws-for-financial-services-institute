@@ -1,503 +1,3696 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BLEA-FSI snapshot check market data sample Stacks 1`] = `
-Object {
-  "Parameters": Object {
-    "BootstrapVersion": Object {
+exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": Object {
-    "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/ca0d9d8e302cf7587e95c5f05ba6368ca12e1d518db96243f31c47155ab1655b.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIComposerAppNestedStackBLEAFSIComposerAppNestedStackResource537E06A4": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "BLEAFSIComposerContainerImageNestedStackBLEAFSIComposerContainerImageNestedStackResourceA8F7AFE2",
+  "Resources": {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
+      "DependsOn": [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
       ],
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Arn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Arn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpc7D00E9D7Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpc7D00E9D7Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpcProtectedSubnet1Subnet404190B6Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpcProtectedSubnet1Subnet404190B6Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpcProtectedSubnet2SubnetD6306AA0Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpcProtectedSubnet2SubnetD6306AA0Ref",
-            ],
-          },
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
+          "S3Key": "f9346b940b724b094a16ca051c017799995fa93df6da38a0539bf7c000fee50a.zip",
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/360f10920f5bc648ec14784d50534250d65153a3beb560586db2c1fe575a459a.json",
-            ],
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
           ],
         },
+        "Runtime": "nodejs16.x",
+        "Timeout": 120,
       },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
+      "Type": "AWS::Lambda::Function",
     },
-    "BLEAFSIComposerContainerImageNestedStackBLEAFSIComposerContainerImageNestedStackResourceA8F7AFE2": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/02f43b43f063bfd765f782ae49c4b248d7155ecf3d49734ad6ff67b20f75d36d.json",
-            ],
+            },
           ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AppKey2AF25043": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "AppKey for market-data App",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::111111111111:root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Describe*",
+              ],
+              "Condition": {
+                "ArnLike": {
+                  "kms:EncryptionContext:aws:logs:arn": "arn:aws:logs:ap-northeast-1:111111111111:*",
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "logs.ap-northeast-1.amazonaws.com",
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
         },
       },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
     },
-    "BLEAFSIDistributorAppNestedStackBLEAFSIDistributorAppNestedStackResource3249629A": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "BLEAFSIDistributorContainerImageNestedStackBLEAFSIDistributorContainerImageNestedStackResource779F705A",
+    "ComposerAppCluster387BD2FC": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
       ],
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
+      "Properties": {
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled",
           },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Arn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Arn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpc7D00E9D7Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpc7D00E9D7Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpcProtectedSubnet1Subnet404190B6Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpcProtectedSubnet1Subnet404190B6Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpcProtectedSubnet2SubnetD6306AA0Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpcProtectedSubnet2SubnetD6306AA0Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIWafNestedStackBLEAFSIWafNestedStackResourceEABE31B5OutputsBLEAFSImarketdataBLEAFSIWafWebAcl12C755CCArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIWafNestedStackBLEAFSIWafNestedStackResource9D8B0682",
-              "Outputs.BLEAFSImarketdataBLEAFSIWafWebAcl12C755CCArn",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/72f770a6901e680d73b8073cb72cd8c3fb48ea5ef140fc87b67b4de870c2a3c2.json",
-            ],
-          ],
-        },
+        ],
       },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
+      "Type": "AWS::ECS::Cluster",
     },
-    "BLEAFSIDistributorContainerImageNestedStackBLEAFSIDistributorContainerImageNestedStackResource779F705A": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/f6d225ef472a63c2cc3109517fe1656c34e36d23a210696652157ed9bfbe74f9.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource645F7D60OutputsBLEAFSImarketdataBLEAFSIMonitorAlarmMonitorAlarmTopic1C3B0F27Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4",
-              "Outputs.BLEAFSImarketdataBLEAFSIMonitorAlarmMonitorAlarmTopic1C3B0F27Ref",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/efada3199bb7f0cfdc70cd035140c995fa280d6af8889bfe014e2daa8cbfbafa.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIHandlerAppNestedStackBLEAFSIHandlerAppNestedStackResource7723A0D3": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "BLEAFSIHandlerContainerImageNestedStackBLEAFSIHandlerContainerImageNestedStackResource1E6C63F1",
+    "ComposerAppClusterD812B6C2": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
       ],
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Arn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Arn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpc7D00E9D7Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpc7D00E9D7Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpcProtectedSubnet1Subnet404190B6Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpcProtectedSubnet1Subnet404190B6Ref",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResourceA73E3058OutputsBLEAFSImarketdataBLEAFSIVpcProtectedSubnet2SubnetD6306AA0Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924",
-              "Outputs.BLEAFSImarketdataBLEAFSIVpcProtectedSubnet2SubnetD6306AA0Ref",
-            ],
-          },
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT",
+        ],
+        "Cluster": {
+          "Ref": "ComposerAppCluster387BD2FC",
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/cbb92944500c2def7c7d99033d2422513e6d688de835ef097474c44b3800fe51.json",
-            ],
-          ],
-        },
+        "DefaultCapacityProviderStrategy": [],
       },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
     },
-    "BLEAFSIHandlerContainerImageNestedStackBLEAFSIHandlerContainerImageNestedStackResource1E6C63F1": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceD788636COutputsBLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIECRNestedStackBLEAFSIECRNestedStackResourceC5535B91",
-              "Outputs.BLEAFSImarketdataBLEAFSIECRBLEAFSIrepo43953259Ref",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/ebfbf7b94ae8ab1295e1c2b8b1e182f70fe2609f3d10a0a92ec19076d76ad27a.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/7e1abd3c28c1671cf9bbf799dba73568835472c95c77fa1c52b6e365eb46d555.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIVpcNestedStackBLEAFSIVpcNestedStackResource87DFC924": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/4e1be6122552f0d1fa8a8de57083a5e8c11abb6270e53f6038c74f81c6c32a20.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIWafNestedStackBLEAFSIWafNestedStackResource9D8B0682": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/601c9930f9c9bdb3776b88e7a5efe15c08cff0581872862860084b264317e2e6.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIcomposedddbNestedStackBLEAFSIcomposedddbNestedStackResourceE0AAFB4C": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-        "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4",
+    "ComposerAppEcsServiceTaskRoleD9583E3B": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
       ],
-      "Properties": Object {
-        "Parameters": Object {
-          "referencetoBLEAFSImarketdataBLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource80C8615BOutputsBLEAFSImarketdataBLEAFSIAppKey1685CF6DArn": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
-            ],
-          },
-          "referencetoBLEAFSImarketdataBLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource645F7D60OutputsBLEAFSImarketdataBLEAFSIMonitorAlarmMonitorAlarmTopic1C3B0F27Ref": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIMonitorAlarmNestedStackBLEAFSIMonitorAlarmNestedStackResource8F5245B4",
-              "Outputs.BLEAFSImarketdataBLEAFSIMonitorAlarmMonitorAlarmTopic1C3B0F27Ref",
-            ],
-          },
-        },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
               },
-              "/cdk-hnb659fds-assets-111111111111-ap-northeast-1/5db4f389cb7ffd21483353af3efa58e18bbc1e1b722bfabe09f555ba7817e284.json",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ComposerAppEcsServiceTaskRoleDefaultPolicyAF6AE91A": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "kinesis:GetRecords",
+                "kinesis:GetShardIterator",
+                "kinesis:DescribeStreamSummary",
+                "kinesis:PutRecord",
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:kinesis:ap-northeast-1:111111111111:stream/*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ComposerAppEcsServiceTaskRoleDefaultPolicyAF6AE91A",
+        "Roles": [
+          {
+            "Ref": "ComposerAppEcsServiceTaskRoleD9583E3B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ComposerAppEcsTask5C774043": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      4,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::GetAtt": [
+                              "ECRF8362BFE",
+                              "Arn",
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  ".dkr.ecr.",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::GetAtt": [
+                              "ECRF8362BFE",
+                              "Arn",
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/",
+                  {
+                    "Ref": "ECRF8362BFE",
+                  },
+                  ":sample_handler",
+                ],
+              ],
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "ComposerAppFargateLogGroup12829453",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "BLEA-ECSApp-",
+              },
+            },
+            "Name": "EcsApp",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "Protocol": "tcp",
+              },
             ],
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "ComposerAppEcsTaskExecutionRole13FE75AC",
+            "Arn",
+          ],
+        },
+        "Family": "BLEAFSIMarketDataComposerAppEcsTaskF5656F85",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE",
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "ComposerAppEcsServiceTaskRoleD9583E3B",
+            "Arn",
           ],
         },
       },
-      "Type": "AWS::CloudFormation::Stack",
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "ComposerAppEcsTaskExecutionRole13FE75AC": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ComposerAppEcsTaskExecutionRoleDefaultPolicy96A6317A": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ECRF8362BFE",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ComposerAppEcsTaskExecutionRoleDefaultPolicy96A6317A",
+        "Roles": [
+          {
+            "Ref": "ComposerAppEcsTaskExecutionRole13FE75AC",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ComposerAppFargateLogGroup12829453": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "KmsKeyId": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+        "RetentionInDays": 90,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ComposerAppFargateServiceA84E1E43": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "CapacityProviderStrategy": [
+          {
+            "CapacityProvider": "FARGATE",
+            "Weight": 1,
+          },
+        ],
+        "Cluster": {
+          "Ref": "ComposerAppCluster387BD2FC",
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "DesiredCount": 2,
+        "EnableECSManagedTags": false,
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "ComposerAppSgFargate0782CF25",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": [
+              {
+                "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+              },
+              {
+                "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+              },
+            ],
+          },
+        },
+        "PlatformVersion": "LATEST",
+        "TaskDefinition": {
+          "Ref": "ComposerAppEcsTask5C774043",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "ComposerAppSgFargate0782CF25": {
+      "DependsOn": [
+        "ComposerContainerImagesamplecomposerproject265B244C",
+        "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "ComposerContainerImagestartBuild18835D3E",
+      ],
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Composer-App/SgFargate",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "ComposerContainerImagesamplecomposerproject265B244C": {
+      "Properties": {
+        "Artifacts": {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Cache": {
+          "Type": "NO_CACHE",
+        },
+        "EncryptionKey": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "AWS_DEFAULT_REGION",
+              "Type": "PLAINTEXT",
+              "Value": "ap-northeast-1",
+            },
+            {
+              "Name": "AWS_ACCOUNT_ID",
+              "Type": "PLAINTEXT",
+              "Value": "111111111111",
+            },
+            {
+              "Name": "IMAGE_TAG",
+              "Type": "PLAINTEXT",
+              "Value": "sample_composer",
+            },
+            {
+              "Name": "IMAGE_REPO_NAME",
+              "Type": "PLAINTEXT",
+              "Value": {
+                "Ref": "ECRF8362BFE",
+              },
+            },
+          ],
+          "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": true,
+          "Type": "LINUX_CONTAINER",
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+            "Arn",
+          ],
+        },
+        "Source": {
+          "Location": "cdk-hnb659fds-assets-111111111111-ap-northeast-1/80f730532f1195ed4fede75fbf8191acdfc52e6721de3b612c0c6a7eab1dbbc1.zip",
+          "Type": "S3",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "ComposerContainerImagesamplecomposerprojectRoleD87A3320": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-111111111111-ap-northeast-1",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-111111111111-ap-northeast-1/80f730532f1195ed4fede75fbf8191acdfc52e6721de3b612c0c6a7eab1dbbc1.zip",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:ap-northeast-1:111111111111:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "ComposerContainerImagesamplecomposerproject265B244C",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:ap-northeast-1:111111111111:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "ComposerContainerImagesamplecomposerproject265B244C",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":codebuild:ap-northeast-1:111111111111:report-group/",
+                    {
+                      "Ref": "ComposerContainerImagesamplecomposerproject265B244C",
+                    },
+                    "-*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "AppKey2AF25043",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:CompleteLayerUpload",
+                "ecr:InitiateLayerUpload",
+                "ecr:PutImage",
+                "ecr:UploadLayerPart",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ecr:ap-northeast-1:111111111111:repository/",
+                    {
+                      "Ref": "ECRF8362BFE",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
+        "Roles": [
+          {
+            "Ref": "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ComposerContainerImagestartBuild18835D3E": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+      ],
+      "Properties": {
+        "Create": {
+          "Fn::Join": [
+            "",
+            [
+              "{"service":"CodeBuild","action":"startBuild","parameters":{"projectName":"",
+              {
+                "Ref": "ComposerContainerImagesamplecomposerproject265B244C",
+              },
+              ""},"physicalResourceId":{"id":"",
+              {
+                "Fn::GetAtt": [
+                  "ComposerContainerImagesamplecomposerproject265B244C",
+                  "Arn",
+                ],
+              },
+              ""}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
     },
-    "ComposerStreamFF8E47FD": Object {
-      "Properties": Object {
+    "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ComposerContainerImagesamplecomposerproject265B244C",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ComposerContainerImagestartBuildCustomResourcePolicyD808D0A3",
+        "Roles": [
+          {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ComposerStreamFF8E47FD": {
+      "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
-        "StreamEncryption": Object {
+        "StreamEncryption": {
           "EncryptionType": "KMS",
-          "KeyId": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
+          "KeyId": {
+            "Fn::GetAtt": [
+              "AppKey2AF25043",
+              "Arn",
             ],
           },
-        },
-        "StreamModeDetails": Object {
-          "StreamMode": "PROVISIONED",
         },
       },
       "Type": "AWS::Kinesis::Stream",
     },
-    "HandlerStreamF76AB64B": Object {
-      "Properties": Object {
-        "RetentionPeriodHours": 24,
-        "ShardCount": 1,
-        "StreamEncryption": Object {
-          "EncryptionType": "KMS",
-          "KeyId": Object {
-            "Fn::GetAtt": Array [
-              "BLEAFSIAppKeyNestedStackBLEAFSIAppKeyNestedStackResource28187220",
-              "Outputs.BLEAFSImarketdataBLEAFSIAppKey1685CF6DArn",
+    "DistributorAppAlb2ECF73C2": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+          {
+            "Key": "access_logs.s3.enabled",
+            "Value": "true",
+          },
+          {
+            "Key": "access_logs.s3.bucket",
+            "Value": {
+              "Ref": "DistributorAppalblogbucketD6457709",
+            },
+          },
+        ],
+        "Scheme": "internal",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "DistributorAppSgAlb8C0F2072",
+              "GroupId",
+            ],
+          },
+        ],
+        "Subnets": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "Type": "application",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    },
+    "DistributorAppAlbhttp11B4B307": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "DistributorAppAlbhttpEcsAppGroup2A131381",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": {
+          "Ref": "DistributorAppAlb2ECF73C2",
+        },
+        "Port": 80,
+        "Protocol": "HTTP",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "DistributorAppAlbhttpEcsAppGroup2A131381": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Key": "deregistration_delay.timeout_seconds",
+            "Value": "30",
+          },
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false",
+          },
+        ],
+        "TargetType": "ip",
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "DistributorAppSgAlb8C0F2072": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Distributor-App/SgAlb",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "exsample description",
+            "FromPort": 22,
+            "IpProtocol": "tcp",
+            "ToPort": 22,
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "exsample description",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "DistributorAppSgAlbtoBLEAFSIMarketDataDistributorAppcontainerBaseAppSgFargateC191283180E238CEE4": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "DistributorAppcontainerBaseAppSgFargate24298C06",
+            "GroupId",
+          ],
+        },
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "DistributorAppSgAlb8C0F2072",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress",
+    },
+    "DistributorAppWebAclAssociation10FF1FC9": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "ResourceArn": {
+          "Ref": "DistributorAppAlb2ECF73C2",
+        },
+        "WebACLArn": {
+          "Fn::GetAtt": [
+            "WafWebAclBE24253C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::WAFv2::WebACLAssociation",
+    },
+    "DistributorAppalblogbucketAccessLogs0C7A70C9": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 2555,
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 90,
+                },
+              ],
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "DistributorAppalblogbucketAccessLogsPolicyC818DF82": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "Bucket": {
+          "Ref": "DistributorAppalblogbucketAccessLogs0C7A70C9",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "DistributorAppalblogbucketAccessLogs0C7A70C9",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "DistributorAppalblogbucketAccessLogs0C7A70C9",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:DeleteObject",
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DistributorAppalblogbucketAccessLogs0C7A70C9",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "Restrict Delete* Actions",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "DistributorAppalblogbucketD6457709": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "DistributorAppalblogbucketAccessLogs0C7A70C9",
+          },
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "DistributorAppalblogbucketPolicy0A888CD9": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "Bucket": {
+          "Ref": "DistributorAppalblogbucketD6457709",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "DistributorAppalblogbucketD6457709",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "DistributorAppalblogbucketD6457709",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:PutObject",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::582318560864:root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DistributorAppalblogbucketD6457709",
+                        "Arn",
+                      ],
+                    },
+                    "/AWSLogs/111111111111/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "s3:PutObject",
+              "Condition": {
+                "StringEquals": {
+                  "s3:x-amz-acl": "bucket-owner-full-control",
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "delivery.logs.amazonaws.com",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DistributorAppalblogbucketD6457709",
+                        "Arn",
+                      ],
+                    },
+                    "/AWSLogs/111111111111/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "s3:GetBucketAcl",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "delivery.logs.amazonaws.com",
+              },
+              "Resource": {
+                "Fn::GetAtt": [
+                  "DistributorAppalblogbucketD6457709",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "DistributorAppcontainerBaseAppCluster1680CEF0": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT",
+        ],
+        "Cluster": {
+          "Ref": "DistributorAppcontainerBaseAppClusterAAD7F2B0",
+        },
+        "DefaultCapacityProviderStrategy": [],
+      },
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+    },
+    "DistributorAppcontainerBaseAppClusterAAD7F2B0": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::Cluster",
+    },
+    "DistributorAppcontainerBaseAppEcsServiceTaskRoleDefaultPolicy86E3B608": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "kinesis:GetRecords",
+                "kinesis:GetShardIterator",
+                "kinesis:DescribeStreamSummary",
+                "kinesis:PutRecord",
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:kinesis:ap-northeast-1:111111111111:stream/*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DistributorAppcontainerBaseAppEcsServiceTaskRoleDefaultPolicy86E3B608",
+        "Roles": [
+          {
+            "Ref": "DistributorAppcontainerBaseAppEcsServiceTaskRoleFFBB5D79",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DistributorAppcontainerBaseAppEcsServiceTaskRoleFFBB5D79": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DistributorAppcontainerBaseAppEcsTaskCD100862": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      4,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::GetAtt": [
+                              "ECRF8362BFE",
+                              "Arn",
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  ".dkr.ecr.",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::GetAtt": [
+                              "ECRF8362BFE",
+                              "Arn",
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/",
+                  {
+                    "Ref": "ECRF8362BFE",
+                  },
+                  ":sample_handler",
+                ],
+              ],
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "DistributorAppcontainerBaseAppFargateLogGroup1A65C7A0",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "BLEA-ECSApp-",
+              },
+            },
+            "Name": "EcsApp",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "DistributorAppcontainerBaseAppEcsTaskExecutionRoleBAC7ED13",
+            "Arn",
+          ],
+        },
+        "Family": "BLEAFSIMarketDataDistributorAppcontainerBaseAppEcsTask2923DBEB",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE",
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "DistributorAppcontainerBaseAppEcsServiceTaskRoleFFBB5D79",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "DistributorAppcontainerBaseAppEcsTaskExecutionRoleBAC7ED13": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DistributorAppcontainerBaseAppEcsTaskExecutionRoleDefaultPolicyDA40FC80": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ECRF8362BFE",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DistributorAppcontainerBaseAppEcsTaskExecutionRoleDefaultPolicyDA40FC80",
+        "Roles": [
+          {
+            "Ref": "DistributorAppcontainerBaseAppEcsTaskExecutionRoleBAC7ED13",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DistributorAppcontainerBaseAppFargateLogGroup1A65C7A0": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "KmsKeyId": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+        "RetentionInDays": 90,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "DistributorAppcontainerBaseAppFargateService3942CAB0": {
+      "DependsOn": [
+        "DistributorAppAlbhttpEcsAppGroup2A131381",
+        "DistributorAppAlbhttp11B4B307",
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "CapacityProviderStrategy": [
+          {
+            "CapacityProvider": "FARGATE",
+            "Weight": 1,
+          },
+        ],
+        "Cluster": {
+          "Ref": "DistributorAppcontainerBaseAppClusterAAD7F2B0",
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "DesiredCount": 2,
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LoadBalancers": [
+          {
+            "ContainerName": "EcsApp",
+            "ContainerPort": 80,
+            "TargetGroupArn": {
+              "Ref": "DistributorAppAlbhttpEcsAppGroup2A131381",
+            },
+          },
+        ],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "DistributorAppcontainerBaseAppSgFargate24298C06",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": [
+              {
+                "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+              },
+              {
+                "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+              },
             ],
           },
         },
-        "StreamModeDetails": Object {
-          "StreamMode": "PROVISIONED",
+        "PlatformVersion": "LATEST",
+        "TaskDefinition": {
+          "Ref": "DistributorAppcontainerBaseAppEcsTaskCD100862",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "DistributorAppcontainerBaseAppSgFargate24298C06": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Distributor-App/containerBaseApp/SgFargate",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "DistributorAppcontainerBaseAppSgFargatefromBLEAFSIMarketDataDistributorAppSgAlb33CC4B3C8008063BF8": {
+      "DependsOn": [
+        "DistributorContainerImagesampledistributorproject90299F88",
+        "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "DistributorContainerImagestartBuild54336E6F",
+      ],
+      "Properties": {
+        "Description": "Load balancer to target",
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "DistributorAppcontainerBaseAppSgFargate24298C06",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "DistributorAppSgAlb8C0F2072",
+            "GroupId",
+          ],
+        },
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "DistributorContainerImagesampledistributorproject90299F88": {
+      "Properties": {
+        "Artifacts": {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Cache": {
+          "Type": "NO_CACHE",
+        },
+        "EncryptionKey": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "AWS_DEFAULT_REGION",
+              "Type": "PLAINTEXT",
+              "Value": "ap-northeast-1",
+            },
+            {
+              "Name": "AWS_ACCOUNT_ID",
+              "Type": "PLAINTEXT",
+              "Value": "111111111111",
+            },
+            {
+              "Name": "IMAGE_TAG",
+              "Type": "PLAINTEXT",
+              "Value": "sample_distributor",
+            },
+            {
+              "Name": "IMAGE_REPO_NAME",
+              "Type": "PLAINTEXT",
+              "Value": {
+                "Ref": "ECRF8362BFE",
+              },
+            },
+          ],
+          "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": true,
+          "Type": "LINUX_CONTAINER",
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+            "Arn",
+          ],
+        },
+        "Source": {
+          "Location": "cdk-hnb659fds-assets-111111111111-ap-northeast-1/80f730532f1195ed4fede75fbf8191acdfc52e6721de3b612c0c6a7eab1dbbc1.zip",
+          "Type": "S3",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "DistributorContainerImagesampledistributorprojectRole032FB6C9": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-111111111111-ap-northeast-1",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-111111111111-ap-northeast-1/80f730532f1195ed4fede75fbf8191acdfc52e6721de3b612c0c6a7eab1dbbc1.zip",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:ap-northeast-1:111111111111:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "DistributorContainerImagesampledistributorproject90299F88",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:ap-northeast-1:111111111111:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "DistributorContainerImagesampledistributorproject90299F88",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":codebuild:ap-northeast-1:111111111111:report-group/",
+                    {
+                      "Ref": "DistributorContainerImagesampledistributorproject90299F88",
+                    },
+                    "-*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "AppKey2AF25043",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:CompleteLayerUpload",
+                "ecr:InitiateLayerUpload",
+                "ecr:PutImage",
+                "ecr:UploadLayerPart",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ecr:ap-northeast-1:111111111111:repository/",
+                    {
+                      "Ref": "ECRF8362BFE",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
+        "Roles": [
+          {
+            "Ref": "DistributorContainerImagesampledistributorprojectRole032FB6C9",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DistributorContainerImagestartBuild54336E6F": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+      ],
+      "Properties": {
+        "Create": {
+          "Fn::Join": [
+            "",
+            [
+              "{"service":"CodeBuild","action":"startBuild","parameters":{"projectName":"",
+              {
+                "Ref": "DistributorContainerImagesampledistributorproject90299F88",
+              },
+              ""},"physicalResourceId":{"id":"",
+              {
+                "Fn::GetAtt": [
+                  "DistributorContainerImagesampledistributorproject90299F88",
+                  "Arn",
+                ],
+              },
+              ""}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "DistributorContainerImagesampledistributorproject90299F88",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DistributorContainerImagestartBuildCustomResourcePolicy50D377D4",
+        "Roles": [
+          {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ECRF8362BFE": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "ImageScanningConfiguration": {
+          "ScanOnPush": true,
+        },
+        "ImageTagMutability": "IMMUTABLE",
+        "RepositoryName": "bleafsi-marketdata-sampleapp-repo",
+      },
+      "Type": "AWS::ECR::Repository",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ECRImageScanComplete620309A2": {
+      "Properties": {
+        "EventPattern": {
+          "detail": {
+            "repository-name": [
+              {
+                "Ref": "ECRF8362BFE",
+              },
+            ],
+            "scan-status": [
+              "COMPLETE",
+            ],
+          },
+          "detail-type": [
+            "ECR Image Scan",
+          ],
+          "source": [
+            "aws.ecr",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "MonitorAlarmTopic1E34119C",
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "HandlerAppClusterB33D03E2": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT",
+        ],
+        "Cluster": {
+          "Ref": "HandlerAppClusterDD674C64",
+        },
+        "DefaultCapacityProviderStrategy": [],
+      },
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+    },
+    "HandlerAppClusterDD674C64": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::Cluster",
+    },
+    "HandlerAppEcsServiceTaskRole7313BB48": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HandlerAppEcsServiceTaskRoleDefaultPolicy51D08735": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "kinesis:GetRecords",
+                "kinesis:GetShardIterator",
+                "kinesis:DescribeStreamSummary",
+                "kinesis:PutRecord",
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:kinesis:ap-northeast-1:111111111111:stream/*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "HandlerAppEcsServiceTaskRoleDefaultPolicy51D08735",
+        "Roles": [
+          {
+            "Ref": "HandlerAppEcsServiceTaskRole7313BB48",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "HandlerAppEcsTask1F1CDCC6": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      4,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::GetAtt": [
+                              "ECRF8362BFE",
+                              "Arn",
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  ".dkr.ecr.",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::GetAtt": [
+                              "ECRF8362BFE",
+                              "Arn",
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/",
+                  {
+                    "Ref": "ECRF8362BFE",
+                  },
+                  ":sample_handler",
+                ],
+              ],
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "HandlerAppFargateLogGroupFE8F9DC5",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "BLEA-ECSApp-",
+              },
+            },
+            "Name": "EcsApp",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "HandlerAppEcsTaskExecutionRoleC607417C",
+            "Arn",
+          ],
+        },
+        "Family": "BLEAFSIMarketDataHandlerAppEcsTask375B8149",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE",
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "HandlerAppEcsServiceTaskRole7313BB48",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "HandlerAppEcsTaskExecutionRoleC607417C": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HandlerAppEcsTaskExecutionRoleDefaultPolicy139D9278": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ECRF8362BFE",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "HandlerAppEcsTaskExecutionRoleDefaultPolicy139D9278",
+        "Roles": [
+          {
+            "Ref": "HandlerAppEcsTaskExecutionRoleC607417C",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "HandlerAppFargateLogGroupFE8F9DC5": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "KmsKeyId": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+        "RetentionInDays": 90,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "HandlerAppFargateService40E5323E": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "CapacityProviderStrategy": [
+          {
+            "CapacityProvider": "FARGATE",
+            "Weight": 1,
+          },
+        ],
+        "Cluster": {
+          "Ref": "HandlerAppClusterDD674C64",
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "DesiredCount": 2,
+        "EnableECSManagedTags": false,
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "HandlerAppSgFargateE65CFB7E",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": [
+              {
+                "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+              },
+              {
+                "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+              },
+            ],
+          },
+        },
+        "PlatformVersion": "LATEST",
+        "TaskDefinition": {
+          "Ref": "HandlerAppEcsTask1F1CDCC6",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "HandlerAppSgFargateE65CFB7E": {
+      "DependsOn": [
+        "HandlerContainerImagesamplehandlerproject1AD61CE4",
+        "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "HandlerContainerImagestartBuild5EE94A78",
+      ],
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Handler-App/SgFargate",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "HandlerContainerImagesamplehandlerproject1AD61CE4": {
+      "Properties": {
+        "Artifacts": {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Cache": {
+          "Type": "NO_CACHE",
+        },
+        "EncryptionKey": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "AWS_DEFAULT_REGION",
+              "Type": "PLAINTEXT",
+              "Value": "ap-northeast-1",
+            },
+            {
+              "Name": "AWS_ACCOUNT_ID",
+              "Type": "PLAINTEXT",
+              "Value": "111111111111",
+            },
+            {
+              "Name": "IMAGE_TAG",
+              "Type": "PLAINTEXT",
+              "Value": "sample_handler",
+            },
+            {
+              "Name": "IMAGE_REPO_NAME",
+              "Type": "PLAINTEXT",
+              "Value": {
+                "Ref": "ECRF8362BFE",
+              },
+            },
+          ],
+          "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": true,
+          "Type": "LINUX_CONTAINER",
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+            "Arn",
+          ],
+        },
+        "Source": {
+          "Location": "cdk-hnb659fds-assets-111111111111-ap-northeast-1/80f730532f1195ed4fede75fbf8191acdfc52e6721de3b612c0c6a7eab1dbbc1.zip",
+          "Type": "S3",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "HandlerContainerImagesamplehandlerprojectRoleAF69F883": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-111111111111-ap-northeast-1",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-111111111111-ap-northeast-1/80f730532f1195ed4fede75fbf8191acdfc52e6721de3b612c0c6a7eab1dbbc1.zip",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:ap-northeast-1:111111111111:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "HandlerContainerImagesamplehandlerproject1AD61CE4",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:ap-northeast-1:111111111111:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "HandlerContainerImagesamplehandlerproject1AD61CE4",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":codebuild:ap-northeast-1:111111111111:report-group/",
+                    {
+                      "Ref": "HandlerContainerImagesamplehandlerproject1AD61CE4",
+                    },
+                    "-*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "AppKey2AF25043",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:CompleteLayerUpload",
+                "ecr:InitiateLayerUpload",
+                "ecr:PutImage",
+                "ecr:UploadLayerPart",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ecr:ap-northeast-1:111111111111:repository/",
+                    {
+                      "Ref": "ECRF8362BFE",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
+        "Roles": [
+          {
+            "Ref": "HandlerContainerImagesamplehandlerprojectRoleAF69F883",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "HandlerContainerImagestartBuild5EE94A78": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+      ],
+      "Properties": {
+        "Create": {
+          "Fn::Join": [
+            "",
+            [
+              "{"service":"CodeBuild","action":"startBuild","parameters":{"projectName":"",
+              {
+                "Ref": "HandlerContainerImagesamplehandlerproject1AD61CE4",
+              },
+              ""},"physicalResourceId":{"id":"",
+              {
+                "Fn::GetAtt": [
+                  "HandlerContainerImagesamplehandlerproject1AD61CE4",
+                  "Arn",
+                ],
+              },
+              ""}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "HandlerContainerImagesamplehandlerproject1AD61CE4",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "HandlerContainerImagestartBuildCustomResourcePolicyC3FE2536",
+        "Roles": [
+          {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "HandlerStreamF76AB64B": {
+      "Properties": {
+        "RetentionPeriodHours": 24,
+        "ShardCount": 1,
+        "StreamEncryption": {
+          "EncryptionType": "KMS",
+          "KeyId": {
+            "Fn::GetAtt": [
+              "AppKey2AF25043",
+              "Arn",
+            ],
+          },
         },
       },
       "Type": "AWS::Kinesis::Stream",
+    },
+    "MonitorAlarmEmailBA1444D7": {
+      "Properties": {
+        "Endpoint": "exsample@exsample.com",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "MonitorAlarmTopic1E34119C",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "MonitorAlarmTopic1E34119C": {
+      "Properties": {
+        "KmsMasterKeyId": {
+          "Fn::GetAtt": [
+            "AppKey2AF25043",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "MonitorAlarmTopicPolicy3B1D026A": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudwatch.amazonaws.com",
+              },
+              "Resource": {
+                "Ref": "MonitorAlarmTopic1E34119C",
+              },
+              "Sid": "0",
+            },
+            {
+              "Action": "sns:Publish",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": false,
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": {
+                "Ref": "MonitorAlarmTopic1E34119C",
+              },
+              "Sid": "EnforcePublishersToUseSSL",
+            },
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com",
+              },
+              "Resource": {
+                "Ref": "MonitorAlarmTopic1E34119C",
+              },
+              "Sid": "2",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Topics": [
+          {
+            "Ref": "MonitorAlarmTopic1E34119C",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::TopicPolicy",
+    },
+    "VpcC3027511": {
+      "Properties": {
+        "CidrBlock": "10.100.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "VpcDynamoDbEndpointDE074E93": {
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "VpcPrivateSubnet1RouteTable901BAEEE",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2RouteTable1EA00C9D",
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".dynamodb",
+            ],
+          ],
+        },
+        "VpcEndpointType": "Gateway",
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcEcrDockerEndpointEC931E03": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcEcrDockerEndpointSecurityGroupF820B35C",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-1.ecr.dkr",
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcEcrDockerEndpointSecurityGroupF820B35C": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Vpc/Vpc/EcrDockerEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "VpcC3027511",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "VpcC3027511",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "VpcEcrEndpoint9D8D287E": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcEcrEndpointSecurityGroup08938538",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-1.ecr.api",
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcEcrEndpointSecurityGroup08938538": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Vpc/Vpc/EcrEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "VpcC3027511",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "VpcC3027511",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "VpcIGW488B0FEB": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "VpcLogsEndpointForPrivate6251C95E": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcLogsEndpointForPrivateSecurityGroup9D66FB63",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-1.logs",
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcLogsEndpointForPrivateSecurityGroup9D66FB63": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-MarketData/Vpc/Vpc/LogsEndpointForPrivate/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "VpcC3027511",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "VpcC3027511",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "VpcNaclPublicDefaultAssociationBLEAFSIMarketDataVpcPublicSubnet1A73C5DB824B62965": {
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet1Subnet8E8DEDC0",
+        },
+      },
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+    },
+    "VpcNaclPublicDefaultAssociationBLEAFSIMarketDataVpcPublicSubnet2CA465BDEFDE922C8": {
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet2SubnetA811849C",
+        },
+      },
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+    },
+    "VpcNaclPublicF3ACBBF5": {
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::NetworkAcl",
+    },
+    "VpcNaclPublicNaclEgressPublic7F2645E5": {
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": true,
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "Protocol": -1,
+        "RuleAction": "allow",
+        "RuleNumber": 100,
+      },
+      "Type": "AWS::EC2::NetworkAclEntry",
+    },
+    "VpcNaclPublicNaclIngressPublicCA388ADE": {
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": false,
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "Protocol": -1,
+        "RuleAction": "allow",
+        "RuleNumber": 100,
+      },
+      "Type": "AWS::EC2::NetworkAclEntry",
+    },
+    "VpcPrivateSubnet1RouteTable901BAEEE": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPrivateSubnet1RouteTableAssociation2BC202CB": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPrivateSubnet1RouteTable901BAEEE",
+        },
+        "SubnetId": {
+          "Ref": "VpcPrivateSubnet1Subnet67A4DBCB",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPrivateSubnet1Subnet67A4DBCB": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.100.4.0/22",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPrivateSubnet2RouteTable1EA00C9D": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPrivateSubnet2RouteTableAssociationFA51927B": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPrivateSubnet2RouteTable1EA00C9D",
+        },
+        "SubnetId": {
+          "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPrivateSubnet2SubnetC8EB537D": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.100.8.0/22",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPublicSubnet1DefaultRoute0F5C6C43": {
+      "DependsOn": [
+        "VpcVPCGW42EC8516",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcIGW488B0FEB",
+        },
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet1RouteTable431DD755",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPublicSubnet1RouteTable431DD755": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPublicSubnet1RouteTableAssociationBBCB7AA1": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet1RouteTable431DD755",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet1Subnet8E8DEDC0",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet1Subnet8E8DEDC0": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.100.0.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPublicSubnet2DefaultRouteD629179A": {
+      "DependsOn": [
+        "VpcVPCGW42EC8516",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcIGW488B0FEB",
+        },
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet2RouteTable77FB35FC",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPublicSubnet2RouteTable77FB35FC": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPublicSubnet2RouteTableAssociation3AFE92E6": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet2RouteTable77FB35FC",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet2SubnetA811849C",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet2SubnetA811849C": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.100.1.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcS3GatewayEndpointFD937CFA": {
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "VpcPrivateSubnet1RouteTable901BAEEE",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2RouteTable1EA00C9D",
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".s3",
+            ],
+          ],
+        },
+        "VpcEndpointType": "Gateway",
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcVPCGW42EC8516": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "VpcIGW488B0FEB",
+        },
+        "VpcId": {
+          "Ref": "VpcC3027511",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "VpcVpcFlowLogsFlowLog421D53F0": {
+      "Properties": {
+        "DeliverLogsPermissionArn": {
+          "Fn::GetAtt": [
+            "VpcVpcFlowLogsLogRoleED2BD382",
+            "Arn",
+          ],
+        },
+        "LogDestinationType": "cloud-watch-logs",
+        "LogGroupName": {
+          "Ref": "VpcVpcFlowLogsLogGroup8558C776",
+        },
+        "ResourceId": {
+          "Ref": "VpcC3027511",
+        },
+        "ResourceType": "VPC",
+        "TrafficType": "ALL",
+      },
+      "Type": "AWS::EC2::FlowLog",
+    },
+    "VpcVpcFlowLogsLogGroup8558C776": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "VpcVpcFlowLogsLogRoleDefaultPolicyD30183D1": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "VpcVpcFlowLogsLogGroup8558C776",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "VpcVpcFlowLogsLogRoleED2BD382",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "VpcVpcFlowLogsLogRoleDefaultPolicyD30183D1",
+        "Roles": [
+          {
+            "Ref": "VpcVpcFlowLogsLogRoleED2BD382",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "VpcVpcFlowLogsLogRoleED2BD382": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "vpc-flow-logs.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "WafWebAclBE24253C": {
+      "Properties": {
+        "DefaultAction": {
+          "Allow": {},
+        },
+        "Description": "BLEAFSI-MarketData-Waf",
+        "Name": "BLEAFSI-MarketData-Waf",
+        "Rules": [
+          {
+            "Name": "AWSManagedRulesCommonRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 1,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesCommonRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesCommonRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 2,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesKnownBadInputsRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesAmazonIpReputationList",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 3,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesAmazonIpReputationList",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesAmazonIpReputationList",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesLinuxRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 4,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesLinuxRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesLinuxRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesSQLiRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 5,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesSQLiRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesSQLiRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+        ],
+        "Scope": "REGIONAL",
+        "VisibilityConfig": {
+          "CloudWatchMetricsEnabled": true,
+          "MetricName": "BLEAFSI-MarketData-Waf-WebAcl",
+          "SampledRequestsEnabled": true,
+        },
+      },
+      "Type": "AWS::WAFv2::WebACL",
+    },
+    "composedddbDynamoConsumedReadCapacityUnitE0CFC506": {
+      "DependsOn": [
+        "AppKey2AF25043",
+        "MonitorAlarmEmailBA1444D7",
+        "MonitorAlarmTopicPolicy3B1D026A",
+        "MonitorAlarmTopic1E34119C",
+      ],
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Ref": "MonitorAlarmTopic1E34119C",
+          },
+        ],
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "DatapointsToAlarm": 3,
+        "Dimensions": [
+          {
+            "Name": "TableName",
+            "Value": {
+              "Ref": "composedddbDynamoDBE294CAF3",
+            },
+          },
+        ],
+        "EvaluationPeriods": 3,
+        "MetricName": "ConsumedReadCapacityUnits",
+        "Namespace": "AWS/DynamoDB",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 90,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "composedddbDynamoDBE294CAF3": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "AppKey2AF25043",
+        "MonitorAlarmEmailBA1444D7",
+        "MonitorAlarmTopicPolicy3B1D026A",
+        "MonitorAlarmTopic1E34119C",
+      ],
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "item",
+            "AttributeType": "S",
+          },
+          {
+            "AttributeName": "value",
+            "AttributeType": "S",
+          },
+          {
+            "AttributeName": "createdAt",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "item",
+            "KeyType": "HASH",
+          },
+          {
+            "AttributeName": "value",
+            "KeyType": "RANGE",
+          },
+        ],
+        "LocalSecondaryIndexes": [
+          {
+            "IndexName": "SampleIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "item",
+                "KeyType": "HASH",
+              },
+              {
+                "AttributeName": "createdAt",
+                "KeyType": "RANGE",
+              },
+            ],
+            "Projection": {
+              "ProjectionType": "ALL",
+            },
+          },
+        ],
+        "SSESpecification": {
+          "KMSMasterKeyId": {
+            "Fn::GetAtt": [
+              "AppKey2AF25043",
+              "Arn",
+            ],
+          },
+          "SSEEnabled": true,
+          "SSEType": "KMS",
+        },
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Retain",
     },
   },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  Object {
+                  {
                     "Ref": "BootstrapVersion",
                   },
                 ],

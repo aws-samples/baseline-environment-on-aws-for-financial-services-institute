@@ -1,0 +1,6 @@
+{
+  "app": "npx ts-node --prefer-ts-exts test/bleafsi-shared-constructs-test-app.ts",
+  "context": {
+    "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": true
+  }
+}

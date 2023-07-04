@@ -1,54 +1,26 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { MarketDataContextProps } from './../lib/bleafsi-market-data-context-props';
+import { PjPrefix, DevParameter, StageParameter, ProdParameter } from './parameter';
 import { GuestMarketDataStack } from '../lib/bleafsi-guest-market-data-stack';
+
+/*
+ * BLEA-FSI Market Data Sample application stack
+ */
 
 const app = new cdk.App();
 
-// -----------------------コンテキストをロード------------------------------
-const argContext = 'environment';
-const envKey = app.node.tryGetContext(argContext);
-if (envKey == undefined)
-  throw new Error(`Please specify environment with context option. ex) cdk deploy -c ${argContext}=dev`);
+// ----------------------- Guest Market Data System Stacks for development ------------------------------
+const devStack = new GuestMarketDataStack(app, `${PjPrefix}-Dev`, DevParameter);
 
-const envVals = app.node.tryGetContext(envKey);
-if (envVals == undefined) throw new Error('Invalid environment.');
+// // ----------------------- Guest Market Data System Stacks for staging ------------------------------
+// const stagingStack = new GuestMarketDataStack(app, `${PjPrefix}-Stage`, DevParameter);
 
-// アカウントID とリージョン
-// envの指定がない場合、デフォルト / "--profile" で指定されたプロファイルを使用
-function getProcEnv(): { account: string; region: string } {
-  if (envKey != 'dev' && envVals['env'] === undefined && process.env.CDK_DEFAULT_ACCOUNT === undefined)
-    //no check on dev environment
-    throw new Error('Invalid environment.');
-  if (envKey != 'dev' && envVals['env'] === undefined && process.env.CDK_DEFAULT_REGION === undefined)
-    throw new Error('Invalid environment.');
-  return {
-    account: envVals['env']?.['account'] ?? process.env.CDK_DEFAULT_ACCOUNT,
-    region: envVals['env']?.['region'] ?? process.env.CDK_DEFAULT_REGION,
-  };
-}
-
-const appProps: MarketDataContextProps = {
-  pjPrefix: app.node.tryGetContext('pjPrefix'),
-  envName: envKey as string,
-  vpcCidr: envVals['vpcCidr'],
-  account: getProcEnv().account,
-  region: getProcEnv().region,
-  notifyEmail: envVals['securityNotifyEmail'],
-};
-
-// ----------------------- Guest System Stacks ------------------------------
-new GuestMarketDataStack(app, `${appProps.pjPrefix}-martket-data`, {
-  ...appProps,
-  env: {
-    account: getProcEnv().account,
-    region: getProcEnv().region,
-  },
-});
+// // ----------------------- Guest Market Data System Stacks for production ------------------------------
+// const prodStack = new GuestMarketDataStack(app, `${PjPrefix}-Prod`, DevParameter);
 
 // --------------------------------- Tagging  -------------------------------------
 // Tagging "Environment" tag to all resources in this app
 const envTagName = 'Environment';
-const envTagVal = 'market-data';
-cdk.Tags.of(app).add(envTagName, envTagVal);
-cdk.Tags.of(app).add(envTagName, envTagVal);
+cdk.Tags.of(devStack).add(envTagName, DevParameter.envName);
+// cdk.Tags.of(stagingStack).add(envTagName, StageParameter.envName);
+// cdk.Tags.of(prodStack).add(envTagName, ProdParameter.envName);

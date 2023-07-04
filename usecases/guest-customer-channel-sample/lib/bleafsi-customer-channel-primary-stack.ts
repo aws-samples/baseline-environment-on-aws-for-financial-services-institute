@@ -2,17 +2,18 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as kms from 'aws-cdk-lib/aws-kms';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import * as lex from 'aws-cdk-lib/aws-lex';
-import * as cr_connect from './bleafsi-cr-connect';
+import * as cr_connect from './cr-connect';
 import { CustomerChannelTertiaryStack } from './bleafsi-customer-channel-tertiary-stack';
-import { CustomerChannelConnectInstance } from './bleafsi-customer-channel-connect-instance';
-import { ConnectInstanceConfig } from './bleafsi-customer-channel-config';
-import { PrivateBucket } from './bleafsi-s3-private-bucket';
-import { BucketReplication } from './bleafsi-s3-replication';
+import { CustomerChannelConnectInstance } from './connect-instance';
+import { CustomerChannelInboundSample } from './inbound-sample';
+import { CustomerChannelOutboundSample } from './outbound-sample';
+import { ConnectInstanceConfig } from './config';
+import { PrivateBucket } from './s3-private-bucket';
+import { BucketReplication } from './s3-replication';
 import { RemoteParameters } from 'cdk-remote-stack';
-import * as nag_suppressions from './bleafsi-nag-suppressions';
-import { NagSuppressions } from 'cdk-nag';
+import * as nag_suppressions from './nag-suppressions';
+
+// 顧客チャネルサンプルアプリケーション Primary Region 用スタック
 
 export interface CustomerChannelPrimaryStackProps extends StackProps {
   readonly connectInstance: ConnectInstanceConfig;
@@ -49,7 +50,15 @@ export class CustomerChannelPrimaryStack extends Stack {
       this.addDependency(props.tertiaryStack);
     }
 
-    this.createContactFlows(connectInstance);
+    const basicQueue = cr_connect.Queue.fromQueueName(
+      this,
+      'BasicQueue',
+      connectInstance.instance.instanceId,
+      'BasicQueue',
+    );
+    new CustomerChannelInboundSample(this, 'InboundSample', { connectInstance, queue: basicQueue });
+
+    new CustomerChannelOutboundSample(this, 'OutboundSample', { connectInstance });
 
     nag_suppressions.addNagSuppressionsToLogRetention(this);
   }
@@ -85,118 +94,5 @@ export class CustomerChannelPrimaryStack extends Stack {
       destinationBucket: backupBucket,
       destinationKey: backupKey,
     });
-  }
-
-  private createContactFlows(connectInstance: CustomerChannelConnectInstance) {
-    const botRole = new iam.Role(this, 'CustomerIdentificationBotRole', {
-      assumedBy: new iam.ServicePrincipal('lexv2.amazonaws.com'),
-    });
-    botRole.addToPolicy(
-      new iam.PolicyStatement({
-        actions: ['polly:SynthesizeSpeech'],
-        resources: ['*'],
-      }),
-    );
-    NagSuppressions.addResourceSuppressions(
-      botRole,
-      [{ id: 'AwsSolutions-IAM5', reason: 'Wildcard is required to use polly' }],
-      true,
-    );
-
-    const bot = new lex.CfnBot(this, 'CustomerIdentificationBot', {
-      dataPrivacy: { ChildDirected: false },
-      idleSessionTtlInSeconds: 300,
-      name: 'CustomerIdentificationBot',
-      roleArn: botRole.roleArn,
-      botLocales: [
-        {
-          localeId: 'ja_JP',
-          nluConfidenceThreshold: 0.4,
-          intents: [
-            {
-              name: 'FallbackIntent',
-              parentIntentSignature: 'AMAZON.FallbackIntent',
-            },
-            {
-              name: 'CustomerIdentificationIntent',
-              sampleUtterances: [
-                {
-                  utterance: '担当者と話したいです',
-                },
-              ],
-              slots: [
-                {
-                  name: 'CustomerNumber',
-                  slotTypeName: 'AMAZON.Number',
-                  valueElicitationSetting: {
-                    slotConstraint: 'Required',
-                    promptSpecification: {
-                      maxRetries: 4,
-                      messageGroupsList: [
-                        {
-                          message: {
-                            ssmlMessage: {
-                              value:
-                                '<speak><prosody rate="120%">\nご本人様確認のため、\nお客様番号をゆっくり、\nはっきりとおっしゃってください。\n</prosody></speak>',
-                            },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-                {
-                  name: 'BirthDate',
-                  slotTypeName: 'AMAZON.Date',
-                  valueElicitationSetting: {
-                    slotConstraint: 'Required',
-                    promptSpecification: {
-                      maxRetries: 4,
-                      messageGroupsList: [
-                        {
-                          message: {
-                            ssmlMessage: {
-                              value:
-                                '<speak><prosody rate="120%"><phoneme alphabet="x-amazon-pron-kana" ph="ゴケーヤ\'クシャサマノ">ご契約者様の</phoneme><phoneme alphabet="x-amazon-pron-kana" ph="セーネンガ\'ッピ">生年月日</phoneme>をおっしゃってください。</prosody></speak>',
-                            },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-    bot.node.addDependency(botRole);
-
-    const botVersion = new lex.CfnBotVersion(this, 'CustomerIdentificationBotVersion', {
-      botId: bot.attrId,
-      botVersionLocaleSpecification: [
-        {
-          localeId: 'ja_JP',
-          botVersionLocaleDetails: {
-            sourceBotVersion: 'DRAFT',
-          },
-        },
-      ],
-    });
-
-    const botAlias = new lex.CfnBotAlias(this, 'CustomerIdentificationBotAlias', {
-      botAliasName: 'CustomerIdentificationBotAlias',
-      botId: bot.attrId,
-      botVersion: botVersion.attrBotVersion,
-    });
-
-    const botAssociation = new cr_connect.LexBotAssociation(this, 'CustomerIdentificationBotAssociation', {
-      instanceId: connectInstance.instance.instanceId,
-      lexV2Bot: {
-        aliasArn: botAlias.attrArn,
-      },
-    });
-    botAssociation.node.addDependency(connectInstance, bot);
   }
 }

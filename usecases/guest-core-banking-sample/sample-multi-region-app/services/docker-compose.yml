@@ -1,0 +1,105 @@
+version: '3.9'
+
+volumes:
+  postgres:
+  dynamodb:
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    restart: always
+    ports:
+      - '8000:8000'
+    volumes:
+      - dynamodb:/data
+    command: ['-jar', 'DynamoDBLocal.jar', '-sharedDb']
+
+  balance_db:
+    build:
+      context: ./balance
+    restart: on-failure
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+    command: ['npx', 'prisma', 'db', 'push']
+
+  balance:
+    build:
+      context: ./balance
+    restart: always
+    ports:
+      - '3002:3000'
+    environment:
+      - DATABASE_HOST=db
+    depends_on:
+      - db
+
+  count_db:
+    build:
+      context: ./count
+    restart: on-failure
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+    command: ['npx', 'prisma', 'db', 'push']
+
+  count:
+    build:
+      context: ./count
+    restart: always
+    ports:
+      - '3001:3000'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+
+  tx-db:
+    build:
+      context: ./transaction
+    restart: on-failure
+    depends_on:
+      - dynamodb
+    environment:
+      - DYNAMODB_ENDPOINT=http://dynamodb:8000
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+    command: ['node', 'init.js']
+
+  tx-frontend:
+    build:
+      context: ./transaction
+    restart: always
+    ports:
+      - '3003:3000'
+    depends_on:
+      - dynamodb
+    environment:
+      - DYNAMODB_ENDPOINT=http://dynamodb:8000
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+
+  tx-worker:
+    build:
+      context: ./transaction
+    restart: always
+    depends_on:
+      - dynamodb
+    environment:
+      - DYNAMODB_ENDPOINT=http://dynamodb:8000
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+      - BALANCE_ENDPOINT=http://balance:3000/balance
+      - COUNT_ENDPOINT=http://count:3000/count
+    command: ['node', 'worker.js']

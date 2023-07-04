@@ -14,43 +14,5 @@
       "test"
     ]
   },
-  "context": {
-    "pjPrefix": "BLEA-FSI-CustomerChannel",
-    "dev": {
-      "description": "Context samples for Dev",
-      "envName": "Development",
-      "primaryRegion": {
-        "region": "ap-northeast-1",
-        "connectInstance": {
-          "instanceAlias": "my-connect-instance-yyyymmdd-primary",
-          "inboundCallsEnabled": true,
-          "outboundCallsEnabled": true,
-          "contactFlows": [
-            {
-              "type": "CONTACT_FLOW",
-              "name": "SampleInboundContactFlow"
-            }
-          ],
-          "identityManagementType": "CONNECT_MANAGED"
-        }
-      },
-      "secondaryRegion": {
-        "region": "ap-southeast-1",
-        "connectInstance": {
-          "instanceAlias": "my-connect-instance-yyyymmdd-secondary"
-        }
-      },
-      "tertiaryRegion": {
-        "region": "ap-northeast-3"
-      }
-    },
-    "stage": {
-      "description": "Context samples for Staging",
-      "envName": "Staging"
-    },
-    "prod": {
-      "description": "Context samples for Production",
-      "envName": "Production"
-    }
-  }
+  "context": {}
 }

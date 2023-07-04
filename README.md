@@ -53,6 +53,7 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
     ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **マーケットデータ**
+
   - [金融ワークロードアーキテクチャ解説 [マーケットデータ]
     ](doc/reference-arc-market-data/market-data-arch-readme.md)
   - [FISC 実務基準対策 一覧 [マーケットデータ]
@@ -60,16 +61,25 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
   - [CDK サンプルコード [マーケットデータ]  
     ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
+- **データ分析プラットフォーム(simple data lake)**
+  - [金融ワークロードアーキテクチャ解説 [データ分析プラットフォーム]
+    ](doc/reference-arc-analytics-platform/analytics-simple-datalake-arch-readme.md)
+  - [FISC 実務基準対策 一覧 [データ分析プラットフォーム]
+    ](doc/reference-arc-analytics-platform/fisc-mapping-analytics-simple-datalake.md)
+  - [CDK サンプルコード [データ分析プラットフォーム]  
+    ](doc/reference-arc-analytics-platform/deploy-analytics-platform-simpledatalake.md)
+
 # Baseline Environment on AWS for Financial Services Institute
 
 Baseline Environment on AWS for Financial Services Institute(BLEA for FSI)は「金融リファレンスアーキテクチャ日本版」の一部として提供されるアセットです。セキュアなベースラインを構築するための CDK テンプレート、設定ガイド、FISC 対応マッピングを提供し、AWS 上で FISC 安全対策基準を満たすシステムの構築の自動化（IaC）を支援します。"BLEA for FSI ガバナンスベース" と "金融ワークロードベストプラクティス用のサンプルアプリケーション"から構成されます。
 
-セキュアなベースラインを確立するための リファレンス CDK テンプレート群である [BLEA](https://github.com/aws-samples/baseline-environment-on-aws/) をベースに、FISC 準拠の観点から金融ワークロードに必要とされる要素を追加しています（[参考：BLEA と BLEF for FSI の差異](./doc/diff-from-blea.md)）。また典型的な金融ワークロードを実現するエンドツーエンドの下記の CDK サンプルコードを提供します。これらの CDK テンプレートは用途に合わせてユーザが拡張して使うことを前提としています。
+セキュアなベースラインを確立するための リファレンス CDK テンプレート群である [BLEA](https://github.com/aws-samples/baseline-environment-on-aws/) をベースに、FISC 準拠の観点から金融ワークロードに必要とされる要素を追加しています（[参考：BLEA と BLEF for FSI の差異](./doc/governance-base/diff-from-blea.md)）。また典型的な金融ワークロードを実現するエンドツーエンドの下記の CDK サンプルコードを提供します。これらの CDK テンプレートは用途に合わせてユーザが拡張して使うことを前提としています。
 
 - 勘定系
 - オープン API
 - 顧客チャネル
 - マーケットデータ
+- データ分析プラットフォーム
 
 BLEA for FSI のガバナンスベースライン および 各サンプルアプリケーションの FISC 安全対策基準（第 10 版 ）実務基準への対応については、
 [金融ワークロードのベストプラクティス](#金融ワークロードのベストプラクティス)を参照してください。
@@ -77,7 +87,7 @@ BLEA for FSI のガバナンスベースライン および 各サンプルア�
 > **:warning: BLEA for FSI の利用に関する注意**  
 > 本 CDK テンプレートは、金融ワークロードのベストプラクティスと IaC コードの実装サンプルとして提供するものです。利用者の要件に応じてカスタマイズを行う事が必須であり、このテンプレートを本番環境でそのままプロビジョニングして利用することは想定しておりません。検証環境にプロビジョニングして確認してください。
 
-Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI ガバナンスベースのデプロイ](doc/deploy-governance-base.md) |
+Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI ガバナンスベースのデプロイ](doc/governance-base/deploy-governance-base.md) |
 
 ## ガバナンスアーキテクチャ
 
@@ -93,24 +103,24 @@ Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI ガ
 
 ## ガバナンスベースとして提供される CDK テンプレート
 
-| ユースケース                                                       | フォルダ                     |
-| ------------------------------------------------------------------ | ---------------------------- |
-| BLEA for FSI ガバナンスベース（Log Archive アカウント用）          | `usecases/base-ct-logging`   |
-| BLEA for FSI ガバナンスベース（ゲストアカウント用）                | `usecases/base-ct-guest`     |
-| BLEA for FSI ガバナンスベース（ゲストアカウント用 大阪リージョン） | `usecases/base-ct-guest-osa` |
+| ユースケース                                              | フォルダ                   |
+| --------------------------------------------------------- | -------------------------- |
+| BLEA for FSI ガバナンスベース（Log Archive アカウント用） | `usecases/base-ct-logging` |
+| BLEA for FSI ガバナンスベース（ゲストアカウント用）       | `usecases/base-ct-guest`   |
 
 ## 金融ワークロードベストプラクティス サンプルアプリケーション
 
-| ユースケース                                | フォルダ                                                                     |
-| ------------------------------------------- | ---------------------------------------------------------------------------- |
-| [勘定系] サンプルアプリケーション           | `usecases/guest-core-banking-sample`                                         |
-| [顧客チャネル] サンプルアプリケーション     | `usecases/guest-customer-channel-sample`                                     |
-| [Open API] サンプルアプリケーション         | `usecases/guest-openapi-base-sample`<br>`usecases/guest-openapi-fapi-sample` |
-| [マーケットデータ] サンプルアプリケーション | `usecases/guest-market-data-sample`                                          |
+| ユースケース                                          | フォルダ                                                                     |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [勘定系] サンプルアプリケーション                     | `usecases/guest-core-banking-sample`                                         |
+| [顧客チャネル] サンプルアプリケーション               | `usecases/guest-customer-channel-sample`                                     |
+| [Open API] サンプルアプリケーション                   | `usecases/guest-openapi-base-sample`<br>`usecases/guest-openapi-fapi-sample` |
+| [マーケットデータ] サンプルアプリケーション           | `usecases/guest-market-data-sample`                                          |
+| [データ分析プラットフォーム] サンプルアプリケーション | `usecases/guest-analytics-platform-sample`                                   |
 
 ## BLEA for FSI の導入
 
-BLEA for FSI を AWS アカウント環境にデプロイする手順について記載します。BLEA for FSI は ControlTower 管理下のアカウントに導入することを前提とします。また AWS アカウントにデプロイだけ行う場合、デプロイ用のクライアント環境に Visual Studio Code によるエディタ環境の構築は必ずしも必要なく CDK ランタイムのみで構いません。
+BLEA for FSI ガバナンスベース と 各金融ワークロード サンプルアプリケーション を AWS アカウント環境にデプロイする手順について記載します。BLEA for FSI は ControlTower 管理下のアカウントに導入することを前提とします。また AWS アカウントにデプロイだけ行う場合、デプロイ用のクライアント環境に Visual Studio Code によるエディタ環境の構築は必ずしも必要なく CDK ランタイムのみで構いません。
 
 ### 前提条件
 
@@ -124,11 +134,11 @@ BLEA for FSI を AWS 上にデプロイするためのクライアントの前�
 
 ### デプロイの流れ
 
-BLEA for FSI は AWS Control Tower によるマルチアカウント環境を前提に構成されていますので、最初に Control Tower を設定・導入する必要があり、その後に BLEA for FSI の追加設定・導入を行います。ここでは最も典型的な手順を説明します。
+各金融ワークロード サンプルアプリケーション は AWS Control Tower（以下 CT）に依存しておらず非 CT 環境にデプロイすることができますが、ガバナンスベースは CT 環境に依存しています。そのため、最初に CT を設定・導入する必要があり、その後に BLEA for FSI の追加設定・導入を行います。
 
-クライアント環境からインターネットに接続できない場合は、下記の閉域網での CDK 実行環境のセットアップ手順を参照して下さい。
+CT を導入していないアカウント環境へのガバナンスベースのデプロイを希望される方は、以下のガイダンスを参考にして下さい。
 
-- [手順]: [閉域網での CDK 実行環境 のセットアップ手順](doc/cdk-deployment-environment-setup.md)
+- [シングルアカウント／非 Control Tower 環境でのガバナンスベースのセットアップ方法](./doc/governance-base/how-to-setup-governance-base-in-nonct-env.md)
 
 > NOTE: `MC`はマネジメントコンソールでの作業を、`Local`はデプロイ用クライアント環境での作業を示します。
 
@@ -154,12 +164,13 @@ BLEA for FSI は AWS Control Tower によるマルチアカウント環境を前
 
 ### 導入手順
 
-- [1. BLEA for FSI ガバナンスベース のセットアップ手順](doc/deploy-governance-base.md)
+- [1. BLEA for FSI ガバナンスベース のセットアップ手順](doc/governance-base/deploy-governance-base.md)
 - [2. [勘定系] サンプルアプリケーションのセットアップ手順](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 - [3. [顧客チャネル] サンプルアプリケーションのセットアップ手順](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 - [4-1. [Open API ベーシック ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
 - [4-2. [Open API 金融グレード(FAPI)] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 - [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-market-data/deploy-market-data-sample.md)
+- [6. [データ分析プラットフォーム] サンプルアプリケーションのセットアップ手順](doc/reference-arc-analytics-platform/deploy-analytics-platform-sample.md)
 
 ## 独自のアプリケーションを開発する
 

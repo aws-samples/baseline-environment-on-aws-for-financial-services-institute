@@ -1,212 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BLEA-FSI-OpenApi snapshot check OpenAPI FAPI sample Stacks 1`] = `
-Object {
-  "Outputs": Object {
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlock",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRefB894E373": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRefB894E373",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRef",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4RefD90F2F3D": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4RefD90F2F3D",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4Ref",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef04FAF44F": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef04FAF44F",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERefF0FBFD99": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERefF0FBFD99",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERef",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref0B4BF8FE": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref0B4BF8FE",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRefB34E15B3": Object {
-      "Export": Object {
-        "Name": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRefB34E15B3",
-      },
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966",
-          "Outputs.BLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRef",
-        ],
-      },
-    },
-  },
-  "Parameters": Object {
-    "BootstrapVersion": Object {
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
-      "Type": "AWS::SSM::Parameter::Value<String>",
-    },
-  },
-  "Resources": Object {
-    "BLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/",
-              Object {
-                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
-              },
-              "/822e4caa9eec0d3bb9d438613588813ad45a73cf25bc1a6c0294a7e2d79d474d.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BLEAFSIOpenApiopenapifapikeycloakprimaryNestedStackBLEAFSIOpenApiopenapifapikeycloakprimaryNestedStackResourceBCF76B6D": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "TemplateURL": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "https://s3.ap-northeast-1.",
-              Object {
-                "Ref": "AWS::URLSuffix",
-              },
-              "/",
-              Object {
-                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
-              },
-              "/86c5ebdc900fb4425229a1de026f431c9eb4cb841905c65a9fa9ad862f1e63d1.json",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::Stack",
-      "UpdateReplacePolicy": "Delete",
-    },
-  },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  Object {
-                    "Ref": "BootstrapVersion",
-                  },
-                ],
-              },
-            ],
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
-        },
-      ],
-    },
-  },
-}
-`;
-
-exports[`BLEA-FSI-OpenApi snapshot check OpenAPI FAPI sample Stacks 2`] = `
-Object {
-  "Description": "(SO8021) - Deploy keycloak on AWS with cdk-keycloak construct library",
-  "Outputs": Object {
-    "KeycloakDatabaseDBSecretArn4E414F4F": Object {
-      "Value": Object {
+exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
+{
+  "Outputs": {
+    "KeycloakDatabaseDBSecretArn4E414F4F": {
+      "Value": {
         "Ref": "KeycloakDatabaseDBClusterSecretAttachment90E0A69B",
       },
     },
-    "KeycloakDatabaseclusterEndpointHostnameB74626C6": Object {
-      "Value": Object {
-        "Fn::GetAtt": Array [
+    "KeycloakDatabaseclusterEndpointHostnameB74626C6": {
+      "Value": {
+        "Fn::GetAtt": [
           "KeycloakDatabaseDBClusterE8251B52",
           "Endpoint.Address",
         ],
       },
     },
-    "KeycloakDatabaseclusterIdentifier6D429361": Object {
-      "Value": Object {
+    "KeycloakDatabaseclusterIdentifier6D429361": {
+      "Value": {
         "Ref": "KeycloakDatabaseDBClusterE8251B52",
       },
     },
-    "KeycloakKeyCloakContainerSerivceNLBEndpointURL348AD2F8": Object {
-      "Value": Object {
-        "Fn::Join": Array [
+    "KeycloakKeyCloakContainerSerivceNLBEndpointURL348AD2F8": {
+      "Value": {
+        "Fn::Join": [
           "",
-          Array [
+          [
             "https://",
-            Object {
-              "Fn::GetAtt": Array [
+            {
+              "Fn::GetAtt": [
                 "KeycloakKeyCloakContainerSerivceNLB8DDEC811",
                 "DNSName",
               ],
@@ -215,60 +37,68 @@ Object {
         ],
       },
     },
+    "VpcVpcFlowLogBucketOutputD0CBAD8F": {
+      "Value": {
+        "Fn::GetAtt": [
+          "VpcVpcFlowLogBucketB890A7D8",
+          "Arn",
+        ],
+      },
+    },
   },
-  "Parameters": Object {
-    "BootstrapVersion": Object {
+  "Parameters": {
+    "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": Object {
-    "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret9A7F4C593fdaad7efa858a3daf9490cf0a702aeb": Object {
+  "Resources": {
+    "BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakDatabaseDBClusterSecret607BE8343fdaad7efa858a3daf9490cf0a702aeb": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Description": Object {
-          "Fn::Join": Array [
+      "Properties": {
+        "Description": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "Generated by the CDK for stack: ",
-              Object {
+              {
                 "Ref": "AWS::StackName",
               },
             ],
           ],
         },
-        "GenerateSecretString": Object {
-          "ExcludeCharacters": " %+~\`#$&*()|[]{}:;<>?!'/@\\"\\\\",
+        "GenerateSecretString": {
+          "ExcludeCharacters": " %+~\`#$&*()|[]{}:;<>?!'/@"\\",
           "GenerateStringKey": "password",
           "PasswordLength": 30,
-          "SecretStringTemplate": "{\\"username\\":\\"admin\\"}",
+          "SecretStringTemplate": "{"username":"admin"}",
         },
       },
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",
     },
-    "KeycloakDatabaseDBClusterE8251B52": Object {
+    "KeycloakDatabaseDBClusterE8251B52": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "BacktrackWindow": 86400,
         "BackupRetentionPeriod": 7,
         "CopyTagsToSnapshot": true,
         "DBClusterParameterGroupName": "default.aurora-mysql5.7",
-        "DBSubnetGroupName": Object {
+        "DBSubnetGroupName": {
           "Ref": "KeycloakDatabaseDBClusterSubnets28319191",
         },
         "DatabaseName": "keycloak",
         "DeletionProtection": true,
         "Engine": "aurora-mysql",
-        "EngineVersion": "5.7.mysql_aurora.2.09.1",
-        "MasterUserPassword": Object {
-          "Fn::Join": Array [
+        "EngineVersion": "5.7.mysql_aurora.2.11.1",
+        "MasterUserPassword": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "{{resolve:secretsmanager:",
-              Object {
-                "Ref": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret9A7F4C593fdaad7efa858a3daf9490cf0a702aeb",
+              {
+                "Ref": "BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakDatabaseDBClusterSecret607BE8343fdaad7efa858a3daf9490cf0a702aeb",
               },
               ":SecretString:password::}}",
             ],
@@ -276,9 +106,9 @@ Object {
         },
         "MasterUsername": "admin",
         "StorageEncrypted": true,
-        "VpcSecurityGroupIds": Array [
-          Object {
-            "Fn::GetAtt": Array [
+        "VpcSecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
               "KeycloakDatabaseDBClusterSecurityGroup3C1596FD",
               "GroupId",
             ],
@@ -288,74 +118,86 @@ Object {
       "Type": "AWS::RDS::DBCluster",
       "UpdateReplacePolicy": "Retain",
     },
-    "KeycloakDatabaseDBClusterInstance1D0035419": Object {
+    "KeycloakDatabaseDBClusterInstance1D0035419": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "DBClusterIdentifier": Object {
+      "DependsOn": [
+        "VpcPrivateSubnet1RouteTableAssociation70C59FA6",
+        "VpcPrivateSubnet2RouteTableAssociationA89CAD56",
+      ],
+      "Properties": {
+        "DBClusterIdentifier": {
           "Ref": "KeycloakDatabaseDBClusterE8251B52",
         },
         "DBInstanceClass": "db.r5.large",
-        "DBSubnetGroupName": Object {
+        "DBSubnetGroupName": {
           "Ref": "KeycloakDatabaseDBClusterSubnets28319191",
         },
         "Engine": "aurora-mysql",
-        "EngineVersion": "5.7.mysql_aurora.2.09.1",
         "PubliclyAccessible": false,
       },
       "Type": "AWS::RDS::DBInstance",
       "UpdateReplacePolicy": "Retain",
     },
-    "KeycloakDatabaseDBClusterInstance28925F5A6": Object {
+    "KeycloakDatabaseDBClusterInstance28925F5A6": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "DBClusterIdentifier": Object {
+      "DependsOn": [
+        "VpcPrivateSubnet1RouteTableAssociation70C59FA6",
+        "VpcPrivateSubnet2RouteTableAssociationA89CAD56",
+      ],
+      "Properties": {
+        "DBClusterIdentifier": {
           "Ref": "KeycloakDatabaseDBClusterE8251B52",
         },
         "DBInstanceClass": "db.r5.large",
-        "DBSubnetGroupName": Object {
+        "DBSubnetGroupName": {
           "Ref": "KeycloakDatabaseDBClusterSubnets28319191",
         },
         "Engine": "aurora-mysql",
-        "EngineVersion": "5.7.mysql_aurora.2.09.1",
         "PubliclyAccessible": false,
       },
       "Type": "AWS::RDS::DBInstance",
       "UpdateReplacePolicy": "Retain",
     },
-    "KeycloakDatabaseDBClusterSecretAttachment90E0A69B": Object {
-      "Properties": Object {
-        "SecretId": Object {
-          "Ref": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecret9A7F4C593fdaad7efa858a3daf9490cf0a702aeb",
+    "KeycloakDatabaseDBClusterSecretAttachment90E0A69B": {
+      "Properties": {
+        "SecretId": {
+          "Ref": "BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakDatabaseDBClusterSecret607BE8343fdaad7efa858a3daf9490cf0a702aeb",
         },
-        "TargetId": Object {
+        "TargetId": {
           "Ref": "KeycloakDatabaseDBClusterE8251B52",
         },
         "TargetType": "AWS::RDS::DBCluster",
       },
       "Type": "AWS::SecretsManager::SecretTargetAttachment",
     },
-    "KeycloakDatabaseDBClusterSecurityGroup3C1596FD": Object {
-      "Properties": Object {
+    "KeycloakDatabaseDBClusterSecurityGroup3C1596FD": {
+      "Properties": {
         "GroupDescription": "RDS security group",
-        "SecurityGroupEgress": Array [
-          Object {
+        "SecurityGroupEgress": [
+          {
             "CidrIp": "0.0.0.0/0",
             "Description": "Allow all outbound traffic by default",
             "IpProtocol": "-1",
           },
         ],
-        "SecurityGroupIngress": Array [
-          Object {
-            "CidrIp": Object {
-              "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
             },
-            "Description": Object {
-              "Fn::Join": Array [
+            "Description": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "from ",
-                  Object {
-                    "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
                   },
                   ":3306",
                 ],
@@ -366,25 +208,25 @@ Object {
             "ToPort": 3306,
           },
         ],
-        "VpcId": Object {
-          "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecurityGroupD14A25643306386E54D9": Object {
-      "Properties": Object {
-        "Description": "from BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakDatabaseDBClusterSecurityGroupD14A2564:3306",
+    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakDatabaseDBClusterSecurityGroup83410954330643A283A8": {
+      "Properties": {
+        "Description": "from BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakDatabaseDBClusterSecurityGroup83410954:3306",
         "FromPort": 3306,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
+        "GroupId": {
+          "Fn::GetAtt": [
             "KeycloakDatabaseDBClusterSecurityGroup3C1596FD",
             "GroupId",
           ],
         },
         "IpProtocol": "tcp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
             "KeycloakDatabaseDBClusterSecurityGroup3C1596FD",
             "GroupId",
           ],
@@ -393,30 +235,30 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5CIndirectPortBDCCC2DB": Object {
-      "Properties": Object {
-        "Description": "from BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5C:{IndirectPort}",
-        "FromPort": Object {
-          "Fn::GetAtt": Array [
+    "KeycloakDatabaseDBClusterSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8IndirectPort0BA7F8BC": {
+      "Properties": {
+        "Description": "from BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8:{IndirectPort}",
+        "FromPort": {
+          "Fn::GetAtt": [
             "KeycloakDatabaseDBClusterE8251B52",
             "Endpoint.Port",
           ],
         },
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
+        "GroupId": {
+          "Fn::GetAtt": [
             "KeycloakDatabaseDBClusterSecurityGroup3C1596FD",
             "GroupId",
           ],
         },
         "IpProtocol": "tcp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
         },
-        "ToPort": Object {
-          "Fn::GetAtt": Array [
+        "ToPort": {
+          "Fn::GetAtt": [
             "KeycloakDatabaseDBClusterE8251B52",
             "Endpoint.Port",
           ],
@@ -424,39 +266,39 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakDatabaseDBClusterSubnets28319191": Object {
+    "KeycloakDatabaseDBClusterSubnets28319191": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "DBSubnetGroupDescription": "Subnets for DBCluster database",
-        "SubnetIds": Array [
-          Object {
-            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet1Subnet54486F0CRefB894E373",
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet536B997A",
           },
-          Object {
-            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPrivateSubnet2Subnet075B81D4RefD90F2F3D",
+          {
+            "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
           },
         ],
       },
       "Type": "AWS::RDS::DBSubnetGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "KeycloakKCSecret578E0F40": Object {
+    "KeycloakKCSecret578E0F40": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "GenerateSecretString": Object {
+      "Properties": {
+        "GenerateSecretString": {
           "ExcludePunctuation": true,
           "GenerateStringKey": "password",
           "PasswordLength": 12,
-          "SecretStringTemplate": "{\\"username\\":\\"keycloak\\"}",
+          "SecretStringTemplate": "{"username":"keycloak"}",
         },
       },
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",
     },
-    "KeycloakKeyCloakContainerSerivceCluster6438B613": Object {
-      "Properties": Object {
-        "ClusterSettings": Array [
-          Object {
+    "KeycloakKeyCloakContainerSerivceCluster6438B613": {
+      "Properties": {
+        "ClusterSettings": [
+          {
             "Name": "containerInsights",
             "Value": "enabled",
           },
@@ -464,76 +306,82 @@ Object {
       },
       "Type": "AWS::ECS::Cluster",
     },
-    "KeycloakKeyCloakContainerSerivceLogGroup41A8AE19": Object {
+    "KeycloakKeyCloakContainerSerivceLogGroup41A8AE19": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "RetentionInDays": 30,
       },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "KeycloakKeyCloakContainerSerivceNLB8DDEC811": Object {
-      "Properties": Object {
-        "LoadBalancerAttributes": Array [
-          Object {
+    "KeycloakKeyCloakContainerSerivceNLB8DDEC811": {
+      "DependsOn": [
+        "VpcPublicSubnet1DefaultRoute3DA9E72A",
+        "VpcPublicSubnet1RouteTableAssociation97140677",
+        "VpcPublicSubnet2DefaultRoute97F91067",
+        "VpcPublicSubnet2RouteTableAssociationDD5762D8",
+      ],
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
             "Key": "deletion_protection.enabled",
             "Value": "false",
           },
-          Object {
+          {
             "Key": "load_balancing.cross_zone.enabled",
             "Value": "true",
           },
         ],
         "Scheme": "internet-facing",
-        "Subnets": Array [
-          Object {
-            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet1Subnet062EF377Ref0B4BF8FE",
+        "Subnets": [
+          {
+            "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
           },
-          Object {
-            "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcPublicSubnet2Subnet3791A22BRefB34E15B3",
+          {
+            "Ref": "VpcPublicSubnet2Subnet691E08A3",
           },
         ],
         "Type": "network",
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
     },
-    "KeycloakKeyCloakContainerSerivceNLBTcpListenerECSTargetGroupFC35EC11": Object {
-      "Properties": Object {
+    "KeycloakKeyCloakContainerSerivceNLBTcpListenerECSTargetGroupFC35EC11": {
+      "Properties": {
         "HealthCheckEnabled": true,
         "Port": 8443,
         "Protocol": "TCP",
-        "TargetGroupAttributes": Array [
-          Object {
+        "TargetGroupAttributes": [
+          {
             "Key": "preserve_client_ip.enabled",
             "Value": "false",
           },
-          Object {
+          {
             "Key": "stickiness.enabled",
             "Value": "true",
           },
-          Object {
+          {
             "Key": "stickiness.type",
             "Value": "source_ip",
           },
         ],
         "TargetType": "ip",
-        "VpcId": Object {
-          "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
     },
-    "KeycloakKeyCloakContainerSerivceNLBTcpListenerF256879E": Object {
-      "Properties": Object {
-        "DefaultActions": Array [
-          Object {
-            "TargetGroupArn": Object {
+    "KeycloakKeyCloakContainerSerivceNLBTcpListenerF256879E": {
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
               "Ref": "KeycloakKeyCloakContainerSerivceNLBTcpListenerECSTargetGroupFC35EC11",
             },
             "Type": "forward",
           },
         ],
-        "LoadBalancerArn": Object {
+        "LoadBalancerArn": {
           "Ref": "KeycloakKeyCloakContainerSerivceNLB8DDEC811",
         },
         "Port": 443,
@@ -541,16 +389,16 @@ Object {
       },
       "Type": "AWS::ElasticLoadBalancingV2::Listener",
     },
-    "KeycloakKeyCloakContainerSerivceService4AFC987E": Object {
-      "DependsOn": Array [
+    "KeycloakKeyCloakContainerSerivceService4AFC987E": {
+      "DependsOn": [
         "KeycloakKeyCloakContainerSerivceNLBTcpListenerECSTargetGroupFC35EC11",
         "KeycloakKeyCloakContainerSerivceNLBTcpListenerF256879E",
       ],
-      "Properties": Object {
-        "Cluster": Object {
+      "Properties": {
+        "Cluster": {
           "Ref": "KeycloakKeyCloakContainerSerivceCluster6438B613",
         },
-        "DeploymentConfiguration": Object {
+        "DeploymentConfiguration": {
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -558,56 +406,59 @@ Object {
         "EnableECSManagedTags": false,
         "HealthCheckGracePeriodSeconds": 120,
         "LaunchType": "FARGATE",
-        "LoadBalancers": Array [
-          Object {
+        "LoadBalancers": [
+          {
             "ContainerName": "keycloak",
             "ContainerPort": 8443,
-            "TargetGroupArn": Object {
+            "TargetGroupArn": {
               "Ref": "KeycloakKeyCloakContainerSerivceNLBTcpListenerECSTargetGroupFC35EC11",
             },
           },
         ],
-        "NetworkConfiguration": Object {
-          "AwsvpcConfiguration": Object {
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
             "AssignPublicIp": "DISABLED",
-            "SecurityGroups": Array [
-              Object {
-                "Fn::GetAtt": Array [
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
                   "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
                   "GroupId",
                 ],
               },
             ],
-            "Subnets": Array [
-              Object {
-                "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet1Subnet7AC39B6BRef04FAF44F",
+            "Subnets": [
+              {
+                "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
               },
-              Object {
-                "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpcProtectedSubnet2Subnet1777200ERefF0FBFD99",
+              {
+                "Ref": "VpcProtectedSubnet2SubnetC22C3325",
               },
             ],
           },
         },
-        "TaskDefinition": Object {
+        "TaskDefinition": {
           "Ref": "KeycloakKeyCloakContainerSerivceTaskDef31979633",
         },
       },
       "Type": "AWS::ECS::Service",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C": Object {
-      "Properties": Object {
-        "GroupDescription": "BLEA-FSI-OpenApi-openapi-fapi-keycloak-primary/Keycloak/KeyCloakContainerSerivce/Service/SecurityGroup",
-        "SecurityGroupEgress": Array [
-          Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Keycloak/KeyCloakContainerSerivce/Service/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
             "CidrIp": "0.0.0.0/0",
             "Description": "Allow all outbound traffic by default",
             "IpProtocol": "-1",
           },
         ],
-        "SecurityGroupIngress": Array [
-          Object {
-            "CidrIp": Object {
-              "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EECidrBlockB4426387",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
             },
             "Description": "vpc local",
             "FromPort": 8443,
@@ -615,25 +466,25 @@ Object {
             "ToPort": 8443,
           },
         ],
-        "VpcId": Object {
-          "Fn::ImportValue": "BLEA-FSI-OpenApi-openapi-fapi-primary:ExportsOutputFnGetAttBLEAFSIOpenApiVpcNestedStackBLEAFSIOpenApiVpcNestedStackResource3D89F966OutputsBLEAFSIOpenApiopenapifapiprimaryBLEAFSIOpenApiVpc1666A2EERef06112F4B",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5C57600DEDC2D1B": Object {
-      "Properties": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8576002ED39100": {
+      "Properties": {
         "Description": "kc jgroups-tcp-fd",
         "FromPort": 57600,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
+        "GroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
         },
         "IpProtocol": "tcp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
@@ -642,19 +493,19 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5C7600379CA31A": Object {
-      "Properties": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE87600CC01F3E0": {
+      "Properties": {
         "Description": "kc jgroups-tcp",
         "FromPort": 7600,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
+        "GroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
         },
         "IpProtocol": "tcp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
@@ -663,19 +514,19 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5CUDP54200B6AB9274": Object {
-      "Properties": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8UDP542002E66FF9A": {
+      "Properties": {
         "Description": "kc jgroups-udp-fd",
         "FromPort": 54200,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
+        "GroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
         },
         "IpProtocol": "udp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
@@ -684,19 +535,19 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup85005C5CUDP5520055731D5C": Object {
-      "Properties": Object {
+    "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8UDP552001958BD55": {
+      "Properties": {
         "Description": "kc jgroups-udp",
         "FromPort": 55200,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
+        "GroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
         },
         "IpProtocol": "udp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C",
             "GroupId",
           ],
@@ -705,21 +556,21 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "KeycloakKeyCloakContainerSerivceServiceTaskCountTarget4E91B2A9": Object {
-      "Properties": Object {
+    "KeycloakKeyCloakContainerSerivceServiceTaskCountTarget4E91B2A9": {
+      "Properties": {
         "MaxCapacity": 10,
         "MinCapacity": 2,
-        "ResourceId": Object {
-          "Fn::Join": Array [
+        "ResourceId": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "service/",
-              Object {
+              {
                 "Ref": "KeycloakKeyCloakContainerSerivceCluster6438B613",
               },
               "/",
-              Object {
-                "Fn::GetAtt": Array [
+              {
+                "Fn::GetAtt": [
                   "KeycloakKeyCloakContainerSerivceService4AFC987E",
                   "Name",
                 ],
@@ -727,16 +578,16 @@ Object {
             ],
           ],
         },
-        "RoleARN": Object {
-          "Fn::Join": Array [
+        "RoleARN": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "arn:",
-              Object {
+              {
                 "Ref": "AWS::Partition",
               },
               ":iam::",
-              Object {
+              {
                 "Ref": "AWS::AccountId",
               },
               ":role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
@@ -748,15 +599,15 @@ Object {
       },
       "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
     },
-    "KeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScalingBFB05580": Object {
-      "Properties": Object {
-        "PolicyName": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScalingAB2D7AE0",
+    "KeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScalingBFB05580": {
+      "Properties": {
+        "PolicyName": "BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScaling077208DA",
         "PolicyType": "TargetTrackingScaling",
-        "ScalingTargetId": Object {
+        "ScalingTargetId": {
           "Ref": "KeycloakKeyCloakContainerSerivceServiceTaskCountTarget4E91B2A9",
         },
-        "TargetTrackingScalingPolicyConfiguration": Object {
-          "PredefinedMetricSpecification": Object {
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
             "PredefinedMetricType": "ECSServiceAverageCPUUtilization",
           },
           "TargetValue": 80,
@@ -764,98 +615,104 @@ Object {
       },
       "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
     },
-    "KeycloakKeyCloakContainerSerivceTaskDef31979633": Object {
-      "Properties": Object {
-        "ContainerDefinitions": Array [
-          Object {
-            "Environment": Array [
-              Object {
+    "KeycloakKeyCloakContainerSerivceTaskDef31979633": {
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Environment": [
+              {
                 "Name": "DB_ADDR",
-                "Value": Object {
-                  "Fn::GetAtt": Array [
+                "Value": {
+                  "Fn::GetAtt": [
                     "KeycloakDatabaseDBClusterE8251B52",
                     "Endpoint.Address",
                   ],
                 },
               },
-              Object {
+              {
                 "Name": "DB_DATABASE",
                 "Value": "keycloak",
               },
-              Object {
+              {
                 "Name": "DB_USER",
                 "Value": "admin",
               },
-              Object {
+              {
                 "Name": "DB_VENDOR",
                 "Value": "mysql",
               },
-              Object {
+              {
                 "Name": "JDBC_PARAMS",
                 "Value": "useSSL=false",
               },
-              Object {
+              {
                 "Name": "JGROUPS_DISCOVERY_PROTOCOL",
                 "Value": "JDBC_PING",
               },
             ],
             "Essential": true,
-            "Image": Object {
-              "Fn::Join": Array [
+            "Image": {
+              "Fn::Join": [
                 "",
-                Array [
-                  Object {
+                [
+                  {
                     "Ref": "AWS::AccountId",
                   },
-                  ".dkr.ecr.ap-northeast-1.",
-                  Object {
+                  ".dkr.ecr.",
+                  {
+                    "Ref": "AWS::Region",
+                  },
+                  ".",
+                  {
                     "Ref": "AWS::URLSuffix",
                   },
-                  "/jboss/keycloak:16.1.1",
+                  "/fapidemo/keycloak:16.1.1",
                 ],
               ],
             },
-            "LogConfiguration": Object {
+            "LogConfiguration": {
               "LogDriver": "awslogs",
-              "Options": Object {
-                "awslogs-group": Object {
+              "Options": {
+                "awslogs-group": {
                   "Ref": "KeycloakKeyCloakContainerSerivceLogGroup41A8AE19",
                 },
-                "awslogs-region": "ap-northeast-1",
+                "awslogs-region": {
+                  "Ref": "AWS::Region",
+                },
                 "awslogs-stream-prefix": "keycloak",
               },
             },
             "Name": "keycloak",
-            "PortMappings": Array [
-              Object {
+            "PortMappings": [
+              {
                 "ContainerPort": 8443,
                 "Protocol": "tcp",
               },
-              Object {
+              {
                 "ContainerPort": 7600,
                 "Protocol": "tcp",
               },
-              Object {
+              {
                 "ContainerPort": 57600,
                 "Protocol": "tcp",
               },
-              Object {
+              {
                 "ContainerPort": 55200,
                 "Protocol": "udp",
               },
-              Object {
+              {
                 "ContainerPort": 54200,
                 "Protocol": "udp",
               },
             ],
-            "Secrets": Array [
-              Object {
+            "Secrets": [
+              {
                 "Name": "DB_PASSWORD",
-                "ValueFrom": Object {
-                  "Fn::Join": Array [
+                "ValueFrom": {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
+                    [
+                      {
                         "Ref": "KeycloakDatabaseDBClusterSecretAttachment90E0A69B",
                       },
                       ":password::",
@@ -863,13 +720,13 @@ Object {
                   ],
                 },
               },
-              Object {
+              {
                 "Name": "KEYCLOAK_USER",
-                "ValueFrom": Object {
-                  "Fn::Join": Array [
+                "ValueFrom": {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
+                    [
+                      {
                         "Ref": "KeycloakKCSecret578E0F40",
                       },
                       ":username::",
@@ -877,13 +734,13 @@ Object {
                   ],
                 },
               },
-              Object {
+              {
                 "Name": "KEYCLOAK_PASSWORD",
-                "ValueFrom": Object {
-                  "Fn::Join": Array [
+                "ValueFrom": {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
+                    [
+                      {
                         "Ref": "KeycloakKCSecret578E0F40",
                       },
                       ":password::",
@@ -895,20 +752,20 @@ Object {
           },
         ],
         "Cpu": "1024",
-        "ExecutionRoleArn": Object {
-          "Fn::GetAtt": Array [
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceTaskRole88AF418B",
             "Arn",
           ],
         },
-        "Family": "BLEAFSIOpenApiopenapifapikeycloakprimaryKeycloakKeyCloakContainerSerivceTaskDef71B89677",
+        "Family": "BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceTaskDef9FADD929",
         "Memory": "2048",
         "NetworkMode": "awsvpc",
-        "RequiresCompatibilities": Array [
+        "RequiresCompatibilities": [
           "FARGATE",
         ],
-        "TaskRoleArn": Object {
-          "Fn::GetAtt": Array [
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
             "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
             "Arn",
           ],
@@ -916,14 +773,14 @@ Object {
       },
       "Type": "AWS::ECS::TaskDefinition",
     },
-    "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "ecs-tasks.amazonaws.com",
               },
             },
@@ -933,34 +790,34 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "KeycloakKeyCloakContainerSerivceTaskRole88AF418B": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "KeycloakKeyCloakContainerSerivceTaskRole88AF418B": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "ecs.amazonaws.com",
               },
             },
-            Object {
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "ecs-tasks.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
@@ -971,69 +828,73 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "KeycloakKeyCloakContainerSerivceTaskRoleDefaultPolicyA6E8A90B": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "KeycloakKeyCloakContainerSerivceTaskRoleDefaultPolicyA6E8A90B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "ecr:BatchCheckLayerAvailability",
                 "ecr:GetDownloadUrlForLayer",
                 "ecr:BatchGetImage",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
-                    ":ecr:ap-northeast-1:",
-                    Object {
+                    ":ecr:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
                       "Ref": "AWS::AccountId",
                     },
-                    ":repository/jboss/keycloak",
+                    ":repository/fapidemo/keycloak",
                   ],
                 ],
               },
             },
-            Object {
+            {
               "Action": "ecr:GetAuthorizationToken",
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "logs:CreateLogStream",
                 "logs:PutLogEvents",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "KeycloakKeyCloakContainerSerivceLogGroup41A8AE19",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "secretsmanager:GetSecretValue",
                 "secretsmanager:DescribeSecret",
               ],
               "Effect": "Allow",
-              "Resource": Object {
+              "Resource": {
                 "Ref": "KeycloakDatabaseDBClusterSecretAttachment90E0A69B",
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "secretsmanager:GetSecretValue",
                 "secretsmanager:DescribeSecret",
               ],
               "Effect": "Allow",
-              "Resource": Object {
+              "Resource": {
                 "Ref": "KeycloakKCSecret578E0F40",
               },
             },
@@ -1041,31 +902,1170 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "KeycloakKeyCloakContainerSerivceTaskRoleDefaultPolicyA6E8A90B",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "KeycloakKeyCloakContainerSerivceTaskRole88AF418B",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
+    "Vpc8378EB38": {
+      "Properties": {
+        "CidrBlock": "10.110.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "VpcEcrDockerEndpoint53ED547B": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcEcrDockerEndpointSecurityGroup5D41A216",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ecr.dkr",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet536B997A",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcEcrDockerEndpointSecurityGroup5D41A216": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/EcrDockerEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "VpcEcrEndpoint0BE46338": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcEcrEndpointSecurityGroup13145954",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ecr.api",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet536B997A",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcEcrEndpointSecurityGroup13145954": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/EcrEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "VpcFlowLogsFlowLogBB096F0F": {
+      "DependsOn": [
+        "VpcVpcFlowLogBucketPolicy360596E1",
+      ],
+      "Properties": {
+        "LogDestination": {
+          "Fn::GetAtt": [
+            "VpcVpcFlowLogBucketB890A7D8",
+            "Arn",
+          ],
+        },
+        "LogDestinationType": "s3",
+        "ResourceId": {
+          "Ref": "Vpc8378EB38",
+        },
+        "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
+        "TrafficType": "ALL",
+      },
+      "Type": "AWS::EC2::FlowLog",
+    },
+    "VpcForTgwAttachmentsSubnet1RouteTable8C881736": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ForTgwAttachmentsSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcForTgwAttachmentsSubnet1RouteTableAssociation8E490026": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcForTgwAttachmentsSubnet1RouteTable8C881736",
+        },
+        "SubnetId": {
+          "Ref": "VpcForTgwAttachmentsSubnet1Subnet95D19052",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcForTgwAttachmentsSubnet1Subnet95D19052": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.6.0/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ForTgwAttachments",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ForTgwAttachmentsSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcForTgwAttachmentsSubnet2RouteTableAssociation87852F7E": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcForTgwAttachmentsSubnet2RouteTableCA78E48E",
+        },
+        "SubnetId": {
+          "Ref": "VpcForTgwAttachmentsSubnet2SubnetAEDBB0E8",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcForTgwAttachmentsSubnet2RouteTableCA78E48E": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ForTgwAttachmentsSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcForTgwAttachmentsSubnet2SubnetAEDBB0E8": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.6.16/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ForTgwAttachments",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ForTgwAttachmentsSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcIGWD7BA715C": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "VpcKeyAliasA355FA45": {
+      "Properties": {
+        "AliasName": "alias/Vpc-for-flowlog",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "VpcKeyC80AFE15",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::KMS::Alias",
+    },
+    "VpcKeyC80AFE15": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "VPC Flow logs Bucket",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "kms:Encrypt*",
+                "kms:Decrypt*",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Describe*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "delivery.logs.amazonaws.com",
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "VpcLogsEndpointForPrivate8D2140E9": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".logs",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "VpcPrivateSubnet1Subnet536B997A",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/LogsEndpointForPrivate/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "VpcNaclPublicDefaultAssociationBLEAFSIOpenApiFapiopenapifapiprimaryVpcPublicSubnet1017A1DA3A69041D9": {
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+    },
+    "VpcNaclPublicDefaultAssociationBLEAFSIOpenApiFapiopenapifapiprimaryVpcPublicSubnet2F7D86A25755856AD": {
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet2Subnet691E08A3",
+        },
+      },
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+    },
+    "VpcNaclPublicF3ACBBF5": {
+      "Properties": {
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::NetworkAcl",
+    },
+    "VpcNaclPublicNaclEgressPublic7F2645E5": {
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": true,
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "Protocol": -1,
+        "RuleAction": "allow",
+        "RuleNumber": 100,
+      },
+      "Type": "AWS::EC2::NetworkAclEntry",
+    },
+    "VpcNaclPublicNaclIngressPublicCA388ADE": {
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": false,
+        "NetworkAclId": {
+          "Ref": "VpcNaclPublicF3ACBBF5",
+        },
+        "Protocol": -1,
+        "RuleAction": "allow",
+        "RuleNumber": 100,
+      },
+      "Type": "AWS::EC2::NetworkAclEntry",
+    },
+    "VpcPrivateSubnet1RouteTableAssociation70C59FA6": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
+        },
+        "SubnetId": {
+          "Ref": "VpcPrivateSubnet1Subnet536B997A",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPrivateSubnet1RouteTableB2C5B500": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPrivateSubnet1Subnet536B997A": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.4.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPrivateSubnet2RouteTableA678073B": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPrivateSubnet2RouteTableAssociationA89CAD56": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
+        },
+        "SubnetId": {
+          "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPrivateSubnet2Subnet3788AAA1": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.5.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcProtectedSubnet1DefaultRouteAEBDEDB0": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
+        },
+        "RouteTableId": {
+          "Ref": "VpcProtectedSubnet1RouteTable69FCECD8",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcProtectedSubnet1RouteTable69FCECD8": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ProtectedSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcProtectedSubnet1RouteTableAssociation62F625F2": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcProtectedSubnet1RouteTable69FCECD8",
+        },
+        "SubnetId": {
+          "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcProtectedSubnet1Subnet38ECE18A": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.2.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Protected",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ProtectedSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcProtectedSubnet2DefaultRouteA5CFB1D1": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "VpcPublicSubnet2NATGateway9182C01D",
+        },
+        "RouteTableId": {
+          "Ref": "VpcProtectedSubnet2RouteTableFA54AE0B",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcProtectedSubnet2RouteTableAssociation960FE2AC": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcProtectedSubnet2RouteTableFA54AE0B",
+        },
+        "SubnetId": {
+          "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcProtectedSubnet2RouteTableFA54AE0B": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ProtectedSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcProtectedSubnet2SubnetC22C3325": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.3.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Protected",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/ProtectedSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPublicSubnet1DefaultRoute3DA9E72A": {
+      "DependsOn": [
+        "VpcVPCGWBF912B6E",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcIGWD7BA715C",
+        },
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPublicSubnet1EIPD7E02669": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "VpcPublicSubnet1NATGateway4D7517AA": {
+      "DependsOn": [
+        "VpcPublicSubnet1DefaultRoute3DA9E72A",
+        "VpcPublicSubnet1RouteTableAssociation97140677",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "VpcPublicSubnet1EIPD7E02669",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "VpcPublicSubnet1RouteTable6C95E38E": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPublicSubnet1RouteTableAssociation97140677": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet1Subnet5C2D37C4": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.0.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPublicSubnet2DefaultRoute97F91067": {
+      "DependsOn": [
+        "VpcVPCGWBF912B6E",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcIGWD7BA715C",
+        },
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPublicSubnet2EIP3C605A87": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "VpcPublicSubnet2NATGateway9182C01D": {
+      "DependsOn": [
+        "VpcPublicSubnet2DefaultRoute97F91067",
+        "VpcPublicSubnet2RouteTableAssociationDD5762D8",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "VpcPublicSubnet2EIP3C605A87",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet2Subnet691E08A3",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "VpcPublicSubnet2RouteTable94F7E489": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPublicSubnet2RouteTableAssociationDD5762D8": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
+        },
+        "SubnetId": {
+          "Ref": "VpcPublicSubnet2Subnet691E08A3",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet2Subnet691E08A3": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.110.1.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcS3Endpoint4A3DE4B5": {
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
+          },
+          {
+            "Ref": "VpcPrivateSubnet2RouteTableA678073B",
+          },
+          {
+            "Ref": "VpcForTgwAttachmentsSubnet1RouteTable8C881736",
+          },
+          {
+            "Ref": "VpcForTgwAttachmentsSubnet2RouteTableCA78E48E",
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".s3",
+            ],
+          ],
+        },
+        "VpcEndpointType": "Gateway",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcVPCGWBF912B6E": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "VpcIGWD7BA715C",
+        },
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "VpcVpcFlowLogBucketB890A7D8": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "KMSMasterKeyID": {
+                  "Fn::GetAtt": [
+                    "VpcKeyC80AFE15",
+                    "Arn",
+                  ],
+                },
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "VpcVpcFlowLogBucketPolicy360596E1": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "VpcVpcFlowLogBucketB890A7D8",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "VpcVpcFlowLogBucketB890A7D8",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "VpcVpcFlowLogBucketB890A7D8",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
   },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  Object {
+                  {
                     "Ref": "BootstrapVersion",
                   },
                 ],
