@@ -1,14 +1,12 @@
 # 金融リファレンスアーキテクチャ 日本版
 
-[英語版](README_en.md)
-
 ![金融リファレンスアーキテクチャ日本版イメージ](doc/images/FinRA_contents.png)
 
 金融リファレンスアーキテクチャ日本版は、下記 3 つのコンテンツで構成されます。
 
 - [Well-Architected Framework FSI Lens for FISC](#well-architected-framework-fsi-lens-for-fisc)
 - [金融ワークロードのベストプラクティス](#金融ワークロードのベストプラクティス)
-- [Baseline Environment on AWS for FSI](#Baseline Environment on AWS for Financial Services Institute)
+- [Baseline Environment on AWS for FSI](#baseline-environment-on-aws-for-financial-services-institute)
 
 # Well-Architected Framework FSI Lens for FISC
 
@@ -170,7 +168,7 @@ CT を導入していないアカウント環境へのガバナンスベース�
 - [4-1. [Open API ベーシック ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
 - [4-2. [Open API 金融グレード(FAPI)] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 - [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-market-data/deploy-market-data-sample.md)
-- [6. [データ分析プラットフォーム] サンプルアプリケーションのセットアップ手順](doc/reference-arc-analytics-platform/deploy-analytics-platform-sample.md)
+- [6. [データ分析プラットフォーム] サンプルアプリケーションのセットアップ手順](doc/reference-arc-analytics-platform/deploy-analytics-platform-simpledatalake.md)
 
 ## 独自のアプリケーションを開発する
 
