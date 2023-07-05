@@ -1,0 +1,15 @@
+// 下記コマンドを実行して、./doc にAPI仕様を作成する
+// npx typdoc
+{
+  "name": "BLEA for FSI 共通L3コンストラクト サンプル集",
+  "entryPoints": ["./lib/index.ts"],
+  "out": "doc",
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "exclude": ["./test/*"],
+  "tsconfig": "./tsconfig.json",
+  "readme": "./doc-readme.md",
+  "media": "./doc-image",
+  "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-markdown"],
+  "theme": "markdown"
+}

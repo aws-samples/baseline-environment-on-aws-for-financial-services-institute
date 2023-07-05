@@ -4,45 +4,52 @@ import * as cdk from 'aws-cdk-lib';
 import { CustomerChannelPrimaryStack } from '../lib/bleafsi-customer-channel-primary-stack';
 import { CustomerChannelSecondaryStack } from '../lib/bleafsi-customer-channel-secondary-stack';
 import { CustomerChannelTertiaryStack } from '../lib/bleafsi-customer-channel-tertiary-stack';
-import { assertAppEnvConfig } from '../lib/bleafsi-customer-channel-config';
+import { AppParameter, PjPrefix, DevParameter, StageParameter, ProdParameter } from './parameter';
 
-const app = new cdk.App();
-
-// ----------------------- Load context variables ------------------------------
-// This context need to be specified in args
-const argContext = 'environment';
-const envKey = app.node.tryGetContext(argContext);
-if (envKey == undefined) {
-  throw new Error(`Please specify environment with context option. (e.g., cdk deploy -c ${argContext}=dev)`);
+function addEnvironmentTag(appParam: AppParameter, stack: cdk.Stack) {
+  const ENV_TAG_NAME = 'Environment';
+  cdk.Tags.of(stack).add(ENV_TAG_NAME, appParam.envName);
 }
 
-const envVals = app.node.tryGetContext(envKey);
-if (envVals == undefined) {
-  throw new Error('Invalid environment.');
+export interface CustomerChannelStacks {
+  readonly primaryStack: CustomerChannelPrimaryStack;
+  readonly secondaryStack?: CustomerChannelSecondaryStack;
+  readonly tertiaryStack?: CustomerChannelTertiaryStack;
 }
 
-const pjPrefix = app.node.tryGetContext('pjPrefix');
-const appEnv = assertAppEnvConfig('AppEnvConfig', envVals);
-
-const tertiaryStack = appEnv.tertiaryRegion
-  ? new CustomerChannelTertiaryStack(app, `${pjPrefix}-CustomerChannelTertiaryStack`, {
-      env: { account: appEnv.account, region: appEnv.tertiaryRegion.region },
-    })
-  : undefined;
-
-new CustomerChannelPrimaryStack(app, `${pjPrefix}-CustomerChannelPrimaryStack`, {
-  env: { account: appEnv.account, region: appEnv.primaryRegion.region },
-  connectInstance: appEnv.primaryRegion.connectInstance,
-  tertiaryStack,
-});
-if (appEnv.secondaryRegion) {
-  if (!tertiaryStack) {
-    throw Error("The secondary region's stack depends on the existence of the tertiary region's stack.");
+export function createStacks(app: cdk.App, pjPrefix: string, appParam: AppParameter): CustomerChannelStacks {
+  let tertiaryStack: CustomerChannelTertiaryStack | undefined;
+  if (appParam.tertiaryRegion) {
+    tertiaryStack = new CustomerChannelTertiaryStack(app, `${pjPrefix}-${appParam.envName}-Tertiary`, {
+      env: { account: appParam.account, region: appParam.tertiaryRegion.region },
+    });
+    addEnvironmentTag(appParam, tertiaryStack);
   }
-  const secondaryStack = new CustomerChannelSecondaryStack(app, `${pjPrefix}-CustomerChannelSecondaryStack`, {
-    env: { account: appEnv.account, region: appEnv.secondaryRegion.region },
-    connectInstance: appEnv.secondaryRegion.connectInstance,
+
+  const primaryStack = new CustomerChannelPrimaryStack(app, `${pjPrefix}-${appParam.envName}-Primary`, {
+    env: { account: appParam.account, region: appParam.primaryRegion.region },
+    connectInstance: appParam.primaryRegion.connectInstance,
     tertiaryStack,
   });
-  secondaryStack.addDependency(tertiaryStack);
+  addEnvironmentTag(appParam, primaryStack);
+
+  let secondaryStack: CustomerChannelSecondaryStack | undefined;
+  if (appParam.secondaryRegion) {
+    if (!tertiaryStack) {
+      throw Error("The secondary region's stack depends on the existence of the tertiary region's stack.");
+    }
+    secondaryStack = new CustomerChannelSecondaryStack(app, `${pjPrefix}-${appParam.envName}-Secondary`, {
+      env: { account: appParam.account, region: appParam.secondaryRegion.region },
+      connectInstance: appParam.secondaryRegion.connectInstance,
+      tertiaryStack,
+    });
+    secondaryStack.addDependency(tertiaryStack);
+    addEnvironmentTag(appParam, secondaryStack);
+  }
+
+  return { primaryStack, secondaryStack, tertiaryStack };
 }
+
+const app = new cdk.App();
+[DevParameter].forEach((appParam) => createStacks(app, PjPrefix, appParam));
+//[DevParameter, StageParameter, ProdParameter].forEach((appParam) => createStacks(app, PjPrefix, appParam));

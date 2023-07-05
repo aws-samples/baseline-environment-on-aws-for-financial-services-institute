@@ -48,12 +48,21 @@ Best practices for financial workloads is an asset provided as a part of "Financ
     ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 
 - **Market Data**
+
   - [Architecture overview [Market Data]
     ](doc/reference-arc-market-data/market-data-arch-readme.md)
   - [Countermeasures for FISC practical standards [Market Data]
     ](doc/reference-arc-market-data/fisc-mapping-market-data.md)
   - [CDK sample code [Market Data]
     ](doc/reference-arc-market-data/deploy-market-data-sample.md)
+
+- **Analytics Platform**
+  - [Architecture overview [Analytics Platform]
+    ](doc/reference-arc-analytics-platform/analytics-simple-datalake-arch-readme.md)
+  - [Countermeasures for FISC practical standards [Analytics Platform]
+    ](doc/reference-arc-analytics-platform/fisc-mapping-analytics-platform.md)
+  - [CDK sample code [Analytics Platform]
+    ](doc/reference-arc-analytics-platform/deploy-analytics-platform-sample.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
@@ -65,8 +74,9 @@ Based on [BLEA](https://github.com/aws-samples/baseline-environment-on-aws/), a 
 - Open API
 - Customer Channels
 - Market Data
+- Analytics Platform
 
-Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI governance-based deployment](doc/deploy-governance-base.md) | [Pipeline deployment](lib/ blea/tools/cicd/README_en.md)
+Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI governance-based deployment](doc/governance-base/deploy-governance-base.md) | [Pipeline deployment](lib/ blea/tools/cicd/README_en.md)
 
 ## Governance Architecture
 
@@ -82,17 +92,20 @@ Jump to | [Changelog](CHANGELOG.md) | [HowTo](doc/how-to.md) | [BLEA for FSI gov
 
 ## CDK templates provided as a governance base
 
-| Use Cases                                                         | Folders                      |
-| ----------------------------------------------------------------- | ---------------------------- |
-| BLEA for FSI Governance Base（for Log Archive account）           | `usecases/base-ct-logging`   |
-| BLEA for FSI Governance Base（for guest account）                 | `usecases/base-ct-guest`     |
-| BLEA for FSI Governance base（for guest account in Osaka region） | `usecases/base-ct-guest-osa` |
+| Use Cases                                               | Folders                    |
+| ------------------------------------------------------- | -------------------------- |
+| BLEA for FSI Governance Base（for Log Archive account） | `usecases/base-ct-logging` |
+| BLEA for FSI Governance Base（for guest account）       | `usecases/base-ct-guest`   |
 
 ## Financial Workload Best Practices Sample Application
 
-| Use Cases                    | Folders                              |
-| ---------------------------- | ------------------------------------ |
-| [Banking] Sample Application | `usecases/guest-core-banking-sample` |
+| Use Cases                               | Folders                                                                      |
+| --------------------------------------- | ---------------------------------------------------------------------------- |
+| [Banking] Sample Application            | `usecases/guest-core-banking-sample`                                         |
+| [Customer Channel] Sample Application   | `usecases/guest-customer-channel-sample`                                     |
+| [Open API] Sample Application           | `usecases/guest-openapi-base-sample`<br>`usecases/guest-openapi-fapi-sample` |
+| [Market Data] Sample Application        | `usecases/guest-market-data-sample`                                          |
+| [Analytics Platform] Sample Application | `usecases/guest-analytics-platform-sample`                                   |
 
 ## Introducing BLEA for FSI
 
@@ -106,7 +119,7 @@ Please refer to the following for the client prerequisites for deploying 'BLEA f
 
 If you cannot directly connect to the Internet from the client environment, please refer to the following procedure for setting up a CDK execution environment on a closed private network.
 
-- [Procedure]: [Setup Procedure for CDK Deployment on a Closed Network](./doc/cdk-deployment-environment-setup.md)
+- [Procedure]: [Setup Procedure for CDK Deployment on a Closed Network](./doc/governance-base/cdk-deployment-environment-setup.md)
 
 ### Deployment Flow
 
@@ -114,7 +127,7 @@ If you cannot directly connect to the Internet from the client environment, plea
 
 If you cannot directly connect to the Internet from the client environment, please refer to the following procedure for setting up a CDK execution environment on a closed private network.
 
-- [Procedure]: [Setup Procedure for CDK Deployment in a Closed Network](./doc/cdk-deployment-environment-setup.md)
+- [Procedure]: [Setup Procedure for CDK Deployment in a Closed Network](./doc/governance-base/cdk-deployment-environment-setup.md)
 
 > NOTE: `MC` denotes working in the management console, `Local` denotes working in the deployment client environment.
 
@@ -140,12 +153,13 @@ If you cannot directly connect to the Internet from the client environment, plea
 
 ### Deployment Procedure
 
-- [1. 'BLEA for FSI' Governance Base Setup Instructions](doc/deploy-governance-base.md)
+- [1. 'BLEA for FSI' Governance Base Setup Instructions](doc/governance-base/deploy-governance-base.md)
 - [2. [Core Banking] Sample Application Setup Instructions](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 - [3. [Customer Channel] Sample Application Setup Instructions](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 - [4-1. [Open API] Sample Application Setup Instructions Basic](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
 - [4-2. [Open API] Sample Application Setup Instructions Financial Grade(FAPI)](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
 - [5. [Market Data] Sample Application Setup Instructions](doc/reference-arc-market-data/deploy-market-data-sample.md)
+- [6. [Analytics Platform] Sample Application Setup Instruction](doc/reference-arc-analytics-platform/deploy-analytics-platform-sample.md)
 
 ## Develop your own application
 

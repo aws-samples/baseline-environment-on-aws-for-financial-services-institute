@@ -29,52 +29,50 @@ AWS IAM Identity Center（旧 AWS SSO) と Amazon Connect の連携について�
 
 #### 2-1. ゲストアプリケーションの Context を設定する
 
-BLEA for FSI 版と同じ手順で Context を設定します。
+デプロイ前に環境別（開発、ステージング、本番等）の情報を指定する必要があります。下記の typescript ファイルを編集します。
 
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-customer-channel-sample.ts",
-  "context": {
-    "dev": {
-      "description": "Context samples for Dev",
-      "envName": "Development",
-      "primaryRegion": {
-        "region": "ap-northeast-1",
-        "connectInstance": {
-          "instanceAlias": "my-connect-instance-yyyymmdd-primary",
-          "inboundCallsEnabled": true,
-          "outboundCallsEnabled": true,
-          "contactFlows": [
-            {
-              "type": "CONTACT_FLOW",
-              "name": "SampleInboundContactFlow"
-            }
-          ],
-          "identityManagementType": "CONNECT_MANAGED"
-        }
-      },
-      "secondaryRegion": {
-        "region": "ap-southeast-1",
-        "connectInstance": {
-          "instanceAlias": "my-connect-instance-yyyymmdd-secondary"
-        }
-      },
-      "tertiaryRegion": {
-        "region": "ap-northeast-3"
-      }
-    }
-  }
-}
+```sh
+usecases/guest-customer-channel-sample/bin/parameter.ts
+```
+
+```js
+// Parameter for Dev - Anonymous account & region
+export const DevParameter: AppParameter = {
+  envName: 'Development',
+  primaryRegion: {
+    region: 'ap-northeast-1',
+    connectInstance: {
+      instanceAlias: 'my-connect-instance-yyyymmdd-primary', // EDIT HERE: instance alias must be unique, up to 45 characters
+      inboundCallsEnabled: true,
+      outboundCallsEnabled: true,
+      contactFlows: [
+        {
+          type: 'CONTACT_FLOW',
+          name: 'SampleInboundContactFlow',
+        },
+      ],
+      identityManagementType: 'CONNECT_MANAGED',
+    },
+  },
+  secondaryRegion: {
+    region: 'ap-southeast-1',
+    connectInstance: {
+      instanceAlias: 'my-connect-instance-yyyymmdd-secondary', // EDIT HERE: instance alias must be unique, up to 45 characters
+    },
+  },
+  tertiaryRegion: {
+    region: 'ap-northeast-3',
+  },
+};
 ```
 
 この設定内容は以下の通りです。
 
 | key                                                               | value                                                                                                                                                                                                                                                                                    |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| description                                                       | 設定についてのコメント                                                                                                                                                                                                                                                                   |
 | envName                                                           | 環境名                                                                                                                                                                                                                                                                                   |
 | primaryRegion.region                                              | プライマリリージョン用スタックをデプロイするリージョン                                                                                                                                                                                                                                   |
-| primaryRegion.connectInstance.instanceAlias                       | プライマリリージョン用スタックの Amazon Connect インスタンス                                                                                                                                                                                                                             |
+| primaryRegion.connectInstance.instanceAlias                       | プライマリリージョン用スタックの Amazon Connect インスタンス名(4 文字以上、45 文字以内でユニークな名前を指定する)                                                                                                                                                                        |
 | primaryRegion.connectInstance.inboundCallsEnabled                 | プライマリリージョン用スタックの Amazon Connect インスタンスでインバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                   |
 | primaryRegion.connectInstance.outboundCallsEnabled                | プライマリリージョン用スタックの Amazon Connect インスタンスでアウトバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                 |
 | primaryRegion.connectInstance.identityManagementType              | プライマリリージョン用スタックの Amazon Connect インスタンスにおける ID 管理方式の指定 (`"CONNECT_MANAGED"`, `"SAML"`, `"EXISTING_DIRECTORY"` のいずれか)                                                                                                                                |
@@ -83,7 +81,7 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 | primaryRegion.connectInstance.samlProvider.metadataDocumentPath   | (`identityManagementType` が `"SAML"` の場合) プライマリリージョン用スタックの Amazon Connect インスタンスが使用する SAML 連携時のメタデータのパス （`/usecases/guest-customer-channel-sample` からの相対パス）                                                                          |
 | primaryRegion.connectInstance.samlProvider.name                   | (`identityManagementType` が `"SAML"` の場合) プライマリリージョン用スタックの Amazon Connect インスタンスの SAML Provider の名前                                                                                                                                                        |
 | secondaryRegion.region                                            | セカンダリリージョン用スタックをデプロイするリージョン                                                                                                                                                                                                                                   |
-| secondaryRegion.connectInstance.instanceAlias                     | セカンダリリージョン用スタックの Amazon Connect インスタンス                                                                                                                                                                                                                             |
+| secondaryRegion.connectInstance.instanceAlias                     | セカンダリリージョン用スタックの Amazon Connect インスタンス名(4 文字以上、45 文字以内でユニークな名前を指定する)                                                                                                                                                                        |
 | secondaryRegion.connectInstance.inboundCallsEnabled               | セカンダリリージョン用スタックの Amazon Connect インスタンスでインバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                   |
 | secondaryRegion.connectInstance.outboundCallsEnabled              | セカンダリリージョン用スタックの Amazon Connect インスタンスでアウトバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                 |
 | secondaryRegion.connectInstance.identityManagementType            | セカンダリリージョン用スタックの Amazon Connect インスタンスにおける ID 管理方式の指定 (`"CONNECT_MANAGED"`, `"SAML"`, `"EXISTING_DIRECTORY"` のいずれか)                                                                                                                                |
@@ -95,12 +93,12 @@ BLEA for FSI 版と同じ手順で Context を設定します。
 
 SAML 連携時は `identityManagementType` の部分を以下の様に書き換えます。
 
-```json
+```js
 ...
-          "identityManagementType": "SAML",
-          "samlProvider": {
-            "metadataDocumentPath": "[AWS IAM Identity Center からダウンロードしたメタデータファイルへのパス]"
-          }
+      identityManagementType: 'SAML',
+      samlProvider: {
+        metadataDocumentPath: '[AWS IAM Identity Center からダウンロードしたメタデータファイルへのパス]'
+      }
 ...
 ```
 
@@ -116,14 +114,19 @@ aws sso login --profile ct-guest-sso
 
 ```sh
 cd usecases/guest-customer-channel-sample
-npx cdk bootstrap -c environment=dev --profile ct-guest-sso
+npx cdk bootstrap --profile ct-guest-sso
 ```
 
 サンプルアプリケーションをデプロイします。
 
 ```sh
-npx cdk deploy --all -c environment=dev --profile ct-guest-sso
+npx cdk deploy  "*Development*" --profile ct-guest-sso
 ```
+
+> NOTE:
+>
+> - `"*Development*"` はデプロイ対象の開発環境用のスタック（スタック名に`-Development-`が含まれるスタック）を実行します。環境（開発、ステージング、本番）によって変更して下さい（例 "\*Production\*" ）
+> - デプロイ時に IAM ポリシーに関する変更確認をスキップするために `--require-approval never` オプションを指定しています
 
 > NOTE:  
 > デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  

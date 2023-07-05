@@ -10,7 +10,7 @@
 - [cdk.context.json による個人環境の管理](#cdkcontextjson-による個人環境の管理)
 - [CloudShell によるデプロイメント](#CloudShell-によるデプロイメント)
 - [依存パッケージの最新化](#依存パッケージの最新化)
-- [アプリケーション内で Context にアクセスする仕組み](#アプリケーション内で-Context-にアクセスする仕組み)
+- [環境別のパラメータを切り替えて CDK Stack をデプロイする仕組み](#環境別のパラメータを切り替えて-cdk-stack-をデプロイする仕組み)
 - [通常の開発の流れ](#通常の開発の流れ)
 - [セキュリティ指摘事項の修復](#セキュリティ指摘事項の修復)
 
@@ -220,33 +220,32 @@ npm update --workspaces
 
 ---
 
-## アプリケーション内で Context にアクセスする仕組み
+## 環境別のパラメータを切り替えて CDK Stack をデプロイする仕組み
 
-cdk.json や cdk.context.json で指定した Context は CDK コード（bin/\*.ts）の中で次のようにアクセスしています。
+環境別のパラメータは bin/parameter.ts ファイルで管理し、CDK コード（bin/\*.ts）の中で次のようにアクセスしています。
 
 ```ts
-const envKey = app.node.tryGetContext('environment');
-const valArray = app.node.tryGetContext(envKey);
-const environment_name = valArray['envName'];
+import { PjPrefix, DevParameter, StageParameter, ProdParameter } from './parameter';
+
+env: DevParameter.env,
+
+notifyEmail: ProdParameter.securityNotifyEmail,
+
 ```
 
-Context パラメータを使ったデプロイメントの方法の例。
+Application 内で環境別に複数の CDK Stack を準備しているため、デプロイ時に環境を切り替えたい場合はスタック名を指定することでデプロイ対象を絞ることができます。
 
 ```sh
-cdk deploy --all --profile prof_dev  -c environment=dev
-cdk deploy --all --profile prof_prod -c environment=prod
+npx cdk deploy BLEAFSI-Base-Dev --profile prof_dev
+npx cdk deploy BLEAFSI-CoreBanking-Prod --profile prof_prod
 ```
 
 - `--app` を指定しない場合は cdk.json の `app` で指定している Application がデプロイされます。
 
 - デプロイする際のプロファイル（認証情報）を指定するには `--profile xxxxx` を指定します
 
-- cdk.json で定義した Context パラメータを指定するには `-c envrionment=xxxx` を指定します。
-- profile で指定する認証情報のアカウントおよびリージョンと、 Context の env で指定する、アカウントおよびリージョンは一致している必要があります。これによって誤ったアカウントへデプロイすることを防ぐほか、どのアカウントにどの context でデプロイしたのかを記録しておくことにもなります。できるだけ context には`env`を指定することをお勧めします。
-- 開発環境のように開発者ごとに利用するアカウントが違う場合は、context で`env`を指定しない方法があります。`env`が設定されていない場合は、profile で指定する認証情報のアカウントおよびリージョンにデプロイされます。
-
-- See: [https://docs.aws.amazon.com/ja_jp/cdk/latest/guide/context.html]
-- See: [https://docs.aws.amazon.com/ja_jp/cdk/latest/guide/get_context_var.html]
+- profile で指定する認証情報のアカウントおよびリージョンと、 パラメータファイル の env で指定する、アカウントおよびリージョンは一致している必要があります。これによって誤ったアカウントへデプロイすることを防ぐほか、どのアカウントにどの 環境でデプロイしたのかを記録しておくことにもなります。できるだけ context には`env`を指定することをお勧めします。
+- 開発環境のように開発者ごとに利用するアカウントが違う場合は、パラメータファイル で`env`に環境変数を指定する方法があります。この場合は、profile で指定する認証情報のアカウントおよびリージョンにデプロイされます。
 
 ---
 

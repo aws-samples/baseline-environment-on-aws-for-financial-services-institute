@@ -1,71 +1,127 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { VpcStack } from '../shared/bleafsi-vpc-stack';
-import { DbAuroraPgGlobalMemberStack } from './bleafsi-db-aurora-pg-global-member-stack';
-import { WafStack } from '../shared/bleafsi-waf-stack';
-import { KeyAppStack } from '../shared/bleafsi-key-app-stack';
-import { MonitorAlarmStack } from '../shared/bleafsi-monitor-alarm-stack';
-import { SecondaryContainerAppSampleStack } from './bleafsi-secondary-container-app-sample-stack';
-import { CrossRegionSsmParamName } from '../shared/bleafsi-constants';
-import { AssociateVpcWithZoneStack } from './bleafsi-associate-vpc-with-zone-stack';
-import { CoreBankingContextProps } from '../shared/bleafsi-types';
+import { Vpc } from '../shared/vpc';
+import { DbAuroraPgGlobalMember } from './db-aurora-pg-global-member';
+import { Waf } from '../shared/waf';
+import { KeyApp } from '../shared/key-app';
+import { MonitorAlarm } from '../shared/monitor-alarm';
+import { SecondaryContainerAppSample } from './secondary-container-app-sample';
+import { CrossRegionSsmParamName } from '../shared/constants';
+import { AssociateVpcWithZone } from './associate-vpc-with-zone';
+import { StackParameter, SampleEcsAppParameter, SampleMultiRegionAppParameter } from '../../bin/parameter';
+//マルチリージョン 勘定系サンプルアプリ
+import { SampleMultiRegionApp } from '../shared/sample-multi-region-app/app';
+
+interface CoreBankingSecondaryStackProps extends StackParameter {
+  auroraSecretName: string;
+  dynamoDbTableName: string;
+  tgwRouteTableId: string;
+}
+
+/*
+ * BLEA-FSI Core Banking Sample application stack(Secondary region)
+ */
 
 export class CoreBankingSecondaryStack extends cdk.Stack {
-  public readonly SecondaryDB: DbAuroraPgGlobalMemberStack;
+  public readonly secondaryDB: DbAuroraPgGlobalMember;
+  public readonly tgwPeeringAttachmentId: string;
 
-  constructor(scope: Construct, id: string, props: CoreBankingContextProps) {
+  constructor(scope: Construct, id: string, props: CoreBankingSecondaryStackProps) {
     super(scope, id, props);
 
-    const { pjPrefix, notifyEmail, primary, secondary, envName, dbUser } = props;
+    const { notifyEmail, primary, secondary, envName, hostedZoneName } = props;
 
     // Topic for monitoring guest system
-    const monitorSecondaryAlarm = new MonitorAlarmStack(this, `${pjPrefix}-MonitorAlarm`, { notifyEmail });
+    const monitorSecondaryAlarm = new MonitorAlarm(this, `MonitorAlarm`, { notifyEmail });
 
     // CMK for Primary Apps
-    const secondaryAppKey = new KeyAppStack(this, `${pjPrefix}-AppKey`);
-    secondaryAppKey.putKeyArnToSsmParam(CrossRegionSsmParamName.KMS_SECONDARY_APP_KEY_ARN, primary.region, envName);
+    const secondaryAppKey = new KeyApp(this, `AppKey`);
 
     // Networking
-    const secondaryVpc = new VpcStack(this, `${pjPrefix}-Vpc`, {
+    const secondaryVpc = new Vpc(this, `Vpc`, {
       regionEnv: secondary,
-      oppositeRegionEnv: primary,
+      oppositeRegionCidrs: [primary.vpcCidr, SampleMultiRegionAppParameter.appClientVpcCidr],
     });
-    secondaryVpc.createTgwPeeringAttachment(CrossRegionSsmParamName.TGW_PRIMARY_ID, primary.region, envName);
+
+    this.tgwPeeringAttachmentId = secondaryVpc.createTgwPeeringAttachment(
+      CrossRegionSsmParamName.TGW_PRIMARY_ID,
+      primary.region,
+      envName,
+      primary.region,
+    );
 
     // Route 53 Private Hosted Zone
-    const associateVpcWithHostedZone = new AssociateVpcWithZoneStack(this, `${pjPrefix}-AssociateVpcWithHostedZone`, {
+    const associateVpcWithHostedZone = new AssociateVpcWithZone(this, `AssociateVpcWithHostedZone`, {
       myVpc: secondaryVpc.myVpc,
       primary,
       envName,
+      zoneName: hostedZoneName,
     });
-    associateVpcWithHostedZone.addDependency(secondaryVpc);
+    associateVpcWithHostedZone.node.addDependency(secondaryVpc);
 
     // WebACL for ALB
-    const waf = new WafStack(this, `${pjPrefix}-Waf`, {
+    const waf = new Waf(this, `Waf`, {
       scope: 'REGIONAL',
     });
 
-    // Sample Application Stack (LoadBalancer + Fargate)
-    const ecsApp = new SecondaryContainerAppSampleStack(this, `${pjPrefix}-ECSApp`, {
-      envName,
-      myVpc: secondaryVpc.myVpc,
-      webAcl: waf.webAcl,
-      appKey: secondaryAppKey.kmsKey,
-      primary,
-    });
+    //ECSサンプルアプリのデプロイ
+    let ecsApp;
+    if (SampleEcsAppParameter.deploy == true) {
+      // Sample Application Stack (LoadBalancer + Fargate)
+      ecsApp = new SecondaryContainerAppSample(this, `ECSApp`, {
+        envName,
+        myVpc: secondaryVpc.myVpc,
+        webAcl: waf.webAcl,
+        appKey: secondaryAppKey.kmsKey,
+        primary,
+      });
+    }
 
     // Aurora Global DB
-    this.SecondaryDB = new DbAuroraPgGlobalMemberStack(this, `${pjPrefix}-DBAuroraPg`, {
+    this.secondaryDB = new DbAuroraPgGlobalMember(this, `DBAuroraPg`, {
       myVpc: secondaryVpc.myVpc,
-      dbName: 'mydbname',
-      dbUser,
-      dbAllocatedStorage: 25,
+      secretName: props.auroraSecretName,
       vpcSubnets: secondaryVpc.myVpc.selectSubnets({
         subnetGroupName: 'Protected',
       }),
-      appServerSecurityGroup: ecsApp.appServerSecurityGroup,
+      appServerSecurityGroup: ecsApp?.appServerSecurityGroup,
       appKey: secondaryAppKey.kmsKey,
       alarmTopic: monitorSecondaryAlarm.alarmTopic,
+    });
+
+    //マルチリージョン 勘定系サンプルアプリのデプロイ
+    if (SampleMultiRegionAppParameter.deploy == true) {
+      new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
+        mainDynamoDbTableName: props.dynamoDbTableName,
+        balanceDatabase: this.secondaryDB,
+        countDatabase: this.secondaryDB,
+        vpc: secondaryVpc.myVpc,
+        hostedZone: associateVpcWithHostedZone.hostedZone,
+      });
+    }
+
+    //CFn output
+    const output1 = new cdk.CfnOutput(this, 'CLI for TGW peering acceptance ', {
+      value:
+        `aws ec2 accept-transit-gateway-peering-attachment --region ${props.primary.region} ` +
+        `--transit-gateway-attachment-id ${this.tgwPeeringAttachmentId} --profile ct-guest-sso`,
+      description: '1. Subsequent CLI for TGW peering acceptance',
+    });
+
+    const output2 = new cdk.CfnOutput(this, 'CLI for adding TGW route in primary region ', {
+      value:
+        `aws ec2 create-transit-gateway-route --region ${props.primary.region} --destination-cidr-block ${props.secondary.regionCidr} ` +
+        `--transit-gateway-route-table-id ${props.tgwRouteTableId} --transit-gateway-attachment-id ${this.tgwPeeringAttachmentId} --profile ct-guest-sso`,
+      description: '2. Subsequent CLI for adding TGW route in primary region',
+    });
+
+    const output3 = new cdk.CfnOutput(this, 'CLI for adding TGW route in secondary region ', {
+      value:
+        `aws ec2 create-transit-gateway-route --region ${props.secondary.region} --destination-cidr-block ${props.primary.regionCidr} ` +
+        `--transit-gateway-route-table-id ${secondaryVpc.getTgwRouteTableId(this)} --transit-gateway-attachment-id ${
+          this.tgwPeeringAttachmentId
+        } --profile ct-guest-sso`,
+      description: '3. Subsequent CLI for adding TGW route in secondary region',
     });
   }
 }

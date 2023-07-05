@@ -1,0 +1,63 @@
+@startuml withdraw sequence
+title The withdrawal sequence
+
+participant "User" as User
+participant "Transaction service" as TxService
+participant "Count Service" as Count
+participant "Balance Service" as Balance
+participant "DynamoDB" as DynamoDB
+participant "Postgres" as Postgres
+
+User->TxService: PUT /withdraw
+TxService->DynamoDB: Create a transaction step "count" \nTry to acquire a lock
+DynamoDB-->TxService: Success
+TxService->User: transactionId
+
+alt failed to acquire a lock
+    DynamoDB-->TxService: Conditional Check Failed
+    TxService->User: 429 Failed
+end
+
+TxService->Count: PUT /withdraw
+Count->Postgres: Increment \nwithdrawalCount
+Postgres-->Count: Success
+Count->TxService: returns \nwithdrawal count
+alt failed to increment
+    Count-->TxService: Failure
+    TxService->DynamoDB: Create a new transaction step "count_comp" \nFail the previous step "count"
+    DynamoDB-->TxService: Success
+    TxService->Count: PUT /cancel_withdraw
+    Count->Postgres: decrement withdrawalCount if necessary
+    Postgres-->Count: Success
+    Count-->TxService: Success
+    TxService->DynamoDB: Complete the previous step "count_comp" \nRelease the lock
+    DynamoDB-->TxService: Success
+end
+TxService->DynamoDB: Create a new transaction step "balance"\nComplete the previous step "count"
+DynamoDB-->TxService: Success
+TxService->Balance: PUT /withdraw
+Balance->Postgres: Decrement balance
+Postgres-->Balance: Success
+Balance-->TxService: Success
+alt failed to withdraw
+    Balance-->TxService: Failure
+    TxService->DynamoDB: Create a new transaction step "count_comp" \nFail the previous step "balance"
+    DynamoDB-->TxService: Success
+    TxService->Count: PUT /cancel_withdraw
+    Count->Postgres: decrement withdrawalCount
+    Postgres-->Count: Success
+    Count-->TxService: Success
+    TxService->DynamoDB: Create a new transaction step "balance_comp" \nComplete the previous step "count_comp"
+    DynamoDB-->TxService: Success
+    TxService->Balance: PUT /cancel_withdraw
+    Balance->Postgres: increment balance if necessary
+    Postgres-->Balance: Success
+    Balance-->TxService: Success
+    TxService->DynamoDB: Complete the transaction step "balance_comp" \nRelease the lock
+    DynamoDB-->TxService: Success
+end
+TxService->DynamoDB: Complete the transaction step "balance" \nRelease the lock
+DynamoDB-->TxService: Success
+
+User->TxService: GET \n/transaction/:id
+TxService->User: status of \nthe transaction

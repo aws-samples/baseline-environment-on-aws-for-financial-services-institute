@@ -1,0 +1,116 @@
+﻿レイヤー,テーブル名,項番,項目名,英語名,データ属性 ,(参考) ソース側属性,設定範囲、サンプル,備考
+raw,入出金明細,1,店番号,br_num,char(3),n/a,"""012"", ""987"",,,",
+raw,入出金明細,2,科目コード,acct_code,char(4),n/a,"""0001"":普通預金(代表口座), ""0002"":当座預金、""0003"":貯蓄預金, ""0004"":通知預金",
+raw,入出金明細,3,口座番号,account_num,char(8),n/a,"""01928374""　左詰め、左0埋め",標準化で変換する
+raw,入出金明細,4,勘定日,trx_date,char(6),n/a,YYMMDD     ( YY:西暦下2桁 ),
+raw,入出金明細,5,勘定日時刻,trx_time,char(12),n/a,hh:mm:ss.000,
+raw,入出金明細,6,起算日,calc_date,char(6),n/a,YYMMDD,
+raw,入出金明細,7,入金金額,deposit,char(10),n/a,,
+raw,入出金明細,8,出金金額,withdrawal,char(10),n/a,,
+raw,入出金明細,9,手形・小切手区分,check_type,char(3),n/a,"1:小切手, 2:約束手形, 3:為替手形",
+raw,入出金明細,10,手形・小切手番号,check_num,char(8),n/a,,
+raw,入出金明細,11,残高,balance,char(10),n/a,,
+raw,入出金明細,12,取引区分,trx_type,char(2),n/a,"""01:振込入金"", ""02:取立入金"", ""03:入金"", ""04:出金"", ""06:振替入金"", ""07:取立"", ""08:振込"", ""12:小切手""のいずれか",
+raw,入出金明細,13,仕向金融機関コード,dst_fin_institute_num,char(4),n/a,,08:振込の場合記載
+raw,入出金明細,14,仕向金融機関支店コード,dst_fin_br_num,char(3),n/a,,同上
+raw,入出金明細,15,仕向金融機関口座科目コード,dst_fin_acct_code,char(4),n/a,,同上
+raw,入出金明細,16,仕向金融機関口座番号,dst_fin_acct_num,char(8),n/a,,同上
+raw,入出金明細,17,摘要,notes,char(69),n/a,"""ﾌﾘｺﾐﾆｭｳｷﾝ:ﾄｳｷｮｳﾀﾛｳ"",  ""ｷｭｳﾖﾌﾘｺﾐ:ｱﾏｿﾞﾝ"",,, ",振込人氏名など
+raw,口座情報,1,店番号,br_num,char(3),n/a,"""012"", ""987"",,,",
+raw,口座情報,2,科目コード,acct_code,char(4),n/a,"""0001"":普通預金(代表口座), ""0002"":当座預金、""0003"":貯蓄預金, ""0004"":通知預金",
+raw,口座情報,3,口座番号,account_num,char(8),n/a,"""01928374""",右詰め左0埋め
+raw,口座情報,4,口座開設日,account_open_date,char(8),n/a,YYYYMMDD,
+raw,口座情報,5,代表口座フラグ,f_main_account,char(1),n/a,"""1"":代表口座",
+raw,口座情報,6,代表口座-店番号,ma_br_num,char(3),n/a,"f_main_account == ""1"" の場合はbr_numと同一値。それ以外は当該口座の代表口座を示す。",他店の子口座も紐づけ可能としている
+raw,口座情報,7,代表口座-科目コード,ma_acct_code,char(4),n/a,同上,
+raw,口座情報,8,代表口座-口座番号,ma_account_num,char(8),n/a,同上,
+raw,顧客,1,CIF,cif_num,char(15),n/a,"""012000101234567""",標準化で変換する
+raw,顧客,2,顧客名-姓,last_name,char(20),n/a,漢字可とする,標準化で落とす
+raw,顧客,3,顧客名-名,first_name,char(20),n/a,漢字可とする,同上
+raw,顧客,4,顧客名-ミドル,middle_name,char(20),n/a,,同上
+raw,顧客,5,電話番号,phone_number,char(12),n/a,ハイフン無し。固定電話の場合市外局番から。,同上
+raw,顧客,6,住所コード,town_code,char(6),n/a,総務省の全国市区町村コード,
+raw,顧客,7,郵便番号,post_code,char(10),n/a,適当なサンプルデータを用意する。 現時点地域分析対象外。,
+raw,顧客,8,住所,address,char(50),n/a,,標準化でマスキング
+raw,顧客,9,性別,sex,char(1),n/a,""" ""(スペース):未回答、""1"":男性、""2"":女性",
+raw,顧客,10,生年月日,birthday,char(8),n/a,YYYYMMDD,
+raw,顧客,11,収入レンジ,income_range,char(1),n/a,"""0"":300万円未満、""1"":500万円未満、""2"":800万円未満、""3"":1000万円未満、""4"":1500万円未満、""5"":2000万円未満、""6"":2000万円以上",
+raw,顧客,12,婚姻状況,marriage,char(1),n/a,""" ""(スペース):未婚、""1"":既婚",
+raw,顧客,13,代表口座-店番号,br_num,char(3),n/a,,
+raw,顧客,14,代表口座-科目コード,acct_code,char(4),n/a,,
+raw,顧客,15,代表口座-口座番号,account_num,char(8),n/a,,
+raw,顧客,16,事故フラグ,blacklisted,char(1),n/a,"""1"":現在登録, ""2"":過去に登録あり",標準化で落とす
+raw,顧客,17,事故情報,blacklist_info,char(50),n/a,"""XXXデータバンク”等の情報提供元情報",同上
+raw,顧客,18,事故登録日,blacklist_date,char(8),n/a,YYYYMMDD,同上
+raw,顧客,19,事故登録日時刻,blacklist_time,char(12),n/a,hh:mm:ss.000,同上
+raw,インバン契約,1,CIF,cif_num,char(15),n/a,"""123000101234567""",標準化で変換する
+raw,インバン契約,2,登録メールアドレス,email_address,char(50),n/a,,
+raw,インバン契約,3,ログインユーザーID,userid,char(20),n/a,,
+raw,インバン契約,4,パスワード,password,char(20),n/a,パスワードのハッシュ値,標準化で落とす
+raw,インバン契約,5,過去パスワード履歴,recent_password,char(110),n/a,過去5回分パスワードハッシュ値保持,同上
+raw,インバン契約,6,インバン契約日,join_date,char(10),n/a,YYYY-MM-DD,
+normalized,入出金明細,1,取引通番,trx_number,string,n/a,標準化処理時に uuid で採番する,
+normalized,入出金明細,2,店番号,br_num,string,char(3),"""012"", ""987"",,,",
+normalized,入出金明細,3,科目コード,acct_code,string,char(4),"""0001"":普通預金(代表口座), ""0002"":当座預金、""0003"":貯蓄預金, ""0004"":通知預金",
+normalized,入出金明細,4,口座番号,account_num,string,char(8),"""01928374""　左詰め、左0埋め",標準化で変換している
+normalized,入出金明細,5,勘定日,trx_date,date,char(6),YYYY-MM-DD,YY:西暦下2桁
+normalized,入出金明細,6,勘定日時,trx_timestamp,timestamp,char(12),YYYY-MM-DD hh:mm:ss.000,
+normalized,入出金明細,7,起算日,calc_date,date,char(6),YYYY-MM-DD,サンプルデータは勘定日と同じとする
+normalized,入出金明細,8,入金金額,deposit,"decimal(10,0)",char(10),,
+normalized,入出金明細,9,出金金額,withdrawal,"decimal(10,0)",char(10),,
+normalized,入出金明細,10,手形・小切手区分,check_type,string,char(3),"1:小切手, 2:約束手形, 3:為替手形",
+normalized,入出金明細,11,手形・小切手番号,check_num,string,char(8),"i.e.   ""AB123456""",
+normalized,入出金明細,12,残高,balance,"decimal(10,0)",char(10),,
+normalized,入出金明細,13,取引区分,trx_type,string,char(2),"""01:振込入金"", ""02:取立入金"", ""03:入金"", ""04:出金"", ""06:振替入金"", ""07:取立"", ""08:振込"", ""12:小切手""のいずれか",
+normalized,入出金明細,14,仕向金融機関コード,dst_fin_institute_num,string,char(4),,08:振込の場合記載
+normalized,入出金明細,15,仕向金融機関支店コード,dst_fin_br_num,string,char(3),,同上
+normalized,入出金明細,16,仕向金融機関口座科目コード,dst_fin_acct_code,string,char(4),,同上
+normalized,入出金明細,17,仕向金融機関口座番号,dst_fin_acct_num,string,char(8),,同上
+normalized,入出金明細,18,摘要,notes,string,char(69),"""ﾌﾘｺﾐﾆｭｳｷﾝ:ﾄｳｷｮｳﾀﾛｳ"",  ""ｷｭｳﾖﾌﾘｺﾐ:ｱﾏｿﾞﾝ"",,, ",振込人氏名など
+normalized,口座情報,1,CIF,cif_num,string,char(15),"""123000101234567""",標準化で追加
+normalized,口座情報,2,店番号,br_num,string,char(3),"""012"", ""987"",,,",
+normalized,口座情報,3,科目コード,acct_code,string,char(4),"""0001"":普通預金(代表口座), ""0002"":当座預金、""0003"":貯蓄預金, ""0004"":通知預金",
+normalized,口座情報,4,口座番号,account_num,string,char(8),"""01928374""　左詰め、左0埋め",標準化で変換している
+normalized,口座情報,5,口座開設日,account_open_date,date,char(8),YYYY-MM-DD,
+normalized,口座情報,6,代表口座フラグ,f_main_account,string,char(1),"""1"":代表口座",
+normalized,口座情報,7,代表口座-店番号,ma_br_num,string,char(3),"f_main_account == ""1"" の場合はbr_numと同一値。それ以外は当該口座の代表口座を示す。",他店の子口座も紐づけ可能としている
+normalized,口座情報,8,代表口座-科目コード,ma_acct_code,string,char(4),同上,
+normalized,口座情報,9,代表口座-口座番号,ma_account_num,string,char(8),同上,
+normalized,顧客,1,CIF,cif_num,string,char(15),"""012000101234567""",標準化で変換している
+normalized,顧客,2,住所コード,town_code,string,char(6),総務省の全国市区町村コード,
+normalized,顧客,3,郵便番号,post_code,string,char(10),,
+normalized,顧客,4,住所,address,string,char(50),,標準化でマスキング
+normalized,顧客,5,性別,sex,string,char(1),"""0"":未回答、""1"":男性、""2"":女性",
+normalized,顧客,6,生年月日,birthday,date,char(8),YYYY-MM-DD,標準化でマスキング
+normalized,顧客,7,収入レンジ,income_range,string,char(1),"""0"":300万円未満、""1"":500万円未満、""2"":800万円未満、""3"":1000万円未満、""4"":1500万円未満、""5"":2000万円未満、""6"":2000万円以上",
+normalized,顧客,8,婚姻状況,marriage,string,char(1),"""0"":未婚、""1"":既婚",
+normalized,顧客,9,代表口座-店番号,br_num,string,char(3),,
+normalized,顧客,10,代表口座-科目コード,acct_code,string,char(4),,
+normalized,顧客,11,代表口座-口座番号,account_num,string,char(8),,
+normalized,インバン契約,1,CIF,cif_num,string,char(15),"""123000101234567""",
+normalized,インバン契約,2,登録メールアドレス,email_address,string,char(50),,
+normalized,インバン契約,3,ログインユーザーID,userid,string,char(20),,
+normalized,インバン契約,4,インバン契約日,join_date,date,char(10),YYYY-MM-DD,
+analytics,顧客口座情報,1,CIF,cif_num,string,n/a,"""012000101234567""",
+analytics,顧客口座情報,2,基準日,base_date,date,n/a,YYYY-MM-DD,
+analytics,顧客口座情報,3,総残高,sum_balance_all,"decimal(12,0)",n/a,,以下項番4～7を合計
+analytics,顧客口座情報,4,合計残高（普通）,sum_balance_ordinary,"decimal(12,0)",n/a,,"科目コード""0001"":普通預金の入出金明細のうち集計基準日時点での最新明細（口座単位）より取得した残高をCIF単位に集計"
+analytics,顧客口座情報,5,合計残高（当座）,sum_balance_checking,"decimal(12,0)",n/a,,"科目コード""0002"":当座預金の入出金明細のうち集計基準日時点での最新明細（口座単位）より取得した残高をCIF単位に集計"
+analytics,顧客口座情報,6,合計残高（貯蓄）,sum_balance_saving,"decimal(12,0)",n/a,,"科目コード""0003"":貯蓄預金の入出金明細のうち集計基準日時点での最新明細（口座単位）より取得した残高をCIF単位に集計"
+analytics,顧客口座情報,7,合計残高（通知）,sum_balance_notice,"decimal(12,0)",n/a,,"科目コード""0004"":通知預金の入出金明細のうち集計基準日時点での最新明細（口座単位）より取得した残高をCIF単位に集計"
+analytics,インバン日数情報,1,CIF,cif_num,string,n/a,"""012000101234567""",
+analytics,インバン日数情報,2,基準日,base_date,date,n/a,YYYY-MM-DD,
+analytics,インバン日数情報,3,インバン契約日数,inban_period,int,n/a,,基準日-インバン契約日　で算出
+analytics,科目マスタ,1,科目コード,acct_code,string,n/a,,
+analytics,科目マスタ,2,科目名,acct_name,string,n/a,"""0001"":普通預金, ""0002"":当座預金、""0003"":貯蓄預金, ""0004"":通知預金",
+analytics,取引区分マスタ,1,取引区分コード,trx_type_code,string,n/a,,
+analytics,取引区分マスタ,2,取引区分名,trx_type_name,string,n/a,"""01:振込入金"", ""02:取立入金"", ""03:入金"", ""04:出金"", ""06:振替入金"", ""07:取立"", ""08:振込"", ""12:小切手""",
+analytics,支店情報,1,基準日,base_date,date,n/a,YYYY-MM-DD,EffectiveDateなどを加味した基準日時点でのフラットなマスタ
+analytics,支店情報,2,金融機関コード,bank_code,string,n/a,0001,
+analytics,支店情報,3,金融機関名（ｶﾅ）,bank_name,string,n/a,ｴｰﾀﾞﾌﾞﾘｭｰｴｽｷﾞﾝｺｳ,
+analytics,支店情報,4,金融機関名（漢字）,bank_name_kanji,string,n/a,AWS銀行,
+analytics,支店情報,5,支店コード,br_num,string,n/a,001,
+analytics,支店情報,6,支店名（ｶﾅ）,br_name_kana,string,n/a,ﾄｳｷﾖｳ,
+analytics,支店情報,7,支店名（漢字）,br_name_kanji,string,n/a,東京営業部,
+,,,,,,,,
+,,,,,,,,

@@ -67,7 +67,7 @@ CloudFormation テンプレートを使って、AWS アカウント上に閉域�
 
    > NOTE: AdministratorAccess 相当の権限でログインしてください。
 
-1. テンプレート（[cdk-deploy-env.yaml](../cfn-templates/cdk-deploy-env.yaml)）をローカル環境からアップロードして、CloudFormation のスタックを作成します。手順は以下のドキュメントを参照してください。これにより、VPC と EC2 インスタンスのセットアップが行われます。
+1. テンプレート（[cdk-deploy-env.yaml](../resources/resources/cfn-templates/cdk-deploy-env.yaml)）をローカル環境からアップロードして、CloudFormation のスタックを作成します。手順は以下のドキュメントを参照してください。これにより、VPC と EC2 インスタンスのセットアップが行われます。
 
    See: [https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html]
 
@@ -124,7 +124,7 @@ CloudFormation テンプレートを使って、AWS アカウント上に閉域�
 
    > NOTE: AdministratorAccess 相当の権限でログインしてください。
 
-1. テンプレート（[cdk-deploy-env-multiregion.yaml](../cfn-templates/cdk-deploy-env-multiregion.yaml)）をローカル環境からアップロードして、CloudFormation のスタックを作成します。手順は以下のドキュメントを参照してください。これにより、VPC と EC2 インスタンス（CDK 実行用と Proxy サーバー）のセットアップが行われます。
+1. テンプレート（[cdk-deploy-env-multiregion.yaml](../resources/cfn-templates/cdk-deploy-env-multiregion.yaml)）をローカル環境からアップロードして、CloudFormation のスタックを作成します。手順は以下のドキュメントを参照してください。これにより、VPC と EC2 インスタンス（CDK 実行用と Proxy サーバー）のセットアップが行われます。
 
    See: [https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html]
 

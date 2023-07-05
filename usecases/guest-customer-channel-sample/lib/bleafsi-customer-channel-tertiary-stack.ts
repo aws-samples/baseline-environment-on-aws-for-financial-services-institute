@@ -3,8 +3,8 @@ import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as kms from 'aws-cdk-lib/aws-kms';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
-import * as nag_suppressions from './bleafsi-nag-suppressions';
-import { PrivateBucket } from './bleafsi-s3-private-bucket';
+import * as nag_suppressions from './nag-suppressions';
+import { PrivateBucket } from './s3-private-bucket';
 
 export class CustomerChannelTertiaryStack extends Stack {
   public readonly parameterPath: string;

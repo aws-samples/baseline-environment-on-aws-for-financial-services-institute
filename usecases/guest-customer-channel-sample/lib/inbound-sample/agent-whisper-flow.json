@@ -1,0 +1,42 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "c74a7aba-296e-4359-8706-ea910fa9c21b",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "5c8fdb92-8900-467c-baa6-c1ab168a81bf": {
+        "position": {
+          "x": 418.40000000000003,
+          "y": 42.400000000000006
+        }
+      },
+      "c74a7aba-296e-4359-8706-ea910fa9c21b": {
+        "position": {
+          "x": 176.8,
+          "y": 42.400000000000006
+        }
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "5c8fdb92-8900-467c-baa6-c1ab168a81bf",
+      "Type": "EndFlowExecution",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "SSML": "<speak><prosody rate=\"120%\">お客様番号は  $.CustomerId です。</prosody></speak>"
+      },
+      "Identifier": "c74a7aba-296e-4359-8706-ea910fa9c21b",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5c8fdb92-8900-467c-baa6-c1ab168a81bf"
+      }
+    }
+  ]
+}

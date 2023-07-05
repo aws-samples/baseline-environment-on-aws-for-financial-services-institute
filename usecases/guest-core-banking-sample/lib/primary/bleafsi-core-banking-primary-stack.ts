@@ -1,94 +1,117 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { aws_ec2 as ec2 } from 'aws-cdk-lib';
 import { aws_elasticloadbalancingv2 as elbv2 } from 'aws-cdk-lib';
-import { BuildContainerStack } from './bleafsi-build-container-stack';
-import { ECRStack } from './bleafsi-ecr-stack';
-import { DbAuroraPgGlobalPrimaryStack } from './bleafsi-db-aurora-pg-global-primary-stack';
-import { DbDynamoDbGlobalStack } from './bleafsi-db-dynamoDb-global-stack';
-import { VpcStack } from '../shared/bleafsi-vpc-stack';
-import { WafStack } from '../shared/bleafsi-waf-stack';
-import { KeyAppStack } from '../shared/bleafsi-key-app-stack';
-import { MonitorAlarmStack } from '../shared/bleafsi-monitor-alarm-stack';
-import { PrimaryContainerAppSampleStack } from './bleafsi-primary-container-app-sample-stack';
-import { PrivateHostedZoneStack } from './bleafsi-private-hosted-zone-stack';
-import { CrossRegionSsmParamName } from '../shared/bleafsi-constants';
-import { CoreBankingContextProps } from '../shared/bleafsi-types';
+import { BuildContainer } from './build-container';
+import { ECR } from './ecr';
+import { DbAuroraPgGlobalPrimary } from './db-aurora-pg-global-primary';
+import { DbDynamoDbGlobal } from './db-dynamoDb-global';
+import { Vpc } from '../shared/vpc';
+import { Waf } from '../shared/waf';
+import { KeyApp } from '../shared/key-app';
+import { MonitorAlarm } from '../shared/monitor-alarm';
+import { PrimaryContainerAppSample } from './primary-container-app-sample';
+import { PrivateHostedZone } from './private-hosted-zone';
+import { CrossRegionSsmParamName } from '../shared/constants';
+import { StackParameter, SampleEcsAppParameter, SampleMultiRegionAppParameter } from '../../bin/parameter';
+import { NlbOnlyForTest } from './nlb-only-for-test';
+//マルチリージョン 勘定系サンプルアプリ
+import { SampleMultiRegionApp } from '../shared/sample-multi-region-app/app';
+import { SampleAppClient } from '../shared/sample-multi-region-app/app-client';
+/*
+ * BLEA-FSI Core Banking Sample application stack(Primaly Region)
+ */
 
 export class CoreBankingPrimaryStack extends cdk.Stack {
-  public readonly PrimaryDB: DbAuroraPgGlobalPrimaryStack;
-  public readonly vpc: ec2.Vpc;
+  public readonly PrimaryDB: DbAuroraPgGlobalPrimary;
+  public readonly tgwRouteTableId: string;
   public readonly alb: elbv2.ApplicationLoadBalancer;
-  public readonly dynamoDb: DbDynamoDbGlobalStack;
+  public readonly dynamoDb: DbDynamoDbGlobal;
+  public readonly hostedZone: PrivateHostedZone;
 
-  constructor(scope: Construct, id: string, props: CoreBankingContextProps) {
+  constructor(scope: Construct, id: string, props: StackParameter) {
     super(scope, id, props);
 
-    const { pjPrefix, notifyEmail, primary, secondary, envName, dbUser } = props;
+    const { notifyEmail, primary, secondary, envName, dbUser, hostedZoneName } = props;
 
     // Topic for monitoring guest system
-    const monitorPrimaryAlarm = new MonitorAlarmStack(this, `${pjPrefix}-MonitorAlarm`, { notifyEmail });
+    const monitorPrimaryAlarm = new MonitorAlarm(this, `MonitorAlarm`, { notifyEmail });
 
     // CMK for Primary Apps
-    const primaryAppKey = new KeyAppStack(this, `${pjPrefix}-AppKey`);
+    const primaryAppKey = new KeyApp(this, `AppKey`);
 
     // Networking
-    const primaryVpc = new VpcStack(this, `${pjPrefix}-Vpc`, {
+    const primaryVpc = new Vpc(this, `Vpc`, {
       regionEnv: primary,
-      oppositeRegionEnv: secondary,
+      oppositeRegionCidrs: [secondary.vpcCidr],
     });
     primaryVpc.addTgwIdToSsmParam(CrossRegionSsmParamName.TGW_PRIMARY_ID, primary.region, envName);
-    this.vpc = primaryVpc.myVpc;
 
     // WebACL for ALB
-    const waf = new WafStack(this, `${pjPrefix}-Waf`, {
+    const waf = new Waf(this, `Waf`, {
       scope: 'REGIONAL',
     });
 
-    // Container Repository
-    const ecr = new ECRStack(this, `${pjPrefix}-ECR`, {
-      // TODO: will get "repositoryName" from parameters
-      repositoryName: 'apprepo',
-      alarmTopic: monitorPrimaryAlarm.alarmTopic,
-      secondaryRegion: secondary.region,
-    });
+    //ECSサンプルアプリのデプロイ
+    let ecsApp;
+    if (SampleEcsAppParameter.deploy == true) {
+      // Container Repository
+      const ecr = new ECR(this, `ECR`, {
+        repositoryName: 'apprepo',
+        alarmTopic: monitorPrimaryAlarm.alarmTopic,
+        secondaryRegion: secondary.region,
+      });
 
-    // Build Container Image
-    const build_container = new BuildContainerStack(this, `${pjPrefix}-ContainerImage`, {
-      ecrRepository: ecr.repository,
-    });
+      // Build Container Image
+      const build_container = new BuildContainer(this, `ContainerImage`, {
+        ecrRepository: ecr.repository,
+      });
 
-    // Sample Application Stack (LoadBalancer + Fargate)
-    const ecsApp = new PrimaryContainerAppSampleStack(this, `${pjPrefix}-ECSApp`, {
-      envName,
-      myVpc: primaryVpc.myVpc,
-      webAcl: waf.webAcl,
-      repository: ecr.repository,
-      imageTag: build_container.imageTag,
-      appKey: primaryAppKey.kmsKey,
-      primary,
-    });
-    ecsApp.addDependency(build_container);
-    this.alb = ecsApp.appAlb;
+      // Sample Application Stack (LoadBalancer + Fargate)
+      ecsApp = new PrimaryContainerAppSample(this, `ECSApp`, {
+        envName,
+        myVpc: primaryVpc.myVpc,
+        webAcl: waf.webAcl,
+        repository: ecr.repository,
+        imageTag: build_container.imageTag,
+        appKey: primaryAppKey.kmsKey,
+        primary,
+      });
+      ecsApp.node.addDependency(build_container);
+      this.alb = ecsApp.appAlb;
+
+      // NLB only for test
+      if (SampleEcsAppParameter.createTestResource) {
+        const nlb = new NlbOnlyForTest(this, `Nlb`, {
+          myVpc: primaryVpc.myVpc,
+          targetAlb: this.alb,
+        });
+        nlb.node.addDependency(ecsApp);
+      }
+    }
 
     // Route 53 Private Hosted Zone
-    const privateHostedZoneStack = new PrivateHostedZoneStack(this, `${pjPrefix}-PrivateHostedZone`, {
+    const privateHostedZoneConstruct = new PrivateHostedZone(this, `PrivateHostedZone`, {
       myVpc: primaryVpc.myVpc,
       alb: this.alb,
       primary,
       envName,
+      zoneName: hostedZoneName,
     });
-    privateHostedZoneStack.addDependency(ecsApp);
+    this.hostedZone = privateHostedZoneConstruct;
+    if (ecsApp != null) {
+      //private hosted zone にECSアプリへの依存関係を設定
+      privateHostedZoneConstruct.node.addDependency(ecsApp);
+    }
 
     // DynamoDB for transaction management
-    this.dynamoDb = new DbDynamoDbGlobalStack(this, `${pjPrefix}-transaction-DBDynamoDb`, {
+    this.dynamoDb = new DbDynamoDbGlobal(this, `transaction-DBDynamoDb`, {
       primary,
       secondary,
     });
-    this.dynamoDb.addDependency(primaryAppKey);
+    this.dynamoDb.node.addDependency(primaryAppKey);
 
     // Aurora Global DB
-    this.PrimaryDB = new DbAuroraPgGlobalPrimaryStack(this, `${pjPrefix}-DBAuroraPg`, {
+    this.PrimaryDB = new DbAuroraPgGlobalPrimary(this, `DBAuroraPg`, {
       myVpc: primaryVpc.myVpc,
       dbName: 'mydbname',
       dbUser,
@@ -96,10 +119,31 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
       vpcSubnets: primaryVpc.myVpc.selectSubnets({
         subnetGroupName: 'Protected',
       }),
-      appServerSecurityGroup: ecsApp.appServerSecurityGroup,
+      appServerSecurityGroup: ecsApp?.appServerSecurityGroup,
       appKey: primaryAppKey.kmsKey,
       alarmTopic: monitorPrimaryAlarm.alarmTopic,
       secondaryRegion: secondary.region,
     });
+
+    this.tgwRouteTableId = primaryVpc.getTgwRouteTableId(this);
+
+    //マルチリージョン 勘定系サンプルアプリのデプロイ
+    if (SampleMultiRegionAppParameter.deploy == true) {
+      new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
+        mainDynamoDbTableName: this.dynamoDb.tableName,
+        balanceDatabase: this.PrimaryDB,
+        countDatabase: this.PrimaryDB,
+        vpc: primaryVpc.myVpc,
+        hostedZone: this.hostedZone.privateHostedZone,
+      });
+
+      new SampleAppClient(this, 'SampleAppClient', {
+        vpcCidr: SampleMultiRegionAppParameter.appClientVpcCidr,
+        parentVpc: primaryVpc.myVpc,
+        transitGateway: primaryVpc.tgw,
+        hostedZone: this.hostedZone.privateHostedZone,
+        secondaryVpcCidr: secondary.vpcCidr,
+      });
+    }
   }
 }

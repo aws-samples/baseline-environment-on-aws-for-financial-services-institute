@@ -1,0 +1,98 @@
+[
+  {
+    "localeId": "ja_JP",
+    "nluConfidenceThreshold": 0.4,
+    "intents": [
+      {
+        "name": "FallbackIntent",
+        "parentIntentSignature": "AMAZON.FallbackIntent"
+      },
+      {
+        "name": "CustomerIdentificationIntent",
+        "sampleUtterances": [
+          {
+            "utterance": "担当者と話したいです"
+          },
+          {
+            "utterance": "担当者"
+          }
+        ],
+        "slots": [
+          {
+            "name": "CustomerNumber",
+            "slotTypeName": "AMAZON.Number",
+            "valueElicitationSetting": {
+              "slotConstraint": "Required",
+              "promptSpecification": {
+                "maxRetries": 4,
+                "messageGroupsList": [
+                  {
+                    "message": {
+                      "ssmlMessage": {
+                        "value": "<speak><prosody rate=\"120%\">\nご本人様確認のため、\nお客様番号をゆっくり、\nはっきりとおっしゃってください。\n</prosody></speak>"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "BirthDate",
+            "slotTypeName": "AMAZON.Date",
+            "valueElicitationSetting": {
+              "slotConstraint": "Required",
+              "promptSpecification": {
+                "maxRetries": 4,
+                "messageGroupsList": [
+                  {
+                    "message": {
+                      "ssmlMessage": {
+                        "value": "<speak><prosody rate=\"120%\"><phoneme alphabet=\"x-amazon-pron-kana\" ph=\"ゴケーヤ'クシャサマノ\">ご契約者様の</phoneme><phoneme alphabet=\"x-amazon-pron-kana\" ph=\"セーネンガ'ッピ\">生年月日</phoneme>をおっしゃってください。</prosody></speak>"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "slotPriorities": [
+          {
+            "priority": 1,
+            "slotName": "CustomerNumber"
+          },
+          {
+            "priority": 2,
+            "slotName": "BirthDate"
+          }
+        ],
+        "intentConfirmationSetting": {
+          "promptSpecification": {
+            "messageGroupsList": [
+              {
+                "message": {
+                  "ssmlMessage": {
+                    "value": "<speak><prosody rate=\"120%\">ありがとうございます。お客様番号は</prosody>、<say-as interpret-as=\"digits\"> {CustomerNumber} </say-as>、<prosody rate=\"120%\">でよろしいでしょうか？</prosody></speak>"
+                  }
+                }
+              }
+            ],
+            "maxRetries": 0
+          },
+          "declinationResponse": {
+            "messageGroupsList": [
+              {
+                "message": {
+                  "ssmlMessage": {
+                    "value": "<speak><prosody rate=\"120%\">承知しました。</prosody></speak>"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

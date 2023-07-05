@@ -1,46 +1,6 @@
 {
   "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-market-data-sample.ts",
-  "watch": {
-    "include": ["**"],
-    "exclude": [
-      "README.md",
-      "cdk*.json",
-      "**/*.d.ts",
-      "**/*.js",
-      "tsconfig.json",
-      "package*.json",
-      "yarn.lock",
-      "node_modules",
-      "test"
-    ]
-  },
   "context": {
-    "pjPrefix": "BLEA-FSI-MarketData",
-    "dev": {
-      "description": "Context samples for Dev",
-      "envName": "Development",
-      "vpcCidr": "10.100.0.0/16",
-      "securityNotifyEmail": "notify-security@example.com"
-    },
-    "stage": {
-      "description": "Context samples for Staging",
-      "envName": "Staging",
-      "vpcCidr": "10.100.0.0/16",
-      "securityNotifyEmail": "notify-security@example.com",
-      "env": {
-        "account": "111111111111",
-        "region": "ap-northeast-1"
-      }
-    },
-    "prod": {
-      "description": "Context samples for Production",
-      "envName": "Production",
-      "vpcCidr": "10.100.0.0/16",
-      "securityNotifyEmail": "notify-security@example.com",
-      "env": {
-        "account": "222222222222",
-        "region": "ap-northeast-1"
-      }
-    }
+    "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": true
   }
 }

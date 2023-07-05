@@ -1,0 +1,120 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "f3d301a2-64a8-43d5-857e-bc0a84381492",
+  "Metadata": {
+    "entryPointPosition": { "x": 15, "y": 20 },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "8e7fe768-ae38-4813-872e-57d6c7357a91": { "position": { "x": 394, "y": 334 }, "useDynamic": true },
+      "f3d301a2-64a8-43d5-857e-bc0a84381492": { "position": { "x": 186, "y": 85 } },
+      "86cfd0f7-84a8-4224-a812-d444ea47a8a8": { "position": { "x": 159, "y": 430 }, "useDynamic": false },
+      "2be36159-15b8-46f1-99b9-fcd6a2c43ce7": {
+        "position": { "x": 433, "y": 82 },
+        "overrideConsoleVoice": true,
+        "defaultVoice": "None"
+      },
+      "05e97d58-508b-450c-8a57-53d90d9e5db3": { "position": { "x": 669, "y": 71 }, "dynamicParams": [] },
+      "e61ba98f-557c-41bd-830a-e7b46042ae7f": { "position": { "x": 535, "y": 735 } },
+      "ce1d25c9-d23d-451f-b6cc-c4df060d79ef": {
+        "position": { "x": 647, "y": 347 },
+        "conditionMetadata": [{ "id": "eb56a59e-b65f-466a-98cf-1caa7c42db92", "value": "1" }],
+        "useDynamic": false,
+        "useLexBotDropdown": true,
+        "useDynamicLexBotArn": false
+      },
+      "a9da46cc-770b-4aeb-9f4b-2284a1ae0901": { "position": { "x": 905, "y": 385 }, "dynamicParams": [] }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "8e7fe768-ae38-4813-872e-57d6c7357a91",
+      "Parameters": { "Text": "$.Attributes.Message" },
+      "Transitions": {
+        "NextAction": "ce1d25c9-d23d-451f-b6cc-c4df060d79ef",
+        "Errors": [{ "NextAction": "e61ba98f-557c-41bd-830a-e7b46042ae7f", "ErrorType": "NoMatchingError" }],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "f3d301a2-64a8-43d5-857e-bc0a84381492",
+      "Parameters": { "FlowLoggingBehavior": "Enabled" },
+      "Transitions": { "NextAction": "2be36159-15b8-46f1-99b9-fcd6a2c43ce7", "Errors": [], "Conditions": [] },
+      "Type": "UpdateFlowLoggingBehavior"
+    },
+    {
+      "Identifier": "86cfd0f7-84a8-4224-a812-d444ea47a8a8",
+      "Parameters": { "LoopCount": "10" },
+      "Transitions": {
+        "NextAction": "e61ba98f-557c-41bd-830a-e7b46042ae7f",
+        "Errors": [],
+        "Conditions": [
+          {
+            "NextAction": "e61ba98f-557c-41bd-830a-e7b46042ae7f",
+            "Condition": { "Operator": "Equals", "Operands": ["DoneLooping"] }
+          },
+          {
+            "NextAction": "8e7fe768-ae38-4813-872e-57d6c7357a91",
+            "Condition": { "Operator": "Equals", "Operands": ["ContinueLooping"] }
+          }
+        ]
+      },
+      "Type": "Loop"
+    },
+    {
+      "Identifier": "2be36159-15b8-46f1-99b9-fcd6a2c43ce7",
+      "Parameters": { "TextToSpeechVoice": "Takumi", "TextToSpeechEngine": "Neural", "TextToSpeechStyle": "None" },
+      "Transitions": { "NextAction": "05e97d58-508b-450c-8a57-53d90d9e5db3", "Errors": [], "Conditions": [] },
+      "Type": "UpdateContactTextToSpeechVoice"
+    },
+    {
+      "Identifier": "05e97d58-508b-450c-8a57-53d90d9e5db3",
+      "Parameters": { "Attributes": { "Responded": "false" } },
+      "Transitions": {
+        "NextAction": "86cfd0f7-84a8-4224-a812-d444ea47a8a8",
+        "Errors": [{ "NextAction": "86cfd0f7-84a8-4224-a812-d444ea47a8a8", "ErrorType": "NoMatchingError" }],
+        "Conditions": []
+      },
+      "Type": "UpdateContactAttributes"
+    },
+    {
+      "Identifier": "e61ba98f-557c-41bd-830a-e7b46042ae7f",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "ce1d25c9-d23d-451f-b6cc-c4df060d79ef",
+      "Parameters": {
+        "Text": "確認できたら 1 を押してください。",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "3"
+      },
+      "Transitions": {
+        "NextAction": "86cfd0f7-84a8-4224-a812-d444ea47a8a8",
+        "Errors": [
+          { "NextAction": "86cfd0f7-84a8-4224-a812-d444ea47a8a8", "ErrorType": "NoMatchingError" },
+          { "NextAction": "86cfd0f7-84a8-4224-a812-d444ea47a8a8", "ErrorType": "NoMatchingCondition" },
+          { "NextAction": "86cfd0f7-84a8-4224-a812-d444ea47a8a8", "ErrorType": "InputTimeLimitExceeded" }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "a9da46cc-770b-4aeb-9f4b-2284a1ae0901",
+            "Condition": { "Operator": "Equals", "Operands": ["1"] }
+          }
+        ]
+      },
+      "Type": "GetParticipantInput"
+    },
+    {
+      "Identifier": "a9da46cc-770b-4aeb-9f4b-2284a1ae0901",
+      "Parameters": { "Attributes": { "Responded": "true" } },
+      "Transitions": {
+        "NextAction": "e61ba98f-557c-41bd-830a-e7b46042ae7f",
+        "Errors": [{ "NextAction": "e61ba98f-557c-41bd-830a-e7b46042ae7f", "ErrorType": "NoMatchingError" }],
+        "Conditions": []
+      },
+      "Type": "UpdateContactAttributes"
+    }
+  ]
+}

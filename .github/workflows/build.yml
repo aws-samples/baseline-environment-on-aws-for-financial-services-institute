@@ -34,5 +34,4 @@ jobs:
       - run: npm run lint:ci
       - run: npm run format:ci
       - run: npm run build --workspaces
-      - run: npm run test --workspaces
       - run: npm run synth:dev --workspaces

@@ -1,36 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BLEA-FSI snapshot check OpenAPI sample Stacks 1`] = `
-Object {
-  "Outputs": Object {
-    "ExportsOutputRefsampleapiAA5ED7E46021F1DE": Object {
-      "Export": Object {
-        "Name": "SampleOpenApiStack:ExportsOutputRefsampleapiAA5ED7E46021F1DE",
-      },
-      "Value": Object {
-        "Ref": "sampleapiAA5ED7E4",
-      },
-    },
-    "sampleapiEndpoint5691AF90": Object {
-      "Value": Object {
-        "Fn::Join": Array [
+{
+  "Outputs": {
+    "ApiGatewaysampleapiEndpoint9CF5B768": {
+      "Value": {
+        "Fn::Join": [
           "",
-          Array [
+          [
             "https://",
-            Object {
-              "Ref": "sampleapiAA5ED7E4",
+            {
+              "Ref": "ApiGatewaysampleapiDBBB2137",
             },
             ".execute-api.",
-            Object {
+            {
               "Ref": "AWS::Region",
             },
             ".",
-            Object {
+            {
               "Ref": "AWS::URLSuffix",
             },
             "/",
-            Object {
-              "Ref": "sampleapiDeploymentStageprod1B60AC82",
+            {
+              "Ref": "ApiGatewaysampleapiDeploymentStageprodC0F005DA",
             },
             "/",
           ],
@@ -38,136 +30,76 @@ Object {
       },
     },
   },
-  "Parameters": Object {
-    "BootstrapVersion": Object {
+  "Parameters": {
+    "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": Object {
-    "HelloHandler2E4FBA4D": Object {
-      "DependsOn": Array [
-        "HelloHandlerServiceRole11EF7C63",
-      ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-          "S3Key": "222a3a7cad2a200ab801e4bfe3ce4a5e3d04a8d24140b25045c4de9cb03562f8.zip",
-        },
-        "Handler": "hello.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "HelloHandlerServiceRole11EF7C63",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs18.x",
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "HelloHandlerServiceRole11EF7C63": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "OpenApiCustomDomain61CD031B": Object {
-      "Properties": Object {
-        "DomainName": "api.xxx.xxx",
-        "EndpointConfiguration": Object {
-          "Types": Array [
+  "Resources": {
+    "ApiGatewayOpenApiCustomDomain19035A66": {
+      "Properties": {
+        "DomainName": "api.xxxx.xxxxx",
+        "EndpointConfiguration": {
+          "Types": [
             "REGIONAL",
           ],
         },
-        "RegionalCertificateArn": "arn:aws:acm:ap-northeast-1:xxxxxxxxxxxx:certificate/xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "RegionalCertificateArn": "arn:aws:acm:ap-northeast-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       },
       "Type": "AWS::ApiGateway::DomainName",
     },
-    "OpenApiCustomDomainMapSampleOpenApiStacksampleapi9BE1FF5B2AA27007": Object {
-      "Properties": Object {
-        "DomainName": Object {
-          "Ref": "OpenApiCustomDomain61CD031B",
+    "ApiGatewayOpenApiCustomDomainMapSampleOpenApiStackApiGatewaysampleapi57C3BC4B3A602C39": {
+      "Properties": {
+        "DomainName": {
+          "Ref": "ApiGatewayOpenApiCustomDomain19035A66",
         },
-        "RestApiId": Object {
-          "Ref": "sampleapiAA5ED7E4",
+        "RestApiId": {
+          "Ref": "ApiGatewaysampleapiDBBB2137",
         },
-        "Stage": Object {
-          "Ref": "sampleapiDeploymentStageprod1B60AC82",
+        "Stage": {
+          "Ref": "ApiGatewaysampleapiDeploymentStageprodC0F005DA",
         },
       },
       "Type": "AWS::ApiGateway::BasePathMapping",
     },
-    "RestApiLogAccessLogGroup9DDCF09E": Object {
+    "ApiGatewayRestApiLogAccessLogGroupC83A6B38": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "LogGroupName": "/aws/apigateway/rest-api-access-log",
+      "Properties": {
         "RetentionInDays": 365,
       },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "cognitoAuthorizer9878DCCA": Object {
-      "Properties": Object {
+    "ApiGatewaycognitoAuthorizerB81838E3": {
+      "Properties": {
         "IdentitySource": "method.request.header.Authorization",
         "Name": "CognitoAuthorizer",
-        "ProviderARNs": Array [
-          Object {
-            "Fn::GetAtt": Array [
-              "userPoolDC9497E0",
+        "ProviderARNs": [
+          {
+            "Fn::GetAtt": [
+              "CognitoPooluserPool4E2EFBAB",
               "Arn",
             ],
           },
         ],
-        "RestApiId": Object {
-          "Ref": "sampleapiAA5ED7E4",
+        "RestApiId": {
+          "Ref": "ApiGatewaysampleapiDBBB2137",
         },
         "Type": "COGNITO_USER_POOLS",
       },
       "Type": "AWS::ApiGateway::Authorizer",
     },
-    "sampleapiAA5ED7E4": Object {
-      "Properties": Object {
-        "Name": "sample-api",
-      },
-      "Type": "AWS::ApiGateway::RestApi",
-    },
-    "sampleapiAccount074F5E10": Object {
+    "ApiGatewaysampleapiAccountD70D965D": {
       "DeletionPolicy": "Retain",
-      "DependsOn": Array [
-        "sampleapiAA5ED7E4",
+      "DependsOn": [
+        "ApiGatewaysampleapiDBBB2137",
       ],
-      "Properties": Object {
-        "CloudWatchRoleArn": Object {
-          "Fn::GetAtt": Array [
-            "sampleapiCloudWatchRole14C66026",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "ApiGatewaysampleapiCloudWatchRoleA7A396B2",
             "Arn",
           ],
         },
@@ -175,28 +107,28 @@ Object {
       "Type": "AWS::ApiGateway::Account",
       "UpdateReplacePolicy": "Retain",
     },
-    "sampleapiCloudWatchRole14C66026": Object {
+    "ApiGatewaysampleapiCloudWatchRoleA7A396B2": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "apigateway.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
@@ -208,170 +140,98 @@ Object {
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "sampleapiDeployment9D4ABE32102e226748b676046673f976fa391f7a": Object {
-      "DependsOn": Array [
-        "sampleapiproxyGETBD44B935",
-        "sampleapiproxyDA278B45",
+    "ApiGatewaysampleapiDBBB2137": {
+      "Properties": {
+        "Name": "sample-api",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "ApiGatewaysampleapiDeployment5E799FB1c671d1771b791fbbeb0514e049e46555": {
+      "DependsOn": [
+        "ApiGatewaysampleapiproxyGET8086C489",
+        "ApiGatewaysampleapiproxy9A12D52B",
       ],
-      "Properties": Object {
+      "Properties": {
         "Description": "Automatically created by the RestApi construct",
-        "RestApiId": Object {
-          "Ref": "sampleapiAA5ED7E4",
+        "RestApiId": {
+          "Ref": "ApiGatewaysampleapiDBBB2137",
         },
       },
       "Type": "AWS::ApiGateway::Deployment",
     },
-    "sampleapiDeploymentStageprod1B60AC82": Object {
-      "DependsOn": Array [
-        "sampleapiAccount074F5E10",
+    "ApiGatewaysampleapiDeploymentStageprodC0F005DA": {
+      "DependsOn": [
+        "ApiGatewaysampleapiAccountD70D965D",
       ],
-      "Properties": Object {
-        "AccessLogSetting": Object {
-          "DestinationArn": Object {
-            "Fn::GetAtt": Array [
-              "RestApiLogAccessLogGroup9DDCF09E",
+      "Properties": {
+        "AccessLogSetting": {
+          "DestinationArn": {
+            "Fn::GetAtt": [
+              "ApiGatewayRestApiLogAccessLogGroupC83A6B38",
               "Arn",
             ],
           },
-          "Format": "$context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] \\"$context.httpMethod $context.resourcePath $context.protocol\\" $context.status $context.responseLength $context.requestId",
+          "Format": "$context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.responseLength $context.requestId",
         },
-        "DeploymentId": Object {
-          "Ref": "sampleapiDeployment9D4ABE32102e226748b676046673f976fa391f7a",
+        "DeploymentId": {
+          "Ref": "ApiGatewaysampleapiDeployment5E799FB1c671d1771b791fbbeb0514e049e46555",
         },
-        "MethodSettings": Array [
-          Object {
+        "MethodSettings": [
+          {
             "DataTraceEnabled": true,
             "HttpMethod": "*",
             "LoggingLevel": "INFO",
             "ResourcePath": "/*",
           },
         ],
-        "RestApiId": Object {
-          "Ref": "sampleapiAA5ED7E4",
+        "RestApiId": {
+          "Ref": "ApiGatewaysampleapiDBBB2137",
         },
         "StageName": "prod",
       },
       "Type": "AWS::ApiGateway::Stage",
     },
-    "sampleapiproxyDA278B45": Object {
-      "Properties": Object {
-        "ParentId": Object {
-          "Fn::GetAtt": Array [
-            "sampleapiAA5ED7E4",
+    "ApiGatewaysampleapiproxy9A12D52B": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewaysampleapiDBBB2137",
             "RootResourceId",
           ],
         },
         "PathPart": "{proxy+}",
-        "RestApiId": Object {
-          "Ref": "sampleapiAA5ED7E4",
+        "RestApiId": {
+          "Ref": "ApiGatewaysampleapiDBBB2137",
         },
       },
       "Type": "AWS::ApiGateway::Resource",
     },
-    "sampleapiproxyGETApiPermissionSampleOpenApiStacksampleapi9BE1FF5BGETproxyC62D7D08": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "HelloHandler2E4FBA4D",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "sampleapiAA5ED7E4",
-              },
-              "/",
-              Object {
-                "Ref": "sampleapiDeploymentStageprod1B60AC82",
-              },
-              "/GET/*",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "sampleapiproxyGETApiPermissionTestSampleOpenApiStacksampleapi9BE1FF5BGETproxy3BF36196": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "HelloHandler2E4FBA4D",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "sampleapiAA5ED7E4",
-              },
-              "/test-invoke-stage/GET/*",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "sampleapiproxyGETBD44B935": Object {
-      "Properties": Object {
+    "ApiGatewaysampleapiproxyGET8086C489": {
+      "Properties": {
         "AuthorizationType": "COGNITO_USER_POOLS",
-        "AuthorizerId": Object {
-          "Ref": "cognitoAuthorizer9878DCCA",
+        "AuthorizerId": {
+          "Ref": "ApiGatewaycognitoAuthorizerB81838E3",
         },
         "HttpMethod": "GET",
-        "Integration": Object {
+        "Integration": {
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
-          "Uri": Object {
-            "Fn::Join": Array [
+          "Uri": {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":apigateway:",
-                Object {
+                {
                   "Ref": "AWS::Region",
                 },
                 ":lambda:path/2015-03-31/functions/",
-                Object {
-                  "Fn::GetAtt": Array [
-                    "HelloHandler2E4FBA4D",
+                {
+                  "Fn::GetAtt": [
+                    "CognitoPoolHelloHandler02EE54D1",
                     "Arn",
                   ],
                 },
@@ -380,436 +240,158 @@ Object {
             ],
           },
         },
-        "ResourceId": Object {
-          "Ref": "sampleapiproxyDA278B45",
+        "ResourceId": {
+          "Ref": "ApiGatewaysampleapiproxy9A12D52B",
         },
-        "RestApiId": Object {
-          "Ref": "sampleapiAA5ED7E4",
+        "RestApiId": {
+          "Ref": "ApiGatewaysampleapiDBBB2137",
         },
       },
       "Type": "AWS::ApiGateway::Method",
     },
-    "userPoolDC9497E0": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "AccountRecoverySetting": Object {
-          "RecoveryMechanisms": Array [
-            Object {
-              "Name": "verified_email",
-              "Priority": 1,
-            },
-          ],
-        },
-        "AdminCreateUserConfig": Object {
-          "AllowAdminCreateUserOnly": true,
-        },
-        "AutoVerifiedAttributes": Array [
-          "email",
-        ],
-        "EmailVerificationMessage": "The verification code to your new account is {####}",
-        "EmailVerificationSubject": "Verify your new account",
-        "EnabledMfas": Array [
-          "SMS_MFA",
-        ],
-        "MfaConfiguration": "OPTIONAL",
-        "Policies": Object {
-          "PasswordPolicy": Object {
-            "MinimumLength": 8,
-            "RequireLowercase": true,
-            "RequireNumbers": true,
-            "RequireSymbols": true,
-            "RequireUppercase": true,
-            "TemporaryPasswordValidityDays": 7,
-          },
-        },
-        "Schema": Array [
-          Object {
-            "Mutable": true,
-            "Name": "email",
-            "Required": true,
-          },
-          Object {
-            "Mutable": true,
-            "Name": "phone_number",
-            "Required": true,
-          },
-        ],
-        "SmsConfiguration": Object {
-          "ExternalId": "SampleOpenApiStackuserPoolF20B64B3",
-          "SnsCallerArn": Object {
-            "Fn::GetAtt": Array [
-              "userPoolsmsRoleED3E1FD9",
-              "Arn",
-            ],
-          },
-        },
-        "SmsVerificationMessage": "The verification code to your new account is {####}",
-        "UserPoolName": "apiUserPool",
-        "UsernameAttributes": Array [
-          "email",
-        ],
-        "UsernameConfiguration": Object {
-          "CaseSensitive": false,
-        },
-        "VerificationMessageTemplate": Object {
-          "DefaultEmailOption": "CONFIRM_WITH_CODE",
-          "EmailMessage": "The verification code to your new account is {####}",
-          "EmailSubject": "Verify your new account",
-          "SmsMessage": "The verification code to your new account is {####}",
-        },
-      },
-      "Type": "AWS::Cognito::UserPool",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "userPoolclient992D31C6": Object {
-      "Properties": Object {
-        "AllowedOAuthFlows": Array [
-          "implicit",
-          "code",
-        ],
-        "AllowedOAuthFlowsUserPoolClient": true,
-        "AllowedOAuthScopes": Array [
-          "profile",
-          "phone",
-          "email",
-          "openid",
-          "aws.cognito.signin.user.admin",
-        ],
-        "CallbackURLs": Array [
-          "https://example.com",
-        ],
-        "ClientName": "apiUserPoolClient",
-        "ExplicitAuthFlows": Array [
-          "ALLOW_USER_PASSWORD_AUTH",
-          "ALLOW_ADMIN_USER_PASSWORD_AUTH",
-          "ALLOW_USER_SRP_AUTH",
-          "ALLOW_REFRESH_TOKEN_AUTH",
-        ],
-        "GenerateSecret": false,
-        "SupportedIdentityProviders": Array [
-          "COGNITO",
-        ],
-        "UserPoolId": Object {
-          "Ref": "userPoolDC9497E0",
-        },
-      },
-      "Type": "AWS::Cognito::UserPoolClient",
-    },
-    "userPoolsmsRoleED3E1FD9": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Condition": Object {
-                "StringEquals": Object {
-                  "sts:ExternalId": "SampleOpenApiStackuserPoolF20B64B3",
-                },
-              },
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "cognito-idp.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": "sns:Publish",
-                  "Effect": "Allow",
-                  "Resource": "*",
-                },
-              ],
-              "Version": "2012-10-17",
-            },
-            "PolicyName": "sns-publish",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-  },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  Object {
-                    "Ref": "BootstrapVersion",
-                  },
-                ],
-              },
-            ],
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
-        },
-      ],
-    },
-  },
-}
-`;
-
-exports[`BLEA-FSI snapshot check OpenAPI sample Stacks 2`] = `
-Object {
-  "Parameters": Object {
-    "BootstrapVersion": Object {
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
-      "Type": "AWS::SSM::Parameter::Value<String>",
-    },
-  },
-  "Resources": Object {
-    "SampleWafAclApigw": Object {
-      "Properties": Object {
-        "DefaultAction": Object {
-          "Allow": Object {},
-        },
-        "Name": "sample-waf-web-acl-apigw",
-        "Rules": Array [
-          Object {
-            "Name": "AWSManagedRulesCommonRuleSet",
-            "OverrideAction": Object {
-              "Count": Object {},
-            },
-            "Priority": 1,
-            "Statement": Object {
-              "ManagedRuleGroupStatement": Object {
-                "Name": "AWSManagedRulesCommonRuleSet",
-                "VendorName": "AWS",
-              },
-            },
-            "VisibilityConfig": Object {
-              "CloudWatchMetricsEnabled": true,
-              "MetricName": "AWS-AWSManagedRulesCommonRuleSet",
-              "SampledRequestsEnabled": true,
-            },
-          },
-          Object {
-            "Name": "AWSManagedRulesKnownBadInputsRuleSet",
-            "OverrideAction": Object {
-              "Count": Object {},
-            },
-            "Priority": 2,
-            "Statement": Object {
-              "ManagedRuleGroupStatement": Object {
-                "Name": "AWSManagedRulesKnownBadInputsRuleSet",
-                "VendorName": "AWS",
-              },
-            },
-            "VisibilityConfig": Object {
-              "CloudWatchMetricsEnabled": true,
-              "MetricName": "AWS-AWSManagedRulesKnownBadInputsRuleSet",
-              "SampledRequestsEnabled": true,
-            },
-          },
-          Object {
-            "Name": "AWSManagedRulesAmazonIpReputationList",
-            "OverrideAction": Object {
-              "Count": Object {},
-            },
-            "Priority": 3,
-            "Statement": Object {
-              "ManagedRuleGroupStatement": Object {
-                "Name": "AWSManagedRulesAmazonIpReputationList",
-                "VendorName": "AWS",
-              },
-            },
-            "VisibilityConfig": Object {
-              "CloudWatchMetricsEnabled": true,
-              "MetricName": "AWS-AWSManagedRulesAmazonIpReputationList",
-              "SampledRequestsEnabled": true,
-            },
-          },
-          Object {
-            "Name": "AWSManagedRulesLinuxRuleSet",
-            "OverrideAction": Object {
-              "Count": Object {},
-            },
-            "Priority": 4,
-            "Statement": Object {
-              "ManagedRuleGroupStatement": Object {
-                "Name": "AWSManagedRulesLinuxRuleSet",
-                "VendorName": "AWS",
-              },
-            },
-            "VisibilityConfig": Object {
-              "CloudWatchMetricsEnabled": true,
-              "MetricName": "AWS-AWSManagedRulesLinuxRuleSet",
-              "SampledRequestsEnabled": true,
-            },
-          },
-          Object {
-            "Name": "AWSManagedRulesSQLiRuleSet",
-            "OverrideAction": Object {
-              "Count": Object {},
-            },
-            "Priority": 5,
-            "Statement": Object {
-              "ManagedRuleGroupStatement": Object {
-                "Name": "AWSManagedRulesSQLiRuleSet",
-                "VendorName": "AWS",
-              },
-            },
-            "VisibilityConfig": Object {
-              "CloudWatchMetricsEnabled": true,
-              "MetricName": "AWS-AWSManagedRulesSQLiRuleSet",
-              "SampledRequestsEnabled": true,
-            },
-          },
-        ],
-        "Scope": "REGIONAL",
-        "VisibilityConfig": Object {
-          "CloudWatchMetricsEnabled": true,
-          "MetricName": "sample-waf-web-acl",
-          "SampledRequestsEnabled": true,
-        },
-      },
-      "Type": "AWS::WAFv2::WebACL",
-    },
-    "TestWebAclAssociationApigw": Object {
-      "Properties": Object {
-        "ResourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:aws:apigateway:ap-northeast-1::/restapis/",
-              Object {
-                "Fn::ImportValue": "SampleOpenApiStack:ExportsOutputRefsampleapiAA5ED7E46021F1DE",
-              },
-              "/stages/prod",
-            ],
-          ],
-        },
-        "WebACLArn": Object {
-          "Fn::GetAtt": Array [
-            "SampleWafAclApigw",
+    "ApiGatewaysampleapiproxyGETApiPermissionSampleOpenApiStackApiGatewaysampleapi57C3BC4BGETproxyBE716FA1": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "CognitoPoolHelloHandler02EE54D1",
             "Arn",
           ],
         },
-      },
-      "Type": "AWS::WAFv2::WebACLAssociation",
-    },
-  },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  Object {
-                    "Ref": "BootstrapVersion",
-                  },
-                ],
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
               },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "ApiGatewaysampleapiDBBB2137",
+              },
+              "/",
+              {
+                "Ref": "ApiGatewaysampleapiDeploymentStageprodC0F005DA",
+              },
+              "/GET/*",
             ],
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+          ],
         },
-      ],
+      },
+      "Type": "AWS::Lambda::Permission",
     },
-  },
-}
-`;
-
-exports[`BLEA-FSI snapshot check OpenAPI sample Stacks 3`] = `
-Object {
-  "Parameters": Object {
-    "BootstrapVersion": Object {
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
-      "Type": "AWS::SSM::Parameter::Value<String>",
+    "ApiGatewaysampleapiproxyGETApiPermissionTestSampleOpenApiStackApiGatewaysampleapi57C3BC4BGETproxy44C7DAD5": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "CognitoPoolHelloHandler02EE54D1",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "ApiGatewaysampleapiDBBB2137",
+              },
+              "/test-invoke-stage/GET/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
-  },
-  "Resources": Object {
-    "AppLogBucket71C94073": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
+    "CloudFrontAppLogBucketA1F4F698": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "BucketName": "app-logs-cloudfront",
-        "OwnershipControls": Object {
-          "Rules": Array [
-            Object {
+        "OwnershipControls": {
+          "Rules": [
+            {
               "ObjectOwnership": "ObjectWriter",
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
+      "UpdateReplacePolicy": "Delete",
     },
-    "AppLogBucketPolicyF1357798": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "AppLogBucket71C94073",
+    "CloudFrontAppLogBucketPolicy0693088C": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "CloudFrontAppLogBucketA1F4F698",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "AppLogBucket71C94073",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "CloudFrontAppLogBucketA1F4F698",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "AppLogBucket71C94073",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "CloudFrontAppLogBucketA1F4F698",
                           "Arn",
                         ],
                       },
@@ -819,31 +401,31 @@ Object {
                 },
               ],
             },
-            Object {
+            {
               "Action": "s3:*",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "cloudfront.amazonaws.com",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
+              "Resource": [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:aws:s3:::",
-                      Object {
-                        "Ref": "AppLogBucket71C94073",
+                      {
+                        "Ref": "CloudFrontAppLogBucketA1F4F698",
                       },
                     ],
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:aws:s3:::",
-                      Object {
-                        "Ref": "AppLogBucket71C94073",
+                      {
+                        "Ref": "CloudFrontAppLogBucketA1F4F698",
                       },
                       "/*",
                     ],
@@ -858,56 +440,56 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "OpenApiDistributionDD71B494": Object {
-      "Properties": Object {
-        "DistributionConfig": Object {
-          "Aliases": Array [
-            "openapi-base.xxx.xxx",
+    "CloudFrontOpenApiDistribution51862AA5": {
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            "openapi.xxxx.xxxx",
           ],
           "Comment": "OpenAPI-distribution",
-          "DefaultCacheBehavior": Object {
-            "AllowedMethods": Array [
+          "DefaultCacheBehavior": {
+            "AllowedMethods": [
               "GET",
               "HEAD",
             ],
-            "CachePolicyId": Object {
-              "Ref": "cachePolicyForApiGatewayFE08C17E",
+            "CachePolicyId": {
+              "Ref": "CloudFrontcachePolicyForApiGatewayE604413E",
             },
-            "CachedMethods": Array [
+            "CachedMethods": [
               "GET",
               "HEAD",
             ],
             "Compress": true,
-            "TargetOriginId": "SampleCfStackOpenApiDistributionOrigin17F9DAD35",
+            "TargetOriginId": "SampleOpenApiStackCloudFrontOpenApiDistributionOrigin16E0F0DDC",
             "ViewerProtocolPolicy": "https-only",
           },
           "Enabled": true,
           "HttpVersion": "http2",
           "IPV6Enabled": true,
-          "Logging": Object {
-            "Bucket": Object {
-              "Fn::GetAtt": Array [
-                "AppLogBucket71C94073",
+          "Logging": {
+            "Bucket": {
+              "Fn::GetAtt": [
+                "CloudFrontAppLogBucketA1F4F698",
                 "RegionalDomainName",
               ],
             },
           },
-          "Origins": Array [
-            Object {
-              "CustomOriginConfig": Object {
+          "Origins": [
+            {
+              "CustomOriginConfig": {
                 "OriginProtocolPolicy": "https-only",
-                "OriginSSLProtocols": Array [
+                "OriginSSLProtocols": [
                   "TLSv1.2",
                 ],
               },
-              "DomainName": "api.xxx.xxx",
-              "Id": "SampleCfStackOpenApiDistributionOrigin17F9DAD35",
+              "DomainName": "api.xxxx.xxxxx",
+              "Id": "SampleOpenApiStackCloudFrontOpenApiDistributionOrigin16E0F0DDC",
             },
           ],
           "PriceClass": "PriceClass_All",
-          "Restrictions": Object {
-            "GeoRestriction": Object {
-              "Locations": Array [
+          "Restrictions": {
+            "GeoRestriction": {
+              "Locations": [
                 "US",
                 "GB",
                 "JP",
@@ -915,8 +497,8 @@ Object {
               "RestrictionType": "whitelist",
             },
           },
-          "ViewerCertificate": Object {
-            "AcmCertificateArn": "arn:aws:acm:us-east-1:xxxxxxxxxxxx:certificate/xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "ViewerCertificate": {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:xxxxxxxxxxxx:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
             "MinimumProtocolVersion": "TLSv1.2_2021",
             "SslSupportMethod": "sni-only",
           },
@@ -924,26 +506,26 @@ Object {
       },
       "Type": "AWS::CloudFront::Distribution",
     },
-    "cachePolicyForApiGatewayFE08C17E": Object {
-      "Properties": Object {
-        "CachePolicyConfig": Object {
+    "CloudFrontcachePolicyForApiGatewayE604413E": {
+      "Properties": {
+        "CachePolicyConfig": {
           "DefaultTTL": 86400,
           "MaxTTL": 31536000,
           "MinTTL": 0,
           "Name": "cachePolicyForApiGateway",
-          "ParametersInCacheKeyAndForwardedToOrigin": Object {
-            "CookiesConfig": Object {
+          "ParametersInCacheKeyAndForwardedToOrigin": {
+            "CookiesConfig": {
               "CookieBehavior": "none",
             },
             "EnableAcceptEncodingBrotli": true,
             "EnableAcceptEncodingGzip": true,
-            "HeadersConfig": Object {
+            "HeadersConfig": {
               "HeaderBehavior": "whitelist",
-              "Headers": Array [
+              "Headers": [
                 "Authorization",
               ],
             },
-            "QueryStringsConfig": Object {
+            "QueryStringsConfig": {
               "QueryStringBehavior": "none",
             },
           },
@@ -951,23 +533,360 @@ Object {
       },
       "Type": "AWS::CloudFront::CachePolicy",
     },
+    "CognitoPoolHelloHandler02EE54D1": {
+      "DependsOn": [
+        "CognitoPoolHelloHandlerServiceRole4FFAEFA7",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "222a3a7cad2a200ab801e4bfe3ce4a5e3d04a8d24140b25045c4de9cb03562f8.zip",
+        },
+        "Handler": "hello.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "CognitoPoolHelloHandlerServiceRole4FFAEFA7",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CognitoPoolHelloHandlerServiceRole4FFAEFA7": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CognitoPooluserPool4E2EFBAB": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AccountRecoverySetting": {
+          "RecoveryMechanisms": [
+            {
+              "Name": "verified_email",
+              "Priority": 1,
+            },
+          ],
+        },
+        "AdminCreateUserConfig": {
+          "AllowAdminCreateUserOnly": true,
+        },
+        "AutoVerifiedAttributes": [
+          "email",
+        ],
+        "EmailVerificationMessage": "The verification code to your new account is {####}",
+        "EmailVerificationSubject": "Verify your new account",
+        "EnabledMfas": [
+          "SMS_MFA",
+        ],
+        "MfaConfiguration": "OPTIONAL",
+        "Policies": {
+          "PasswordPolicy": {
+            "MinimumLength": 8,
+            "RequireLowercase": true,
+            "RequireNumbers": true,
+            "RequireSymbols": true,
+            "RequireUppercase": true,
+            "TemporaryPasswordValidityDays": 7,
+          },
+        },
+        "Schema": [
+          {
+            "Mutable": true,
+            "Name": "email",
+            "Required": true,
+          },
+          {
+            "Mutable": true,
+            "Name": "phone_number",
+            "Required": true,
+          },
+        ],
+        "SmsConfiguration": {
+          "ExternalId": "SampleOpenApiStackCognitoPooluserPoolB9D740FB",
+          "SnsCallerArn": {
+            "Fn::GetAtt": [
+              "CognitoPooluserPoolsmsRole6EB1C6B5",
+              "Arn",
+            ],
+          },
+        },
+        "SmsVerificationMessage": "The verification code to your new account is {####}",
+        "UserPoolName": "apiUserPool",
+        "UsernameAttributes": [
+          "email",
+        ],
+        "UsernameConfiguration": {
+          "CaseSensitive": false,
+        },
+        "VerificationMessageTemplate": {
+          "DefaultEmailOption": "CONFIRM_WITH_CODE",
+          "EmailMessage": "The verification code to your new account is {####}",
+          "EmailSubject": "Verify your new account",
+          "SmsMessage": "The verification code to your new account is {####}",
+        },
+      },
+      "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CognitoPooluserPoolclient81506C4E": {
+      "Properties": {
+        "AllowedOAuthFlows": [
+          "implicit",
+          "code",
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthScopes": [
+          "profile",
+          "phone",
+          "email",
+          "openid",
+          "aws.cognito.signin.user.admin",
+        ],
+        "CallbackURLs": [
+          "https://example.com",
+        ],
+        "ClientName": "apiUserPoolClient",
+        "ExplicitAuthFlows": [
+          "ALLOW_USER_PASSWORD_AUTH",
+          "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+          "ALLOW_USER_SRP_AUTH",
+          "ALLOW_REFRESH_TOKEN_AUTH",
+        ],
+        "GenerateSecret": false,
+        "SupportedIdentityProviders": [
+          "COGNITO",
+        ],
+        "UserPoolId": {
+          "Ref": "CognitoPooluserPool4E2EFBAB",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolClient",
+    },
+    "CognitoPooluserPoolsmsRole6EB1C6B5": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": "SampleOpenApiStackCognitoPooluserPoolB9D740FB",
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cognito-idp.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "sns:Publish",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "sns-publish",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "WafForApiGWSampleWafAclApigw0325C289": {
+      "DependsOn": [
+        "ApiGatewaysampleapiAccountD70D965D",
+        "ApiGatewaysampleapiCloudWatchRoleA7A396B2",
+        "ApiGatewaysampleapiproxyGETApiPermissionSampleOpenApiStackApiGatewaysampleapi57C3BC4BGETproxyBE716FA1",
+        "ApiGatewaysampleapiproxyGETApiPermissionTestSampleOpenApiStackApiGatewaysampleapi57C3BC4BGETproxy44C7DAD5",
+        "ApiGatewaysampleapiproxyGET8086C489",
+        "ApiGatewaysampleapiproxy9A12D52B",
+        "ApiGatewaysampleapiDeployment5E799FB1c671d1771b791fbbeb0514e049e46555",
+        "ApiGatewaysampleapiDeploymentStageprodC0F005DA",
+        "ApiGatewaysampleapiDBBB2137",
+      ],
+      "Properties": {
+        "DefaultAction": {
+          "Allow": {},
+        },
+        "Name": "sample-waf-web-acl-apigw",
+        "Rules": [
+          {
+            "Name": "AWSManagedRulesCommonRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 1,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesCommonRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesCommonRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 2,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesKnownBadInputsRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesAmazonIpReputationList",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 3,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesAmazonIpReputationList",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesAmazonIpReputationList",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesLinuxRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 4,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesLinuxRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesLinuxRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesSQLiRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 5,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesSQLiRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesSQLiRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+        ],
+        "Scope": "REGIONAL",
+        "VisibilityConfig": {
+          "CloudWatchMetricsEnabled": true,
+          "MetricName": "sample-waf-web-acl",
+          "SampledRequestsEnabled": true,
+        },
+      },
+      "Type": "AWS::WAFv2::WebACL",
+    },
+    "WafForApiGWTestWebAclAssociationApigw7BD5CDF3": {
+      "Properties": {
+        "ResourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:apigateway:ap-northeast-1::/restapis/",
+              {
+                "Ref": "ApiGatewaysampleapiDBBB2137",
+              },
+              "/stages/prod",
+            ],
+          ],
+        },
+        "WebACLArn": {
+          "Fn::GetAtt": [
+            "WafForApiGWSampleWafAclApigw0325C289",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::WAFv2::WebACLAssociation",
+    },
   },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  Object {
+                  {
                     "Ref": "BootstrapVersion",
                   },
                 ],

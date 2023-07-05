@@ -12,35 +12,64 @@
 
 ゲストアカウントに SSO で認証している状態からのデプロイメントの手順を示します。
 
-#### 1-1. ゲストアプリケーションの Context を設定する
+#### 1-1. ゲストアカウントデプロイ用の AWS CLI プロファイルを設定する
 
-BLEA for FSI 版と同じ手順で Context を設定します。
+ゲストアカウントにデプロイするための AWS CLI プロファイルを設定します。ここではゲストアカウントの ID を 123456789012 としています。
+~/.aws/config
 
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/bleafsi-guest-market-data-sample.ts",
-  "context": {
-    "pjPrefix": "BLEA-FSI",
-    "dev": {
-      "description": "Context samples for Dev",
-      "envName": "Development",
-      "vpcCidr": "10.100.0.0/16",
-      "securityNotifyEmail": "notify-security@example.com"
-    }
-  }
-}
+```sh
+# for Guest Account Login
+[profile ct-guest-sso]
+sso_start_url = https://d-90xxxxxxxx.awsapps.com/start/
+sso_region = ap-northeast-1
+sso_account_id = 123456789012
+sso_role_name = AWSAdministratorAccess
+region = ap-northeast-1
+```
+
+#### 1-3. 環境別の設定を指定する
+
+デプロイ前に環境別（開発、ステージング、本番等）の情報を指定する必要があります。下記の typescript ファイルを編集します。
+
+```sh
+usecases/guest-market-data-sample/bin/parameter.ts
+```
+
+このサンプルは dev と staging という 開発、検証用の設定を定義する例です。本番アカウントにもデプロイできるようにするには、prod 用の定義を追加します。
+
+```js
+export const DevParameter: StackParameter = {
+  envName: 'Development',
+  securityNotifyEmail: 'notify-security@example.com',
+  vpcCidr: '10.100.0.0/16',
+  env: {
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+};
+
+//// Staging environment parameters ////
+export const StageParameter: StackParameter = {
+  envName: 'Staging',
+  env: {
+    account: '111111111111',
+    region: 'ap-northeast-1',
+  },
+  securityNotifyEmail: 'notify-security@example.com',
+  vpcCidr: '10.100.0.0/16',
+};
 ```
 
 この設定内容は以下の通りです。
 
-| key                 | value                                          |
-| ------------------- | ---------------------------------------------- |
-| description         | 環境についてのコメント                         |
-| envName             | 環境名。これが各々のリソースタグに設定されます |
-| vpcCidr             | VPC の CIDR                                    |
-| securityNotifyEmail | 通知が送られるメールアドレス                   |
+| key                 | value                                                                                        |
+| ------------------- | -------------------------------------------------------------------------------------------- |
+| env.account         | デプロイ対象のアカウント ID。CLI の profile で指定するアカウントと一致している必要があります |
+| env.region          | デプロイ対象のリージョン                                                                     |
+| envName             | 環境名。これが各々のリソースタグに設定されます                                               |
+| vpcCidr             | VPC の CIDR                                                                                  |
+| securityNotifyEmail | セキュリティに関する通知が送られるメールアドレス。                                           |
 
-#### 1-2. ゲストアプリケーションをデプロイする
+#### 1-3. ゲストアプリケーションをデプロイする
 
 （ログインしていない場合）AWS IAM Identity Center（旧 AWS SSO) を使ってゲストアカウントにログインします。
 
@@ -52,8 +81,10 @@ aws sso login --profile ct-guest-sso
 
 ```sh
 cd usecases/guest-market-data-sample
-npx cdk deploy --all -c environment=dev --profile ct-guest-sso
+npx cdk deploy BLEAFSI-MarketData-Dev --profile ct-guest-sso
 ```
+
+> `BLEAFSI-MarketData-Dev` はデプロイ対象の開発環境用のスタック名です。環境（開発、ステージング、本番）によってスタック名は異なります。
 
 以上でサンプルアプリケーションのデプロイは完了です。
 
