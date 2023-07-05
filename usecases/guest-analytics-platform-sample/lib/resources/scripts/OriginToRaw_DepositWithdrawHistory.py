@@ -57,7 +57,7 @@ df_source = df_source.withColumn(
     "trx_date_tmp", YYMMDDtoDatetimeUDF(col("trx_date")))
 df_source = df_source.withColumn("year", year(col("trx_date_tmp")))
 df_source = df_source.withColumn("month", month(col("trx_date_tmp")))
-df_source = df_source.withColumn("day", dayofweek(col("trx_date_tmp")))
+df_source = df_source.withColumn("day", dayofmonth(col("trx_date_tmp")))
 df_source = df_source.drop("trx_date_tmp")
 
 dyf = DynamicFrame.fromDF(df_source, glueContext, "writes3")

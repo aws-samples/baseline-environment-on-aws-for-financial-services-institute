@@ -645,7 +645,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "10c8811f89000f272f0e49c762f7b9a889d6c24d0a4ff11acadb9cf26dbd7b45.zip",
+          "S3Key": "a383522dadcea6459cc48c1c9bb81067ddb5eb23d35425757e74d3f732168d91.zip",
         },
         "Description": "Provider handler for connect.listQueues()",
         "Environment": {
@@ -819,7 +819,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -1962,7 +1962,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "c7bfe3d56447b51409fe89fe69627a997df15d84e318fd619013a651fc7a0414.zip",
+          "S3Key": "9c92e3c3326576ca67bd69cc0a381152203e00a0b49b933bd078da77083a14d2.zip",
         },
         "Description": "Provider handler for Connect.describeInstance()",
         "Environment": {
@@ -2083,7 +2083,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "915d340843213839f58752cf01c5a2f9a6a6c73b9ea181463165323ba7ba73ae.zip",
+          "S3Key": "c2c0d7c4d082d2eb4286bd05bd14d23f58ef52624adb40af2adaee159962435e.zip",
         },
         "Description": "Provider handler for Connect.createInstance() & deleteInstance()",
         "Environment": {
@@ -2268,7 +2268,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2477,7 +2477,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2690,7 +2690,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -3034,7 +3034,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "94dbcc5049a0bde3b666b11ca5f2d6771560e6be1994928700db8d24f8b7a5cb.zip",
+          "S3Key": "6d5396e158a524c4c7ca72bcb955521b4acec56c94a2d4efcb4709f319904f11.zip",
         },
         "Description": "Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()",
         "Environment": {
@@ -3258,7 +3258,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -3394,7 +3394,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "d9deee87054fc83b43d3b3dd0763620f201db12bc03eb52104fd96ecc1aefeb7.zip",
+          "S3Key": "2d7db793a84be304a29b54535e46267e01861d475c32ba675e267ded39669832.zip",
         },
         "Description": "Provider handler for Connect.associateBot() & disassociateBot()",
         "Environment": {
@@ -3571,7 +3571,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -5565,7 +5565,7 @@ $input.path('$.output')
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6238,7 +6238,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "c7bfe3d56447b51409fe89fe69627a997df15d84e318fd619013a651fc7a0414.zip",
+          "S3Key": "9c92e3c3326576ca67bd69cc0a381152203e00a0b49b933bd078da77083a14d2.zip",
         },
         "Description": "Provider handler for Connect.describeInstance()",
         "Environment": {
@@ -6359,7 +6359,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "915d340843213839f58752cf01c5a2f9a6a6c73b9ea181463165323ba7ba73ae.zip",
+          "S3Key": "c2c0d7c4d082d2eb4286bd05bd14d23f58ef52624adb40af2adaee159962435e.zip",
         },
         "Description": "Provider handler for Connect.createInstance() & deleteInstance()",
         "Environment": {
@@ -6544,7 +6544,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6753,7 +6753,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6966,7 +6966,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -7310,7 +7310,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "94dbcc5049a0bde3b666b11ca5f2d6771560e6be1994928700db8d24f8b7a5cb.zip",
+          "S3Key": "6d5396e158a524c4c7ca72bcb955521b4acec56c94a2d4efcb4709f319904f11.zip",
         },
         "Description": "Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()",
         "Environment": {
@@ -7557,7 +7557,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -8004,7 +8004,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Tags": [
           {
             "Key": "Environment",

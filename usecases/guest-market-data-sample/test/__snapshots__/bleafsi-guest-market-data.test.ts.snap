@@ -17,7 +17,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "f9346b940b724b094a16ca051c017799995fa93df6da38a0539bf7c000fee50a.zip",
+          "S3Key": "c56527323fe165e19e5c38b88f77270ba67c06d0fd17823264a8e1268ef9ce50.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -408,6 +408,8 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
     },
     "ComposerAppFargateServiceA84E1E43": {
       "DependsOn": [
+        "ComposerAppEcsServiceTaskRoleDefaultPolicyAF6AE91A",
+        "ComposerAppEcsServiceTaskRoleD9583E3B",
         "ComposerContainerImagesamplecomposerproject265B244C",
         "ComposerContainerImagesamplecomposerprojectRoleDefaultPolicyACF33B76",
         "ComposerContainerImagesamplecomposerprojectRoleD87A3320",
@@ -1570,6 +1572,8 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
       "DependsOn": [
         "DistributorAppAlbhttpEcsAppGroup2A131381",
         "DistributorAppAlbhttp11B4B307",
+        "DistributorAppcontainerBaseAppEcsServiceTaskRoleDefaultPolicy86E3B608",
+        "DistributorAppcontainerBaseAppEcsServiceTaskRoleFFBB5D79",
         "DistributorContainerImagesampledistributorproject90299F88",
         "DistributorContainerImagesampledistributorprojectRoleDefaultPolicyB50EC98B",
         "DistributorContainerImagesampledistributorprojectRole032FB6C9",
@@ -2314,6 +2318,8 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
     },
     "HandlerAppFargateService40E5323E": {
       "DependsOn": [
+        "HandlerAppEcsServiceTaskRoleDefaultPolicy51D08735",
+        "HandlerAppEcsServiceTaskRole7313BB48",
         "HandlerContainerImagesamplehandlerproject1AD61CE4",
         "HandlerContainerImagesamplehandlerprojectRoleDefaultPolicy5DDF8BFC",
         "HandlerContainerImagesamplehandlerprojectRoleAF69F883",

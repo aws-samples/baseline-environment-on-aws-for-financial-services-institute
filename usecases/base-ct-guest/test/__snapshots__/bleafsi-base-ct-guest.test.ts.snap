@@ -774,7 +774,7 @@ exports[`BLEAFSI-BASE Compare Snapshot test GuestAccount Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "350185a1069fa20a23a583e20c77f6844218bd73097902362dc94f1a108f5d89.zip",
+          "S3Key": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip",
         },
         "Description": {
           "Fn::Join": [
@@ -788,7 +788,7 @@ exports[`BLEAFSI-BASE Compare Snapshot test GuestAccount Stacks 1`] = `
             ],
           ],
         },
-        "Handler": "__entrypoint__.handler",
+        "Handler": "index.handler",
         "MemorySize": 128,
         "Role": {
           "Fn::GetAtt": [

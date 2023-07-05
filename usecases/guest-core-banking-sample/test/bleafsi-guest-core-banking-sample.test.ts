@@ -242,6 +242,11 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
     );
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
+      '/BLEAFSI-CoreBanking-primary/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource',
+      [{ id: 'AwsSolutions-L1', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
       '/BLEAFSI-CoreBanking-primary/DBAuroraPg/AuroraCluster/Secret/Resource',
       [
         {

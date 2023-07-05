@@ -114,7 +114,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "f9346b940b724b094a16ca051c017799995fa93df6da38a0539bf7c000fee50a.zip",
+          "S3Key": "c56527323fe165e19e5c38b88f77270ba67c06d0fd17823264a8e1268ef9ce50.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -761,7 +761,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "350185a1069fa20a23a583e20c77f6844218bd73097902362dc94f1a108f5d89.zip",
+          "S3Key": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip",
         },
         "Description": {
           "Fn::Join": [
@@ -775,7 +775,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             ],
           ],
         },
-        "Handler": "__entrypoint__.handler",
+        "Handler": "index.handler",
         "MemorySize": 128,
         "Role": {
           "Fn::GetAtt": [
@@ -1593,6 +1593,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
         "ContainerImagestartBuild34814DC1",
         "ECSAppcontainerAppSampleBaseAlbhttpEcsAppGroup5462138A",
         "ECSAppcontainerAppSampleBaseAlbhttp258CB6B9",
+        "ECSAppcontainerAppSampleBaseEcsServiceTaskRole91D7335C",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -2694,7 +2695,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Content": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "88b83f5f61fe6f85ffcd0a37a09a8f3be90e7c090964b0b62b062eb8a5a1a3a7.zip",
+          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -3643,6 +3644,7 @@ chmod +x /home/ec2-user/pull.sh",
     "SampleMultiRegionAppBalanceFargateServiceB3CE9C1E": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenerbalanceRule65E4B83C",
+        "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -3697,6 +3699,9 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroup3FD93178": {
+      "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Balance/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -3713,6 +3718,9 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::EC2::SecurityGroup",
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroupfromBLEAFSICoreBankingprimarySampleMultiRegionAppAlbSecurityGroup1DD7615C3000CCD533CB": {
+      "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
+      ],
       "Properties": {
         "Description": "Load balancer to target",
         "FromPort": 3000,
@@ -3972,6 +3980,7 @@ chmod +x /home/ec2-user/pull.sh",
     "SampleMultiRegionAppCountFargateService2EE1C613": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenercountRuleE41D7BB5",
+        "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -4026,6 +4035,9 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroup12EC9FEF": {
+      "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRole45DC9375",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Count/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -4042,6 +4054,9 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::EC2::SecurityGroup",
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroupfromBLEAFSICoreBankingprimarySampleMultiRegionAppAlbSecurityGroup1DD7615C3000D52D5D86": {
+      "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRole45DC9375",
+      ],
       "Properties": {
         "Description": "Load balancer to target",
         "FromPort": 3000,
@@ -4342,6 +4357,8 @@ chmod +x /home/ec2-user/pull.sh",
     "SampleMultiRegionAppTransactionFargateServiceC2F48BC5": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenertransactionRuleD04F551A",
+        "SampleMultiRegionAppTransactionTaskTaskRoleDefaultPolicy89E5314C",
+        "SampleMultiRegionAppTransactionTaskTaskRole209E6E33",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -4396,6 +4413,10 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppTransactionFargateServiceSecurityGroupAAC95742": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionTaskTaskRoleDefaultPolicy89E5314C",
+        "SampleMultiRegionAppTransactionTaskTaskRole209E6E33",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Transaction/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -4412,6 +4433,10 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::EC2::SecurityGroup",
     },
     "SampleMultiRegionAppTransactionFargateServiceSecurityGroupfromBLEAFSICoreBankingprimarySampleMultiRegionAppAlbSecurityGroup1DD7615C30004DA9333E": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionTaskTaskRoleDefaultPolicy89E5314C",
+        "SampleMultiRegionAppTransactionTaskTaskRole209E6E33",
+      ],
       "Properties": {
         "Description": "Load balancer to target",
         "FromPort": 3000,
@@ -4745,6 +4770,10 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::IAM::Policy",
     },
     "SampleMultiRegionAppTransactionWorkerFargateServiceCAD6D2BF": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleDefaultPolicy44090D01",
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleCC299E7B",
+      ],
       "Properties": {
         "CapacityProviderStrategy": [
           {
@@ -4789,6 +4818,10 @@ chmod +x /home/ec2-user/pull.sh",
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppTransactionWorkerFargateServiceSecurityGroup8D963150": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleDefaultPolicy44090D01",
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleCC299E7B",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/TransactionWorker/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -6591,7 +6624,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "f9346b940b724b094a16ca051c017799995fa93df6da38a0539bf7c000fee50a.zip",
+          "S3Key": "c56527323fe165e19e5c38b88f77270ba67c06d0fd17823264a8e1268ef9ce50.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -7366,7 +7399,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -8647,6 +8680,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "DependsOn": [
         "ECSAppcontainerAppSampleBaseAlbhttpEcsAppGroup5462138A",
         "ECSAppcontainerAppSampleBaseAlbhttp258CB6B9",
+        "ECSAppcontainerAppSampleBaseEcsServiceTaskRole91D7335C",
         "ECSAppcrossRegionSsmParamParametersMyHandlerDC24C932",
         "ECSAppcrossRegionSsmParamParametersMyHandlerServiceRoleDefaultPolicy5686E82A",
         "ECSAppcrossRegionSsmParamParametersMyHandlerServiceRole8C71EE9D",
@@ -9246,7 +9280,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -9860,6 +9894,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     "SampleMultiRegionAppBalanceFargateServiceB3CE9C1E": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenerbalanceRule65E4B83C",
+        "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -9914,6 +9949,9 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroup3FD93178": {
+      "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Balance/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -9930,6 +9968,9 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::EC2::SecurityGroup",
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroupfromBLEAFSICoreBankingsecondarySampleMultiRegionAppAlbSecurityGroup550DBC73300093CCBB3A": {
+      "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
+      ],
       "Properties": {
         "Description": "Load balancer to target",
         "FromPort": 3000,
@@ -10380,6 +10421,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     "SampleMultiRegionAppCountFargateService2EE1C613": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenercountRuleE41D7BB5",
+        "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -10434,6 +10476,9 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroup12EC9FEF": {
+      "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRole45DC9375",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Count/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -10450,6 +10495,9 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::EC2::SecurityGroup",
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroupfromBLEAFSICoreBankingsecondarySampleMultiRegionAppAlbSecurityGroup550DBC733000E3B3303A": {
+      "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRole45DC9375",
+      ],
       "Properties": {
         "Description": "Load balancer to target",
         "FromPort": 3000,
@@ -10944,6 +10992,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     "SampleMultiRegionAppTransactionFargateServiceC2F48BC5": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenertransactionRuleD04F551A",
+        "SampleMultiRegionAppTransactionTaskTaskRoleDefaultPolicy89E5314C",
+        "SampleMultiRegionAppTransactionTaskTaskRole209E6E33",
       ],
       "Properties": {
         "CapacityProviderStrategy": [
@@ -10998,6 +11048,10 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppTransactionFargateServiceSecurityGroupAAC95742": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionTaskTaskRoleDefaultPolicy89E5314C",
+        "SampleMultiRegionAppTransactionTaskTaskRole209E6E33",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Transaction/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -11014,6 +11068,10 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::EC2::SecurityGroup",
     },
     "SampleMultiRegionAppTransactionFargateServiceSecurityGroupfromBLEAFSICoreBankingsecondarySampleMultiRegionAppAlbSecurityGroup550DBC7330004965F1F7": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionTaskTaskRoleDefaultPolicy89E5314C",
+        "SampleMultiRegionAppTransactionTaskTaskRole209E6E33",
+      ],
       "Properties": {
         "Description": "Load balancer to target",
         "FromPort": 3000,
@@ -11347,6 +11405,10 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::IAM::Policy",
     },
     "SampleMultiRegionAppTransactionWorkerFargateServiceCAD6D2BF": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleDefaultPolicy44090D01",
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleCC299E7B",
+      ],
       "Properties": {
         "CapacityProviderStrategy": [
           {
@@ -11391,6 +11453,10 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Type": "AWS::ECS::Service",
     },
     "SampleMultiRegionAppTransactionWorkerFargateServiceSecurityGroup8D963150": {
+      "DependsOn": [
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleDefaultPolicy44090D01",
+        "SampleMultiRegionAppTransactionWorkerTaskTaskRoleCC299E7B",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/TransactionWorker/FargateService/SecurityGroup",
         "SecurityGroupEgress": [
@@ -13133,7 +13199,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",

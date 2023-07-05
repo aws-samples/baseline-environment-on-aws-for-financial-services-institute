@@ -393,6 +393,7 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "DependsOn": [
         "KeycloakKeyCloakContainerSerivceNLBTcpListenerECSTargetGroupFC35EC11",
         "KeycloakKeyCloakContainerSerivceNLBTcpListenerF256879E",
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
       ],
       "Properties": {
         "Cluster": {
@@ -443,6 +444,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::ECS::Service",
     },
     "KeycloakKeyCloakContainerSerivceServiceSecurityGroup633E983C": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "GroupDescription": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Keycloak/KeyCloakContainerSerivce/Service/SecurityGroup",
         "SecurityGroupEgress": [
@@ -473,6 +477,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::EC2::SecurityGroup",
     },
     "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8576002ED39100": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "Description": "kc jgroups-tcp-fd",
         "FromPort": 57600,
@@ -494,6 +501,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
     "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE87600CC01F3E0": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "Description": "kc jgroups-tcp",
         "FromPort": 7600,
@@ -515,6 +525,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
     "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8UDP542002E66FF9A": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "Description": "kc jgroups-udp-fd",
         "FromPort": 54200,
@@ -536,6 +549,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
     "KeycloakKeyCloakContainerSerivceServiceSecurityGroupfromBLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceSecurityGroup79748AE8UDP552001958BD55": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "Description": "kc jgroups-udp",
         "FromPort": 55200,
@@ -557,6 +573,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
     "KeycloakKeyCloakContainerSerivceServiceTaskCountTarget4E91B2A9": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "MaxCapacity": 10,
         "MinCapacity": 2,
@@ -600,6 +619,9 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
       "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
     },
     "KeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScalingBFB05580": {
+      "DependsOn": [
+        "KeycloakKeyCloakContainerSerivceTaskDefTaskRole620A20D1",
+      ],
       "Properties": {
         "PolicyName": "BLEAFSIOpenApiFapiopenapifapiprimaryKeycloakKeyCloakContainerSerivceServiceTaskCountTargetCpuScaling077208DA",
         "PolicyType": "TargetTrackingScaling",
