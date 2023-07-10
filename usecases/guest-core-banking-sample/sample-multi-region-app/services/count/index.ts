@@ -79,7 +79,7 @@ app.put('/count/withdraw', async (req, res, next) => {
   }
 });
 
-// /count/withdraw 処理をキャンセルする保証トランザクション
+// /count/withdraw 処理をキャンセルする補償トランザクション
 app.put('/count/cancel_withdraw', async (req, res, next) => {
   try {
     const accountId = req.headers['x_account_id'];

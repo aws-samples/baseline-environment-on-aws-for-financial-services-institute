@@ -105,7 +105,7 @@ app.put('/balance/withdraw', async (req, res, next) => {
   }
 });
 
-///balance/withdraw 処理をキャンセルする保証トランザクション
+///balance/withdraw 処理をキャンセルする補償トランザクション
 app.put('/balance/cancel_withdraw', async (req, res, next) => {
   try {
     const accountId = req.headers['x_account_id'];
@@ -226,7 +226,7 @@ app.put('/balance/deposit', async (req, res, next) => {
   }
 });
 
-// /balance/deposit 処理をキャンセルする保証トランザクション
+// /balance/deposit 処理をキャンセルする補償トランザクション
 app.put('/balance/cancel_deposit', async (req, res, next) => {
   try {
     const accountId = req.headers['x_account_id'];
