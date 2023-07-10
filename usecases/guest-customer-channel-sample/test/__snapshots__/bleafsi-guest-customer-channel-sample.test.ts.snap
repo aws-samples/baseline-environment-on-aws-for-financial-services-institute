@@ -4428,7 +4428,7 @@ $input.path('$.output')
             #end
         #end
         #set($inputString = "$inputString }")
-
+        
     #end
 
     #if ($includeQueryString)
@@ -4452,7 +4452,7 @@ $input.path('$.output')
         #end
         #set($inputString = "$inputString }")
     #end
-
+    
     #if ($includeAuthorizer)
         #set($inputString = "$inputString, @@authorizer@@:{")
         #foreach($paramName in $context.authorizer.keySet())
