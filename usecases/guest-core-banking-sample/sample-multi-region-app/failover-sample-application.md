@@ -2,6 +2,10 @@
 
 マルチリージョン マイクロサービス・アプリケーションを東京リージョンから大阪リージョンにフェイルオーバーさせるための手順について解説します。
 
+フェイルオーバーの手順全体を理解できるデモ動画を準備していますので、作業を始める前にこちらを参照下さい。
+
+[!['フェールオーバー手順のデモ動画'](./imgs/failover-demo-video.png)](https://youtu.be/D2EdIVoZzr4?t=825)
+
 ## 0. Route53 Application Recovery Controller のための事前準備
 
 AWS 管理コンソール上で Route53 Application Recovery Controller（以後 ARC）にアクセスして、以下の作業を実施します。
@@ -199,34 +203,60 @@ api.example.com.        60      IN      A       10.100.9.84
 
 Aurora のプライマリクラスタを東京から大阪へ切り替えます。
 
-`Planned Failover` または `Unplanned Failover` のいずれかの切り替えを選んで実行して下さい。`Unplanned Failover` の切り戻し方法が不明な場合は `Planned Failover` を選択される事を推奨します。
+`Switchover（旧Planned Failover）` または `Failover（旧Unplanned Failover）` のいずれかの切り替えを選んで実行して下さい。ディザスタリカバリのために使用する`Failover` には Managed と Manaul の 2 種類の方法があり、いずれの方法もリージョン間のレプリケーションのラグによるデータロストが発生する可能性があります。ここでは Managed の手順を解説します。ディザスタリカバリではない、通常のメンテナンスや計画作業の際の切り替えにおいては`Switchover` を使用します。Switchover ではデータのロストは発生しません。
+（参考：[Using switchover or failover in an Amazon Aurora global database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
 
-### [Planned Failover 手順]
+### [Switchover 手順]
 
-- Aurora の Planned Failover を実施し、Aurora グローバルクラスタを東京リージョンから大阪リージョンへ切り替えます  
-  （参考：[Amazon Aurora Global Database のフェイルオーバーを使用する](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
+- Aurora の Switchover を実施し、Aurora グローバルクラスタを東京リージョンから大阪リージョンへ切り替えます  
+  （参考：[Using switchover or failover in an Amazon Aurora global database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
 
   - 管理コンソールから Amazon RDS にアクセス
   - [データベース]を選択して、[core-banking-global-db]（Aurora Global DB）を選択
-  - [アクション]から[グローバルデータベースをフェイルオーバー]を選択
+  - [アクション]から[Switch over or fail over global database]を選択
 
-    <img src="./imgs/failover-001.png" width="50%">
+    <img src="./imgs/switchover-1.png" width="50%">
+
+  - Switchover を選択し、さらに New primary cluseter でスイッチオーバー先のクラスターを選択し、確認ボタンを押す
+
+    <img src="./imgs/switchover-2.png" width="50%">
 
   - フェイルオーバーが開始されるので、完了するまで待つ
 
-    <img src="./imgs/failover-002.png" width="50%">
+    <img src="./imgs/switchover-3.png" width="50%">
 
   - 大阪リージョンの Aurora クラスタが プライマリ になり、ステータスが正常であることを確認
 
-    <img src="./imgs/failover-003.png" width="50%">
+    <img src="./imgs/switchover-4.png" width="50%">
 
-  > - Planned Failover は大阪でも東京でもどちらでも実施可能。また Planned Failover の場合は同期終わってないと Failover できないので、リージョン間の同期が担保される
+  > - Switchover は大阪でも東京でもどちらでも実施可能。また Switchover の場合は同期終わってないと Switchover を開始できないので、リージョン間の同期が担保される
   > - 大阪リージョンのアプリケーションが接続する Aurora のエンドポイントはあらかじめエンドポイント名から”-ro”を取り除いたたものとしている
 
-### [Unplanned Failover 手順]
+### [Failover 手順]
 
-- Aurora の Unplanned Failover を実施し東京リージョンから大阪リージョンへ切り替えます  
-  （参考：[Amazon Aurora Global Database のフェイルオーバーを使用する](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
+- Aurora の Failover を実施し東京リージョンから大阪リージョンへ切り替えます  
+  （参考：[Using switchover or failover in an Amazon Aurora global database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
+
+  - 管理コンソールから Amazon RDS にアクセス
+  - [データベース]を選択して、[core-banking-global-db]（Aurora Global DB）を選択
+  - [アクション]から[Switch over or fail over global database]を選択
+
+    <img src="./imgs/failover-1.png" width="50%">
+
+  - failover を選択し、さらに New primary cluseter でスイッチオーバー先のクラスターを選択し、確認ボタンを押す
+
+    <img src="./imgs/failover-2.png" width="50%">
+
+  - フェイルオーバーが開始されるので、完了するまで待つ
+
+    <img src="./imgs/failover-3.png" width="50%">
+
+  - 大阪リージョンの Aurora クラスタが プライマリ になり、ステータスが正常であることを確認
+
+    <img src="./imgs/failover-4.png" width="50%">
+
+  > - Failover は大阪でも東京でもどちらでも実施可能だが、東京のディザスタからのリカバリの際は東京リージョンが使用不能である可能性があり、その場合は大阪リージョンで実施する。
+  > - 大阪リージョンのアプリケーションが接続する Aurora のエンドポイントはあらかじめエンドポイント名から”-ro”を取り除いたたものとしている
 
 ## 5．大阪リージョンのアプリケーションの開放
 

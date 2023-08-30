@@ -81,15 +81,15 @@ export const StageParameter: StackParameter = {
 
 この設定内容は以下の通りです。
 
-| key              | value                                                                                                                                   |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| envName          | 環境名                                                                                                                                  |
-| customdomainName | AWS API Gateway に設定するカスタムドメイン名                                                                                            |
-| alterdomainName  | AWS CloudFront に設定する代替ドメイン名                                                                                                 |
-| certIdarnApigw   | AWS API Gateway 用サーバー証明書の ARN <br> 例 arn:aws:acm:ap-northeast-1:444412345678:certificate/a92d01bd-8dd3-4b3b-9b66-1d5826288664 |
-| certIdarnCf      | AWS CloudFront 用サーバー証明書の ARN                                                                                                   |
-| env.account      | デプロイ対象のアカウント ID。 profile で指定するアカウントと一致している必要があります                                                  |
-| env.region       | デプロイ対象のリージョン                                                                                                                |
+| key              | value                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| envName          | 環境名                                                                                                                         |
+| customdomainName | AWS API Gateway に設定するカスタムドメイン名                                                                                   |
+| alterdomainName  | AWS CloudFront に設定する代替ドメイン名                                                                                        |
+| certIdarnApigw   | AWS API Gateway 用サーバー証明書の ARN <br> 例 arn:aws:acm:ap-northeast-1:1111111111xxx:certificate/xxxx-xxxx-xxxx-xxxx-xxxxxx |
+| certIdarnCf      | AWS CloudFront 用サーバー証明書の ARN                                                                                          |
+| env.account      | デプロイ対象のアカウント ID。 profile で指定するアカウントと一致している必要があります                                         |
+| env.region       | デプロイ対象のリージョン                                                                                                       |
 
 #### 2-2. ゲストアプリケーションをデプロイする(Local)
 
