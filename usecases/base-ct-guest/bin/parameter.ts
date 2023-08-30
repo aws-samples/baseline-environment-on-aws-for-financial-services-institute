@@ -34,7 +34,7 @@ export const DevParameter: StackParameter = {
     region: 'ap-northeast-3',
   },
   securityNotifyEmail: 'notify-security@example.com',
-  controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:702542056474:key/17bbcb5a-9b91-40a9-b08f-5d9710e40e70',
+  controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:1111111111xxx:key/xxx-xxx-xxx-xxx-xxxxxx',
   cloudTrailBucketName: 'bleafsi-base-sharedlogs-resource-ygxephon83n9',
   targetBuckets: ['bleafsi-base-cloudtrail-bucketaccesslogs0aa7ed48-il7d6f9z75h0'],
 };

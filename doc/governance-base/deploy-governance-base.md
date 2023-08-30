@@ -459,7 +459,7 @@ export const DevParameter: StackParameter = {
     region: 'ap-northeast-3',
   },
   securityNotifyEmail: 'notify-security@example.com',
-  controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:111111111111:key/11111111-2222-3333-4444-555555555555',
+  controlTowerKMSKeyArn: 'arn:aws:kms:ap-northeast-1:1111111111xxx:key/xxx-xxx-xxx-xxx-xxxxxx',
   cloudTrailBucketName: 'bleafsi-base-dev-bucket22222222-xxxxxxxxxxxxx',
   targetBuckets: ['dummy-bucket-name'],
 };
