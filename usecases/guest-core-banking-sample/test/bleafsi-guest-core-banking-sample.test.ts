@@ -148,6 +148,16 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
       '/BLEAFSI-CoreBanking-primary/Nlb/NlbOnlyForTest/Resource',
       [{ id: 'AwsSolutions-ELB2', reason: 'this stack is used for checking the operation' }],
     );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3/ServiceRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
 
     ///// MultiRegion sample App
     NagSuppressions.addResourceSuppressionsByPath(

@@ -16,12 +16,12 @@ BLEA for FSI の AWS アカウントへの導入は CDK（Cloud Development Kit�
 
 以下のランタイムを使用します。各 OS ごとの手順に従いインストールしてください。
 
-- [Node.js](https://nodejs.org/) (>= `14.0.0`)
-  - `npm` (>= `8.1.0`)
+- [Node.js](https://nodejs.org/) (>= `18.17.1`)
+  - `npm` (>= `10.1.0`)
 - [Git](https://git-scm.com/)
-- [CDK](https://github.com/aws/aws-cdk)(>= `v2.18.0`)
+- [CDK](https://github.com/aws/aws-cdk)(>= `v2.86.0`)
 
-npm は workspaces を使用するため 8.1.0 以上が必要です。最新バージョンは以下のようにしてインストールしてください。
+npm の最新バージョンは以下のようにしてインストールしてください。
 
 ```sh
 npm install -g npm

@@ -14,6 +14,8 @@ import { PrivateHostedZone } from './private-hosted-zone';
 import { CrossRegionSsmParamName } from '../shared/constants';
 import { StackParameter, SampleEcsAppParameter, SampleMultiRegionAppParameter } from '../../bin/parameter';
 import { NlbOnlyForTest } from './nlb-only-for-test';
+// ServiceLikedRoleを生成するライブラリ https://constructs.dev/packages/upsert-slr/v/1.0.1?lang=typescript
+import { ServiceLinkedRole } from 'upsert-slr';
 //マルチリージョン 勘定系サンプルアプリ
 import { SampleMultiRegionApp } from '../shared/sample-multi-region-app/app';
 import { SampleAppClient } from '../shared/sample-multi-region-app/app-client';
@@ -32,6 +34,13 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
     super(scope, id, props);
 
     const { notifyEmail, primary, secondary, envName, dbUser, hostedZoneName } = props;
+
+    // ReplicationDynamoDB ServiceLikedRoke を事前に作成（既に存在する場合はスルーされる）
+    // DynamoDbGlobalの作成時に 'AWSServiceLinkedRoleForDynamoDBReplication'が裏側で自動作成されるが、タイミングによりエラーになることがある
+    new ServiceLinkedRole(this, 'ReplicationDynamoDBServiceLinkeRole', {
+      awsServiceName: 'replication.dynamodb.amazonaws.com',
+      description: 'Service linked role for dynamodb global tables',
+    });
 
     // Topic for monitoring guest system
     const monitorPrimaryAlarm = new MonitorAlarm(this, `MonitorAlarm`, { notifyEmail });
