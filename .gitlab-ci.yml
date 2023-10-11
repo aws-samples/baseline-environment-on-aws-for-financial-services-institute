@@ -28,14 +28,14 @@ variables:
   - npm run test --workspaces
 #  - npm run synth:dev --workspaces
 
-build-node14:
+build-node18:
   stage: build
-  image: node:14
+  image: node:18
   script:
     - *node-build
 
-build-node16:
+build-node20:
   stage: build
-  image: node:16
+  image: node:20
   script:
     - *node-build

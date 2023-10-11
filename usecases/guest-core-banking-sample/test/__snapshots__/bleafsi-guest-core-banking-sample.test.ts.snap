@@ -2555,6 +2555,22 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       },
       "Type": "AWS::SSM::Parameter",
     },
+    "ReplicationDynamoDBServiceLinkeRole": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c35E89C93F",
+            "Arn",
+          ],
+        },
+        "awsServiceName": "replication.dynamodb.amazonaws.com",
+        "description": "Service linked role for dynamodb global tables",
+        "waitTimeSeconds": 60,
+      },
+      "Type": "Custom::UpsertServiceLinkedRole",
+      "UpdateReplacePolicy": "Delete",
+    },
     "SampleAppClientBucket4BBBAACF": {
       "DeletionPolicy": "Delete",
       "Properties": {
@@ -5150,6 +5166,81 @@ chmod +x /home/ec2-user/pull.sh",
         "Roles": [
           {
             "Ref": "SampleMultiRegionAppTransactionWorkerTaskTaskRoleCC299E7B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c35E89C93F": {
+      "DependsOn": [
+        "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRoleDefaultPolicy2922032B",
+        "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRole3F877DF6",
+      ],
+      "Properties": {
+        "Code": {
+          "ZipFile": ""use strict";var i=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var p=Object.prototype.hasOwnProperty;var m=(e,s)=>{for(var r in s)i(e,r,{get:s[r],enumerable:!0})},u=(e,s,r,a)=>{if(s&&typeof s=="object"||typeof s=="function")for(let t of d(s))!p.call(e,t)&&t!==r&&i(e,t,{get:()=>s[t],enumerable:!(a=l(s,t))||a.enumerable});return e};var S=e=>u(i({},"__esModule",{value:!0}),e);var y={};m(y,{handler:()=>R});module.exports=S(y);var o=require("@aws-sdk/client-iam"),n=require("timers/promises"),g=new o.IAMClient({}),R=async(e,s)=>{try{switch(e.RequestType){case"Create":console.log(\`trying to create a service linked role for \${e.ResourceProperties.awsServiceName}\`);let r=new o.CreateServiceLinkedRoleCommand({AWSServiceName:e.ResourceProperties.awsServiceName,Description:e.ResourceProperties.description,CustomSuffix:e.ResourceProperties.customSuffix});await g.send(r),console.log("the service linked role created successfully, now waiting for IAM propagation"),await(0,n.setTimeout)(e.ResourceProperties.waitTimeSeconds*1e3);break;case"Update":break;case"Delete":break}await c("SUCCESS",e,s)}catch(r){r instanceof o.InvalidInputException?(console.log(\`The service linked role seems to already exist, skipping the creation... \${r.message}\`),await c("SUCCESS",e,s)):await c("FAILED",e,s,r.message)}},c=async(e,s,r,a)=>{let t=JSON.stringify({Status:e,Reason:a??"See the details in CloudWatch Log Stream: "+r.logStreamName,PhysicalResourceId:r.logStreamName,StackId:s.StackId,RequestId:s.RequestId,LogicalResourceId:s.LogicalResourceId,NoEcho:!1,Data:{}});await(await fetch(s.ResponseURL,{method:"PUT",body:t,headers:{"Content-Type":"","Content-Length":t.length.toString()}})).text()};0&&(module.exports={handler});
+",
+        },
+        "Handler": "index.handler",
+        "MemorySize": 128,
+        "Role": {
+          "Fn::GetAtt": [
+            "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRole3F877DF6",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 180,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRole3F877DF6": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRoleDefaultPolicy2922032B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "iam:CreateServiceLinkedRole",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRoleDefaultPolicy2922032B",
+        "Roles": [
+          {
+            "Ref": "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3ServiceRole3F877DF6",
           },
         ],
       },
