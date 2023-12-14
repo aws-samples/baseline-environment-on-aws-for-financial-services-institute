@@ -7,8 +7,7 @@
 AWS Well-Architected フレームワークは、一般的にすべてのタイプのワークロードに対応するように設計されています。お客様にコンテキストに基づくアドバイスを提供するため、2017 年より Well-Architected「レンズ」の作成を開始しました。
 この「AWS Well-Architected フレームワーク FSI Lens for FISC」では、FISC 安全対策基準に沿って、回復力、セキュリティ、および運用パフォーマンスを促進する金融サービス業界 (FSI) のワークロードを設計、デプロイ、設計する方法に焦点を当てています。
 
-金融サービス業界の特性に依存しない、一般的なベストプラクティスについては AWS Well-Architected Framework も併せてご参照ください。
-AWS Well-Architected Framework FSI Lens for FISC の各項目において、参照すべき AWS Well-Architected Framework については[こちら](./wa-list-table.md)の対応表をご参照ください。
+金融サービス業界の特性に依存しない、一般的なベストプラクティスについては AWS Well-Architected Framework も併せてご参照ください。FISC 安全対策基準・解説書の各実務基準において、参照すべき AWS Well-Architected Framework、AWS Well-Architected フレームワーク FSI Lens for FISC については[こちら](./wa-list-table.md)の対応表をご参照ください。
 
 なお、FISC 安全対策基準には適合制度がありません。よって本レンズが適合を保証するものではありません。業務アプリケーションを含めて各社での安全対策基準のチェックを実施していただくことを前提に本レンズをご利用ください。
 

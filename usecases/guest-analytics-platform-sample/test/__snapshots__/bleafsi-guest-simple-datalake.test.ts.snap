@@ -5879,7 +5879,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           },
         ],
         "SourceObjectKeys": [
-          "1ca8a1d86cc212b0135422f5b57db6f99bf948b4becf37b4610659f909acf4b2.zip",
+          "7a310fab39234778c3495b8b1e6b5909f1b8506e6d32dc13f92c917bee51afbb.zip",
         ],
       },
       "Type": "Custom::CDKBucketDeployment",

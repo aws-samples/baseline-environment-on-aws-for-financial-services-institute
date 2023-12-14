@@ -77,15 +77,16 @@ df_sum_balance_all = df_joined_customeraccount.groupBy(
 ).agg(sum("balance").alias("sum_balance_all"))
 df_sum_balance_all = df_sum_balance_all.alias("df_sum_balance_all")
 
+
 df_balance_summary = df_joined_customeraccount.groupBy("ma_br_num", "ma_account_num").agg(
     sum("balance").alias("sum_balance_all"),
-    sum(when(col("ma_acct_code") == "0001", col("balance"))).alias(
+    sum(when(col("df_max_trx_timestamp.acct_code") == "0001", col("balance"))).alias(
         "sum_balance_ordinary"),
-    sum(when(col("ma_acct_code") == "0002", col("balance"))).alias(
+    sum(when(col("df_max_trx_timestamp.acct_code") == "0002", col("balance"))).alias(
         "sum_balance_checking"),
-    sum(when(col("ma_acct_code") == "0003", col("balance"))).alias(
+    sum(when(col("df_max_trx_timestamp.acct_code") == "0003", col("balance"))).alias(
         "sum_balance_saving"),
-    sum(when(col("ma_acct_code") == "0004", col("balance"))).alias(
+    sum(when(col("df_max_trx_timestamp.acct_code") == "0004", col("balance"))).alias(
         "sum_balance_notice")
 )
 
