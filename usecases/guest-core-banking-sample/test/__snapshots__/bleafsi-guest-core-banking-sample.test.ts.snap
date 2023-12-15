@@ -3806,7 +3806,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:3503b7ad70d10f5be4a31654feb2b8620c5c94b2b0a1a9c3698716a7afec06d8",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:49f62bc4feea0b2f6b71a57e215fda2b592729d4ea72f9cbedd442d44ddfe6fd",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4142,7 +4142,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:60fccd43d2b1fbc7ef7c5bc465ffd7c9a160f040a3a95150acc4adde0b2bbcec",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:f5f66b2ba51bb772f9fa7a783d339cf5d0049d2324b78bfd281016544f5b3510",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4534,7 +4534,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:8d0beda8d44238b45d54e295929887ec151f325d4fd9f1236b40840d2cd5a390",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:24f3a17057cb41cd3d7a7a965944fa718bfa07bef2c913dc2f490d8d05ff94c5",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4926,7 +4926,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:8d0beda8d44238b45d54e295929887ec151f325d4fd9f1236b40840d2cd5a390",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:24f3a17057cb41cd3d7a7a965944fa718bfa07bef2c913dc2f490d8d05ff94c5",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -10131,7 +10131,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:6b47c3d59fd58873480ca7899139a2ea49871744ef2310c7812c39f41e140ab0",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:9c57baf0602c944ef3059c86549c278f07f210b704056cc2e0bda95f395b47f1",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -10658,7 +10658,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:dfe6db1951804bebe1f267a9255a7335f5d0706e77981e7d84bfc7f8611a4dfb",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:6b3d0a501cb2ba5492520fd170ffd591f34c0911e1003e02453e4d9fb27c9eb3",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -11244,7 +11244,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:54c52aa0a6ab9d11c108502a229bdde6b704994c7311e8ca647ac39fcc843cca",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:86953b1b05de3079e45a580d43f73b23da2cd4ad2d6b927d7baf05bcd75d3211",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -11636,7 +11636,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:54c52aa0a6ab9d11c108502a229bdde6b704994c7311e8ca647ac39fcc843cca",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:86953b1b05de3079e45a580d43f73b23da2cd4ad2d6b927d7baf05bcd75d3211",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",

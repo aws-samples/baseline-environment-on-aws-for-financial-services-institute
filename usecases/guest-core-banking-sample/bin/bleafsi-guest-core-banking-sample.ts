@@ -88,7 +88,9 @@ const ProdSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-se
 // Tagging "Environment" tag to all resources in this app
 const envTagName = 'Environment';
 
-cdk.Tags.of(DevPrimaryAppStack).add(envTagName, DevParameter.envName);
+cdk.Tags.of(DevPrimaryAppStack).add(envTagName, DevParameter.envName, {
+  excludeResourceTypes: ['AWS::EC2::TransitGatewayAttachment'],
+});
 cdk.Tags.of(DevSecondaryAppStack).add(envTagName, DevParameter.envName);
 
 //cdk.Tags.of(StagePrimaryAppStack).add(envTagName, StageParameter.envName);
