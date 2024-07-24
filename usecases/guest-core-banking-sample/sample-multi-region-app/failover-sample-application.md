@@ -1,76 +1,6 @@
 # マルチリージョン対応 マイクロサービス サンプルアプリケーションのフェイルオーバー手順
 
-マルチリージョン マイクロサービス・アプリケーションを東京リージョンから大阪リージョンにフェイルオーバーさせるための手順について解説します。
-
-フェイルオーバーの手順全体を理解できるデモ動画を準備していますので、作業を始める前にこちらを参照下さい。
-
-[!['フェールオーバー手順のデモ動画'](./imgs/failover-demo-video.png)](https://youtu.be/D2EdIVoZzr4?t=825)
-
-## 0. Route53 Application Recovery Controller のための事前準備
-
-AWS 管理コンソール上で Route53 Application Recovery Controller（以後 ARC）にアクセスして、以下の作業を実施します。
-
-- 最初に `クラスタ` を作成する
-
-  - 名前: ARC-CoreBanking
-  - グローバルに展開される５つのエンドポイントが作成される。切り替えの時にはこのいずれかのエンドポイントを使用することができる。
-
-  <img src="./imgs/arc-001.png" width="70%">
-
-- ルーティングコントロール を 2 つ作成する（東京リージョンと大阪リージョン用)
-
-  - クラスタ
-    - クラスタ名: `ARC-CoreBanking`
-  - コントロールパネル
-    - 既存のコントロールパネルに追加
-    - コントロールパネル名: `DefaultControlPanel`
-  - 東京リージョン用
-    - 名前: rc-tokyo
-    - ルーティングコントロールの状態: オン
-  - 大阪リージョン用
-    - 名前: rc-osaka
-    - ルーティングコントロールの状態: オフ
-
-  <img src="./imgs/arc-002.png" width="70%">
-
-- 各 ルーティングコントロール に対して ヘルスチェック を作成する（東京リージョンと大阪リージョン用)
-
-  - `ルーティング制御がオフの場合、ヘルスチェックは正常です。` はチェックしない
-  - 東京リージョン用
-    - 名前: hc-tokyo
-  - 大阪リージョン用
-    - 名前: hc-osaka
-
-  > ヘルスチェック は ルーティングコントロール の詳細画面から作成できます
-
-  <img src="./imgs/arc-003.png" width="50%">
-
-- Route 53 プライベートホストゾーン に各リージョンの ALB 向けのエイリアスを作成する
-
-  - 対象 プライベート ホストゾーン: example.com
-  - 東京リージョン用
-
-    - レコード名: api
-    - レコードタイプ: A (Alias)
-    - トラフィックのルーティング先: 作成済みの東京リージョンの ALB インスタンス
-    - ルーティングポリシー: フェイルオーバー
-    - フェイルオーバーレコードタイプ: プライマリ
-    - ヘルスチェック ID: 事前に作成済みの東京リージョン向けの ヘルスチェック
-    - レコード ID: tokyo
-
-    <img src="./imgs/arc-004.png" width="70%">
-
-  - 大阪リージョン用
-
-    - レコード名: api
-    - レコードタイプ: A (Alias)
-    - トラフィックのルーティング先: 作成済みの大阪リージョンの ALB インスタンス
-    - ルーティングポリシー: フェイルオーバー
-    - フェイルオーバーレコードタイプ: セカンダリ
-    - ヘルスチェック ID: 事前に作成済みの大阪リージョン向けの ヘルスチェック
-    - レコード ID: osaka
-
-<img src="./imgs/arc-005.png" width="50%">
+マルチリージョン マイクロサービス・アプリケーションを東京リージョンから大阪リージョンにフェイルオーバーおよびフェイルバックするための手順を示します。
 
 ## 1. Locust でサンプルアプリケーションにリクエストを送る
 
@@ -181,152 +111,32 @@ api.example.com.        60      IN      A       10.100.9.84
 
   <img src="./imgs/fis-002.png" width="50%">
 
-## 3． 東京リージョンのアプリケーションの閉塞
+## 3． Step Functions による大阪リージョンへのフェイルオーバー
 
-アプリケーションおよび DB のリージョン切り替えに先立ち、アプリケーションを閉塞（クライアントからのリクエストをつけ付けない状態）させます。
+東京リージョンから大阪リージョンへアプリケーションをフェイルオーバーするためのステートマシンを大阪リージョンで実行します。このワークフローにより以下が実行されます。
 
-[手順]
-
-- 東京リージョンの DynamoDB でアプリケーション閉塞フラグを立てる
-
-  ```shell
-  aws dynamodb put-item --region ap-northeast-1 --table-name [table-name] --item '{ "PK": { "S": "stopFlag" }, "value": { "S": "true" } }' --profile ct-guest-sso
-  ```
-
-  > `[table-mame]`は確認した 東京リージョンの DynamoDB のテーブル名に置き換えて下さい
-
-- 負荷ツールのチャートおよび Failure の統計にてトランザクションが 100%失敗することを確認（503 がカウントアップされます）
-
-<img src="./imgs/fis-003.png" width="50%">
-
-## 4．Aurora のリージョンフェイルオーバー
-
-Aurora のプライマリクラスタを東京から大阪へ切り替えます。
-
-`Switchover（旧Planned Failover）` または `Failover（旧Unplanned Failover）` のいずれかの切り替えを選んで実行して下さい。ディザスタリカバリのために使用する`Failover` には Managed と Manaul の 2 種類の方法があり、いずれの方法もリージョン間のレプリケーションのラグによるデータロストが発生する可能性があります。ここでは Managed の手順を解説します。ディザスタリカバリではない、通常のメンテナンスや計画作業の際の切り替えにおいては`Switchover` を使用します。Switchover ではデータのロストは発生しません。
-（参考：[Using switchover or failover in an Amazon Aurora global database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
-
-### [Switchover 手順]
-
-- Aurora の Switchover を実施し、Aurora グローバルクラスタを東京リージョンから大阪リージョンへ切り替えます  
-  （参考：[Using switchover or failover in an Amazon Aurora global database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
-
-  - 管理コンソールから Amazon RDS にアクセス
-  - [データベース]を選択して、[core-banking-global-db]（Aurora Global DB）を選択
-  - [アクション]から[Switch over or fail over global database]を選択
-
-    <img src="./imgs/switchover-1.png" width="50%">
-
-  - Switchover を選択し、さらに New primary cluseter でスイッチオーバー先のクラスターを選択し、確認ボタンを押す
-
-    <img src="./imgs/switchover-2.png" width="50%">
-
-  - フェイルオーバーが開始されるので、完了するまで待つ
-
-    <img src="./imgs/switchover-3.png" width="50%">
-
-  - 大阪リージョンの Aurora クラスタが プライマリ になり、ステータスが正常であることを確認
-
-    <img src="./imgs/switchover-4.png" width="50%">
-
-  > - Switchover は大阪でも東京でもどちらでも実施可能。また Switchover の場合は同期終わってないと Switchover を開始できないので、リージョン間の同期が担保される
-  > - 大阪リージョンのアプリケーションが接続する Aurora のエンドポイントはあらかじめエンドポイント名から”-ro”を取り除いたたものとしている
-
-### [Failover 手順]
-
-- Aurora の Failover を実施し東京リージョンから大阪リージョンへ切り替えます  
-  （参考：[Using switchover or failover in an Amazon Aurora global database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html)）
-
-  - 管理コンソールから Amazon RDS にアクセス
-  - [データベース]を選択して、[core-banking-global-db]（Aurora Global DB）を選択
-  - [アクション]から[Switch over or fail over global database]を選択
-
-    <img src="./imgs/failover-1.png" width="50%">
-
-  - failover を選択し、さらに New primary cluseter でスイッチオーバー先のクラスターを選択し、確認ボタンを押す
-
-    <img src="./imgs/failover-2.png" width="50%">
-
-  - フェイルオーバーが開始されるので、完了するまで待つ
-
-    <img src="./imgs/failover-3.png" width="50%">
-
-  - 大阪リージョンの Aurora クラスタが プライマリ になり、ステータスが正常であることを確認
-
-    <img src="./imgs/failover-4.png" width="50%">
-
-  > - Failover は大阪でも東京でもどちらでも実施可能だが、東京のディザスタからのリカバリの際は東京リージョンが使用不能である可能性があり、その場合は大阪リージョンで実施する。
-  > - 大阪リージョンのアプリケーションが接続する Aurora のエンドポイントはあらかじめエンドポイント名から”-ro”を取り除いたたものとしている
-
-## 5．大阪リージョンのアプリケーションの開放
-
-大阪リージョン側おアプリケーションを開放状態（クライアントからのリクエストをつけ付ける状態）にします。
-
-[手順]
-
-- 大阪リージョンの DynamoDB でアプリケーション閉塞フラグを開放フラグに変更する
+- 東京リージョンの DynamoDB でアプリケーション閉塞フラグを TRUE に変更してアプリケーションを閉塞（クライアントからのリクエストをつけ付けない状態）させます。
+- Route53 Application Recovery Controller(ARC) を使用してユーザリクエストを大阪リージョンの ALB へルーティングさせます。
+- Aurora の Switchover を実施し、Aurora グローバルクラスタを東京リージョンから大阪リージョンへ切り替えます。
+- 大阪リージョンの DynamoDB でアプリケーション閉塞フラグを FALSE に変更してアプリケーションを開放（クライアントからのリクエストをつけ付ける状態）します。
 
   ```shell
-  aws dynamodb put-item --region ap-northeast-3 --table-name [table-name] --item '{ "PK": { "S": "stopFlag" }, "value": { "S": "false" } }' --profile ct-guest-sso
+  aws stepfunctions start-execution --state-machine-arn <ステートマシンのARN> --region ap-northeast-3 --profile ct-guest-sso
   ```
 
-  > `[table-mame]`は確認した 大阪リージョンの DynamoDB のテーブル名に置き換えて下さい
+<ステートマシンの ARN>の部分には大阪リージョンの Stepfunctions にて”FailoverStateMachine”で始まるステートマシンを見つけてその ARN を使用してください。
 
-- 大阪リージョンの ALB へ試験トランザクションを送信し、正常に処理されることを確認する
+## 4． Step Functions による東京リージョンへのフェイルバック
 
-  ローカル端末から下記のコマンドを実行して、EC2 bastion host にリモート接続します。
+大阪リージョンから東京リージョンへアプリケーションをフェイルバックするためのステートマシンを実行します。このワークフローにより以下が実行されます。
 
-  ```sh
-  aws ssm start-session --target <EC2インスタンスID> --profile ct-guest-sso
-  ```
-
-  > <EC2 インスタンス ID>は確認した bastion host のインスタンス ID に置き換えて下さい 例 i-0xxxx
-
-  下記の REST リクエストを実行して、リクエストが正常に処理されることを確認します。以下はテスト送信の例
+- 大阪リージョンの DynamoDB でアプリケーション閉塞フラグを TRUE に変更しアプリケーションを閉塞（クライアントからのリクエストをつけ付けない状態）させます。
+- Route53 Application Recovery Controller(ARC) を使用してユーザリクエストを東京リージョンの ALB へルーティングさせます。
+- Aurora の Switchover を実施し、Aurora グローバルクラスタを大阪リージョンから東京リージョンへ切り替えます。
+- 東京リージョンの DynamoDB でアプリケーション閉塞フラグを FALSE に変更してアプリケーションを開放（クライアントからのリクエストをつけ付ける状態）します。
 
   ```shell
-  # deposit
-  curl -X POST \
-   'http://api.ap-northeast-3.example.com/transaction/deposit' \
-    --header 'X_ACCOUNT_ID: 1231221' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-       "quantity": 1000
-    }'
-
-  # withdraw
-  curl -X POST \
-   'http://api.ap-northeast-3.example.com/transaction/withdraw' \
-    --header 'X_ACCOUNT_ID: 1231221' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-     "quantity": 100
-    }'
-
-  # get balance
-  curl -X GET \
-   'http://api.ap-northeast-3.example.com/balance' \
-   --header 'X_ACCOUNT_ID: 1231221'
-
+  aws stepfunctions start-execution --state-machine-arn <ステートマシンのARN> --region ap-northeast-3 --profile ct-guest-sso
   ```
 
-## 6. ユーザトラフィックを大阪リージョンへルーティング
-
-Route53 Application Recovery Controller(ARC) を使用してユーザトラフィックを大阪リージョンの ALB へルーティングさせます。
-
-[手順]
-
-AWS 管理コンソール上で Route53 ARC にアクセスして、以下の作業を実施します。
-
-- コントロールパネル `DefaultControlPanel`を選択して詳細画面を開く
-- ルーティングコントロール `rc-tokyo`を選択して、[ルーティングコントロールの状態の変更]をクリック
-  - 状態を `オフ`に変更
-- ルーティングコントロール `rc-osaka`を選択して、[ルーティングコントロールの状態の変更]をクリック
-
-  - 状態を `オン`に変更
-
-  <img src="./imgs/failover-004.png" width="70%">
-
-- Locust 負荷ツールにてトランザクションが正常に処理できるように変わることを確認
-
-  <img src="./imgs/failover-005.png" width="20%">
+<ステートマシンの ARN>の部分には大阪リージョンの Stepfunctions にて”FailbackStateMachine”で始まるステートマシンを見つけてその ARN を使用してください。

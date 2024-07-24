@@ -10,6 +10,7 @@ import { Construct } from 'constructs';
 import { SampleAppService } from './service';
 import { IAuroraGlobalCluster } from '../aurora-cluster';
 import { SampleAppWorker } from './worker';
+import { Canary } from './canary';
 
 export interface SampleMultiRegionAppProps {
   balanceDatabase: IAuroraGlobalCluster;
@@ -23,6 +24,9 @@ export interface SampleMultiRegionAppProps {
  * マルチリージョン サンプルアプリケーション用のECS Fargateコンテナ、Application LBを作成
  */
 export class SampleMultiRegionApp extends Construct {
+  public readonly paramTable: Table;
+  public readonly alb: ApplicationLoadBalancer;
+
   constructor(scope: Construct, id: string, props: SampleMultiRegionAppProps) {
     super(scope, id);
 
@@ -36,6 +40,7 @@ export class SampleMultiRegionApp extends Construct {
       billingMode: BillingMode.PAY_PER_REQUEST,
       removalPolicy: RemovalPolicy.DESTROY,
     });
+    this.paramTable = paramTable;
 
     new CfnOutput(this, 'ParamTableName', { value: paramTable.tableName });
 
@@ -45,6 +50,7 @@ export class SampleMultiRegionApp extends Construct {
         subnetGroupName: 'Protected',
       }),
     });
+    this.alb = alb;
 
     const recordSet = new RecordSet(this, 'MyRecordSet', {
       recordType: RecordType.A,
@@ -77,6 +83,7 @@ export class SampleMultiRegionApp extends Construct {
       listenerPath: 'balance',
       priority: 1,
       auroraDatabase: props.balanceDatabase,
+      enableAdot: true,
     });
 
     //Countサービスの起動
@@ -87,6 +94,7 @@ export class SampleMultiRegionApp extends Construct {
       listenerPath: 'count',
       priority: 2,
       auroraDatabase: props.balanceDatabase,
+      enableAdot: true,
     });
 
     //Transactionサービスの起動
@@ -98,6 +106,7 @@ export class SampleMultiRegionApp extends Construct {
       priority: 3,
       mainTableName: props.mainDynamoDbTableName,
       paramTable,
+      enableAdot: true,
     });
 
     //Transaction Workerサービスの起動
@@ -108,6 +117,13 @@ export class SampleMultiRegionApp extends Construct {
       paramTable,
       balanceEndpoint: `http://${alb.loadBalancerDnsName}/balance`,
       countEndpoint: `http://${alb.loadBalancerDnsName}/count`,
+      enableAdot: true,
+    });
+
+    //CloudWatch syntheticsの設定
+    new Canary(this, 'Canary', {
+      vpc: vpc,
+      targetApiUrl: `http://api.${props.hostedZone.zoneName}`,
     });
   }
 }

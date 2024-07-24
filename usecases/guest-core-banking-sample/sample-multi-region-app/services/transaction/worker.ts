@@ -1,3 +1,5 @@
+import './lib/otel';
+import { trace } from '@opentelemetry/api';
 import { QueryCommand, TransactWriteCommand } from '@aws-sdk/lib-dynamodb';
 import { DummySk, MainTableName, ddbClient } from './lib/dynamodb';
 import { setTimeout } from 'timers/promises';
@@ -7,6 +9,8 @@ import { getStopFlag } from './lib/params';
 /**
  * 仕掛かり中でペンディング状態となっているトランザクションを処理する常駐サービス
  */
+
+const tracer = trace.getTracer('transaction');
 
 const BalanceEndpoint = process.env.BALANCE_ENDPOINT || 'http://localhost:3001/balance';
 const CountEndpoint = process.env.COUNT_ENDPOINT || 'http://localhost:3002/count';
@@ -41,7 +45,10 @@ const run = async () => {
     // Practically we need distributed processing of transactions, but omitting that for now.
     for (const transaction of transactions.Items ?? []) {
       try {
-        await processTransaction(transaction.PK);
+        await tracer.startActiveSpan('process transaction', async (span) => {
+          await processTransaction(transaction.PK).finally(() => span.end());
+        });
+        // https://opentelemetry.io/docs/languages/js/instrumentation/#create-spans
       } catch (e) {
         console.log(e);
       }

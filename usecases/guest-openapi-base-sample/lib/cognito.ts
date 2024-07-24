@@ -51,7 +51,7 @@ export class Cognito extends Construct {
 
     // Create Hello world lambda function
     this.lambdaFunc = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler',
     });

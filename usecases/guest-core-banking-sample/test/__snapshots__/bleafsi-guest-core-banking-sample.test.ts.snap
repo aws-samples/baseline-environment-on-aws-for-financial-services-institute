@@ -101,10 +101,6 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
-    "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
-      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2",
-      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
-    },
   },
   "Resources": {
     "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
@@ -114,7 +110,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "c56527323fe165e19e5c38b88f77270ba67c06d0fd17823264a8e1268ef9ce50.zip",
+          "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -123,7 +119,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 120,
       },
       "Type": "AWS::Lambda::Function",
@@ -251,6 +247,163 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       },
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",
+    },
+    "BackupAWSBackupDefaultServiceRole62616D2E": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "backup.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores",
+              ],
+            ],
+          },
+        ],
+        "Path": "/service-role/",
+        "RoleName": "AWSBackupDefaultServiceRole",
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BackupBackupPlan6FE80559": {
+      "Properties": {
+        "BackupPlan": {
+          "BackupPlanName": "BackupPlan",
+          "BackupPlanRule": [
+            {
+              "CompletionWindowMinutes": 480,
+              "EnableContinuousBackup": true,
+              "Lifecycle": {
+                "DeleteAfterDays": 10,
+              },
+              "RuleName": "BackupPlanRule0",
+              "ScheduleExpression": "cron(0 16 * * ? *)",
+              "StartWindowMinutes": 60,
+              "TargetBackupVault": {
+                "Fn::GetAtt": [
+                  "BackupBackupVault4EE1ADCE",
+                  "BackupVaultName",
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Backup::BackupPlan",
+    },
+    "BackupBackupSelectionE620CB8C": {
+      "Properties": {
+        "BackupPlanId": {
+          "Fn::GetAtt": [
+            "BackupBackupPlan6FE80559",
+            "BackupPlanId",
+          ],
+        },
+        "BackupSelection": {
+          "IamRoleArn": {
+            "Fn::GetAtt": [
+              "BackupBackupSelectionRoleCC3073D1",
+              "Arn",
+            ],
+          },
+          "Resources": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition",
+                  },
+                  ":rds:ap-northeast-1:111111111111:cluster:",
+                  {
+                    "Ref": "DBAuroraPgAuroraCluster654F0C65",
+                  },
+                ],
+              ],
+            },
+            {
+              "Fn::GetAtt": [
+                "transactionDBDynamoDb",
+                "Arn",
+              ],
+            },
+          ],
+          "SelectionName": "BackupSelection",
+        },
+      },
+      "Type": "AWS::Backup::BackupSelection",
+    },
+    "BackupBackupSelectionRoleCC3073D1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "backup.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BackupBackupVault4EE1ADCE": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BackupVaultName": "BLEAFSICoreBankingprimaryBackupBackupVaultB2DFAF93",
+        "LockConfiguration": {
+          "MaxRetentionDays": 10,
+          "MinRetentionDays": 1,
+        },
+      },
+      "Type": "AWS::Backup::BackupVault",
+      "UpdateReplacePolicy": "Retain",
     },
     "ContainerImagesampleecsappproject3CC5178F": {
       "Properties": {
@@ -486,7 +639,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""}}",
+              ""},"logApiResponseData":true}",
             ],
           ],
         },
@@ -535,7 +688,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd.zip",
+          "S3Key": "2d56e153cac88d3e0c2f842e8e6f6783b8725bf91f95e0673b4725448a56e96d.zip",
         },
         "Environment": {
           "Variables": {
@@ -684,7 +837,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "d03a1e3909f7dea25696e7cc8c98e4f045bfc5c0717679fad2ffa98fccadcf81.zip",
+          "S3Key": "246cb27aa0cb552c81fdca061092d0905aa4d2529e8b52b5598c069f18be51d7.zip",
         },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
@@ -694,7 +847,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -761,7 +914,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip",
+          "S3Key": "2eb6a831b107939f63cfebf68e6316e1a40f79fc99cae0fee9b333bac8d29bc4.zip",
         },
         "Description": {
           "Fn::Join": [
@@ -783,7 +936,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -1606,6 +1759,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
           "Ref": "ECSAppcontainerAppSampleBaseCluster569A303B",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -2105,7 +2263,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -2124,7 +2282,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -2161,7 +2319,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8.zip",
+          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -2170,7 +2328,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -2665,6 +2824,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2711,7 +2871,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Content": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+          "S3Key": "3322b7049fb0ed2b7cbb644a2ada8d1116ff80c32dca89e6ada846b5de26f961.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -2735,7 +2895,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
           "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
         ],
         "SourceObjectKeys": [
-          "bf8a2ccb4881373f86f63004ddcc2d821a21603658ad5e7fce2b4085efe19d62.zip",
+          "a0c01a498f7dbc84fb9293e1f4541a90dd184d7d0e4c8308188e6ee716ea1f5a.zip",
         ],
       },
       "Type": "Custom::CDKBucketDeployment",
@@ -2763,9 +2923,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
         "IamInstanceProfile": {
           "Ref": "SampleAppClientInstanceInstanceProfile08038138",
         },
-        "ImageId": {
-          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter",
-        },
+        "ImageId": "dummy-value-for-/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64",
         "InstanceType": "t3.nano",
         "SecurityGroupIds": [
           {
@@ -2803,7 +2961,10 @@ echo 'aws s3 sync s3://",
                 },
                 "/client /home/ec2-user/client' >> /home/ec2-user/pull.sh
 chown ec2-user /home/ec2-user/pull.sh
-chmod +x /home/ec2-user/pull.sh",
+chmod +x /home/ec2-user/pull.sh
+sudo -u ec2-user bash -c "cd /home/ec2-user/ && ./pull.sh"
+sudo -u ec2-user bash -c "cd /home/ec2-user/client && docker build -t client ."
+sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -p 8089:8089 client"",
               ],
             ],
           },
@@ -3379,6 +3540,12 @@ chmod +x /home/ec2-user/pull.sh",
           "Ref": "SampleAppClientVpc8EC27D63",
         },
         "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/SampleAppClient/Vpc/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
         "TrafficType": "ALL",
       },
       "Type": "AWS::EC2::FlowLog",
@@ -3660,6 +3827,7 @@ chmod +x /home/ec2-user/pull.sh",
     "SampleMultiRegionAppBalanceFargateServiceB3CE9C1E": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenerbalanceRule65E4B83C",
+        "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
         "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
@@ -3673,6 +3841,11 @@ chmod +x /home/ec2-user/pull.sh",
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -3716,6 +3889,7 @@ chmod +x /home/ec2-user/pull.sh",
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroup3FD93178": {
       "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
         "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
@@ -3735,6 +3909,7 @@ chmod +x /home/ec2-user/pull.sh",
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroupfromBLEAFSICoreBankingprimarySampleMultiRegionAppAlbSecurityGroup1DD7615C3000CCD533CB": {
       "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
         "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
@@ -3806,7 +3981,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:49f62bc4feea0b2f6b71a57e215fda2b592729d4ea72f9cbedd442d44ddfe6fd",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:0363d670a58d9e40bffbd4862c36c66e1954524874211c45e5924fde3ab54ac2",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -3853,6 +4028,58 @@ chmod +x /home/ec2-user/pull.sh",
                     ],
                   ],
                 },
+              },
+            ],
+          },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:e0e6932793bb09f17e42f94c0f99ce6a12b97edbf4f23a9fffbd265ff7d4d39a",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppBalanceTaskotelContainerLogGroup920DABE0",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
+                "Protocol": "tcp",
               },
             ],
           },
@@ -3953,6 +4180,19 @@ chmod +x /home/ec2-user/pull.sh",
                 "Ref": "DBAuroraPgAuroraClusterSecretAttachment79578D24",
               },
             },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppBalanceTaskotelContainerLogGroup920DABE0",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -3960,6 +4200,39 @@ chmod +x /home/ec2-user/pull.sh",
         "Roles": [
           {
             "Ref": "SampleMultiRegionAppBalanceTaskExecutionRole36D89483",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
+        "Roles": [
+          {
+            "Ref": "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
           },
         ],
       },
@@ -3982,6 +4255,260 @@ chmod +x /home/ec2-user/pull.sh",
       },
       "Type": "AWS::IAM::Role",
     },
+    "SampleMultiRegionAppBalanceTaskotelContainerLogGroup920DABE0": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleMultiRegionAppCanaryArtifactsBucketD01DC908": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleMultiRegionAppCanaryArtifactsBucketPolicy5DEF9D6A": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "SampleMultiRegionAppCanaryD0102896": {
+      "Properties": {
+        "ArtifactS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+              },
+            ],
+          ],
+        },
+        "Code": {
+          "Handler": "index.handler",
+          "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
+          "S3Key": "788a63e18e6631079273ca4cc3f10184ed0aace8ff705d116fb6eba96d48971b.zip",
+        },
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "SampleMultiRegionAppCanaryServiceRoleECF5668F",
+            "Arn",
+          ],
+        },
+        "Name": "bleafsicorebank933da3",
+        "RunConfig": {
+          "EnvironmentVariables": {
+            "BASE_URL": "http://api.example.com",
+          },
+        },
+        "RuntimeVersion": "syn-nodejs-puppeteer-7.0",
+        "Schedule": {
+          "DurationInSeconds": "0",
+          "Expression": "rate(1 minute)",
+        },
+        "StartCanaryAfterCreation": true,
+        "VPCConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "SampleMultiRegionAppCanarySecurityGroupD6177105",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+            },
+            {
+              "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+            },
+            {
+              "Ref": "VpcForTgwAttachmentsSubnet1Subnet95D19052",
+            },
+            {
+              "Ref": "VpcForTgwAttachmentsSubnet2SubnetAEDBB0E8",
+            },
+          ],
+          "VpcId": {
+            "Ref": "Vpc8378EB38",
+          },
+        },
+      },
+      "Type": "AWS::Synthetics::Canary",
+    },
+    "SampleMultiRegionAppCanarySecurityGroupD6177105": {
+      "Properties": {
+        "GroupDescription": "Automatic security group for Canary BLEAFSICoreBankingprimarySampleMultiRegionAppCanary38AA3963",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleMultiRegionAppCanaryServiceRoleECF5668F": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "s3:ListAllMyBuckets",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": "s3:GetBucketLocation",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                      "Arn",
+                    ],
+                  },
+                },
+                {
+                  "Action": "s3:PutObject",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                            "Arn",
+                          ],
+                        },
+                        "/*",
+                      ],
+                    ],
+                  },
+                },
+                {
+                  "Action": "cloudwatch:PutMetricData",
+                  "Condition": {
+                    "StringEquals": {
+                      "cloudwatch:namespace": "CloudWatchSynthetics",
+                    },
+                  },
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:CreateLogGroup",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:ap-northeast-1:111111111111:log-group:/aws/lambda/cwsyn-*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "canaryPolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
     "SampleMultiRegionAppCluster9D88E1C2": {
       "Properties": {
         "ClusterSettings": [
@@ -3996,6 +4523,7 @@ chmod +x /home/ec2-user/pull.sh",
     "SampleMultiRegionAppCountFargateService2EE1C613": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenercountRuleE41D7BB5",
+        "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
         "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
@@ -4009,6 +4537,11 @@ chmod +x /home/ec2-user/pull.sh",
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -4052,6 +4585,7 @@ chmod +x /home/ec2-user/pull.sh",
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroup12EC9FEF": {
       "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
         "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
@@ -4071,6 +4605,7 @@ chmod +x /home/ec2-user/pull.sh",
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroupfromBLEAFSICoreBankingprimarySampleMultiRegionAppAlbSecurityGroup1DD7615C3000D52D5D86": {
       "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
         "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
@@ -4142,7 +4677,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:f5f66b2ba51bb772f9fa7a783d339cf5d0049d2324b78bfd281016544f5b3510",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:270abcfd6d121f69cb85d80661131a94ec6c10bb358365b11027b5ddceb5dac4",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4189,6 +4724,58 @@ chmod +x /home/ec2-user/pull.sh",
                     ],
                   ],
                 },
+              },
+            ],
+          },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:e0e6932793bb09f17e42f94c0f99ce6a12b97edbf4f23a9fffbd265ff7d4d39a",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppCountTaskotelContainerLogGroupDDE4600F",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
+                "Protocol": "tcp",
               },
             ],
           },
@@ -4289,6 +4876,19 @@ chmod +x /home/ec2-user/pull.sh",
                 "Ref": "DBAuroraPgAuroraClusterSecretAttachment79578D24",
               },
             },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppCountTaskotelContainerLogGroupDDE4600F",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -4317,6 +4917,44 @@ chmod +x /home/ec2-user/pull.sh",
         },
       },
       "Type": "AWS::IAM::Role",
+    },
+    "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
+        "Roles": [
+          {
+            "Ref": "SampleMultiRegionAppCountTaskTaskRole45DC9375",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppCountTaskotelContainerLogGroupDDE4600F": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "SampleMultiRegionAppMyRecordSet4189E06D": {
       "Properties": {
@@ -4387,6 +5025,11 @@ chmod +x /home/ec2-user/pull.sh",
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -4534,7 +5177,7 @@ chmod +x /home/ec2-user/pull.sh",
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:24f3a17057cb41cd3d7a7a965944fa718bfa07bef2c913dc2f490d8d05ff94c5",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:96191fe923045c5fb273dccd5c36f2b2cced145f7d6bc811a80949f2f0472ebb",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4550,6 +5193,58 @@ chmod +x /home/ec2-user/pull.sh",
             "PortMappings": [
               {
                 "ContainerPort": 3000,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:e0e6932793bb09f17e42f94c0f99ce6a12b97edbf4f23a9fffbd265ff7d4d39a",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppTransactionTaskotelContainerLogGroupD6C7A053",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
                 "Protocol": "tcp",
               },
             ],
@@ -4637,6 +5332,19 @@ chmod +x /home/ec2-user/pull.sh",
               "Resource": {
                 "Fn::GetAtt": [
                   "SampleMultiRegionAppTransactionTaskEcsAppLogGroupDC46D677",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppTransactionTaskotelContainerLogGroupD6C7A053",
                   "Arn",
                 ],
               },
@@ -4773,6 +5481,23 @@ chmod +x /home/ec2-user/pull.sh",
                 },
               ],
             },
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -4784,6 +5509,11 @@ chmod +x /home/ec2-user/pull.sh",
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppTransactionTaskotelContainerLogGroupD6C7A053": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "SampleMultiRegionAppTransactionWorkerFargateServiceCAD6D2BF": {
       "DependsOn": [
@@ -4801,6 +5531,11 @@ chmod +x /home/ec2-user/pull.sh",
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 0,
         },
@@ -4923,10 +5658,14 @@ chmod +x /home/ec2-user/pull.sh",
                   ],
                 },
               },
+              {
+                "Name": "SERVICE_NAME",
+                "Value": "transaction-worker",
+              },
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:24f3a17057cb41cd3d7a7a965944fa718bfa07bef2c913dc2f490d8d05ff94c5",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:96191fe923045c5fb273dccd5c36f2b2cced145f7d6bc811a80949f2f0472ebb",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4939,6 +5678,58 @@ chmod +x /home/ec2-user/pull.sh",
               },
             },
             "Name": "EcsApp",
+          },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:e0e6932793bb09f17e42f94c0f99ce6a12b97edbf4f23a9fffbd265ff7d4d39a",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppTransactionWorkerTaskotelContainerLogGroup60133D94",
+                },
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
+                "Protocol": "tcp",
+              },
+            ],
           },
         ],
         "Cpu": "256",
@@ -5027,6 +5818,19 @@ chmod +x /home/ec2-user/pull.sh",
                 ],
               },
             },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppTransactionWorkerTaskotelContainerLogGroup60133D94",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -5060,6 +5864,23 @@ chmod +x /home/ec2-user/pull.sh",
       "Properties": {
         "PolicyDocument": {
           "Statement": [
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             {
               "Action": [
                 "dynamodb:BatchGetItem",
@@ -5170,6 +5991,11 @@ chmod +x /home/ec2-user/pull.sh",
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppTransactionWorkerTaskotelContainerLogGroup60133D94": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c35E89C93F": {
       "DependsOn": [
@@ -5788,6 +6614,83 @@ chmod +x /home/ec2-user/pull.sh",
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
+    "VpcMonitoringEndpointF3768550": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcMonitoringEndpointSecurityGroup70859166",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-1.monitoring",
+        "SubnetIds": [
+          {
+            "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+          },
+          {
+            "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcMonitoringEndpointSecurityGroup70859166": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-CoreBanking-primary/Vpc/Default/MonitoringEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
     "VpcNaclPublicDefaultAssociationBLEAFSICoreBankingprimaryVpcPublicSubnet1C0C50893A9C75996": {
       "Properties": {
         "NetworkAclId": {
@@ -5812,6 +6715,12 @@ chmod +x /home/ec2-user/pull.sh",
     },
     "VpcNaclPublicF3ACBBF5": {
       "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/NaclPublic",
+          },
+        ],
         "VpcId": {
           "Ref": "Vpc8378EB38",
         },
@@ -6337,6 +7246,12 @@ chmod +x /home/ec2-user/pull.sh",
           "Ref": "Vpc8378EB38",
         },
         "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
         "TrafficType": "ALL",
       },
       "Type": "AWS::EC2::FlowLog",
@@ -6405,6 +7320,83 @@ chmod +x /home/ec2-user/pull.sh",
         },
       },
       "Type": "AWS::IAM::Role",
+    },
+    "VpcXRayEdnpointD4EF46C8": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcXRayEdnpointSecurityGroupF647B21E",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-1.xray",
+        "SubnetIds": [
+          {
+            "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+          },
+          {
+            "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcXRayEdnpointSecurityGroupF647B21E": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-CoreBanking-primary/Vpc/Default/XRayEdnpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
     },
     "VpccrossRegionSsmParamaddTgwIdSsmParamTgwPrimaryId5CAC710D": {
       "Properties": {
@@ -6715,7 +7707,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "c56527323fe165e19e5c38b88f77270ba67c06d0fd17823264a8e1268ef9ce50.zip",
+          "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -6724,7 +7716,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 120,
       },
       "Type": "AWS::Lambda::Function",
@@ -6852,6 +7844,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -6871,6 +7865,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -6913,7 +7909,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "Vpc8378EB38",
               },
-              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"}}",
+              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -6939,7 +7935,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "Vpc8378EB38",
               },
-              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"}}",
+              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -6973,6 +7969,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -6992,6 +7990,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7069,6 +8069,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7088,6 +8090,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7174,6 +8178,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7193,6 +8199,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7293,6 +8301,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7312,6 +8322,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7404,6 +8416,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7423,6 +8437,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7470,7 +8486,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CoreBanking-secondary/AssociateVpcWithHostedZone/crossRegionSsmParam/Parameters/MyProvider)",
         "Environment": {
@@ -7490,7 +8506,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -7521,6 +8537,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7540,6 +8558,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7632,6 +8652,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7651,6 +8673,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7751,6 +8775,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7770,6 +8796,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7882,6 +8910,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcIGWD7BA715C",
         "VpcLogsEndpointForPrivate8D2140E9",
         "VpcLogsEndpointForPrivateSecurityGroupDD7F0AEB",
+        "VpcMonitoringEndpointF3768550",
+        "VpcMonitoringEndpointSecurityGroup70859166",
         "VpcProtectedSubnet1RouteTable69FCECD8",
         "VpcProtectedSubnet1RouteTableAssociation62F625F2",
         "VpcProtectedSubnet1Subnet38ECE18A",
@@ -7901,6 +8931,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "VpcSecretsManagerEndpointForPrivate91BE082A",
         "VpcSecretsManagerEndpointForPrivateSecurityGroup732C6BAD",
         "VpcVPCGWBF912B6E",
+        "VpcXRayEdnpointD4EF46C8",
+        "VpcXRayEdnpointSecurityGroupF647B21E",
         "VpcIsolatedRouteToTgw0010E66EA7",
         "VpcIsolatedRouteToTgw01215500D5",
         "VpcIsolatedRouteToTgw02861354A8",
@@ -7966,7 +8998,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "06287b159ddc42f3d70d8ea52e034430d7a63d9263991d2579b1370203cfee4e.zip",
+          "S3Key": "8acca95a9957d02a9f3ec124c9869c5d5b70a7fb3e332120850781ecc9363037.zip",
         },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
@@ -7976,7 +9008,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -8792,6 +9824,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Ref": "ECSAppcontainerAppSampleBaseCluster569A303B",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -9351,7 +10388,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CoreBanking-secondary/ECSApp/crossRegionSsmParam/Parameters/MyProvider)",
         "Environment": {
@@ -9371,7 +10408,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -9596,7 +10633,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -9615,7 +10652,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -9652,7 +10689,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8.zip",
+          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -9661,7 +10698,8 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -9985,6 +11023,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     "SampleMultiRegionAppBalanceFargateServiceB3CE9C1E": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenerbalanceRule65E4B83C",
+        "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
         "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
@@ -9998,6 +11037,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -10041,6 +11085,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroup3FD93178": {
       "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
         "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
@@ -10060,6 +11105,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     },
     "SampleMultiRegionAppBalanceFargateServiceSecurityGroupfromBLEAFSICoreBankingsecondarySampleMultiRegionAppAlbSecurityGroup550DBC73300093CCBB3A": {
       "DependsOn": [
+        "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
         "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
       ],
       "Properties": {
@@ -10131,7 +11177,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:9c57baf0602c944ef3059c86549c278f07f210b704056cc2e0bda95f395b47f1",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:e6d479335b348de8dc6b6cb374225e887ae2a6295033b88ab64bb7dcf4e00e95",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -10303,6 +11349,58 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               },
             ],
           },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:b4b15afba11a10547ad3e64ea5362d571bba021917096bc451d3d1c546c25a4f",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppBalanceTaskotelContainerLogGroup920DABE0",
+                },
+                "awslogs-region": "ap-northeast-3",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
+                "Protocol": "tcp",
+              },
+            ],
+          },
         ],
         "Cpu": "256",
         "ExecutionRoleArn": {
@@ -10469,6 +11567,19 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                 ],
               },
             },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppBalanceTaskotelContainerLogGroup920DABE0",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -10476,6 +11587,39 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         "Roles": [
           {
             "Ref": "SampleMultiRegionAppBalanceTaskExecutionRole36D89483",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleMultiRegionAppBalanceTaskTaskRoleDefaultPolicyE1DC9604",
+        "Roles": [
+          {
+            "Ref": "SampleMultiRegionAppBalanceTaskTaskRoleEBBC5F37",
           },
         ],
       },
@@ -10498,6 +11642,260 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       },
       "Type": "AWS::IAM::Role",
     },
+    "SampleMultiRegionAppBalanceTaskotelContainerLogGroup920DABE0": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleMultiRegionAppCanaryArtifactsBucketD01DC908": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleMultiRegionAppCanaryArtifactsBucketPolicy5DEF9D6A": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "SampleMultiRegionAppCanaryD0102896": {
+      "Properties": {
+        "ArtifactS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+              },
+            ],
+          ],
+        },
+        "Code": {
+          "Handler": "index.handler",
+          "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
+          "S3Key": "788a63e18e6631079273ca4cc3f10184ed0aace8ff705d116fb6eba96d48971b.zip",
+        },
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "SampleMultiRegionAppCanaryServiceRoleECF5668F",
+            "Arn",
+          ],
+        },
+        "Name": "bleafsicorebank1fd992",
+        "RunConfig": {
+          "EnvironmentVariables": {
+            "BASE_URL": "http://api.example.com",
+          },
+        },
+        "RuntimeVersion": "syn-nodejs-puppeteer-7.0",
+        "Schedule": {
+          "DurationInSeconds": "0",
+          "Expression": "rate(1 minute)",
+        },
+        "StartCanaryAfterCreation": true,
+        "VPCConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "SampleMultiRegionAppCanarySecurityGroupD6177105",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+            },
+            {
+              "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+            },
+            {
+              "Ref": "VpcForTgwAttachmentsSubnet1Subnet95D19052",
+            },
+            {
+              "Ref": "VpcForTgwAttachmentsSubnet2SubnetAEDBB0E8",
+            },
+          ],
+          "VpcId": {
+            "Ref": "Vpc8378EB38",
+          },
+        },
+      },
+      "Type": "AWS::Synthetics::Canary",
+    },
+    "SampleMultiRegionAppCanarySecurityGroupD6177105": {
+      "Properties": {
+        "GroupDescription": "Automatic security group for Canary BLEAFSICoreBankingsecondarySampleMultiRegionAppCanary1D14AD94",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleMultiRegionAppCanaryServiceRoleECF5668F": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "s3:ListAllMyBuckets",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": "s3:GetBucketLocation",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                      "Arn",
+                    ],
+                  },
+                },
+                {
+                  "Action": "s3:PutObject",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "SampleMultiRegionAppCanaryArtifactsBucketD01DC908",
+                            "Arn",
+                          ],
+                        },
+                        "/*",
+                      ],
+                    ],
+                  },
+                },
+                {
+                  "Action": "cloudwatch:PutMetricData",
+                  "Condition": {
+                    "StringEquals": {
+                      "cloudwatch:namespace": "CloudWatchSynthetics",
+                    },
+                  },
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:CreateLogGroup",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:ap-northeast-3:111111111111:log-group:/aws/lambda/cwsyn-*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "canaryPolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
     "SampleMultiRegionAppCluster9D88E1C2": {
       "Properties": {
         "ClusterSettings": [
@@ -10512,6 +11910,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     "SampleMultiRegionAppCountFargateService2EE1C613": {
       "DependsOn": [
         "SampleMultiRegionAppAlbListenercountRuleE41D7BB5",
+        "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
         "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
@@ -10525,6 +11924,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -10568,6 +11972,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroup12EC9FEF": {
       "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
         "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
@@ -10587,6 +11992,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     },
     "SampleMultiRegionAppCountFargateServiceSecurityGroupfromBLEAFSICoreBankingsecondarySampleMultiRegionAppAlbSecurityGroup550DBC733000E3B3303A": {
       "DependsOn": [
+        "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
         "SampleMultiRegionAppCountTaskTaskRole45DC9375",
       ],
       "Properties": {
@@ -10658,7 +12064,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:6b3d0a501cb2ba5492520fd170ffd591f34c0911e1003e02453e4d9fb27c9eb3",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:bb0a06c1bcc6a4ed455f62faf3d25ac37c36431dbd7846235b411490389ef458",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -10830,6 +12236,58 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               },
             ],
           },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:b4b15afba11a10547ad3e64ea5362d571bba021917096bc451d3d1c546c25a4f",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppCountTaskotelContainerLogGroupDDE4600F",
+                },
+                "awslogs-region": "ap-northeast-3",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
+                "Protocol": "tcp",
+              },
+            ],
+          },
         ],
         "Cpu": "256",
         "ExecutionRoleArn": {
@@ -10996,6 +12454,19 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                 ],
               },
             },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppCountTaskotelContainerLogGroupDDE4600F",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -11024,6 +12495,44 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         },
       },
       "Type": "AWS::IAM::Role",
+    },
+    "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleMultiRegionAppCountTaskTaskRoleDefaultPolicy49641718",
+        "Roles": [
+          {
+            "Ref": "SampleMultiRegionAppCountTaskTaskRole45DC9375",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppCountTaskotelContainerLogGroupDDE4600F": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "SampleMultiRegionAppMyRecordSet4189E06D": {
       "Properties": {
@@ -11097,6 +12606,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -11244,7 +12758,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:86953b1b05de3079e45a580d43f73b23da2cd4ad2d6b927d7baf05bcd75d3211",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:b8ff3e21884647c9e03d807a67395b0c75d9a68ab9701a22e83e6d8f5424d774",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -11260,6 +12774,58 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "PortMappings": [
               {
                 "ContainerPort": 3000,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:b4b15afba11a10547ad3e64ea5362d571bba021917096bc451d3d1c546c25a4f",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppTransactionTaskotelContainerLogGroupD6C7A053",
+                },
+                "awslogs-region": "ap-northeast-3",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
                 "Protocol": "tcp",
               },
             ],
@@ -11347,6 +12913,19 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               "Resource": {
                 "Fn::GetAtt": [
                   "SampleMultiRegionAppTransactionTaskEcsAppLogGroupDC46D677",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppTransactionTaskotelContainerLogGroupD6C7A053",
                   "Arn",
                 ],
               },
@@ -11483,6 +13062,23 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                 },
               ],
             },
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -11494,6 +13090,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppTransactionTaskotelContainerLogGroupD6C7A053": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "SampleMultiRegionAppTransactionWorkerFargateServiceCAD6D2BF": {
       "DependsOn": [
@@ -11511,6 +13112,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Ref": "SampleMultiRegionAppCluster9D88E1C2",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 0,
         },
@@ -11633,10 +13239,14 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                   ],
                 },
               },
+              {
+                "Name": "SERVICE_NAME",
+                "Value": "transaction-worker",
+              },
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:86953b1b05de3079e45a580d43f73b23da2cd4ad2d6b927d7baf05bcd75d3211",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:b8ff3e21884647c9e03d807a67395b0c75d9a68ab9701a22e83e6d8f5424d774",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -11649,6 +13259,58 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               },
             },
             "Name": "EcsApp",
+          },
+          {
+            "Command": [
+              "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml",
+            ],
+            "Essential": true,
+            "HealthCheck": {
+              "Command": [
+                "CMD",
+                "/healthcheck",
+              ],
+              "Interval": 30,
+              "Retries": 3,
+              "StartPeriod": 10,
+              "Timeout": 10,
+            },
+            "Image": {
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:b4b15afba11a10547ad3e64ea5362d571bba021917096bc451d3d1c546c25a4f",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "SampleMultiRegionAppTransactionWorkerTaskotelContainerLogGroup60133D94",
+                },
+                "awslogs-region": "ap-northeast-3",
+                "awslogs-stream-prefix": "/ecs/otel-sidecar-collector",
+              },
+            },
+            "Name": "otelContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 4317,
+                "HostPort": 4317,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 4318,
+                "HostPort": 4318,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 2000,
+                "HostPort": 2000,
+                "Protocol": "udp",
+              },
+              {
+                "ContainerPort": 13133,
+                "HostPort": 13133,
+                "Protocol": "tcp",
+              },
+            ],
           },
         ],
         "Cpu": "256",
@@ -11737,6 +13399,19 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                 ],
               },
             },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleMultiRegionAppTransactionWorkerTaskotelContainerLogGroup60133D94",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -11770,6 +13445,23 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "PolicyDocument": {
           "Statement": [
+            {
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "ssm:GetParameters",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             {
               "Action": [
                 "dynamodb:BatchGetItem",
@@ -11880,6 +13572,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "SampleMultiRegionAppTransactionWorkerTaskotelContainerLogGroup60133D94": {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "Vpc8378EB38": {
       "Properties": {
@@ -12393,6 +14090,83 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
+    "VpcMonitoringEndpointF3768550": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcMonitoringEndpointSecurityGroup70859166",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-3.monitoring",
+        "SubnetIds": [
+          {
+            "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+          },
+          {
+            "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcMonitoringEndpointSecurityGroup70859166": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-CoreBanking-secondary/Vpc/Default/MonitoringEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
     "VpcNaclPublicDefaultAssociationBLEAFSICoreBankingsecondaryVpcPublicSubnet133FD76514AF651D0": {
       "Properties": {
         "NetworkAclId": {
@@ -12417,6 +14191,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
     },
     "VpcNaclPublicF3ACBBF5": {
       "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/NaclPublic",
+          },
+        ],
         "VpcId": {
           "Ref": "Vpc8378EB38",
         },
@@ -12972,6 +14752,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Ref": "Vpc8378EB38",
         },
         "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
         "TrafficType": "ALL",
       },
       "Type": "AWS::EC2::FlowLog",
@@ -13041,6 +14827,83 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       },
       "Type": "AWS::IAM::Role",
     },
+    "VpcXRayEdnpointD4EF46C8": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcXRayEdnpointSecurityGroupF647B21E",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": "com.amazonaws.ap-northeast-3.xray",
+        "SubnetIds": [
+          {
+            "Ref": "VpcProtectedSubnet1Subnet38ECE18A",
+          },
+          {
+            "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "VpcXRayEdnpointSecurityGroupF647B21E": {
+      "Properties": {
+        "GroupDescription": "BLEAFSI-CoreBanking-secondary/Vpc/Default/XRayEdnpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "Vpc8378EB38",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "Vpc8378EB38",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
+          },
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
     "VpccreateTgwPeeringAttachmentCustomResourcePolicyA5D6BA5E": {
       "Properties": {
         "PolicyDocument": {
@@ -13083,7 +14946,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"}}",
+              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -13109,7 +14972,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"}}",
+              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"},"logApiResponseData":true}",
             ],
           ],
         },
@@ -13270,7 +15133,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CoreBanking-secondary/Vpc/crossRegionSsmParam-peerTgwId/Parameters/MyProvider)",
         "Environment": {
@@ -13290,7 +15153,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",

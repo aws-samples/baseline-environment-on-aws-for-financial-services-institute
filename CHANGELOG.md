@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0] - 2024-07-24
+
+### Changed
+
+- 勘定系ワークロード: マルチリージョン・デモアプリの強化
+	- CloudWatch synthetics canaryによるAPI (Transaction service) の死活監視
+	- Step Functionsによる自動フェールオーバー
+	- OpenTelemetryの導入 (for X-Ray)
+- 勘定系ワークロード: ランサムウェア対策の追加
+	- ランサムウェア対策としてAWS Backup設定を追加
+- CDKテンプレートのデプロイ回数トラッキング対応
+	- CDKテンプレートのデプロイ回数をトラッキングするために、メトリックツール用の定義を各サンプルアプリに追加
+
+## [1.2.0] - 2023-12-15
+
+### Changed
+
+- FISC 安全対策基準（第 11 版）対応
+  - 各ワークロードの「 FISC 安全対策基準 実務基準の対策 」の更新
+  - FSI Lens for FISC の更新
+
 ## [1.1.0] - 2023-7-6
 
 ### Added

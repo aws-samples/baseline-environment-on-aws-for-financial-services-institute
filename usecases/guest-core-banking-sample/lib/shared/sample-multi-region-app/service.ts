@@ -12,17 +12,28 @@ import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import { ITable } from 'aws-cdk-lib/aws-dynamodb';
 import { IAuroraGlobalCluster } from '../aurora-cluster';
 import { IRole, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { addOtel } from './otel';
 
 export interface SampleAppServiceProps {
   cluster: ICluster;
   vpc: IVpc;
   listener: ApplicationListener;
   listenerPath: string;
+
+  /**
+   * A positive integer that must be unique within the services sharing the same listener.
+   */
   priority: number;
   auroraDatabase?: IAuroraGlobalCluster;
   paramTable?: ITable;
   mainTableName?: string;
   command?: string[];
+
+  /**
+   * If set to true, add an ADOT sidecar
+   * @default false
+   */
+  enableAdot?: boolean;
 }
 
 export class SampleAppService extends Construct {
@@ -39,7 +50,7 @@ export class SampleAppService extends Construct {
     taskDefinition.addContainer('EcsApp', {
       image: ecs.ContainerImage.fromAsset(`sample-multi-region-app/services/${listenerPath}`, {
         platform: Platform.LINUX_AMD64,
-        extraHash: Stack.of(this).region,
+        extraHash: Stack.of(this).region, // https://github.com/aws/aws-cdk/issues/25962
       }),
       environment: {
         MAIN_TABLE_NAME: mainTableName ?? '',
@@ -104,6 +115,10 @@ export class SampleAppService extends Construct {
       conditions: [ListenerCondition.pathPatterns([`/${listenerPath}*`])],
       priority: props.priority,
     });
+
+    if (props.enableAdot) {
+      addOtel(taskDefinition);
+    }
 
     if (auroraDatabase != null) {
       //Primarty Stackのみで出力する

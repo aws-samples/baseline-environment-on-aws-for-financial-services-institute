@@ -5,6 +5,7 @@ import { IVpc } from 'aws-cdk-lib/aws-ec2';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import { ITable } from 'aws-cdk-lib/aws-dynamodb';
 import { IRole, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { addOtel } from './otel';
 
 export interface SampleAppWorkerProps {
   cluster: ICluster;
@@ -13,6 +14,12 @@ export interface SampleAppWorkerProps {
   mainTableName: string;
   balanceEndpoint: string;
   countEndpoint: string;
+
+  /**
+   * If set to true, add an ADOT sidecar
+   * @default false
+   */
+  enableAdot?: boolean;
 }
 
 export class SampleAppWorker extends Construct {
@@ -36,6 +43,7 @@ export class SampleAppWorker extends Construct {
         PARAM_TABLE_NAME: paramTable.tableName,
         BALANCE_ENDPOINT: props.balanceEndpoint,
         COUNT_ENDPOINT: props.countEndpoint,
+        SERVICE_NAME: 'transaction-worker',
       },
       logging: ecs.LogDriver.awsLogs({
         streamPrefix: 'BLEA-ECSApp-',
@@ -59,6 +67,10 @@ export class SampleAppWorker extends Construct {
       minHealthyPercent: 0,
       desiredCount: 1,
     });
+
+    if (props.enableAdot) {
+      addOtel(taskDefinition);
+    }
 
     paramTable.grantReadData(taskDefinition.taskRole);
     this.grantReadWriteToDynamoDB(mainTableName, taskDefinition.taskRole);

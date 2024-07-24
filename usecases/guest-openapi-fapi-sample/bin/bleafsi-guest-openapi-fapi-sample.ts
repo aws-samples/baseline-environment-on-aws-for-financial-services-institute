@@ -8,6 +8,7 @@ const app = new cdk.App();
 // スタック作成
 //for Development
 const DevPrimaryStack = new OpenApiFapiStack(app, `${PjPrefix}-primary-Dev`, {
+  description: 'BLEA for FSI OpenAPI fapi (uksb-1tupboc63) (tag:guest-openapi-fapi-sample)',
   ...DevParameter,
   env: {
     account: DevParameter.account,

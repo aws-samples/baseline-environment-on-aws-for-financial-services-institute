@@ -13,12 +13,13 @@ export interface DbDynamoDbProps {
 }
 export class DbDynamoDbGlobal extends Construct {
   public readonly tableName: string;
+  public readonly table: dynamodb.CfnGlobalTable;
   constructor(scope: Construct, id: string, props: DbDynamoDbProps) {
     super(scope, id);
 
     // マルチリージョン マイクロサービス・アプリケーション用のスキーマを作成
     // see https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_dynamodb.CfnGlobalTable.html
-    const table = new dynamodb.CfnGlobalTable(this, 'Default', {
+    this.table = new dynamodb.CfnGlobalTable(this, 'Default', {
       keySchema: [
         {
           attributeName: 'PK',
@@ -82,6 +83,6 @@ export class DbDynamoDbGlobal extends Construct {
     });
 
     // the table names are same for every region
-    this.tableName = Fn.split('/', table.attrArn, 2)[1];
+    this.tableName = Fn.split('/', this.table.attrArn, 2)[1];
   }
 }

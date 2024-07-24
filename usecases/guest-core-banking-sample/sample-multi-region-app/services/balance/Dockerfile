@@ -11,7 +11,7 @@ FROM node:18
 WORKDIR /app
 COPY package*.json ./
 COPY prisma ./prisma
-RUN npm ci --production
+RUN npm ci --omit=dev
 COPY --from=build /build/dist .
 EXPOSE 3000
 

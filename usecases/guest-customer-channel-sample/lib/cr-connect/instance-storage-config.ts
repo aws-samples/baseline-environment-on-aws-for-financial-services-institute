@@ -119,7 +119,7 @@ class InstanceStorageConfigProvider extends Construct {
     const onEventHandler = new NodejsFunction(this, 'OnEventHandler', {
       entry: path.join(__dirname, 'instance-storage-config.onEvent.ts'),
       handler: 'onEvent',
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       timeout: Duration.seconds(15),
       description:
         'Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()',

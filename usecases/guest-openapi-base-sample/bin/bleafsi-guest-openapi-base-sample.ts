@@ -7,7 +7,10 @@ const app = new cdk.App();
 
 // スタック作成
 // for Development
-const DevStack = new SampleOpenApiStack(app, `${PjPrefix}-Dev`, DevParameter);
+const DevStack = new SampleOpenApiStack(app, `${PjPrefix}-Dev`, {
+  description: 'BLEA for FSI OpenAPI base (uksb-1tupboc63) (tag:guest-openapi-base-sample)',
+  ...DevParameter,
+});
 
 //for Staging
 //const StageStack = new SampleOpenApiStack(app, `${PjPrefix}-Stage`, StageParameter);
