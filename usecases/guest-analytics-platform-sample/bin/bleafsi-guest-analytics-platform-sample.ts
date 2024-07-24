@@ -11,7 +11,10 @@ const app = new cdk.App();
 
 // ----------------------- Guest System Stacks for development ------------------------------
 //Simple DataLake リソースのプロビジョニング
-const devStack = new SimpleDataLakeStack(app, `${PjPrefix}-SimpleDataLake-Dev`, DevParameters);
+const devStack = new SimpleDataLakeStack(app, `${PjPrefix}-SimpleDataLake-Dev`, {
+  description: 'BLEA for FSI Data Analytics Platform (uksb-1tupboc63) (tag:guest-analytics-platform-sample)',
+  ...DevParameters,
+});
 
 // // ----------------------- Guest System Stacks for staging ------------------------------
 // const stagingStack = new SimpleDataLakeStack(app, `${PjPrefix}-SimpleDataLake-Stage`, StageParameters);

@@ -3,107 +3,6 @@
 exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
 {
   "Mappings": {
-    "DefaultCrNodeVersionMap": {
-      "af-south-1": {
-        "value": "nodejs16.x",
-      },
-      "ap-east-1": {
-        "value": "nodejs16.x",
-      },
-      "ap-northeast-1": {
-        "value": "nodejs16.x",
-      },
-      "ap-northeast-2": {
-        "value": "nodejs16.x",
-      },
-      "ap-northeast-3": {
-        "value": "nodejs16.x",
-      },
-      "ap-south-1": {
-        "value": "nodejs16.x",
-      },
-      "ap-south-2": {
-        "value": "nodejs16.x",
-      },
-      "ap-southeast-1": {
-        "value": "nodejs16.x",
-      },
-      "ap-southeast-2": {
-        "value": "nodejs16.x",
-      },
-      "ap-southeast-3": {
-        "value": "nodejs16.x",
-      },
-      "ca-central-1": {
-        "value": "nodejs16.x",
-      },
-      "cn-north-1": {
-        "value": "nodejs16.x",
-      },
-      "cn-northwest-1": {
-        "value": "nodejs16.x",
-      },
-      "eu-central-1": {
-        "value": "nodejs16.x",
-      },
-      "eu-central-2": {
-        "value": "nodejs16.x",
-      },
-      "eu-north-1": {
-        "value": "nodejs16.x",
-      },
-      "eu-south-1": {
-        "value": "nodejs16.x",
-      },
-      "eu-south-2": {
-        "value": "nodejs16.x",
-      },
-      "eu-west-1": {
-        "value": "nodejs16.x",
-      },
-      "eu-west-2": {
-        "value": "nodejs16.x",
-      },
-      "eu-west-3": {
-        "value": "nodejs16.x",
-      },
-      "me-central-1": {
-        "value": "nodejs16.x",
-      },
-      "me-south-1": {
-        "value": "nodejs16.x",
-      },
-      "sa-east-1": {
-        "value": "nodejs16.x",
-      },
-      "us-east-1": {
-        "value": "nodejs16.x",
-      },
-      "us-east-2": {
-        "value": "nodejs16.x",
-      },
-      "us-gov-east-1": {
-        "value": "nodejs16.x",
-      },
-      "us-gov-west-1": {
-        "value": "nodejs16.x",
-      },
-      "us-iso-east-1": {
-        "value": "nodejs14.x",
-      },
-      "us-iso-west-1": {
-        "value": "nodejs14.x",
-      },
-      "us-isob-east-1": {
-        "value": "nodejs14.x",
-      },
-      "us-west-1": {
-        "value": "nodejs16.x",
-      },
-      "us-west-2": {
-        "value": "nodejs16.x",
-      },
-    },
     "ServiceprincipalMap": {
       "af-south-1": {
         "states": "states.af-south-1.amazonaws.com",
@@ -134,6 +33,9 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
       },
       "ap-southeast-3": {
         "states": "states.ap-southeast-3.amazonaws.com",
+      },
+      "ap-southeast-4": {
+        "states": "states.ap-southeast-4.amazonaws.com",
       },
       "ca-central-1": {
         "states": "states.ca-central-1.amazonaws.com",
@@ -167,6 +69,9 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
       },
       "eu-west-3": {
         "states": "states.eu-west-3.amazonaws.com",
+      },
+      "il-central-1": {
+        "states": "states.il-central-1.amazonaws.com",
       },
       "me-central-1": {
         "states": "states.me-central-1.amazonaws.com",
@@ -452,6 +357,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -632,6 +538,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -779,6 +686,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -948,6 +856,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -1140,6 +1049,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -1309,6 +1219,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -1489,6 +1400,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -1712,6 +1624,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -1838,6 +1751,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2061,6 +1975,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2187,6 +2102,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2239,7 +2155,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd.zip",
+          "S3Key": "2d56e153cac88d3e0c2f842e8e6f6783b8725bf91f95e0673b4725448a56e96d.zip",
         },
         "Environment": {
           "Variables": {
@@ -2466,7 +2382,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip",
+          "S3Key": "2eb6a831b107939f63cfebf68e6316e1a40f79fc99cae0fee9b333bac8d29bc4.zip",
         },
         "Description": {
           "Fn::Join": [
@@ -2488,7 +2404,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -3059,6 +2975,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -3234,6 +3151,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -3457,6 +3375,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -3632,6 +3551,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
             },
             {
               "Action": [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -5853,7 +5773,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+          "S3Key": "3322b7049fb0ed2b7cbb644a2ada8d1116ff80c32dca89e6ada846b5de26f961.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -6175,20 +6095,6 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "Statement": [
             {
               "Action": [
-                "logs:CreateLogDelivery",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            {
-              "Action": [
                 "glue:StartJobRun",
                 "glue:GetJobRun",
                 "glue:GetJobRuns",
@@ -6476,6 +6382,20 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
                   ],
                 ],
               },
+            },
+            {
+              "Action": [
+                "logs:CreateLogDelivery",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
             },
           ],
           "Version": "2012-10-17",
@@ -7191,6 +7111,12 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "Ref": "SampleVpcB65C16C5",
         },
         "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-AnalyticsPlatform/SampleVpc/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
         "TrafficType": "ALL",
       },
       "Type": "AWS::EC2::FlowLog",
@@ -7503,7 +7429,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+          "S3Key": "3322b7049fb0ed2b7cbb644a2ada8d1116ff80c32dca89e6ada846b5de26f961.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -7541,7 +7467,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+          "S3Key": "3322b7049fb0ed2b7cbb644a2ada8d1116ff80c32dca89e6ada846b5de26f961.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -7579,7 +7505,7 @@ exports[`BLEAFSI-AnalyticsPlatform snapshot check Sample Stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+          "S3Key": "3322b7049fb0ed2b7cbb644a2ada8d1116ff80c32dca89e6ada846b5de26f961.zip",
         },
         "Description": "/opt/awscli/aws",
       },

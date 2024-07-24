@@ -30,6 +30,7 @@ export class DbAuroraPgGlobalPrimary extends Construct implements IAuroraGlobalC
   public readonly secret: ISecret;
   public readonly cluster: rds.IDatabaseCluster;
   public readonly host: string;
+  public readonly globalClusterIdentifier: string;
 
   constructor(scope: Construct, id: string, props: DbAuroraPgGlobalPrimaryProps) {
     super(scope, id);
@@ -84,11 +85,12 @@ export class DbAuroraPgGlobalPrimary extends Construct implements IAuroraGlobalC
     //cluster.addRotationSingleUser();
 
     // define global database
-    new rds.CfnGlobalCluster(this, 'MyCfnGlobalCluster', {
+    const globalCluster = new rds.CfnGlobalCluster(this, 'MyCfnGlobalCluster', {
       deletionProtection: false,
       globalClusterIdentifier: 'core-banking-global-db',
       sourceDbClusterIdentifier: cluster.clusterIdentifier,
     });
+    this.globalClusterIdentifier = globalCluster.ref;
 
     // ----------------------- Alarms for RDS -----------------------------
     // Aurora Cluster CPU Utilization

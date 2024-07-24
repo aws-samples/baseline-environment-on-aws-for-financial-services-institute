@@ -146,6 +146,19 @@ export class Vpc extends Construct {
       subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
     });
 
+    // X-Ray VPC endpoint
+    myVpc.addInterfaceEndpoint('XRayEdnpoint', {
+      service: ec2.InterfaceVpcEndpointAwsService.XRAY,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+    });
+
+    // required for CloudWatch Synthetics canaries
+    // https://repost.aws/knowledge-center/cloudwatch-fix-failing-canary-in-vpc
+    myVpc.addInterfaceEndpoint('MonitoringEndpoint', {
+      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_MONITORING,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+    });
+
     // VPC endpoints for ECR
     myVpc.addInterfaceEndpoint('EcrEndpoint', {
       service: ec2.InterfaceVpcEndpointAwsService.ECR,

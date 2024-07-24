@@ -5,8 +5,8 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  // for optimistic locking https://github.com/prisma/prisma/issues/18095
-  previewFeatures = ["extendedWhereUnique"]
+  // tracing: https://www.prisma.io/docs/orm/prisma-client/observability-and-logging/opentelemetry-tracing
+  previewFeatures = ["tracing"]
 }
 
 model Balance {

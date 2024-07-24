@@ -27,6 +27,7 @@ export function createStacks(app: cdk.App, pjPrefix: string, appParam: AppParame
   }
 
   const primaryStack = new CustomerChannelPrimaryStack(app, `${pjPrefix}-${appParam.envName}-Primary`, {
+    description: 'BLEA for FSI Customer Channel (uksb-1tupboc63) (tag:guest-customer-channel-sample)',
     env: { account: appParam.account, region: appParam.primaryRegion.region },
     connectInstance: appParam.primaryRegion.connectInstance,
     tertiaryStack,

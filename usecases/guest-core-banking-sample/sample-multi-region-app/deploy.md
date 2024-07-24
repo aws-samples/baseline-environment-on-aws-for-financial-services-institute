@@ -91,6 +91,14 @@ docker build -t client .
 docker run --name client -d --restart unless-stopped -p 8089:8089 client
 ```
 
+もし `The container name "/client" is already in use` という旨のメッセージが表示された場合は、以下のコマンドで既存のコンテナを削除した後、再度 `docker run` を実行してください。
+
+```sh
+docker stop client
+docker rm client
+docker run --name client -d --restart unless-stopped -p 8089:8089 client
+```
+
 `exit' を 2 回入力して、SSM リモートセッションを閉じます。
 
 2. Locust GUI にアクセス
@@ -167,10 +175,7 @@ curl -X GET \
 
 ## サンプルアプリケーションをフェイルオーバーさせる
 
-本アプリケーションを東京リージョンから大阪リージョンにフェイルオーバーする手順については[こちら](./failover-sample-application.md)を参照して下さい。  
-またフェイルオーバーの手順のデモ動画を準備していますので、必要に応じて参照して下さい。
-
-[!['フェールオーバー手順のデモ動画'](./imgs/failover-demo-video.png)](https://youtu.be/D2EdIVoZzr4?t=825)
+本アプリケーションを東京リージョンから大阪リージョンにフェイルオーバーする手順については[こちら](./failover-sample-application.md)を参照して下さい。
 
 ## Locust の利用方法
 

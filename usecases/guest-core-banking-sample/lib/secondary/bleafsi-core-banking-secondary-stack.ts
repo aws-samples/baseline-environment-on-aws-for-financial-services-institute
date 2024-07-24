@@ -14,7 +14,7 @@ import { SampleMultiRegionApp } from '../shared/sample-multi-region-app/app';
 
 interface CoreBankingSecondaryStackProps extends StackParameter {
   auroraSecretName: string;
-  dynamoDbTableName: string;
+  dynamoDbGlobalTableName: string;
   tgwRouteTableId: string;
 }
 
@@ -25,6 +25,7 @@ interface CoreBankingSecondaryStackProps extends StackParameter {
 export class CoreBankingSecondaryStack extends cdk.Stack {
   public readonly secondaryDB: DbAuroraPgGlobalMember;
   public readonly tgwPeeringAttachmentId: string;
+  public readonly sampleMultiRegionApp?: SampleMultiRegionApp;
 
   constructor(scope: Construct, id: string, props: CoreBankingSecondaryStackProps) {
     super(scope, id, props);
@@ -91,13 +92,14 @@ export class CoreBankingSecondaryStack extends cdk.Stack {
 
     //マルチリージョン 勘定系サンプルアプリのデプロイ
     if (SampleMultiRegionAppParameter.deploy == true) {
-      new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
-        mainDynamoDbTableName: props.dynamoDbTableName,
+      const app = new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
+        mainDynamoDbTableName: props.dynamoDbGlobalTableName,
         balanceDatabase: this.secondaryDB,
         countDatabase: this.secondaryDB,
         vpc: secondaryVpc.myVpc,
         hostedZone: associateVpcWithHostedZone.hostedZone,
       });
+      this.sampleMultiRegionApp = app;
     }
 
     //CFn output

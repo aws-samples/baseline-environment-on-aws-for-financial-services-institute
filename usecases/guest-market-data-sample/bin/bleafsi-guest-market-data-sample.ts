@@ -10,7 +10,10 @@ import { GuestMarketDataStack } from '../lib/bleafsi-guest-market-data-stack';
 const app = new cdk.App();
 
 // ----------------------- Guest Market Data System Stacks for development ------------------------------
-const devStack = new GuestMarketDataStack(app, `${PjPrefix}-Dev`, DevParameter);
+const devStack = new GuestMarketDataStack(app, `${PjPrefix}-Dev`, {
+  description: 'BLEA for FSI Market Data (uksb-1tupboc63) (tag:guest-market-data-sample)',
+  ...DevParameter,
+});
 
 // // ----------------------- Guest Market Data System Stacks for staging ------------------------------
 // const stagingStack = new GuestMarketDataStack(app, `${PjPrefix}-Stage`, DevParameter);

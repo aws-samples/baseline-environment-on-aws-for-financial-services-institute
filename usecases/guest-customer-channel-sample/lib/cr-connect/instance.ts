@@ -63,7 +63,7 @@ class InstanceProvider extends Construct {
     const onEventHandler = new NodejsFunction(this, 'OnEventHandler', {
       entry: path.join(__dirname, 'instance.onEvent.ts'),
       handler: 'onEvent',
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       initialPolicy: [
         new iam.PolicyStatement({
           actions: [
@@ -105,7 +105,7 @@ class InstanceProvider extends Construct {
     const isCompleteHandler = new NodejsFunction(this, 'IsCompleteHandler', {
       entry: path.join(__dirname, 'instance.isComplete.ts'),
       handler: 'isComplete',
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       initialPolicy: [
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,

@@ -19,6 +19,7 @@ import { ServiceLinkedRole } from 'upsert-slr';
 //マルチリージョン 勘定系サンプルアプリ
 import { SampleMultiRegionApp } from '../shared/sample-multi-region-app/app';
 import { SampleAppClient } from '../shared/sample-multi-region-app/app-client';
+import { Backup } from './backup';
 /*
  * BLEA-FSI Core Banking Sample application stack(Primaly Region)
  */
@@ -29,6 +30,8 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
   public readonly alb: elbv2.ApplicationLoadBalancer;
   public readonly dynamoDb: DbDynamoDbGlobal;
   public readonly hostedZone: PrivateHostedZone;
+  public readonly sampleMultiRegionApp?: SampleMultiRegionApp;
+  public readonly backup: Backup;
 
   constructor(scope: Construct, id: string, props: StackParameter) {
     super(scope, id, props);
@@ -134,17 +137,24 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
       secondaryRegion: secondary.region,
     });
 
+    // AWS Backup
+    this.backup = new Backup(this, 'Backup', {
+      PrimaryDB: this.PrimaryDB,
+      dynamoDb: this.dynamoDb,
+    });
+
     this.tgwRouteTableId = primaryVpc.getTgwRouteTableId(this);
 
     //マルチリージョン 勘定系サンプルアプリのデプロイ
     if (SampleMultiRegionAppParameter.deploy == true) {
-      new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
+      const app = new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
         mainDynamoDbTableName: this.dynamoDb.tableName,
         balanceDatabase: this.PrimaryDB,
         countDatabase: this.PrimaryDB,
         vpc: primaryVpc.myVpc,
         hostedZone: this.hostedZone.privateHostedZone,
       });
+      this.sampleMultiRegionApp = app;
 
       new SampleAppClient(this, 'SampleAppClient', {
         vpcCidr: SampleMultiRegionAppParameter.appClientVpcCidr,

@@ -1,3 +1,4 @@
+import './lib/otel';
 import express, { NextFunction, Request, Response } from 'express';
 import { DummySk, MainTableName, ddbClient } from './lib/dynamodb';
 import { GetCommand, TransactWriteCommand } from '@aws-sdk/lib-dynamodb';
@@ -15,8 +16,17 @@ app.get('/health', (req, res) => {
   res.send('ok');
 });
 
+const router = express.Router();
+router.use(async (req, res, next) => {
+  if (await getStopFlag(false)) {
+    res.status(503).send('transaction service is temporarily stopped');
+    return;
+  }
+  next();
+});
+
 //口座からの引落し処理
-app.post('/transaction/withdraw', async (req, res, next) => {
+router.post('/withdraw', async (req, res, next) => {
   try {
     const accountId = req.headers['x_account_id'];
     if (typeof accountId !== 'string') {
@@ -27,11 +37,6 @@ app.post('/transaction/withdraw', async (req, res, next) => {
     const quantity: number = req.body.quantity;
     if (typeof quantity !== 'number' && quantity < 0) {
       res.status(400).send();
-      return;
-    }
-
-    if (await getStopFlag(false)) {
-      res.status(503).send('transaction service is temporarily stopped');
       return;
     }
 
@@ -98,7 +103,7 @@ app.post('/transaction/withdraw', async (req, res, next) => {
 });
 
 //口座への預入れ処理
-app.post('/transaction/deposit', async (req, res, next) => {
+router.post('/deposit', async (req, res, next) => {
   try {
     const accountId = req.headers['x_account_id'];
     if (typeof accountId !== 'string') {
@@ -109,11 +114,6 @@ app.post('/transaction/deposit', async (req, res, next) => {
     const quantity: number = req.body.quantity;
     if (typeof quantity !== 'number' && quantity < 0) {
       res.status(400).send();
-      return;
-    }
-
-    if (await getStopFlag(false)) {
-      res.status(503).send('transaction service is temporarily stopped');
       return;
     }
 
@@ -180,7 +180,7 @@ app.post('/transaction/deposit', async (req, res, next) => {
 });
 
 //トランザクションログ情報の取得
-app.get('/transaction/:transactionId', async (req, res, next) => {
+router.get('/:transactionId', async (req, res, next) => {
   try {
     const transactionId = req.params.transactionId;
     const accountId = req.headers['x_account_id'];
@@ -210,15 +210,19 @@ app.get('/transaction/:transactionId', async (req, res, next) => {
   }
 });
 
+app.use('/transaction', router);
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(err.stack);
   res.status(500).send(err.message);
 });
 
 // https://github.com/wclr/ts-node-dev/issues/120
-process.on('SIGTERM', (err: any) => {
-  process.exit(1);
-});
+['SIGTERM', 'SIGHUP', 'SIGINT'].forEach((sig) =>
+  process.on(sig, (err: any) => {
+    process.exit(1);
+  }),
+);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');

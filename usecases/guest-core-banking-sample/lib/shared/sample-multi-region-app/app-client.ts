@@ -1,6 +1,13 @@
 import { Construct } from 'constructs';
 import { ClientVpc } from './app-client-vpc';
-import { BastionHostLinux, BlockDeviceVolume, CfnTransitGateway, EbsDeviceVolumeType, IVpc } from 'aws-cdk-lib/aws-ec2';
+import {
+  BastionHostLinux,
+  BlockDeviceVolume,
+  CfnTransitGateway,
+  EbsDeviceVolumeType,
+  IVpc,
+  MachineImage,
+} from 'aws-cdk-lib/aws-ec2';
 import { PrivateHostedZone } from 'aws-cdk-lib/aws-route53';
 import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
 import { RemovalPolicy } from 'aws-cdk-lib';
@@ -48,6 +55,7 @@ export class SampleAppClient extends Construct {
     const client = new BastionHostLinux(this, 'Instance', {
       vpc: vpc.vpc,
       subnetSelection: { subnets: vpc.vpc.publicSubnets },
+      machineImage: MachineImage.latestAmazonLinux2023({ cachedInContext: true }),
       blockDevices: [
         {
           deviceName: '/dev/xvda',
@@ -76,6 +84,9 @@ export class SampleAppClient extends Construct {
       `echo 'aws s3 sync ${bucket.s3UrlForObject('client')} /home/ec2-user/client' >> /home/ec2-user/pull.sh`,
       'chown ec2-user /home/ec2-user/pull.sh',
       `chmod +x /home/ec2-user/pull.sh`,
+      'sudo -u ec2-user bash -c "cd /home/ec2-user/ && ./pull.sh"',
+      'sudo -u ec2-user bash -c "cd /home/ec2-user/client && docker build -t client ."',
+      'sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -p 8089:8089 client"',
     );
   }
 }

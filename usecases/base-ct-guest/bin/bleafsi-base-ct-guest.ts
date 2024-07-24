@@ -13,6 +13,7 @@ const envTagName = 'Environment';
 // スタック作成
 // for Development
 const DevPrimaryStack = new BaseCTStack(app, `${PjPrefix}-Primary-Dev`, {
+  description: 'BLEA for FSI Governance base (uksb-1tupboc63) (tag:bleafsi-base-ct-guest)',
   ...DevParameter,
   env: {
     account: DevParameter.account,

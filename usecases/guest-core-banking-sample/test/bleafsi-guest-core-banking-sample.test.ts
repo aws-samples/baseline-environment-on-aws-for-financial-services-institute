@@ -61,7 +61,7 @@ describe(`${PjPrefix} snapshot check`, () => {
       },
       crossRegionReferences: true,
       auroraSecretName: primaryApp.PrimaryDB.secret.secretName,
-      dynamoDbTableName: primaryApp.dynamoDb.tableName,
+      dynamoDbGlobalTableName: primaryApp.dynamoDb.tableName,
       tgwRouteTableId: primaryApp.tgwRouteTableId,
     });
 
@@ -157,6 +157,11 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
       primaryApp,
       '/BLEAFSI-CoreBanking-primary/UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3/ServiceRole/DefaultPolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/UpsertSlrCustomResourceHandler8f7be66a3315474baea16ceca43d27c3/Resource',
+      [{ id: 'AwsSolutions-L1', reason: 'It is used only when deploying.' }],
     );
 
     ///// MultiRegion sample App
@@ -264,6 +269,51 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
           reason: 'for convenience of sample application. key rotataion is not enabled',
         },
       ],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Balance/Task/TaskRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Count/Task/TaskRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Canary/Resource/ArtifactsBucket/Resource',
+      [{ id: 'AwsSolutions-S1', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/Backup/AWSBackupDefaultServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'This is service role and used by AWS Backup' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      primaryApp,
+      '/BLEAFSI-CoreBanking-primary/Backup/BackupSelection/Role/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'This is service role and used by AWS Backup' }],
     );
 
     cdk.Aspects.of(primaryApp).add(new AwsSolutionsChecks());
@@ -439,6 +489,42 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/TransactionWorker/Task/ExecutionRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Balance/Task/TaskRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Count/Task/TaskRole/DefaultPolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Canary/Resource/ArtifactsBucket/Resource',
+      [{ id: 'AwsSolutions-S1', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/SampleMultiRegionApp/Canary/Resource/ServiceRole/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
     );
 

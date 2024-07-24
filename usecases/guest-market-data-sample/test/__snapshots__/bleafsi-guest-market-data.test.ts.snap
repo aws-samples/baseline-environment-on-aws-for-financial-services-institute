@@ -17,7 +17,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "c56527323fe165e19e5c38b88f77270ba67c06d0fd17823264a8e1268ef9ce50.zip",
+          "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -26,7 +26,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 120,
       },
       "Type": "AWS::Lambda::Function",
@@ -427,6 +427,11 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           "Ref": "ComposerAppCluster387BD2FC",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -737,7 +742,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""}}",
+              ""},"logApiResponseData":true}",
             ],
           ],
         },
@@ -779,6 +784,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
       "Type": "AWS::IAM::Policy",
     },
     "ComposerStreamFF8E47FD": {
+      "DeletionPolicy": "Retain",
       "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
@@ -793,6 +799,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
         },
       },
       "Type": "AWS::Kinesis::Stream",
+      "UpdateReplacePolicy": "Retain",
     },
     "DistributorAppAlb2ECF73C2": {
       "DependsOn": [
@@ -1591,6 +1598,11 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           "Ref": "DistributorAppcontainerBaseAppClusterAAD7F2B0",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -1939,7 +1951,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""}}",
+              ""},"logApiResponseData":true}",
             ],
           ],
         },
@@ -2337,6 +2349,11 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           "Ref": "HandlerAppClusterDD674C64",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -2647,7 +2664,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""}}",
+              ""},"logApiResponseData":true}",
             ],
           ],
         },
@@ -2689,6 +2706,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
       "Type": "AWS::IAM::Policy",
     },
     "HandlerStreamF76AB64B": {
+      "DeletionPolicy": "Retain",
       "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
@@ -2703,6 +2721,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
         },
       },
       "Type": "AWS::Kinesis::Stream",
+      "UpdateReplacePolicy": "Retain",
     },
     "MonitorAlarmEmailBA1444D7": {
       "Properties": {
@@ -3086,6 +3105,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
     },
     "VpcNaclPublicF3ACBBF5": {
       "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/NaclPublic",
+          },
+        ],
         "VpcId": {
           "Ref": "VpcC3027511",
         },
@@ -3404,6 +3429,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           "Ref": "VpcC3027511",
         },
         "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
         "TrafficType": "ALL",
       },
       "Type": "AWS::EC2::FlowLog",

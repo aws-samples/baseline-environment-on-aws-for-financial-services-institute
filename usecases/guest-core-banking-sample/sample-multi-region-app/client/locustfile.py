@@ -4,6 +4,7 @@ import os
 import time
 from locust import HttpUser, task
 from locust.env import Environment
+from urllib3 import PoolManager
 
 TIMEOUT_SECONDS = 3
 
@@ -21,6 +22,9 @@ class User(HttpUser):
             json={"quantity": 1000},
             catch_response=True,
             timeout=TIMEOUT_SECONDS,
+            # Since connection pool delays the propagation of DNS failover, we reset a connection on the first request of a task.
+            # https://stackoverflow.com/questions/74734581/how-to-make-locust-respect-dns-ttl/78428087#78428087
+            headers={"Connection": "close"}
         ) as res:
             # need to validate the result manually: https://github.com/locustio/locust/issues/1953#issuecomment-988535231
             if res.status_code != 200:

@@ -2,6 +2,7 @@
 
 exports[`snapshot check Customer channel sample stacks 1`] = `
 {
+  "Description": "BLEA for FSI Customer Channel (uksb-1tupboc63) (tag:guest-customer-channel-sample)",
   "Outputs": {
     "OutboundSampleStartOutboundApiEndpointAD611110": {
       "Value": {
@@ -72,6 +73,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
         "BucketEncryption": {
           "ServerSideEncryptionConfiguration": [
             {
+              "BucketKeyEnabled": false,
               "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
@@ -645,14 +647,9 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "a383522dadcea6459cc48c1c9bb81067ddb5eb23d35425757e74d3f732168d91.zip",
+          "S3Key": "6a99404b6778d68f02815ec37e638d647abf27d1c2d82bc5b12ad19aea3dbed6.zip",
         },
         "Description": "Provider handler for connect.listQueues()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.onEvent",
         "Role": {
           "Fn::GetAtt": [
@@ -660,7 +657,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -791,6 +788,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -799,7 +804,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Primary/ImportedQueueProvider/Provider)",
         "Environment": {
@@ -819,7 +824,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -845,6 +850,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -900,6 +913,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -1962,14 +1983,9 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "9c92e3c3326576ca67bd69cc0a381152203e00a0b49b933bd078da77083a14d2.zip",
+          "S3Key": "d95e831d85f0b41453e074435850e61df63a4329411eff2f8f2da9bc8273b651.zip",
         },
         "Description": "Provider handler for Connect.describeInstance()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.isComplete",
         "Role": {
           "Fn::GetAtt": [
@@ -1977,7 +1993,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2083,14 +2099,9 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "c2c0d7c4d082d2eb4286bd05bd14d23f58ef52624adb40af2adaee159962435e.zip",
+          "S3Key": "bb934582d0236cc913d28978fc75b59ba96b46f50f5315a2285beca055806eb2.zip",
         },
         "Description": "Provider handler for Connect.createInstance() & deleteInstance()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.onEvent",
         "Role": {
           "Fn::GetAtt": [
@@ -2098,7 +2109,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2234,6 +2245,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -2242,7 +2261,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - isComplete (BLEAFSI-CustomerChannel-Development-Primary/InstanceProvider/Provider)",
         "Environment": {
@@ -2268,7 +2287,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2294,6 +2313,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2349,6 +2376,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2440,6 +2475,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -2448,7 +2491,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Primary/InstanceProvider/Provider)",
         "Environment": {
@@ -2477,7 +2520,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2503,6 +2546,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2558,6 +2609,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2656,6 +2715,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -2664,7 +2731,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onTimeout (BLEAFSI-CustomerChannel-Development-Primary/InstanceProvider/Provider)",
         "Environment": {
@@ -2690,7 +2757,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -2716,6 +2783,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2771,6 +2846,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2862,6 +2945,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -2888,14 +2979,88 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             ],
           ],
         },
+        "LoggingConfiguration": {
+          "Destinations": [
+            {
+              "CloudWatchLogsLogGroup": {
+                "LogGroupArn": {
+                  "Fn::GetAtt": [
+                    "InstanceProviderwaiterstatemachineLogGroup3D4266A7",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+          ],
+          "IncludeExecutionData": false,
+          "Level": "ERROR",
+        },
         "RoleArn": {
           "Fn::GetAtt": [
             "InstanceProviderwaiterstatemachineRole1F2D0456",
             "Arn",
           ],
         },
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Development",
+          },
+        ],
       },
       "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "InstanceProviderwaiterstatemachineLogGroup3D4266A7": {
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/vendedlogs/states/waiter-state-machine-",
+              {
+                "Ref": "InstanceProviderframeworkisComplete68BCC0D8",
+              },
+              "-c8995d89bcbe67ce99643b55e64eb3295040c6a44b",
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Development",
+          },
+        ],
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "InstanceProviderwaiterstatemachineRole1F2D0456": {
       "Metadata": {
@@ -2912,6 +3077,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -2953,6 +3126,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -3012,6 +3193,22 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
                 },
               ],
             },
+            {
+              "Action": [
+                "logs:CreateLogDelivery",
+                "logs:CreateLogStream",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutLogEvents",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -3034,14 +3231,9 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "6d5396e158a524c4c7ca72bcb955521b4acec56c94a2d4efcb4709f319904f11.zip",
+          "S3Key": "e9c2bc242915b890161e0f8ea2c348aafdb684fc0b2aa133fa210fa210196795.zip",
         },
         "Description": "Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.onEvent",
         "Role": {
           "Fn::GetAtt": [
@@ -3049,7 +3241,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -3230,6 +3422,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -3238,7 +3438,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Primary/InstanceStorageConfigProvider/Provider)",
         "Environment": {
@@ -3258,7 +3458,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -3284,6 +3484,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -3340,6 +3548,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -3394,14 +3610,9 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "2d7db793a84be304a29b54535e46267e01861d475c32ba675e267ded39669832.zip",
+          "S3Key": "2196d37e8fe6da9fe4cb8b90143fc07bae7bb4b0fc3296cc2c11e8ce5059f394.zip",
         },
         "Description": "Provider handler for Connect.associateBot() & disassociateBot()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.onEvent",
         "Role": {
           "Fn::GetAtt": [
@@ -3409,7 +3620,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -3543,6 +3754,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -3551,7 +3770,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Primary/LexBotAssociationProvider/Provider)",
         "Environment": {
@@ -3571,7 +3790,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -3597,6 +3816,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -3652,6 +3879,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -3721,7 +3956,7 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8.zip",
+          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -3730,13 +3965,14 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
             "Value": "Development",
           },
         ],
+        "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -4076,30 +4312,6 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": [
-                "logs:CreateLogDelivery",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            {
-              "Action": [
-                "xray:PutTraceSegments",
-                "xray:PutTelemetryRecords",
-                "xray:GetSamplingRules",
-                "xray:GetSamplingTargets",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            {
               "Action": "connect:getContactAttributes",
               "Effect": "Allow",
               "Resource": {
@@ -4131,6 +4343,30 @@ exports[`snapshot check Customer channel sample stacks 1`] = `
                   "Arn",
                 ],
               },
+            },
+            {
+              "Action": [
+                "logs:CreateLogDelivery",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
             },
           ],
           "Version": "2012-10-17",
@@ -4964,30 +5200,6 @@ $input.path('$.output')
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": [
-                "logs:CreateLogDelivery",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            {
-              "Action": [
-                "xray:PutTraceSegments",
-                "xray:PutTelemetryRecords",
-                "xray:GetSamplingRules",
-                "xray:GetSamplingTargets",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            {
               "Action": "connect:startOutboundVoiceContact",
               "Effect": "Allow",
               "Resource": {
@@ -5019,6 +5231,30 @@ $input.path('$.output')
                   "Arn",
                 ],
               },
+            },
+            {
+              "Action": [
+                "logs:CreateLogDelivery",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
             },
           ],
           "Version": "2012-10-17",
@@ -5545,7 +5781,7 @@ $input.path('$.output')
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-northeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Primary/TertiaryStackOutputs/MyProvider)",
         "Environment": {
@@ -5565,7 +5801,7 @@ $input.path('$.output')
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6238,14 +6474,9 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "9c92e3c3326576ca67bd69cc0a381152203e00a0b49b933bd078da77083a14d2.zip",
+          "S3Key": "d95e831d85f0b41453e074435850e61df63a4329411eff2f8f2da9bc8273b651.zip",
         },
         "Description": "Provider handler for Connect.describeInstance()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.isComplete",
         "Role": {
           "Fn::GetAtt": [
@@ -6253,7 +6484,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6359,14 +6590,9 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "c2c0d7c4d082d2eb4286bd05bd14d23f58ef52624adb40af2adaee159962435e.zip",
+          "S3Key": "bb934582d0236cc913d28978fc75b59ba96b46f50f5315a2285beca055806eb2.zip",
         },
         "Description": "Provider handler for Connect.createInstance() & deleteInstance()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.onEvent",
         "Role": {
           "Fn::GetAtt": [
@@ -6374,7 +6600,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6510,6 +6736,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -6518,7 +6752,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - isComplete (BLEAFSI-CustomerChannel-Development-Secondary/InstanceProvider/Provider)",
         "Environment": {
@@ -6544,7 +6778,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6570,6 +6804,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -6625,6 +6867,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -6716,6 +6966,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -6724,7 +6982,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Secondary/InstanceProvider/Provider)",
         "Environment": {
@@ -6753,7 +7011,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6779,6 +7037,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -6834,6 +7100,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -6932,6 +7206,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -6940,7 +7222,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onTimeout (BLEAFSI-CustomerChannel-Development-Secondary/InstanceProvider/Provider)",
         "Environment": {
@@ -6966,7 +7248,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -6992,6 +7274,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -7047,6 +7337,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -7138,6 +7436,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -7164,14 +7470,88 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             ],
           ],
         },
+        "LoggingConfiguration": {
+          "Destinations": [
+            {
+              "CloudWatchLogsLogGroup": {
+                "LogGroupArn": {
+                  "Fn::GetAtt": [
+                    "InstanceProviderwaiterstatemachineLogGroup3D4266A7",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+          ],
+          "IncludeExecutionData": false,
+          "Level": "ERROR",
+        },
         "RoleArn": {
           "Fn::GetAtt": [
             "InstanceProviderwaiterstatemachineRole1F2D0456",
             "Arn",
           ],
         },
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Development",
+          },
+        ],
       },
       "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "InstanceProviderwaiterstatemachineLogGroup3D4266A7": {
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "AwsSolutions-L1",
+              "reason": "Non-latest nodejs function is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-IAM5",
+              "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/vendedlogs/states/waiter-state-machine-",
+              {
+                "Ref": "InstanceProviderframeworkisComplete68BCC0D8",
+              },
+              "-c8051ce0ace3fbaca8a656f578b68c1e26029320fe",
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Development",
+          },
+        ],
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
     },
     "InstanceProviderwaiterstatemachineRole1F2D0456": {
       "Metadata": {
@@ -7188,6 +7568,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -7229,6 +7617,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -7288,6 +7684,22 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
                 },
               ],
             },
+            {
+              "Action": [
+                "logs:CreateLogDelivery",
+                "logs:CreateLogStream",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutLogEvents",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -7310,14 +7722,9 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "6d5396e158a524c4c7ca72bcb955521b4acec56c94a2d4efcb4709f319904f11.zip",
+          "S3Key": "e9c2bc242915b890161e0f8ea2c348aafdb684fc0b2aa133fa210fa210196795.zip",
         },
         "Description": "Provider handler for Connect.associateInstanceStorageConfig() & disassociateInstanceStorageConfig()",
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          },
-        },
         "Handler": "index.onEvent",
         "Role": {
           "Fn::GetAtt": [
@@ -7325,7 +7732,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -7529,6 +7936,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
             },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
+            },
           ],
         },
       },
@@ -7537,7 +7952,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Secondary/InstanceStorageConfigProvider/Provider)",
         "Environment": {
@@ -7557,7 +7972,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -7583,6 +7998,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -7638,6 +8061,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             {
               "id": "AwsSolutions-IAM5",
               "reason": "Wildcard policy is used inside Provider",
+            },
+            {
+              "id": "AwsSolutions-SF1",
+              "reason": "This is just a sample application. No default output all logs",
+            },
+            {
+              "id": "AwsSolutions-SF2",
+              "reason": "This is just a sample application. No X-Ray",
             },
           ],
         },
@@ -7735,7 +8166,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8.zip",
+          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -7744,13 +8175,14 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
             "Value": "Development",
           },
         ],
+        "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -7984,7 +8416,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-ap-southeast-1",
           },
-          "S3Key": "8e3d635893ea17fa3158623489cd42c680fad925b38de1ef51cb10d84f6e245e.zip",
+          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CustomerChannel-Development-Secondary/TertiaryStackOutputs/MyProvider)",
         "Environment": {
@@ -8004,7 +8436,7 @@ exports[`snapshot check Customer channel sample stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Tags": [
           {
             "Key": "Environment",
@@ -8262,6 +8694,7 @@ exports[`snapshot check Customer channel sample stacks 3`] = `
         "BucketEncryption": {
           "ServerSideEncryptionConfiguration": [
             {
+              "BucketKeyEnabled": false,
               "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },

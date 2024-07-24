@@ -6,7 +6,7 @@
     "build": "tsc",
     "start": "DYNAMODB_ENDPOINT=http://localhost:8000 ts-node-dev index.ts",
     "worker": "DYNAMODB_ENDPOINT=http://localhost:8000 ts-node-dev worker.ts",
-    "bundle": "esbuild index.ts init.ts worker.ts --bundle --outdir=dist --platform=node --sourcemap",
+    "bundle": "esbuild index.ts init.ts worker.ts --outdir=dist --platform=node --sourcemap --bundle --packages=external",
     "test": "jest"
   },
   "devDependencies": {
@@ -20,6 +20,16 @@
   },
   "dependencies": {
     "@aws-sdk/lib-dynamodb": "^3.319.0",
+    "@opentelemetry/api": "^1.8.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.50.0",
+    "@opentelemetry/id-generator-aws-xray": "^1.2.1",
+    "@opentelemetry/instrumentation-aws-sdk": "^0.40.0",
+    "@opentelemetry/instrumentation-express": "^0.37.0",
+    "@opentelemetry/instrumentation-http": "^0.50.0",
+    "@opentelemetry/propagator-aws-xray": "^1.3.1",
+    "@opentelemetry/sdk-node": "^0.50.0",
+    "@opentelemetry/sdk-trace-node": "^1.23.0",
+    "@opentelemetry/semantic-conventions": "^1.23.0",
     "axios": "^1.6.0",
     "express": "^4.19.2",
     "uuid": "^9.0.0"

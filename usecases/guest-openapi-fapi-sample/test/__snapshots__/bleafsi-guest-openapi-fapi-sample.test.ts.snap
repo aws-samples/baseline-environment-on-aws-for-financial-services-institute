@@ -400,6 +400,11 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
           "Ref": "KeycloakKeyCloakContainerSerivceCluster6438B613",
         },
         "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
@@ -1142,7 +1147,7 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
         "Tags": [
           {
             "Key": "Name",
-            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default/FlowLogs",
           },
         ],
         "TrafficType": "ALL",
@@ -1449,6 +1454,12 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
     },
     "VpcNaclPublicF3ACBBF5": {
       "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/NaclPublic",
+          },
+        ],
         "VpcId": {
           "Ref": "Vpc8378EB38",
         },

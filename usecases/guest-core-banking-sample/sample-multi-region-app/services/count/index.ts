@@ -1,3 +1,4 @@
+import './lib/otel';
 import express, { NextFunction, Request, Response } from 'express';
 
 /**
@@ -136,9 +137,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // https://github.com/wclr/ts-node-dev/issues/120
-process.on('SIGTERM', (err: any) => {
-  process.exit(1);
-});
+['SIGTERM', 'SIGHUP', 'SIGINT'].forEach((sig) =>
+  process.on(sig, (err: any) => {
+    process.exit(1);
+  }),
+);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
