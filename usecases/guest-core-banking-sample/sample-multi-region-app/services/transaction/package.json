@@ -30,7 +30,7 @@
     "@opentelemetry/sdk-node": "^0.50.0",
     "@opentelemetry/sdk-trace-node": "^1.23.0",
     "@opentelemetry/semantic-conventions": "^1.23.0",
-    "axios": "^1.6.0",
+    "axios": "^1.7.4",
     "express": "^4.19.2",
     "uuid": "^9.0.0"
   }
