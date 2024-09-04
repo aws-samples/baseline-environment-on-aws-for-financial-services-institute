@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0] - 2024-09-04
+
+### Changed
+
+- FSI Lens for FISC の更新
+  - FISC 安全対策基準（第 12 版）対応
+  - AWS Well-Architected Frameworkアップデート対応
+
 ## [1.3.0] - 2024-07-24
 
 ### Changed

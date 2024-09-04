@@ -148,10 +148,9 @@
 |          | [REL 11](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/design-your-workload-to-withstand-component-failures.html)                      |
 | 実 86    | [REL 10](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/use-fault-isolation-to-protect-your-workload.html)                              |
 |          | [REL 11](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/design-your-workload-to-withstand-component-failures.html)                      |
-| 実 87    | [REL 10](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/use-fault-isolation-to-protect-your-workload.html)                              |
-|          | [REL 11](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/design-your-workload-to-withstand-component-failures.html)                      |
+| 実 87    | [REL 2](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/plan-your-network-topology.html)                                                 |
+|          | [REL 10](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/use-fault-isolation-to-protect-your-workload.html)                              |
 | 実 88    | [REL 10](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/use-fault-isolation-to-protect-your-workload.html)                              |
-|          | [REL 11](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/reliability-pillar/design-your-workload-to-withstand-component-failures.html)                      |
 | 実 89    | [SEC 全般](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/security.html)                                                                   |
 | 実 90    | [SEC 11](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/sec-11.html)                                                                             |
 | 実 91    | [SEC 11](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/sec-11.html)                                                                             |
@@ -221,7 +220,7 @@
 | 実 126   | ー                                                                                                                                                                   |
 | 実 127   | ー                                                                                                                                                                   |
 | 実 128   | ー                                                                                                                                                                   |
-| 実 129   | [SEC 9](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/protecting-data-in-transit.html)                                                    |
+| 実 129   | ー                                                                                                                                                                   |
 | 実 130   | ー                                                                                                                                                                   |
 | 実 131   | ー                                                                                                                                                                   |
 | 実 132   | [SEC 10](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/preparation.html)                                                                  |
@@ -238,6 +237,7 @@
 |          | [SEC 8](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/protecting-data-at-rest.html)                                                       |
 |          | [SEC 9](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/protecting-data-in-transit.html)                                                    |
 |          | [SEC 10](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/preparation.html)                                                                  |
+|          | [FISCSEC 10](./security.md#fiscsec10-どのように電子メールを安全に運用しますか)                                                                                       |
 | 実 139   | [SEC 2](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/identity-management.html)                                                           |
 |          | [SEC 3](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/permissions-management.html)                                                        |
 |          | [SEC 5](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/protecting-networks.html)                                                           |
@@ -255,7 +255,6 @@
 |          | [SEC 3](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/permissions-management.html)                                                        |
 |          | [SEC 7](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/data-classification.html)                                                           |
 |          | [SEC 8](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/protecting-data-at-rest.html)                                                       |
-|          | [SEC 9](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/security-pillar/protecting-data-in-transit.html)                                                    |
 | 実 143   | ー                                                                                                                                                                   |
 | 実 144   | ー                                                                                                                                                                   |
 | 実 145   | ー                                                                                                                                                                   |
