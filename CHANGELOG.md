@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0] - 2024-11-10
+
+### Added
+
+- 新ワークロード メインフレーム連携を提供
+- 新ワークロード ハイブリッドを提供
+
 ## [1.4.0] - 2024-09-04
 
 ### Changed

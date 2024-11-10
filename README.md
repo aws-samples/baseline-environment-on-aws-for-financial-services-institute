@@ -60,12 +60,26 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
     ](doc/reference-arc-market-data/deploy-market-data-sample.md)
 
 - **データ分析プラットフォーム(simple data lake)**
+
   - [金融ワークロードアーキテクチャ解説 [データ分析プラットフォーム]
     ](doc/reference-arc-analytics-platform/analytics-simple-datalake-arch-readme.md)
   - [FISC 実務基準対策 一覧 [データ分析プラットフォーム]
     ](doc/reference-arc-analytics-platform/fisc-mapping-analytics-simple-datalake.md)
   - [CDK サンプルコード [データ分析プラットフォーム]  
     ](doc/reference-arc-analytics-platform/deploy-analytics-platform-simpledatalake.md)
+
+- **メインフレーム連携**
+
+  - [金融ワークロードアーキテクチャ解説 [メインフレーム連携]
+    ](doc/reference-arc-mf-integration/mf-integration-arch-readme.md)
+  - [FISC 実務基準対策 一覧 [メインフレーム連携]
+    ](doc/reference-arc-mf-integration/fisc-mapping-mf-integration.md)
+
+- **ハイブリッド**
+  - [金融ワークロードアーキテクチャ解説 [ハイブリッド]
+    ](doc/reference-arc-hybrid/readme.md)
+  - [FISC 実務基準対策 一覧 [ハイブリッド]
+    ](doc/reference-arc-hybrid/fisc-mapping-hybrid.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
