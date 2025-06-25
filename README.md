@@ -47,8 +47,8 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
     ](doc/reference-arc-open-api/fisc-mapping-open-api.md)
   - [CDK サンプルコード [オープン API ベーシック]  
     ](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
-  - [CDK サンプルコード [オープン API 金融グレード(FAPI)]  
-    ](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
+  - CDK サンプルコード [オープン API 金融グレード(FAPI)]
+    - （バージョンアップ対応のため CDK は工事中）
 
 - **マーケットデータ**
 
@@ -180,7 +180,7 @@ CT を導入していないアカウント環境へのガバナンスベース�
 - [2. [勘定系] サンプルアプリケーションのセットアップ手順](doc/reference-arc-core-banking/deploy-core-banking-sample.md)
 - [3. [顧客チャネル] サンプルアプリケーションのセットアップ手順](doc/reference-arc-customer-channel/deploy-customer-channel-sample.md)
 - [4-1. [Open API ベーシック ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-base-sample.md)
-- [4-2. [Open API 金融グレード(FAPI)] サンプルアプリケーションのセットアップ手順](doc/reference-arc-open-api/deploy-openapi-fapi-sample.md)
+- 4-2. [Open API 金融グレード(FAPI)] サンプルアプリケーションのセットアップ手順　（バージョンアップ対応のため工事中）
 - [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-market-data/deploy-market-data-sample.md)
 - [6. [データ分析プラットフォーム] サンプルアプリケーションのセットアップ手順](doc/reference-arc-analytics-platform/deploy-analytics-platform-simpledatalake.md)
 

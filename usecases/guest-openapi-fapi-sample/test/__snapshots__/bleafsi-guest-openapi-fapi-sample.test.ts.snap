@@ -983,6 +983,12 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
             "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
           },
         ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Interface",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -1069,6 +1075,12 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
           },
           {
             "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -1371,6 +1383,12 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
           },
           {
             "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -1988,6 +2006,12 @@ exports[`BLEAFSI-OpenApi-Fapi snapshot check OpenAPI FAPI sample Stacks 1`] = `
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-OpenApi-Fapi-openapi-fapi-primary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "Vpc8378EB38",

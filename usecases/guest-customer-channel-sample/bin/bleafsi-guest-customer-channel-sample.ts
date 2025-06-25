@@ -5,6 +5,7 @@ import { CustomerChannelPrimaryStack } from '../lib/bleafsi-customer-channel-pri
 import { CustomerChannelSecondaryStack } from '../lib/bleafsi-customer-channel-secondary-stack';
 import { CustomerChannelTertiaryStack } from '../lib/bleafsi-customer-channel-tertiary-stack';
 import { AppParameter, PjPrefix, DevParameter, StageParameter, ProdParameter } from './parameter';
+import { CloudFrontWafStack } from '../lib/call-monitoring/waf-stack';
 
 function addEnvironmentTag(appParam: AppParameter, stack: cdk.Stack) {
   const ENV_TAG_NAME = 'Environment';
@@ -15,13 +16,24 @@ export interface CustomerChannelStacks {
   readonly primaryStack: CustomerChannelPrimaryStack;
   readonly secondaryStack?: CustomerChannelSecondaryStack;
   readonly tertiaryStack?: CustomerChannelTertiaryStack;
+  readonly wafStack?: CloudFrontWafStack;
 }
 
 export function createStacks(app: cdk.App, pjPrefix: string, appParam: AppParameter): CustomerChannelStacks {
+  const wafStack = appParam.enableCallMonitoring
+    ? new CloudFrontWafStack(app, `${pjPrefix}-${appParam.envName}-Waf`, {
+        env: { account: appParam.account, region: 'us-east-1' },
+      })
+    : undefined;
+  if (wafStack) {
+    addEnvironmentTag(appParam, wafStack);
+  }
+
   let tertiaryStack: CustomerChannelTertiaryStack | undefined;
   if (appParam.tertiaryRegion) {
     tertiaryStack = new CustomerChannelTertiaryStack(app, `${pjPrefix}-${appParam.envName}-Tertiary`, {
       env: { account: appParam.account, region: appParam.tertiaryRegion.region },
+      crossRegionReferences: true,
     });
     addEnvironmentTag(appParam, tertiaryStack);
   }
@@ -31,6 +43,10 @@ export function createStacks(app: cdk.App, pjPrefix: string, appParam: AppParame
     env: { account: appParam.account, region: appParam.primaryRegion.region },
     connectInstance: appParam.primaryRegion.connectInstance,
     tertiaryStack,
+    wafStack,
+    crossRegionReferences: true,
+    connectWidgetId: appParam.primaryRegion.connectWidgetId,
+    connectSnippetId: appParam.primaryRegion.connectSnippetId,
   });
   addEnvironmentTag(appParam, primaryStack);
 
@@ -43,12 +59,13 @@ export function createStacks(app: cdk.App, pjPrefix: string, appParam: AppParame
       env: { account: appParam.account, region: appParam.secondaryRegion.region },
       connectInstance: appParam.secondaryRegion.connectInstance,
       tertiaryStack,
+      crossRegionReferences: true,
     });
     secondaryStack.addDependency(tertiaryStack);
     addEnvironmentTag(appParam, secondaryStack);
   }
 
-  return { primaryStack, secondaryStack, tertiaryStack };
+  return { primaryStack, secondaryStack, tertiaryStack, wafStack };
 }
 
 const app = new cdk.App();

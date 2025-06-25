@@ -1,23 +1,11 @@
 import { NagSuppressions } from 'cdk-nag';
-import { RemoteParameters } from 'cdk-remote-stack';
 import { Provider } from 'aws-cdk-lib/custom-resources';
 import { Stack } from 'aws-cdk-lib';
 import { Node } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
-
-export function addNagSuppressionsToRemoteParameters(rp: RemoteParameters) {
-  NagSuppressions.addResourceSuppressions(
-    rp,
-    [
-      { id: 'AwsSolutions-L1', reason: 'Non-latest nodejs function is used inside RemoteParameters' },
-      { id: 'AwsSolutions-IAM4', reason: 'AWSLambdaBasicExecutionRole is used inside RemoteParameters' },
-      { id: 'AwsSolutions-IAM5', reason: 'Wildcard policy is used inside RemoteParameters' },
-    ],
-    true,
-  );
-}
+import * as appsync from 'aws-cdk-lib/aws-appsync';
 
 export function addNagSuppressionsToProvider(provider: Provider) {
   NagSuppressions.addResourceSuppressions(
@@ -63,6 +51,42 @@ export function addNagSuppressionsToLogRetention(stack: Stack) {
       );
     });
 }
+export function addNagSuppressionsToNodejsBuild(stack: Stack) {
+  stack.node.children
+    .filter((construct) => {
+      const constructPath = construct.node.path.split(Node.PATH_SEP);
+      const id = constructPath[constructPath.length - 1];
+      return id.startsWith('NodejsBuildCustomResourceHandler');
+    })
+    .forEach((construct) => {
+      NagSuppressions.addResourceSuppressions(
+        construct,
+        [
+          { id: 'AwsSolutions-L1', reason: 'NodejsBuildCustomResourceHandler uses non-latest lambda runtime' },
+          { id: 'AwsSolutions-IAM4', reason: 'NodejsBuildCustomResourceHandler uses AWSLambdaBasicExecutionRole' },
+        ],
+        true,
+      );
+    });
+
+  stack.node.children
+    .filter((construct) => {
+      const constructPath = construct.node.path.split(Node.PATH_SEP);
+      const id = constructPath[constructPath.length - 1];
+      return id.startsWith('Custom::CDKBucketDeployment');
+    })
+    .forEach((construct) => {
+      NagSuppressions.addResourceSuppressions(
+        construct,
+        [
+          { id: 'AwsSolutions-L1', reason: 'Custom::CDKBucketDeployment uses non-latest lambda runtime' },
+          { id: 'AwsSolutions-IAM4', reason: 'NodejsBuildCustomResourceHandler uses AWSLambdaBasicExecutionRole' },
+          { id: 'AwsSolutions-IAM5', reason: 'Custom::CDKBucketDeployment uses wildcard permissions' },
+        ],
+        true,
+      );
+    });
+}
 
 export function addNagSuppressionsToRestApi(api: apigateway.RestApi) {
   NagSuppressions.addResourceSuppressions(
@@ -81,6 +105,14 @@ export function addNagSuppressionsToApiMethod(method: apigateway.Method) {
   NagSuppressions.addResourceSuppressions(
     method,
     [{ id: 'AwsSolutions-COG4', reason: 'IAM authorizer is intentionally used' }],
+    true,
+  );
+}
+
+export function addNagSuppressionsToGraphqlApi(api: appsync.GraphqlApi) {
+  NagSuppressions.addResourceSuppressions(
+    api,
+    [{ id: 'AwsSolutions-IAM4', reason: 'AppSync uses AWSAppSyncPushToCloudWatchLogs' }],
     true,
   );
 }

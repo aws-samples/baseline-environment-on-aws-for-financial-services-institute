@@ -1,0 +1,121 @@
+subscription onAddTranscript($contactId: ID!) {
+  onAddTranscript(contactId: $contactId) {
+    contactId
+    transcriptId
+    isPartial
+    participantRole
+    begin
+    end
+    transcript
+  }
+}
+
+subscription onAddSummary($contactId: ID!) {
+  onAddSummary(contactId: $contactId) {
+    contactId
+    startDate
+    endDate
+    summary
+  }
+}
+
+subscription onAddContact($contactId: ID!) {
+  onAddContact(contactId: $contactId) {
+    contactId
+    startDate
+    endDate
+  }
+}
+
+subscription onAddAssign($agentId: ID!) {
+  onAddAssign(agentId: $agentId) {
+    contactId
+    agentId
+    agentName
+    startDate
+    endDate
+  }
+}
+
+mutation checkTranscript($input: CheckTranscriptInput!) {
+  checkTranscript(input: $input) {
+    contactId
+    checkResult
+    startDate
+    endDate
+  }
+}
+
+mutation addBot($input: AddBotInput!) {
+  addBot(input: $input) {
+    botId
+    botName
+    botDescription
+    botContents
+    active
+    createdAt
+    modifiedAt
+  }
+}
+
+mutation deleteBot($input: DeleteBotInput!) {
+  deleteBot(input: $input) {
+    botId
+  }
+}
+
+query getTranscripts($contactId: ID!) {
+  getTranscripts(contactId: $contactId) {
+    contactId
+    transcriptId
+    isPartial
+    participantRole
+    begin
+    end
+    transcript
+  }
+}
+
+query getContact($contactId: ID!) {
+  getContact(contactId: $contactId) {
+    contactId
+    startDate
+    endDate
+    summary
+    checkResult
+    cost
+  }
+}
+
+query getContacts($input: GetContactsInput) {
+  getContacts(input: $input) {
+    contactId
+    startDate
+    endDate
+    summary
+    checkResult
+    cost
+  }
+}
+
+query getAssigns($input: GetAssignsInput!) {
+  getAssigns(input: $input) {
+    contactId
+    agentId
+    agentName
+    startDate
+    endDate
+  }
+}
+
+query getBots {
+  getBots {
+    botId
+    botName
+    botDescription
+    botContents
+    active
+    createdAt
+    modifiedAt
+  }
+}

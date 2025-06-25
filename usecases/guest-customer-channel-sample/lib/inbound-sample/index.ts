@@ -1,16 +1,15 @@
 import { Construct } from 'constructs';
 import { CustomerChannelConnectInstance } from '../connect-instance';
-import * as connect from 'aws-cdk-lib/aws-connect';
-import * as cr_connect from '../cr-connect';
 import { NagSuppressions } from 'cdk-nag';
 import * as lex from 'aws-cdk-lib/aws-lex';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as connect_l2 from '../connect-l2';
 
 export interface CustomerChannelInboundSampleProps {
   readonly connectInstance: CustomerChannelConnectInstance;
-  readonly queue: cr_connect.IQueue;
+  readonly queue: connect_l2.IQueue;
 }
 
 export class CustomerChannelInboundSample extends Construct {
@@ -62,6 +61,7 @@ export class CustomerChannelInboundSample extends Construct {
         },
       ],
     });
+    botVersion.node.addDependency(bot);
 
     const botAlias = new lex.CfnBotAlias(this, 'IdentificationBotAlias', {
       botAliasName: 'IdentificationBotAlias',
@@ -76,14 +76,12 @@ export class CustomerChannelInboundSample extends Construct {
         },
       ],
     });
+    botAlias.node.addDependency(botVersion);
 
-    const botAssociation = new cr_connect.LexBotAssociation(this, 'IdentificationBotAssociation', {
-      instanceId: connectInstance.instance.instanceId,
-      lexV2Bot: {
-        aliasArn: botAlias.attrArn,
-      },
+    new connect_l2.LexIntegrationAssociation(this, 'IdentificationBotAssociation', {
+      instance: connectInstance.instance,
+      botAlias: botAlias,
     });
-    botAssociation.node.addDependency(connectInstance, bot);
 
     return botAlias;
   }
@@ -91,35 +89,31 @@ export class CustomerChannelInboundSample extends Construct {
   private createInboundContactFlow(
     connectInstance: CustomerChannelConnectInstance,
     botAlias: lex.CfnBotAlias,
-    queue: cr_connect.IQueue,
-    agentWhisperFlow: connect.CfnContactFlow,
+    queue: connect_l2.IQueue,
+    agentWhisperFlow: connect_l2.IContactFlow,
   ) {
-    const contentPath = path.join(__dirname, 'inbound-contact-flow.json');
-    const contentTemplate = fs.readFileSync(contentPath, 'utf-8');
-    const content = contentTemplate
-      .replace(/%BOT_ALIAS_ARN%/g, botAlias.attrArn)
-      .replace(/%QUEUE_ARN%/g, queue.queueArn)
-      .replace(/%AGENT_WHISPER_FLOW_ARN%/g, agentWhisperFlow.attrContactFlowArn);
-
-    const contactFlow = new connect.CfnContactFlow(this, 'IdentificationInboundContactFlow', {
-      instanceArn: connectInstance.instance.instanceArn,
+    const templateContactFlow = new connect_l2.TemplateContactFlow(this, 'IdentificationInboundContactFlow', {
+      instance: connectInstance.instance,
       name: 'IdentificationInboundContactFlow',
-      type: 'CONTACT_FLOW',
-      content,
+      type: connect_l2.ContactFlowType.CONTACT_FLOW,
+      path: path.join(__dirname, 'inbound-contact-flow.json'),
+      variables: {
+        BOT_ALIAS_ARN: botAlias.attrArn,
+        QUEUE_ARN: queue.queueArn,
+        AGENT_WHISPER_FLOW_ARN: agentWhisperFlow.contactFlowArn,
+      },
     });
-    contactFlow.addDependency(agentWhisperFlow);
-    return contactFlow;
+
+    templateContactFlow.node.addDependency(agentWhisperFlow);
+    return templateContactFlow;
   }
 
   private createAgentWhisperFlow(connectInstance: CustomerChannelConnectInstance) {
-    const contentPath = path.join(__dirname, 'agent-whisper-flow.json');
-    const content = fs.readFileSync(contentPath, 'utf-8');
-
-    return new connect.CfnContactFlow(this, 'IdentificationAgentWhisperFlow', {
-      instanceArn: connectInstance.instance.instanceArn,
+    return new connect_l2.TemplateContactFlow(this, 'IdentificationAgentWhisperFlow', {
+      instance: connectInstance.instance,
       name: 'IdentificationAgentWhisperFlow',
-      type: 'AGENT_WHISPER',
-      content,
+      type: connect_l2.ContactFlowType.AGENT_WHISPER,
+      path: path.join(__dirname, 'agent-whisper-flow.json'),
     });
   }
 }

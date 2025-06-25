@@ -3,13 +3,15 @@ import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as kms from 'aws-cdk-lib/aws-kms';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import * as connect from 'aws-cdk-lib/aws-connect';
 import * as kinesisfirehose from 'aws-cdk-lib/aws-kinesisfirehose';
-import * as cr_connect from './cr-connect';
-import { ContactFlowConfig, SamlProviderConfig, ConnectInstanceConfig } from './config';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as connect_l2 from './connect-l2';
+import { SamlProviderConfig, ConnectInstanceConfig, UserConfig } from './config';
 import { NagSuppressions } from 'cdk-nag';
+import { adminPermissions } from './security-profile-permissions';
+
+interface CustomerChannelQconnectConfiguration {
+  readonly key: kms.IKey;
+}
 
 interface CustomerChannelConnectInstanceProps {
   readonly connectInstance: ConnectInstanceConfig;
@@ -17,9 +19,11 @@ interface CustomerChannelConnectInstanceProps {
   readonly recordingKey: kms.IKey;
   readonly recordingPrefix: string;
   readonly localRecordingKey: kms.IKey;
+  readonly qconnect?: CustomerChannelQconnectConfiguration;
 }
+
 export class CustomerChannelConnectInstance extends Construct {
-  public readonly instance: cr_connect.Instance;
+  public readonly instance: connect_l2.Instance;
 
   constructor(scope: Construct, id: string, props: CustomerChannelConnectInstanceProps) {
     super(scope, id);
@@ -39,20 +43,29 @@ export class CustomerChannelConnectInstance extends Construct {
       props.localRecordingKey,
     );
 
-    this.createContactFlows(instance, props.connectInstance.contactFlows ?? []);
+    if (props.connectInstance.adminUsers) {
+      this.createAdminUsers(instance, props.connectInstance.adminUsers);
+    }
   }
 
-  private createInstance(config: ConnectInstanceConfig): cr_connect.Instance {
-    return new cr_connect.Instance(this, 'Instance', {
+  private createInstance(config: ConnectInstanceConfig): connect_l2.Instance {
+    return new connect_l2.Instance(this, 'Instance', {
       instanceAlias: config.instanceAlias,
-      inboundCallsEnabled: config.inboundCallsEnabled ?? true,
-      outboundCallsEnabled: config.outboundCallsEnabled ?? true,
-      identityManagementType: config.identityManagementType ?? 'CONNECT_MANAGED',
+      attributes: {
+        inboundCalls: config.attributes?.inboundCalls ?? true,
+        outboundCalls: config.attributes?.outboundCalls ?? true,
+        autoResolveBestVoices: config.attributes?.autoResolveBestVoices ?? true,
+        contactflowLogs: config.attributes?.contactflowLogs ?? true,
+        contactLens: config.attributes?.contactLens ?? true,
+        earlyMedia: config.attributes?.earlyMedia ?? true,
+        useCustomTtsVoices: config.attributes?.useCustomTtsVoices ?? false,
+      },
+      identityManagementType: config.identityManagementType ?? connect_l2.IdentityManagementType.CONNECT_MANAGED,
       directoryId: config.directoryId,
     });
   }
 
-  private createSamlIntegration(samlConf: SamlProviderConfig, instance: cr_connect.Instance) {
+  private createSamlIntegration(samlConf: SamlProviderConfig, instance: connect_l2.Instance) {
     const provider = new iam.SamlProvider(this, 'SamlProvider', {
       metadataDocument: iam.SamlMetadataDocument.fromFile(samlConf.metadataDocumentPath),
       name: samlConf.name,
@@ -80,28 +93,28 @@ export class CustomerChannelConnectInstance extends Construct {
   }
 
   private addS3RecordingConfigs(
-    instance: cr_connect.Instance,
+    instance: connect_l2.Instance,
     recordingBucket: s3.IBucket,
     recordingKey: kms.IKey,
     recordingPrefix: string,
   ) {
-    new cr_connect.S3StorageConfig(this, 'CallRecordingConfig', {
+    new connect_l2.S3StorageConfig(this, 'CallRecordingConfig', {
       instance,
-      resourceType: 'CALL_RECORDINGS',
+      resourceType: connect_l2.ResourceType.CALL_RECORDINGS,
       bucket: recordingBucket,
       bucketPrefix: `${recordingPrefix}/call-recordings`,
       key: recordingKey,
     });
-    new cr_connect.S3StorageConfig(this, 'ChatTranscriptConfig', {
+    new connect_l2.S3StorageConfig(this, 'ChatTranscriptConfig', {
       instance,
-      resourceType: 'CHAT_TRANSCRIPTS',
+      resourceType: connect_l2.ResourceType.CHAT_TRANSCRIPTS,
       bucket: recordingBucket,
       bucketPrefix: `${recordingPrefix}/chat-transcripts`,
       key: recordingKey,
     });
-    new cr_connect.S3StorageConfig(this, 'ScheduledReportsConfig', {
+    new connect_l2.S3StorageConfig(this, 'ScheduledReportsConfig', {
       instance,
-      resourceType: 'SCHEDULED_REPORTS',
+      resourceType: connect_l2.ResourceType.SCHEDULED_REPORTS,
       bucket: recordingBucket,
       bucketPrefix: `${recordingPrefix}/scheduled-reports`,
       key: recordingKey,
@@ -109,7 +122,7 @@ export class CustomerChannelConnectInstance extends Construct {
   }
 
   private addCtrRecordingConfig(
-    instance: cr_connect.Instance,
+    instance: connect_l2.Instance,
     recordingBucket: s3.IBucket,
     recordingKey: kms.IKey,
     recordingPrefix: string,
@@ -172,30 +185,98 @@ export class CustomerChannelConnectInstance extends Construct {
     });
     deliveryStream.node.addDependency(deliveryStreamRole);
 
-    new cr_connect.KinesisFirehoseStorageConfig(this, 'CtrDeliveryStreamConfig', {
+    new connect_l2.KinesisFirehoseStorageConfig(this, 'CtrDeliveryStreamConfig', {
       instance,
-      resourceType: 'CONTACT_TRACE_RECORDS',
+      resourceType: connect_l2.ResourceType.CONTACT_TRACE_RECORDS,
       deliveryStream,
     });
   }
 
-  private createContactFlows(
-    instance: cr_connect.Instance,
-    contactFlowConfigList: ContactFlowConfig[],
-  ): connect.CfnContactFlow[] {
-    return contactFlowConfigList.map((contactFlowConfig) => {
-      const name = contactFlowConfig.name;
-      const type = contactFlowConfig.type;
-      const contactFlowPath = path.join(__dirname, '..', 'asset', `${name}.json`);
-      const contactFlowContent = fs.readFileSync(contactFlowPath, 'utf-8');
-      const contactFlow = new connect.CfnContactFlow(this, `ContactFlow-${name}`, {
-        instanceArn: instance.instanceArn,
-        type: type,
-        content: contactFlowContent,
-        name: name,
+  private createAdminUsers(instance: connect_l2.IInstance, users: UserConfig[]) {
+    const adminSecurityProfile = new connect_l2.SecurityProfile(this, 'CustomerChannelAdminSecurityProfile', {
+      instance,
+      securityProfileName: 'CustomerChannelAdmin',
+      permissions: adminPermissions,
+    });
+
+    const basicQueue = connect_l2.Queue.fromQueueName(this, 'BasicQueue', instance.instanceId, 'BasicQueue');
+
+    const routingProfile = new connect_l2.RoutingProfile(this, 'CustomerChannelRoutingProfile', {
+      instance,
+      description: 'CustomerChannelRoutingProfile',
+      routingProfileName: 'CustomerChannelRoutingProfile',
+      mediaConcurrencies: [
+        {
+          channel: connect_l2.ChannelType.VOICE,
+          concurrency: 1,
+        },
+        {
+          channel: connect_l2.ChannelType.CHAT,
+          concurrency: 2,
+        },
+        {
+          channel: connect_l2.ChannelType.TASK,
+          concurrency: 1,
+        },
+        {
+          channel: connect_l2.ChannelType.EMAIL,
+          concurrency: 1,
+        },
+      ],
+      queueConfigs: [
+        {
+          queue: basicQueue,
+          channel: connect_l2.ChannelType.VOICE,
+          priority: 1,
+          delay: 0,
+        },
+        {
+          queue: basicQueue,
+          channel: connect_l2.ChannelType.CHAT,
+          priority: 1,
+          delay: 0,
+        },
+        {
+          queue: basicQueue,
+          channel: connect_l2.ChannelType.TASK,
+          priority: 1,
+          delay: 0,
+        },
+        {
+          queue: basicQueue,
+          channel: connect_l2.ChannelType.EMAIL,
+          priority: 1,
+          delay: 0,
+        },
+      ],
+      defaultOutboundQueue: basicQueue,
+    });
+
+    this.createUsers(instance, [adminSecurityProfile], routingProfile, users);
+  }
+
+  private createUsers(
+    instance: connect_l2.IInstance,
+    securityProfiles: connect_l2.ISecurityProfile[],
+    routingProfile: connect_l2.IRoutingProfile,
+    users: UserConfig[],
+  ) {
+    users.forEach((user) => {
+      new connect_l2.User(this, `User-{user.alias}`, {
+        instance,
+        username: user.alias,
+        password: user.password,
+        identityInfo: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+        phoneConfig: {
+          phoneType: connect_l2.PhoneType.SOFT_PHONE,
+        },
+        routingProfile,
+        securityProfiles,
       });
-      contactFlow.node.addDependency(instance);
-      return contactFlow;
     });
   }
 }
