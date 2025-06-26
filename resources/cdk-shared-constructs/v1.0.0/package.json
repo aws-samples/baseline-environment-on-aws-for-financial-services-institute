@@ -1,0 +1,42 @@
+{
+  "private": true,
+  "name": "bleafsi-shared-constructs",
+  "version": "1.0.0",
+  "description": "BLEA FSI Shared CDK Construtcs",
+  "license": "MIT-0",
+  "bin": {
+    "bleafsi-shared-constructs": "test/bleafsi-shared-constructs-test-app.js"
+  },
+  "scripts": {
+    "synth:dev": "npx cdk synth",
+    "depcheck": "npx depcheck --ignore-dirs cdk.out",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean && rm -rf cdk.out",
+    "watch": "tsc -w",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "18.17.6",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "aws-cdk": "^2.1006.0",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.0.4",
+    "typedoc": "^0.24.8",
+    "typedoc-theme-hierarchy": "~4.0.0",
+    "typedoc-plugin-markdown": "^3.15.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.186.0",
+    "constructs": "^10.1.99",
+    "source-map-support": "^0.5.21"
+  }
+}

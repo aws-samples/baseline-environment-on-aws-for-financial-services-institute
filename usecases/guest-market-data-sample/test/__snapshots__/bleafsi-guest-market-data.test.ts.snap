@@ -17,7 +17,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
+          "S3Key": "4cd2f2411231aa073e609dc99a49b5c5e974252bf9abf0f9350d237d17cce8be.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -26,7 +26,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 120,
       },
       "Type": "AWS::Lambda::Function",
@@ -85,6 +85,17 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                     ],
                   ],
                 },
+              },
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "kms:Decrypt",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com",
               },
               "Resource": "*",
             },
@@ -742,7 +753,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""},"logApiResponseData":true}",
+              ""}}",
             ],
           ],
         },
@@ -1951,7 +1962,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""},"logApiResponseData":true}",
+              ""}}",
             ],
           ],
         },
@@ -2664,7 +2675,7 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""},"logApiResponseData":true}",
+              ""}}",
             ],
           ],
         },
@@ -2832,6 +2843,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "VpcC3027511",
@@ -2857,6 +2874,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           },
           {
             "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -2934,6 +2957,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           },
           {
             "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -3022,6 +3051,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           },
           {
             "Ref": "VpcPrivateSubnet2SubnetC8EB537D",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -3395,6 +3430,12 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-MarketData/Vpc/Vpc",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "VpcC3027511",

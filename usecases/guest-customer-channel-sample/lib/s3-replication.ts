@@ -101,8 +101,17 @@ export class BucketReplication extends Construct {
       }),
     );
     if (props.destinationKey) {
-      props.destinationKey.grantEncrypt(this.replicationRole);
-      props.destinationKey.grant(this.replicationRole, 'kms:GenerateDataKey');
+      this.replicationRole.addToPolicy(
+        new iam.PolicyStatement({
+          actions: ['kms:Encrypt', 'kms:GenerateDataKey'],
+          resources: [props.destinationKey.keyArn],
+          conditions: {
+            StringLike: {
+              'kms:ViaService': `s3.${this.sourceBucket.stack.region}.amazonaws.com`,
+            },
+          },
+        }),
+      );
     }
   }
 }

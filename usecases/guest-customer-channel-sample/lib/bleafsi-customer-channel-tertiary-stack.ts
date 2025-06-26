@@ -7,9 +7,8 @@ import * as nag_suppressions from './nag-suppressions';
 import { PrivateBucket } from './s3-private-bucket';
 
 export class CustomerChannelTertiaryStack extends Stack {
-  public readonly parameterPath: string;
-  public readonly backupBucketArnParameterName: string;
-  public readonly backupKeyArnParameterName: string;
+  public readonly backupBucket: s3.IBucket;
+  public readonly backupKey: kms.IKey;
 
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
@@ -17,6 +16,7 @@ export class CustomerChannelTertiaryStack extends Stack {
     const backupKey = new kms.Key(this, 'BackupKey', {
       enableKeyRotation: true,
     });
+    this.backupKey = backupKey;
 
     const backupAccessLogsBucket = new PrivateBucket(this, 'BackupAccessLogsBucket', {
       encryption: s3.BucketEncryption.S3_MANAGED,
@@ -27,19 +27,7 @@ export class CustomerChannelTertiaryStack extends Stack {
       serverAccessLogsBucket: backupAccessLogsBucket,
       serverAccessLogsPrefix: 'access-logs/tertiary/',
     });
-
-    this.parameterPath = `/CustomerChannelTertiaryStack/${id}`;
-
-    this.backupBucketArnParameterName = `${this.parameterPath}/backupBucketArn`;
-    new ssm.StringParameter(this, 'BackupBucketArnParameter', {
-      parameterName: this.backupBucketArnParameterName,
-      stringValue: backupBucket.bucketArn,
-    });
-    this.backupKeyArnParameterName = `${this.parameterPath}/backupKeyArn`;
-    new ssm.StringParameter(this, 'BackupKeyArnParameter', {
-      parameterName: this.backupKeyArnParameterName,
-      stringValue: backupKey.keyArn,
-    });
+    this.backupBucket = backupBucket;
 
     nag_suppressions.addNagSuppressionsToLogRetention(this);
   }

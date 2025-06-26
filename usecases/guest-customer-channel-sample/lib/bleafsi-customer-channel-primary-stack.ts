@@ -2,22 +2,34 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as kms from 'aws-cdk-lib/aws-kms';
-import * as cr_connect from './cr-connect';
+import { Queue } from './connect-l2';
 import { CustomerChannelTertiaryStack } from './bleafsi-customer-channel-tertiary-stack';
 import { CustomerChannelConnectInstance } from './connect-instance';
 import { CustomerChannelInboundSample } from './inbound-sample';
 import { CustomerChannelOutboundSample } from './outbound-sample';
-import { ConnectInstanceConfig } from './config';
+import { ConnectInstanceConfig, QconnectConfig, CustomerProfilesConfig, CasesConfig } from './config';
 import { PrivateBucket } from './s3-private-bucket';
 import { BucketReplication } from './s3-replication';
-import { RemoteParameters } from 'cdk-remote-stack';
 import * as nag_suppressions from './nag-suppressions';
+import { CloudFrontWafStack } from './call-monitoring/waf-stack';
+import { CallMonitoring } from './call-monitoring/call-monitoring';
+import { ImmediateInboundSample } from './immediate-inbound-sample';
+import { WebCallSample } from './web-call-sample';
+import { QconnectSample } from './samples/qconnect-sample';
+import { CustomerProfilesSample } from './samples/customer-profiles-sample';
+import { CasesSample } from './samples/cases-sample';
 
 // 顧客チャネルサンプルアプリケーション Primary Region 用スタック
 
 export interface CustomerChannelPrimaryStackProps extends StackProps {
   readonly connectInstance: ConnectInstanceConfig;
   readonly tertiaryStack?: CustomerChannelTertiaryStack;
+  readonly wafStack?: CloudFrontWafStack;
+  readonly connectWidgetId?: string;
+  readonly connectSnippetId?: string;
+  readonly qconnectConfig?: QconnectConfig;
+  readonly customerProfilesConfig?: CustomerProfilesConfig;
+  readonly casesConfig?: CasesConfig;
 }
 
 export class CustomerChannelPrimaryStack extends Stack {
@@ -50,15 +62,59 @@ export class CustomerChannelPrimaryStack extends Stack {
       this.addDependency(props.tertiaryStack);
     }
 
-    const basicQueue = cr_connect.Queue.fromQueueName(
-      this,
-      'BasicQueue',
-      connectInstance.instance.instanceId,
-      'BasicQueue',
-    );
+    const basicQueue = Queue.fromQueueName(this, 'BasicQueue', connectInstance.instance.instanceId, 'BasicQueue');
     new CustomerChannelInboundSample(this, 'InboundSample', { connectInstance, queue: basicQueue });
 
     new CustomerChannelOutboundSample(this, 'OutboundSample', { connectInstance });
+
+    if (props.wafStack) {
+      const callMonitoring = new CallMonitoring(this, 'CallMonitoring', {
+        connectInstance: connectInstance.instance,
+        connectUrl: `https://${props.connectInstance.instanceAlias}.awsapps.com`,
+        webAclId: props.wafStack.webAclArn.value,
+        users: props.connectInstance.adminUsers,
+      });
+      callMonitoring.node.addDependency(connectInstance);
+
+      // Deploy the mock bank site
+      new WebCallSample(this, 'WebCallSample', {
+        webAclId: props.wafStack.webAclArn.value,
+        connectInstance: connectInstance.instance,
+        connectWidgetId: props.connectWidgetId,
+        connectSnippetId: props.connectSnippetId,
+      });
+
+      nag_suppressions.addNagSuppressionsToNodejsBuild(this);
+    }
+
+    const qconnectConfigEnabled = props.qconnectConfig?.enabled ?? true;
+    const qconnectSample = qconnectConfigEnabled
+      ? new QconnectSample(this, 'QconnectSample', {
+          instance: connectInstance.instance,
+          key: recordingKey,
+        })
+      : undefined;
+
+    new ImmediateInboundSample(this, 'ImmediateInboundSample', {
+      connectInstance,
+      queue: basicQueue,
+      assistant: qconnectSample?.assistant,
+    });
+
+    const customerProfilesConfigEnabled = props.customerProfilesConfig?.enabled ?? true;
+    if (customerProfilesConfigEnabled) {
+      new CustomerProfilesSample(this, 'CustomerProfilesSample', {
+        key: recordingKey,
+        connectInstance: connectInstance.instance,
+      });
+    }
+
+    const casesConfigEnabled = props.casesConfig?.enabled ?? true;
+    if (casesConfigEnabled) {
+      new CasesSample(this, 'CasesSample', {
+        connectInstance: connectInstance.instance,
+      });
+    }
 
     nag_suppressions.addNagSuppressionsToLogRetention(this);
   }
@@ -68,31 +124,13 @@ export class CustomerChannelPrimaryStack extends Stack {
     recordingBucket: s3.Bucket,
     recordingKey: kms.Key,
   ) {
-    const tertiaryStackOutputs = new RemoteParameters(this, 'TertiaryStackOutputs', {
-      path: tertiaryStack.parameterPath,
-      region: tertiaryStack.region,
-      alwaysUpdate: false, // Stop refreshing the resource for snapshot testing
-    });
-    nag_suppressions.addNagSuppressionsToRemoteParameters(tertiaryStackOutputs);
-
-    const backupBucket = s3.Bucket.fromBucketArn(
-      this,
-      'BackupBucket',
-      tertiaryStackOutputs.get(tertiaryStack.backupBucketArnParameterName),
-    );
-    const backupKey = kms.Key.fromKeyArn(
-      this,
-      'BackupKey',
-      tertiaryStackOutputs.get(tertiaryStack.backupKeyArnParameterName),
-    );
-
     const recordingReplication = new BucketReplication(this, 'RecordingReplication', {
       sourceBucket: recordingBucket,
       sourceKey: recordingKey,
     });
     recordingReplication.addReplicationRule({
-      destinationBucket: backupBucket,
-      destinationKey: backupKey,
+      destinationBucket: tertiaryStack.backupBucket,
+      destinationKey: tertiaryStack.backupKey,
     });
   }
 }

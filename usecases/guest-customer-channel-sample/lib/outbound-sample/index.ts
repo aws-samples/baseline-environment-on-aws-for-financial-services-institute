@@ -90,7 +90,7 @@ ${api.url}`;
     const logGroup = new logs.LogGroup(this, 'StartOutboundStateMachineLogGroup');
 
     const stateMachine = new stepfunctions.StateMachine(this, 'StartOutboundStateMachine', {
-      definition,
+      definitionBody: stepfunctions.DefinitionBody.fromChainable(definition),
       stateMachineType: stepfunctions.StateMachineType.EXPRESS,
       tracingEnabled: true,
       logs: {
@@ -191,7 +191,7 @@ ${api.url}`;
     const logGroup = new logs.LogGroup(this, 'EndOutboundLogGroup');
 
     const endContactStateMachine = new stepfunctions.StateMachine(this, 'EndOutboundContactStateMachine', {
-      definition: getContactAttributes,
+      definitionBody: stepfunctions.DefinitionBody.fromChainable(getContactAttributes),
       tracingEnabled: true,
       logs: {
         destination: logGroup,

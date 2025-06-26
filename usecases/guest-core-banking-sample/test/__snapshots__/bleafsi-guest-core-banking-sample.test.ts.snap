@@ -110,7 +110,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
+          "S3Key": "4cd2f2411231aa073e609dc99a49b5c5e974252bf9abf0f9350d237d17cce8be.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -119,7 +119,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 120,
       },
       "Type": "AWS::Lambda::Function",
@@ -639,7 +639,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
                   "Arn",
                 ],
               },
-              ""},"logApiResponseData":true}",
+              ""}}",
             ],
           ],
         },
@@ -688,7 +688,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "2d56e153cac88d3e0c2f842e8e6f6783b8725bf91f95e0673b4725448a56e96d.zip",
+          "S3Key": "4fe0aba5e672b596d0f72505a9eec502f98d46906bb30fae2511fbdc1df4956f.zip",
         },
         "Environment": {
           "Variables": {
@@ -707,7 +707,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "python3.9",
+        "Runtime": "python3.11",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -837,7 +837,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "246cb27aa0cb552c81fdca061092d0905aa4d2529e8b52b5598c069f18be51d7.zip",
+          "S3Key": "8a17fb3ceee821f797100bf65fa3047c164a08c03aa5a07fbcff9a676fb73b97.zip",
         },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
@@ -847,7 +847,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -914,7 +914,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "2eb6a831b107939f63cfebf68e6316e1a40f79fc99cae0fee9b333bac8d29bc4.zip",
+          "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip",
         },
         "Description": {
           "Fn::Join": [
@@ -936,7 +936,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -2263,7 +2263,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
             ],
           ],
         },
@@ -2282,7 +2282,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
             ],
           ],
         },
@@ -2319,7 +2319,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
+          "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -2328,7 +2328,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -2871,7 +2871,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "Properties": {
         "Content": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "3322b7049fb0ed2b7cbb644a2ada8d1116ff80c32dca89e6ada846b5de26f961.zip",
+          "S3Key": "12157b27d30ab71eb24ae65825f672ba5cc2c09dbb1703cd7adfcff3aeaca136.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -2884,6 +2884,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
         "DestinationBucketName": {
           "Ref": "SampleAppClientBucket4BBBAACF",
         },
+        "OutputObjectKeys": true,
         "Prune": true,
         "ServiceToken": {
           "Fn::GetAtt": [
@@ -3981,7 +3982,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:0def6c7df4d7860d9b8e4a31cfd499e26d088f347cfae456db2d94955bf99ac3",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:44ca28ffe991e332040521799f93747a8a41cbd5df0b9e8f49b32666be29101a",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4677,7 +4678,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:4f80427bdf48e46dce1982a2421d97d74bc3266f07af41c89170c9e10556bb92",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:647280497c98278e5b9124f25b3901de0ef974b9c24de2ca85b445624a642f3d",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -6205,6 +6206,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -6230,6 +6237,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -6307,6 +6320,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -6557,6 +6576,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
           },
         ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Interface",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -6632,6 +6657,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -7104,6 +7135,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -7129,6 +7166,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -7339,6 +7382,12 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-primary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -7707,7 +7756,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
+          "S3Key": "4cd2f2411231aa073e609dc99a49b5c5e974252bf9abf0f9350d237d17cce8be.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -7716,7 +7765,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 120,
       },
       "Type": "AWS::Lambda::Function",
@@ -7909,7 +7958,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "Vpc8378EB38",
               },
-              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"},"logApiResponseData":true}",
+              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"}}",
             ],
           ],
         },
@@ -7935,7 +7984,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "Vpc8378EB38",
               },
-              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"},"logApiResponseData":true}",
+              ""}},"region":"ap-northeast-1","physicalResourceId":{"id":"Route53AssociateVpc"}}",
             ],
           ],
         },
@@ -8486,7 +8535,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
+          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CoreBanking-secondary/AssociateVpcWithHostedZone/crossRegionSsmParam/Parameters/MyProvider)",
         "Environment": {
@@ -8506,7 +8555,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -8871,6 +8920,16 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                 },
               ],
             },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "AssociateVpcWithHostedZonecrossRegionSsmParamParametersMyHandler51EC931D",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -8998,7 +9057,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "8acca95a9957d02a9f3ec124c9869c5d5b70a7fb3e332120850781ecc9363037.zip",
+          "S3Key": "d41c8e6342cd078b5ea5aec11522bdb605eae00f4bb98a3fb0b44c827e9b5ca9.zip",
         },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
@@ -9008,7 +9067,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -10388,7 +10447,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
+          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CoreBanking-secondary/ECSApp/crossRegionSsmParam/Parameters/MyProvider)",
         "Environment": {
@@ -10408,7 +10467,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -10551,6 +10610,16 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                 },
               ],
             },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ECSAppcrossRegionSsmParamParametersMyHandlerDC24C932",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -10633,7 +10702,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
             ],
           ],
         },
@@ -10652,7 +10721,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"},"logApiResponseData":true}",
+              ""]},"physicalResourceId":{"id":"GetDefaultRouteTableId"}}",
             ],
           ],
         },
@@ -10689,7 +10758,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
+          "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip",
         },
         "Handler": "index.handler",
         "Role": {
@@ -10698,7 +10767,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -11177,7 +11246,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:ec57c1ed5d4e5065a3097f3d549ab3845dbbbc55e3ed48ca8582fd7b78d48e44",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:8409c88fa84ee288be084273389ee768d4502099dbbb44c478d66a508d8b252d",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -12064,7 +12133,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:d618b8af49085d32dfe4fd9a231cb5cf321ecf50a80854c553d22d12f82734eb",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:f14ad410d8ece8060444167f68a256abffcd22fe372da3b95a232ba486e67b4f",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -13621,6 +13690,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -13646,6 +13721,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -13723,6 +13804,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -14033,6 +14120,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
           },
         ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Interface",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -14108,6 +14201,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -14610,6 +14709,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
           ],
         },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Gateway",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -14635,6 +14740,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           },
           {
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
           },
         ],
         "VpcEndpointType": "Interface",
@@ -14847,6 +14958,12 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Ref": "VpcProtectedSubnet2SubnetC22C3325",
           },
         ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BLEAFSI-CoreBanking-secondary/Vpc/Default",
+          },
+        ],
         "VpcEndpointType": "Interface",
         "VpcId": {
           "Ref": "Vpc8378EB38",
@@ -14946,7 +15063,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"},"logApiResponseData":true}",
+              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"}}",
             ],
           ],
         },
@@ -14972,7 +15089,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"},"logApiResponseData":true}",
+              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment"}}",
             ],
           ],
         },
@@ -15133,7 +15250,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-3",
-          "S3Key": "3542be390685e0c8353d92ccb5796d343cd93ca946b6b0de798004206a199adc.zip",
+          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (BLEAFSI-CoreBanking-secondary/Vpc/crossRegionSsmParam-peerTgwId/Parameters/MyProvider)",
         "Environment": {
@@ -15153,7 +15270,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -15295,6 +15412,16 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
                   ],
                 },
               ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "VpccrossRegionSsmParampeerTgwIdParametersMyHandlerA50EC17B",
+                  "Arn",
+                ],
+              },
             },
           ],
           "Version": "2012-10-17",

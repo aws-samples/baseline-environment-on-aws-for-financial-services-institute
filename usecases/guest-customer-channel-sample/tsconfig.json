@@ -3,5 +3,6 @@
   "compilerOptions": {
     "baseUrl": "./"
   },
-  "include": ["bin/**/*.ts", "lib/**/*.ts", "test/**/*.ts"]
+  "include": ["bin/**/*.ts", "lib/**/*.ts", "test/**/*.ts"],
+  "exclude": ["lib/call-monitoring/frontend", "lib/web-call-sample/mock-bank-site"]
 }

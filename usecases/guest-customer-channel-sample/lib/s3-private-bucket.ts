@@ -12,7 +12,7 @@ export type BucketEncryption =
 
 export interface PrivateBucketProps {
   readonly encryption: BucketEncryption;
-  readonly encryptionKey?: kms.Key;
+  readonly encryptionKey?: kms.IKey;
   readonly eventBridgeEnabled?: boolean;
   readonly intelligentTieringConfigurations?: s3.IntelligentTieringConfiguration[];
   readonly inventories?: s3.Inventory[];
@@ -22,13 +22,14 @@ export interface PrivateBucketProps {
   readonly transferAcceleration?: boolean;
   readonly serverAccessLogsBucket?: s3.IBucket;
   readonly serverAccessLogsPrefix?: string;
+  readonly objectOwnership?: s3.ObjectOwnership;
 }
 
 export class PrivateBucket extends s3.Bucket {
   constructor(scope: Construct, id: string, props: PrivateBucketProps) {
     super(scope, id, {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-      objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
+      objectOwnership: props.objectOwnership ?? s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
       versioned: true,
       encryption: props.encryption,
       encryptionKey: props.encryptionKey,
