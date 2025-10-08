@@ -1,8 +1,12 @@
 *.d.ts
 *.js
 !jest.config.js
+!usecases/guest-mobile-banking-sample/lib/frontend/src/**/*.js
 node_modules
 .DS_Store
+
+# VSCode user-specific settings
+.vscode/settings.json
 
 # CDK asset staging directory
 .cdk.staging
@@ -13,4 +17,3 @@ cdk.out
 
 # CDK context
 cdk.context.json
-

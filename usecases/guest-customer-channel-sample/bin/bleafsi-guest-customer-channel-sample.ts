@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { CustomerChannelPrimaryStack } from '../lib/bleafsi-customer-channel-primary-stack';
-import { CustomerChannelSecondaryStack } from '../lib/bleafsi-customer-channel-secondary-stack';
-import { CustomerChannelTertiaryStack } from '../lib/bleafsi-customer-channel-tertiary-stack';
+import { CustomerChannelPrimaryStack } from '../lib/stacks/customer-channel-primary-stack';
+import { CustomerChannelSecondaryStack } from '../lib/stacks/customer-channel-secondary-stack';
+import { CustomerChannelTertiaryStack } from '../lib/stacks/customer-channel-tertiary-stack';
 import { AppParameter, PjPrefix, DevParameter, StageParameter, ProdParameter } from './parameter';
-import { CloudFrontWafStack } from '../lib/call-monitoring/waf-stack';
+import { CloudFrontWafStack } from '../lib/samples/call-monitoring-sample/waf-stack';
 
 function addEnvironmentTag(appParam: AppParameter, stack: cdk.Stack) {
   const ENV_TAG_NAME = 'Environment';

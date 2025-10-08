@@ -7,7 +7,7 @@ import { KeyApp } from '../shared/key-app';
 import { MonitorAlarm } from '../shared/monitor-alarm';
 import { SecondaryContainerAppSample } from './secondary-container-app-sample';
 import { CrossRegionSsmParamName } from '../shared/constants';
-import { AssociateVpcWithZone } from './associate-vpc-with-zone';
+import { AssociateVpcWithZone } from '../shared/associate-vpc-with-zone';
 import { StackParameter, SampleEcsAppParameter, SampleMultiRegionAppParameter } from '../../bin/parameter';
 //マルチリージョン 勘定系サンプルアプリ
 import { SampleMultiRegionApp } from '../shared/sample-multi-region-app/app';
@@ -26,11 +26,12 @@ export class CoreBankingSecondaryStack extends cdk.Stack {
   public readonly secondaryDB: DbAuroraPgGlobalMember;
   public readonly tgwPeeringAttachmentId: string;
   public readonly sampleMultiRegionApp?: SampleMultiRegionApp;
+  public readonly tgwRouteTableId: string;
 
   constructor(scope: Construct, id: string, props: CoreBankingSecondaryStackProps) {
     super(scope, id, props);
 
-    const { notifyEmail, primary, secondary, envName, hostedZoneName } = props;
+    const { notifyEmail, primary, secondary, monitoring, envName, hostedZoneName } = props;
 
     // Topic for monitoring guest system
     const monitorSecondaryAlarm = new MonitorAlarm(this, `MonitorAlarm`, { notifyEmail });
@@ -41,8 +42,9 @@ export class CoreBankingSecondaryStack extends cdk.Stack {
     // Networking
     const secondaryVpc = new Vpc(this, `Vpc`, {
       regionEnv: secondary,
-      oppositeRegionCidrs: [primary.vpcCidr, SampleMultiRegionAppParameter.appClientVpcCidr],
+      oppositeRegionCidrs: [primary.vpcCidr, SampleMultiRegionAppParameter.appClientVpcCidr, monitoring.vpcCidr],
     });
+    secondaryVpc.addTgwIdToSsmParam(CrossRegionSsmParamName.TGW_SECONDARY_ID, secondary.region, envName);
 
     this.tgwPeeringAttachmentId = secondaryVpc.createTgwPeeringAttachment(
       CrossRegionSsmParamName.TGW_PRIMARY_ID,
@@ -90,6 +92,8 @@ export class CoreBankingSecondaryStack extends cdk.Stack {
       alarmTopic: monitorSecondaryAlarm.alarmTopic,
     });
 
+    this.tgwRouteTableId = secondaryVpc.getTgwRouteTableId(this);
+
     //マルチリージョン 勘定系サンプルアプリのデプロイ
     if (SampleMultiRegionAppParameter.deploy == true) {
       const app = new SampleMultiRegionApp(this, 'SampleMultiRegionApp', {
@@ -98,6 +102,7 @@ export class CoreBankingSecondaryStack extends cdk.Stack {
         countDatabase: this.secondaryDB,
         vpc: secondaryVpc.myVpc,
         hostedZone: associateVpcWithHostedZone.hostedZone,
+        alarmTopic: monitorSecondaryAlarm.alarmTopic,
       });
       this.sampleMultiRegionApp = app;
     }
@@ -120,9 +125,7 @@ export class CoreBankingSecondaryStack extends cdk.Stack {
     const output3 = new cdk.CfnOutput(this, 'CLI for adding TGW route in secondary region ', {
       value:
         `aws ec2 create-transit-gateway-route --region ${props.secondary.region} --destination-cidr-block ${props.primary.regionCidr} ` +
-        `--transit-gateway-route-table-id ${secondaryVpc.getTgwRouteTableId(this)} --transit-gateway-attachment-id ${
-          this.tgwPeeringAttachmentId
-        } --profile ct-guest-sso`,
+        `--transit-gateway-route-table-id ${this.tgwRouteTableId} --transit-gateway-attachment-id ${this.tgwPeeringAttachmentId} --profile ct-guest-sso`,
       description: '3. Subsequent CLI for adding TGW route in secondary region',
     });
   }

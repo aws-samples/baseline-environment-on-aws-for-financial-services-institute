@@ -1,4 +1,4 @@
-import { IdentityManagementType } from './connect-l2';
+import { IdentityManagementType } from './constructs-l2/connect';
 
 export interface UserConfig {
   readonly alias: string;

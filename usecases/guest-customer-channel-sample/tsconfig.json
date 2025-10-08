@@ -4,5 +4,5 @@
     "baseUrl": "./"
   },
   "include": ["bin/**/*.ts", "lib/**/*.ts", "test/**/*.ts"],
-  "exclude": ["lib/call-monitoring/frontend", "lib/web-call-sample/mock-bank-site"]
+  "exclude": ["lib/samples/call-monitoring-sample/frontend", "lib/samples/web-call-sample/mock-bank-site"]
 }

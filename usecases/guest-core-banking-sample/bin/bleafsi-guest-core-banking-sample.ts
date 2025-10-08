@@ -2,9 +2,20 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { CoreBankingPrimaryStack } from '../lib/primary/bleafsi-core-banking-primary-stack';
 import { CoreBankingSecondaryStack } from '../lib/secondary/bleafsi-core-banking-secondary-stack';
-import { PjPrefix, DevParameter, StageParameter, ProdParameter, SampleMultiRegionAppParameter } from './parameter';
+import { CoreBankingMonitoringStack } from '../lib/monitoring/bleafsi-core-banking-monitoring-stack';
+import {
+  PjPrefix,
+  DevParameter,
+  StageParameter,
+  ProdParameter,
+  SampleMultiRegionAppParameter,
+  CyberResilienceBackupParameter,
+  CyberResilienceIsolationParameter,
+} from './parameter';
 import { CoreBankingArcStack } from '../lib/shared/sample-multi-region-app/bleafsi-core-banking-arc-stack';
 import { CoreBankingStateMachineStack } from '../lib/shared/sample-multi-region-app/bleafsi-core-banking-statemachine-stack';
+import { DataBunkerAccountStack } from '../lib/primary/cyber-resilience/data-bunker-account';
+import { IsolationStack } from '../lib/primary/cyber-resilience/automated-isolation/isolation-stack';
 /*
  * BLEA-FSI Core Banking Sample application stack
  */
@@ -41,6 +52,18 @@ if (SampleMultiRegionAppParameter.deploy) {
   if (DevPrimaryAppStack.sampleMultiRegionApp == null || DevSecondaryAppStack.sampleMultiRegionApp == null) {
     throw new Error('sampleMultiRegionApp is missing.');
   }
+  // Monitoring Region Stack
+  const DevMonitoringAppStack = new CoreBankingMonitoringStack(app, `${PjPrefix}-monitoring-Dev`, {
+    ...DevParameter,
+    env: {
+      account: DevParameter.account,
+      region: DevParameter.monitoring.region,
+    },
+    crossRegionReferences: true,
+    primaryTgwRouteTableId: DevPrimaryAppStack.tgwRouteTableId,
+    secondaryTgwRouteTableId: DevSecondaryAppStack.tgwRouteTableId,
+  });
+
   const DevArcStack = new CoreBankingArcStack(app, `${PjPrefix}-arc-Dev`, {
     ...DevParameter,
     env: {
@@ -68,7 +91,27 @@ if (SampleMultiRegionAppParameter.deploy) {
     arcClusterEndpointRegions: DevArcStack.clusterEndpointRegions,
     primaryRoutingControlArn: DevArcStack.primaryRoutingControlArn,
     secondaryRoutingControlArn: DevArcStack.secondaryRoutingControlArn,
+    secondaryCanaryName: DevSecondaryAppStack.sampleMultiRegionApp.canaryName,
+    monitoringAlarmName: DevMonitoringAppStack.alarmName,
   });
+}
+
+// Cyber Resilience - Network Isolation Stack (Primary Region only)
+if (CyberResilienceIsolationParameter.deploy) {
+  const DevIsolationStack = new IsolationStack(app, `${PjPrefix}-isolation-Dev`, {
+    description: 'BLEA for FSI Core Banking - Cyber Resilience Network Isolation (uksb-1tupboc63)',
+    ...DevParameter,
+    env: {
+      account: DevParameter.account,
+      region: DevParameter.primary.region,
+    },
+    vpc: DevPrimaryAppStack.myVpc,
+    notifyEmail: DevParameter.notifyEmail,
+    envName: DevParameter.envName,
+  });
+
+  // 依存関係を設定（Primary Stackが先にデプロイされる必要がある）
+  DevIsolationStack.addDependency(DevPrimaryAppStack);
 }
 
 // for Staging
@@ -77,9 +120,9 @@ if (SampleMultiRegionAppParameter.deploy) {
   ...StageParameter,
   env: {
     account: StageParameter.account,
-    region: StageParameter.primary.region,
+    region: StageParameter.primary.region
   },
-  crossRegionReferences: true,
+  crossRegionReferences: true
 });
 
 // Secondary Region Stack
@@ -87,7 +130,7 @@ const StageSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-s
   ...StageParameter,
   env: {
     account: StageParameter.account,
-    region: StageParameter.secondary.region,
+    region: StageParameter.secondary.region
   },
   crossRegionReferences: true,
   auroraSecretName: StagePrimaryAppStack.PrimaryDB.secret.secretName,
@@ -95,7 +138,7 @@ const StageSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-s
   tgwRouteTableId: StagePrimaryAppStack.tgwRouteTableId,
   auroraPrimaryCluster: StagePrimaryAppStack.PrimaryDB.cluster,
   auroraGlobalDatabaseClusterIdentifier: StagePrimaryAppStack.PrimaryDB.globalClusterIdentifier,
-  primarySampleMultiRegionApp: StagePrimaryAppStack.sampleMultiRegionApp,
+  primarySampleMultiRegionApp: StagePrimaryAppStack.sampleMultiRegionApp
 });
 */
 
@@ -105,9 +148,9 @@ const StageSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-s
   ...ProdParameter,
   env: {
     account: ProdParameter.account,
-    region: ProdParameter.primary.region,
+    region: ProdParameter.primary.region
   },
-  crossRegionReferences: true,
+  crossRegionReferences: true
 });
 
 // Secondary Region Stack
@@ -115,7 +158,7 @@ const ProdSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-se
   ...ProdParameter,
   env: {
     account: ProdParameter.account,
-    region: ProdParameter.secondary.region,
+    region: ProdParameter.secondary.region
   },
   crossRegionReferences: true,
   auroraSecretName: ProdPrimaryAppStack.PrimaryDB.secret.secretName,
@@ -123,9 +166,22 @@ const ProdSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-se
   tgwRouteTableId: ProdPrimaryAppStack.tgwRouteTableId,
   auroraPrimaryCluster: ProdPrimaryAppStack.PrimaryDB.cluster,
   auroraGlobalDatabaseClusterIdentifier: ProdPrimaryAppStack.PrimaryDB.globalClusterIdentifier,
-  primarySampleMultiRegionApp: ProdPrimaryAppStack.sampleMultiRegionApp,
+  primarySampleMultiRegionApp: ProdPrimaryAppStack.sampleMultiRegionApp
 });
 */
+
+// サイバーレジリエンス機能の設定
+if (CyberResilienceBackupParameter.deploy && CyberResilienceBackupParameter.option.includes('backup')) {
+  // Data Bunkerアカウントのスタック
+  const dataBunkerStack = new DataBunkerAccountStack(app, `${PjPrefix}-data-bunker-Dev`, {
+    description: 'Data Bunker Account Stack for Core Banking System',
+    env: {
+      account: CyberResilienceBackupParameter.dataBunkerAccount.id,
+      region: DevParameter.primary.region,
+    },
+    crossRegionReferences: true,
+  });
+}
 
 // Tagging "Environment" tag to all resources in this app
 const envTagName = 'Environment';
@@ -134,6 +190,14 @@ cdk.Tags.of(DevPrimaryAppStack).add(envTagName, DevParameter.envName, {
   excludeResourceTypes: ['AWS::EC2::TransitGatewayAttachment'],
 });
 cdk.Tags.of(DevSecondaryAppStack).add(envTagName, DevParameter.envName);
+
+// Cyber Resilience Isolation Stack tags
+if (CyberResilienceIsolationParameter.deploy) {
+  const DevIsolationStack = app.node.tryFindChild(`${PjPrefix}-isolation-Dev`) as cdk.Stack;
+  if (DevIsolationStack) {
+    cdk.Tags.of(DevIsolationStack).add(envTagName, DevParameter.envName);
+  }
+}
 
 //cdk.Tags.of(StagePrimaryAppStack).add(envTagName, StageParameter.envName);
 //cdk.Tags.of(StageSecondaryAppStack).add(envTagName, StageParameter.envName);

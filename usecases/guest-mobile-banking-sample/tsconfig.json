@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@online-banking/shared": ["lib/lambda-functions/shared/src"],
+      "@shared/constants": ["lib/mail-delivery-function/shared/src/constants"]
+    }
+  },
+  "include": ["bin/**/*.ts", "lib/**/*.ts", "test/**/*.ts"]
+}

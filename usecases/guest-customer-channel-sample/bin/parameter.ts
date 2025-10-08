@@ -1,5 +1,5 @@
 import { PrimaryRegionConfig, SecondaryRegionConfig, TertiaryRegionConfig } from '../lib/config';
-import { IdentityManagementType } from '../lib/connect-l2';
+import { IdentityManagementType } from '../lib/constructs-l2/connect';
 
 /*
  * BLEA-FSI Customer Channel Sample Application parameters definition
@@ -38,12 +38,12 @@ export const DevParameter: AppParameter = {
     connectWidgetId: '', // EDIT HERE
     connectSnippetId: '', // EDIT HERE
   },
-  secondaryRegion: {
+  /*secondaryRegion: {
     region: 'ap-southeast-1',
     connectInstance: {
       instanceAlias: 'my-connect-instance-yyyymmdd-secondary', // EDIT HERE: instance alias must be unique
     },
-  },
+  },*/
   tertiaryRegion: {
     region: 'ap-northeast-3',
   },

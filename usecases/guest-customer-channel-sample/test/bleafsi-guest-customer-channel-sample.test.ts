@@ -3,7 +3,7 @@ import { Template, Annotations, Match } from 'aws-cdk-lib/assertions';
 import { PjPrefix, AppParameter } from '../bin/parameter';
 import { CustomerChannelStacks, createStacks } from '../bin/bleafsi-guest-customer-channel-sample';
 import { AwsSolutionsChecks } from 'cdk-nag';
-import { IdentityManagementType } from '../lib/connect-l2';
+import { IdentityManagementType } from '../lib/constructs-l2/connect';
 
 export const TestParameter: AppParameter = {
   envName: 'Test',
@@ -41,7 +41,35 @@ describe('snapshot check', () => {
     const app = new cdk.App();
     const stacks = createStacks(app, PjPrefix, appParam);
     getStackList(stacks).forEach((stack) => {
-      expect(Template.fromStack(stack)).toMatchSnapshot();
+      // プラットフォーム間でのハッシュ値の違いを吸収するため、BucketDeploymentのSourceObjectKeysを除外
+      const template = Template.fromStack(stack);
+      const bucketDeploymentMatcher: Record<string, any> = {};
+
+      // クライアントサイドビルドリソースのハッシュ値プロパティのマッチャーを作成
+      Object.entries(template.toJSON().Resources || {}).forEach(([key, value]) => {
+        if ((value as any).Type === 'Custom::CDKBucketDeployment') {
+          bucketDeploymentMatcher[key] = {
+            Properties: {
+              SourceObjectKeys: expect.any(Array),
+            },
+          };
+        }
+        if ((value as any).Type === 'Custom::CDKNodejsBuild') {
+          bucketDeploymentMatcher[key] = {
+            Properties: {
+              sources: expect.arrayContaining([
+                expect.objectContaining({
+                  sourceObjectKey: expect.any(String),
+                }),
+              ]),
+            },
+          };
+        }
+      });
+
+      expect(template.toJSON()).toMatchSnapshot({
+        Resources: bucketDeploymentMatcher,
+      });
     });
   });
 });

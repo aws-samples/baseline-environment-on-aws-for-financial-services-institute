@@ -1,0 +1,116 @@
+# Dependencies
+node_modules/
+**/node_modules/
+package-lock.json
+**/package-lock.json
+
+# Build outputs
+dist/
+**/dist/
+build/
+**/build/
+*.js.map
+*.d.ts.map
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
+# CDK build outputs
+cdk.out/
+cdk.context.json
+
+# CDK TypeScript build outputs in lib/ (keep source .ts files)
+lib/**/*.js
+!lib/frontend/src/**/*.js
+lib/**/*.d.ts
+lib/**/*.js.map
+lib/**/*.d.ts.map
+lib/bin/
+lib/lib/
+lib/online-banking-app-backend/
+
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Development environment files (keep .env.development for local testing)
+# .env.development
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# AWS
+.aws/
+
+# Serverless directories
+.serverless/
+
+# DynamoDB Local files
+.dynamodb/
+
+# Mail delivery function - ph2にリリース時期変更に伴いgitignoreに追加
+lib/mail-delivery-function/
+lib/mail-delivery-function-stack.ts
+
+# Backup directories
+backup/

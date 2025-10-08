@@ -1,6 +1,6 @@
 import { Construct } from 'constructs';
 import * as connect_cases_l2 from '../../constructs-l2/connect-cases';
-import * as connect_l2 from '../../connect-l2';
+import * as connect_l2 from '../../constructs-l2/connect';
 
 export interface CasesSampleProps {
   readonly connectInstance: connect_l2.IInstance;

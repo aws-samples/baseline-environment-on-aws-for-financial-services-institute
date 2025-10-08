@@ -13,6 +13,8 @@ export interface CanaryProps {
 }
 
 export class Canary extends Construct {
+  readonly canaryName: string;
+
   constructor(scope: Construct, id: string, props: CanaryProps) {
     super(scope, id);
     const { vpc } = props;
@@ -30,5 +32,7 @@ export class Canary extends Construct {
       vpc,
       vpcSubnets: vpc.selectSubnets({ subnets: vpc.privateSubnets.concat(vpc.isolatedSubnets) }),
     });
+
+    this.canaryName = canary.canaryName;
   }
 }

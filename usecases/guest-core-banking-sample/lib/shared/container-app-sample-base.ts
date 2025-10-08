@@ -155,6 +155,14 @@ export class ContainerAppSampleBase extends Construct {
       }),
     );
 
+    // ECR permissions for public ECR access (required for CloudWatch Agent image)
+    executionRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: ['ecr-public:GetAuthorizationToken', 'sts:GetServiceBearerToken'],
+        resources: ['*'],
+      }),
+    );
+
     // Role for Container
     // With IAM roles for Amazon ECS tasks, you can specify an IAM role that can be used by the containers in a task.
     // https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
@@ -210,8 +218,8 @@ export class ContainerAppSampleBase extends Construct {
     const ecsTask = new ecs.FargateTaskDefinition(this, 'EcsTask', {
       executionRole: executionRole,
       taskRole: serviceTaskRole,
-      cpu: 256,
-      memoryLimitMiB: 512,
+      cpu: 512,
+      memoryLimitMiB: 1024,
     });
 
     // Container
@@ -221,6 +229,13 @@ export class ContainerAppSampleBase extends Construct {
 
       // -- SAMPLE: if you want to use DockerHub, you can use like this.
       // image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
+
+      // リソース配分: 512 CPU / 1024 MiB 環境でアプリケーションに 448 CPU / 960 MiB を割り当て
+      // (CloudWatch Agent サイドカーが 64 CPU / 64 MiB を使用)
+      cpu: 448,
+      memoryReservationMiB: 768,
+      memoryLimitMiB: 960,
+      essential: true,
 
       environment: {
         ENVIRONMENT_VARIABLE_SAMPLE_KEY: 'Environment Variable Sample Value',

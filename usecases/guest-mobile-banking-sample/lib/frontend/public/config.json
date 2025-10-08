@@ -1,0 +1,6 @@
+{
+  "REACT_APP_BANKING_API": "https://api.example.com/v1/",
+  "REACT_APP_CUSTOMER_API_KEY": "",
+  "REACT_APP_ADMIN_API_KEY": "",
+  "REACT_APP_AUTH_API_KEY": ""
+}

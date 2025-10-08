@@ -65,5 +65,4 @@ Error message:  `cli-input-json`: Invalid JSON received
   - 左下のクエリモードで`今すぐ更新`をクリックして SPICE データを更新します。タイプは `フル更新`を選択して下さい。
 
   <img src="./images/quicksight-fig001.png" width="50%">
-
   - 更新が終わるまで 1−2 分待ちます。完了すると右上にメッセージボックスが表示されます。

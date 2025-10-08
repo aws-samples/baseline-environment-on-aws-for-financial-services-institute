@@ -76,10 +76,19 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
     ](doc/reference-arc-mf-integration/fisc-mapping-mf-integration.md)
 
 - **ハイブリッド**
+
   - [金融ワークロードアーキテクチャ解説 [ハイブリッド]
     ](doc/reference-arc-hybrid/readme.md)
   - [FISC 実務基準対策 一覧 [ハイブリッド]
     ](doc/reference-arc-hybrid/fisc-mapping-hybrid.md)
+
+- **モバイルバンキング**
+  - [金融ワークロードアーキテクチャ解説 [モバイルバンキング]
+    ](doc/reference-arc-mobile-banking/mobile-banking-arch-readme.md)
+  - [FISC 実務基準対策 一覧 [モバイルバンキング]
+    ](doc/reference-arc-mobile-banking/fisc-mapping-mobile-banking.md)
+  - [CDK サンプルコード [モバイルバンキング]
+    ](doc/reference-arc-mobile-banking/deploy-mobile-banking-sample.md)
 
 # Baseline Environment on AWS for Financial Services Institute
 
@@ -92,6 +101,7 @@ Baseline Environment on AWS for Financial Services Institute(BLEA for FSI)は「
 - 顧客チャネル
 - マーケットデータ
 - データ分析プラットフォーム
+- モバイルバンキング
 
 BLEA for FSI のガバナンスベースライン および 各サンプルアプリケーションの FISC 安全対策基準（第 10 版 ）実務基準への対応については、
 [金融ワークロードのベストプラクティス](#金融ワークロードのベストプラクティス)を参照してください。
@@ -183,6 +193,7 @@ CT を導入していないアカウント環境へのガバナンスベース�
 - 4-2. [Open API 金融グレード(FAPI)] サンプルアプリケーションのセットアップ手順　（バージョンアップ対応のため工事中）
 - [5. [マーケットデータ] サンプルアプリケーションのセットアップ手順](doc/reference-arc-market-data/deploy-market-data-sample.md)
 - [6. [データ分析プラットフォーム] サンプルアプリケーションのセットアップ手順](doc/reference-arc-analytics-platform/deploy-analytics-platform-simpledatalake.md)
+- [7. [モバイルバンキング] サンプルアプリケーションのセットアップ手順](doc/reference-arc-mobile-banking/deploy-mobile-banking-sample.md)
 
 ## 独自のアプリケーションを開発する
 
@@ -190,6 +201,13 @@ BLEA for FSI 導入後はサンプルコードを起点にして、自分のユ�
 
 - [通常の開発の流れ](doc/how-to.md#通常の開発の流れ)
 - [依存パッケージの最新化](doc/how-to.md#依存パッケージの最新化)
+
+# 金融事例
+
+AWS を実際に利用いただいているお客様の事例をベースにそのアーキテクチャ上の重要ポイントを解説します。
+
+- [1. 金融ワークロードアーキテクチャ解説 [資本市場 OMS]](doc/fsi-case-study/reference-arc-capital-oms/reference-arc-capital-oms-readme.md)
+- [2. 金融ワークロードアーキテクチャ解説 [クレジットカード イシュアシステム]](doc/fsi-case-study/reference-arc-credit-card/reference-arc-credit-card-readme.md)
 
 ## License
 

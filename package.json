@@ -16,7 +16,8 @@
     "usecases/*",
     "tools/*",
     "resources/cdk-shared-constructs/v1.0.0",
-    "usecases/guest-customer-channel-sample/lib/call-monitoring/frontend"
+    "usecases/guest-customer-channel-sample/lib/samples/call-monitoring-sample/frontend",
+    "usecases/guest-customer-channel-sample/lib/samples/web-call-sample/mock-bank-site"
   ],
   "scripts": {
     "lint": "eslint --fix .",
@@ -34,6 +35,7 @@
     "cdk-nag": "^2.22.33",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.7.0",
+    "eslint-config-react-app": "^7.0.1",
     "lint-staged": "^13.0.4",
     "prettier": "^2.8.1",
     "simple-git-hooks": "^2.8.1",
