@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import * as wisdom from 'aws-cdk-lib/aws-wisdom';
 import * as kms from 'aws-cdk-lib/aws-kms';
 
-import { IDataIntegration } from '../../appintegrations-l2/data-integration';
+import { IDataIntegration } from '../appintegrations/data-integration';
 
 export enum KnowledgeBaseType {
   EXTERNAL = 'EXTERNAL',

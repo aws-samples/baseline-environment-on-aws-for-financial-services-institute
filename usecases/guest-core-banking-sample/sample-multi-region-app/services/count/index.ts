@@ -1,4 +1,3 @@
-import './lib/otel';
 import express, { NextFunction, Request, Response } from 'express';
 
 /**
@@ -13,6 +12,30 @@ app.use(express.json());
 
 app.get('/health', (req, res) => {
   res.send('ok');
+});
+
+// カウントを取得する
+app.get('/count/:accountId/:period', async (req, res, next) => {
+  try {
+    const { accountId, period } = req.params;
+
+    const count = await prisma.count.findUnique({
+      where: {
+        accountId_period: {
+          accountId,
+          period,
+        },
+      },
+    });
+
+    if (count == null) {
+      res.send({ count: 0 });
+    } else {
+      res.send({ count: count.count });
+    }
+  } catch (e) {
+    next(e);
+  }
 });
 
 //口座からの引落し回数を増やす
@@ -82,6 +105,57 @@ app.put('/count/withdraw', async (req, res, next) => {
 
 // /count/withdraw 処理をキャンセルする補償トランザクション
 app.put('/count/cancel_withdraw', async (req, res, next) => {
+  try {
+    const accountId = req.headers['x_account_id'];
+    if (typeof accountId !== 'string') {
+      res.status(400).send();
+      return;
+    }
+
+    const period: string = req.body.period;
+    const transactionId: string = req.body.transactionId;
+
+    if (transactionId == null) {
+      res.status(400).send();
+      return;
+    }
+    if (period == null) {
+      res.status(400).send('invalid period');
+      return;
+    }
+
+    let count = await prisma.count.findUnique({
+      where: {
+        accountId_period: {
+          accountId,
+          period,
+        },
+      },
+    });
+
+    if (count?.lastProcessedTransactionId == transactionId) {
+      count = await prisma.count.update({
+        where: {
+          accountId_period: {
+            accountId,
+            period,
+          },
+        },
+        data: {
+          count: count.count - 1,
+          lastProcessedTransactionId: transactionId + 'canceled',
+        },
+      });
+    }
+
+    res.send();
+  } catch (e) {
+    next(e);
+  }
+});
+
+// /count/deposit 処理をキャンセルする補償トランザクション
+app.put('/count/cancel_deposit', async (req, res, next) => {
   try {
     const accountId = req.headers['x_account_id'];
     if (typeof accountId !== 'string') {

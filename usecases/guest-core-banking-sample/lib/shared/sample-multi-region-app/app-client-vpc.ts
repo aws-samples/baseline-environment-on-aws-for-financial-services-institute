@@ -94,6 +94,14 @@ export class ClientVpc extends Construct {
       }).addDependency(tgwAttachment);
     });
 
+    props.parentVpc.privateSubnets.forEach((subnet, i) => {
+      new ec2.CfnRoute(props.parentVpc, `ClientPrivateRouteToTgw-${i}`, {
+        routeTableId: subnet.routeTable.routeTableId,
+        destinationCidrBlock: props.vpcCidr,
+        transitGatewayId: tgw.ref,
+      }).addDependency(tgwAttachment);
+    });
+
     //VPC Flow log
     new VpcFlowLogs(this, 'VpcFlowLogs', myVpc, logs.RetentionDays.SIX_MONTHS);
 

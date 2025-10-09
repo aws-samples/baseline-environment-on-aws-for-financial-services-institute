@@ -1,4 +1,3 @@
-import './lib/otel';
 import express, { NextFunction, Request, Response } from 'express';
 import { DummySk, MainTableName, ddbClient } from './lib/dynamodb';
 import { GetCommand, TransactWriteCommand } from '@aws-sdk/lib-dynamodb';

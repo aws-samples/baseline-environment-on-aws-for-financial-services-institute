@@ -22,6 +22,7 @@ export interface VpcConstructProps {
 export class Vpc extends Construct {
   public readonly myVpc: ec2.Vpc;
   public readonly tgw: ec2.CfnTransitGateway;
+  public readonly vpcEndpointSecurityGroup: ec2.SecurityGroup;
 
   constructor(scope: Construct, id: string, props: VpcConstructProps) {
     super(scope, id);
@@ -40,7 +41,7 @@ export class Vpc extends Construct {
         {
           cidrMask: 22,
           name: 'Protected',
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
         },
         {
           cidrMask: 28,
@@ -66,6 +67,14 @@ export class Vpc extends Construct {
     props.oppositeRegionCidrs.forEach((cidr, j) => {
       myVpc.publicSubnets.forEach((subnet, i) => {
         new ec2.CfnRoute(this, `PublicRouteToTgw-${j}-${i}`, {
+          routeTableId: subnet.routeTable.routeTableId,
+          destinationCidrBlock: cidr,
+          transitGatewayId: this.tgw.ref,
+        }).addDependency(tgwAttachment);
+      });
+
+      myVpc.privateSubnets.forEach((subnet, i) => {
+        new ec2.CfnRoute(this, `PrivateRouteToTgw-${j}-${i}`, {
           routeTableId: subnet.routeTable.routeTableId,
           destinationCidrBlock: cidr,
           transitGatewayId: this.tgw.ref,
@@ -140,38 +149,86 @@ export class Vpc extends Construct {
       subnets: [{ subnetType: ec2.SubnetType.PRIVATE_ISOLATED }],
     });
 
-    // CloudWatch Logs VPC endpoint
-    myVpc.addInterfaceEndpoint('LogsEndpointForPrivate', {
-      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
-    });
-
-    // X-Ray VPC endpoint
+    // X-Ray VPC endpoint (keeping existing for backward compatibility)
     myVpc.addInterfaceEndpoint('XRayEdnpoint', {
       service: ec2.InterfaceVpcEndpointAwsService.XRAY,
       subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
     });
 
-    // required for CloudWatch Synthetics canaries
-    // https://repost.aws/knowledge-center/cloudwatch-fix-failing-canary-in-vpc
-    myVpc.addInterfaceEndpoint('MonitoringEndpoint', {
-      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_MONITORING,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+    // Create security group for VPC endpoints
+    const vpcEndpointSecurityGroup = new ec2.SecurityGroup(this, 'VpcEndpointSecurityGroup', {
+      vpc: myVpc,
+      description: 'Security group for VPC endpoints used by CloudWatch Application Signals',
+      allowAllOutbound: false,
     });
 
-    // VPC endpoints for ECR
-    myVpc.addInterfaceEndpoint('EcrEndpoint', {
+    // Allow HTTPS traffic from ECS tasks to VPC endpoints
+    vpcEndpointSecurityGroup.addIngressRule(
+      ec2.Peer.ipv4(myVpc.vpcCidrBlock),
+      ec2.Port.tcp(443),
+      'Allow HTTPS from VPC CIDR for VPC endpoint access',
+    );
+
+    // SSM VPC endpoint for CloudWatch Agent configuration
+    const ssmEndpoint = myVpc.addInterfaceEndpoint('SsmEndpoint', {
+      service: ec2.InterfaceVpcEndpointAwsService.SSM,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+      securityGroups: [vpcEndpointSecurityGroup],
+    });
+
+    // Enhanced CloudWatch Logs VPC endpoint
+    const logsEndpoint = myVpc.addInterfaceEndpoint('LogsEndpointForPrivateEnhanced', {
+      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [vpcEndpointSecurityGroup],
+    });
+
+    // Enhanced CloudWatch Monitoring VPC endpoint
+    const monitoringEndpoint = myVpc.addInterfaceEndpoint('MonitoringEndpointEnhanced', {
+      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_MONITORING,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [vpcEndpointSecurityGroup],
+    });
+
+    // Enhanced ECR VPC endpoints - isolated subnetにも配置してマイグレーションタスクからアクセス可能にする
+    const ecrEndpoint = myVpc.addInterfaceEndpoint('EcrEndpointEnhanced', {
       service: ec2.InterfaceVpcEndpointAwsService.ECR,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [vpcEndpointSecurityGroup],
     });
-    myVpc.addInterfaceEndpoint('EcrDockerEndpoint', {
+
+    const ecrDockerEndpoint = myVpc.addInterfaceEndpoint('EcrDockerEndpointEnhanced', {
       service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [vpcEndpointSecurityGroup],
     });
-    myVpc.addGatewayEndpoint('S3Endpoint', {
+
+    // 既存のECRエンドポイントにisolated subnetを追加
+    // 注意: 同じサービスに対して複数のVPCエンドポイントは作成できないため、
+    // 既存のエンドポイントを両方のサブネットタイプで使用する
+
+    // S3 Gateway endpoint (no security group needed for gateway endpoints)
+    myVpc.addGatewayEndpoint('S3EndpointEnhanced', {
       service: ec2.GatewayVpcEndpointAwsService.S3,
-      subnets: [{ subnetType: ec2.SubnetType.PRIVATE_ISOLATED }],
+      subnets: [{ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }],
     });
+
+    // STS VPC endpoint for ECR authentication
+    const stsEndpoint = myVpc.addInterfaceEndpoint('StsEndpoint', {
+      service: ec2.InterfaceVpcEndpointAwsService.STS,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [vpcEndpointSecurityGroup],
+    });
+
+    // RDS VPC endpoint for Aurora database access
+    const rdsEndpoint = myVpc.addInterfaceEndpoint('RdsEndpoint', {
+      service: ec2.InterfaceVpcEndpointAwsService.RDS,
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [vpcEndpointSecurityGroup],
+    });
+
+    // Set the security group property after creation
+    this.vpcEndpointSecurityGroup = vpcEndpointSecurityGroup;
   }
 
   // SSM Parameter to put Transit Gateway ID
@@ -191,30 +248,40 @@ export class Vpc extends Construct {
     peerRegion: string,
   ): string {
     // SSM Parameter to get peer TGW ID
-    const crossRegionSsmParamToGetPeerTgwId = new CrossRegionSsmParam(this, 'crossRegionSsmParam-peerTgwId', {
-      baseRegion,
-      envName,
-    });
+    const crossRegionSsmParamToGetPeerTgwId = new CrossRegionSsmParam(
+      this,
+      `crossRegionSsmParam-peerTgwId-${peerTgwIdParamName}-${peerRegion}`,
+      {
+        baseRegion,
+        envName,
+      },
+    );
     const peerTgwId = crossRegionSsmParamToGetPeerTgwId.get(peerTgwIdParamName);
 
     // TGW Peering Attachment
-    const createTgwPeeringAttachment = new cr.AwsCustomResource(this, 'createTgwPeeringAttachment', {
-      onUpdate: {
-        service: 'EC2',
-        action: 'createTransitGatewayPeeringAttachment',
-        parameters: {
-          PeerAccountId: cdk.Stack.of(this).account,
-          PeerRegion: peerRegion,
-          PeerTransitGatewayId: peerTgwId,
-          TransitGatewayId: this.tgw.ref,
+    const createTgwPeeringAttachment = new cr.AwsCustomResource(
+      this,
+      `createTgwPeeringAttachment-${peerTgwIdParamName}-${peerRegion}`,
+      {
+        onUpdate: {
+          service: 'EC2',
+          action: 'createTransitGatewayPeeringAttachment',
+          parameters: {
+            PeerAccountId: cdk.Stack.of(this).account,
+            PeerRegion: peerRegion,
+            PeerTransitGatewayId: peerTgwId,
+            TransitGatewayId: this.tgw.ref,
+          },
+          region: cdk.Stack.of(this).region,
+          physicalResourceId: cr.PhysicalResourceId.of(
+            `createTgwPeeringAttachment-${peerTgwIdParamName}-${peerRegion}`,
+          ),
         },
-        region: cdk.Stack.of(this).region,
-        physicalResourceId: cr.PhysicalResourceId.of('createTgwPeeringAttachment'),
+        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
       },
-      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-        resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-    });
+    );
     // TGW Peering Attachment ID
     const tgwPeeringAttachmentId = createTgwPeeringAttachment.getResponseField(
       'TransitGatewayPeeringAttachment.TransitGatewayAttachmentId',

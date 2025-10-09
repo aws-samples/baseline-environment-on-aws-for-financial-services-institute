@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { aws_elasticloadbalancingv2 as elbv2 } from 'aws-cdk-lib';
+import { aws_ec2 as ec2 } from 'aws-cdk-lib';
 import { BuildContainer } from './build-container';
 import { ECR } from './ecr';
 import { DbAuroraPgGlobalPrimary } from './db-aurora-pg-global-primary';
@@ -32,11 +33,12 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
   public readonly hostedZone: PrivateHostedZone;
   public readonly sampleMultiRegionApp?: SampleMultiRegionApp;
   public readonly backup: Backup;
+  public readonly myVpc: ec2.Vpc;
 
   constructor(scope: Construct, id: string, props: StackParameter) {
     super(scope, id, props);
 
-    const { notifyEmail, primary, secondary, envName, dbUser, hostedZoneName } = props;
+    const { notifyEmail, primary, secondary, monitoring, envName, dbUser, hostedZoneName } = props;
 
     // ReplicationDynamoDB ServiceLikedRoke を事前に作成（既に存在する場合はスルーされる）
     // DynamoDbGlobalの作成時に 'AWSServiceLinkedRoleForDynamoDBReplication'が裏側で自動作成されるが、タイミングによりエラーになることがある
@@ -54,9 +56,12 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
     // Networking
     const primaryVpc = new Vpc(this, `Vpc`, {
       regionEnv: primary,
-      oppositeRegionCidrs: [secondary.vpcCidr],
+      oppositeRegionCidrs: [secondary.vpcCidr, monitoring.vpcCidr],
     });
     primaryVpc.addTgwIdToSsmParam(CrossRegionSsmParamName.TGW_PRIMARY_ID, primary.region, envName);
+
+    // VPCをpublicプロパティとして設定
+    this.myVpc = primaryVpc.myVpc;
 
     // WebACL for ALB
     const waf = new Waf(this, `Waf`, {
@@ -153,6 +158,7 @@ export class CoreBankingPrimaryStack extends cdk.Stack {
         countDatabase: this.PrimaryDB,
         vpc: primaryVpc.myVpc,
         hostedZone: this.hostedZone.privateHostedZone,
+        alarmTopic: monitorPrimaryAlarm.alarmTopic,
       });
       this.sampleMultiRegionApp = app;
 

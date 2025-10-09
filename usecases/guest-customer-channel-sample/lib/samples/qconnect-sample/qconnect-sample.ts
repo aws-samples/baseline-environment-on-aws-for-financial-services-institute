@@ -1,15 +1,15 @@
 import { Construct } from 'constructs';
 import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import * as kms from 'aws-cdk-lib/aws-kms';
-import * as connect_l2 from '../../connect-l2';
+import * as connect_l2 from '../../constructs-l2/connect';
 import * as qconnect_l2 from '../../constructs-l2/qconnect';
-import * as appintegrations_l2 from '../../appintegrations-l2';
+import * as appintegrations_l2 from '../../constructs-l2/appintegrations';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as logs from 'aws-cdk-lib/aws-logs';
-import { PrivateBucket } from '../../s3-private-bucket';
+import { PrivateBucket } from '../../constructs/s3-private-bucket';
 
 export interface QconnectSampleProps {
   readonly instance: connect_l2.IInstance;
@@ -42,6 +42,16 @@ export class QconnectSample extends Construct {
     this.assistant = assistant;
     this.addQconnectPrompts(assistant);
     this.addQconnectMonitoring(assistant);
+
+    // チャットで Q in Connect を有効化するため、KMS キーにキーポリシーを追加
+    // https://docs.aws.amazon.com/ja_jp/connect/latest/adminguide/enable-q.html#enable-q-step-2
+    props.key.addToResourcePolicy(
+      new iam.PolicyStatement({
+        actions: ['kms:Decrypt', 'kms:GenerateDataKey*', 'kms:DescribeKey'],
+        principals: [new iam.ServicePrincipal('connect.amazonaws.com')],
+        resources: ['*'],
+      }),
+    );
   }
 
   private addQconnect(props: QconnectSampleProps, bucket: s3.IBucket) {

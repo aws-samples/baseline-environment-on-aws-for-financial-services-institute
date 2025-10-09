@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0] - 2025-10-09
+
+### Changed
+- 新ワークロード モバイルバンキングアーキテクチャーの提供
+- 新ワークロード サイバーレジリエンスの提供
+- 金融事例の提供
+- 勘定系ワークロードの更新
+  - Amazon CloudWatch Synthetics Canary で外形監視を行う監視リージョンの追加
+  - Amazon CloudWatch Application Signals を用いたマイクロサービスの包括的な監視機能追加
+  - Amazon Aurora DSQL の適用可能性に関する解説ドキュメント追加
+
 ## [1.5.1] - 2025-06-25
 
 ### Changed

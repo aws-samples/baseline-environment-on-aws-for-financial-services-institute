@@ -55,12 +55,18 @@ export const DevParameter: StackParameter = {
     vpcCidr: '10.101.0.0/20',
     tgwAsn: 64513,
   },
+  monitoring: {
+    region: 'us-west-2',
+    regionCidr: '10.102.0.0/16',
+    vpcCidr: '10.102.0.0/20',
+    tgwAsn: 64514,
+  },
 };
 
 // Parameter for Staging
 export const StageParameter: StackParameter = {
   envName: 'Staging',
-  account: '111111111111',
+  account: process.env.CDK_DEFAULT_ACCOUNT,
   notifyEmail: 'notify-monitoring@example.com',
   dbUser: 'dbadmin',
   hostedZoneName: 'example.com',
@@ -76,26 +82,36 @@ export const StageParameter: StackParameter = {
     vpcCidr: '10.101.0.0/20',
     tgwAsn: 64513,
   },
+  monitoring: {
+    region: 'us-west-2',
+    regionCidr: '10.102.0.0/16',
+    vpcCidr: '10.102.0.0/20',
+    tgwAsn: 64514,
+  },
 };
 ```
 
 この設定内容は以下の通りです。
 
-| key                  | value                                                             |
-| -------------------- | ----------------------------------------------------------------- |
-| envName              | 環境名。これが各々のリソースタグに設定されます                    |
-| account              | デプロイ対象のアカウント ID                                       |
-| notifyEmail          | 通知が送られるメールアドレス                                      |
-| dbUser               | AuroraDB へのログインユーザ名                                     |
-| hostedZoneName       | Route53 Private Hosted Zone に指定するドメイン名                  |
-| primary.region       | プライマリをデプロイするリージョン                                |
-| primary.regionCidr   | プライマリリージョンの CIDR                                       |
-| primary.vpcCidr      | プライマリで作成する VPC の CIDR（rigionCidr に含まれる必要あり） |
-| primary.tgwAsn       | プライマリで作成する Transit Gateway の ASN                       |
-| secondary.region     | セカンダリをデプロイするリージョン                                |
-| secondary.regionCidr | セカンダリリージョンの CIDR                                       |
-| secondary.vpcCidr    | セカンダリで作成する VPC の CIDR（rigionCidr に含まれる必要あり） |
-| secondary.tgwAsn     | セカンダリで作成する Transit Gateway の ASN                       |
+| key                   | value                                                                 |
+| --------------------- | --------------------------------------------------------------------- |
+| envName               | 環境名。これが各々のリソースタグに設定されます                        |
+| account               | デプロイ対象のアカウント ID                                           |
+| notifyEmail           | 通知が送られるメールアドレス                                          |
+| dbUser                | AuroraDB へのログインユーザ名                                         |
+| hostedZoneName        | Route53 Private Hosted Zone に指定するドメイン名                      |
+| primary.region        | プライマリをデプロイするリージョン                                    |
+| primary.regionCidr    | プライマリリージョンの CIDR                                           |
+| primary.vpcCidr       | プライマリで作成する VPC の CIDR（rigionCidr に含まれる必要あり）     |
+| primary.tgwAsn        | プライマリで作成する Transit Gateway の ASN                           |
+| secondary.region      | セカンダリをデプロイするリージョン                                    |
+| secondary.regionCidr  | セカンダリリージョンの CIDR                                           |
+| secondary.vpcCidr     | セカンダリで作成する VPC の CIDR（rigionCidr に含まれる必要あり）     |
+| secondary.tgwAsn      | セカンダリで作成する Transit Gateway の ASN                           |
+| monitoring.region     | 外形監視 Canary をデプロイするリージョン（監視リージョン）            |
+| monitoring.regionCidr | 監視リージョンの CIDR                                                 |
+| monitoring.vpcCidr    | 監視リージョンに作成する VPC の CIDR（rigionCidr に含まれる必要あり） |
+| monitoring.tgwAsn     | 監視リージョンに作成する Transit Gateway の ASN                       |
 
 #### 3. テスト用サンプルアプリケーションをデプロイ設定
 
@@ -111,7 +127,7 @@ export const StageParameter: StackParameter = {
 
 設定ファイル: /usecases/guest-core-banking-sample/bin/parameter.ts
 
-39 行目 または 47 行目の `deploy`フラグを `true` に変更して下さい。
+40 行目 または 48 行目の `deploy`フラグを `true` に変更して下さい。
 
 > 注：どちらか片方のアプリケーションのみをデプロイするようにして下さい。
 
@@ -157,10 +173,11 @@ npx cdk bootstrap --profile ct-guest-sso
 
 サンプルコードをデプロイします。勘定系ワークロードの CDK サンプルコードは 2 つのスタックから構成されていて、順に実行されます。
 
-| スタック                         | 説明                                               |
-| -------------------------------- | -------------------------------------------------- |
-| BLEAFSI-CoreBanking-primary-xx   | 主リージョン（東京リージョン）にリソースをデプロイ |
-| BLEAFSI-CoreBanking-secondary-xx | 副リージョン（大阪リージョン）にリソースをデプロイ |
+| スタック                          | 説明                                                     |
+| --------------------------------- | -------------------------------------------------------- |
+| BLEAFSI-CoreBanking-primary-xx    | 主リージョン（東京リージョン）にリソースをデプロイ       |
+| BLEAFSI-CoreBanking-secondary-xx  | 副リージョン（大阪リージョン）にリソースをデプロイ       |
+| BLEAFSI-CoreBanking-monitoring-xx | 監視リージョン（オレゴンリージョン）にリソースをデプロイ |
 
 ```sh
 npx cdk deploy "*Dev" --require-approval never --profile ct-guest-sso
@@ -208,6 +225,67 @@ aws ec2 create-transit-gateway-route --region <主リージョン> --destination
 ```sh
 aws ec2 create-transit-gateway-route --region <副リージョン> --destination-cidr-block <副リージョンのCIDR> --transit-gateway-route-table-id <副リージョンのTGWのルートテーブルのID> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
 
+```
+
+さらに 3 つ目のスタックである `BLEAFSI-CoreBanking-monitoring-Dev` の実行が完了しますと、Output として下記の 6 つの CLI コマンドが表示されますので、順に実行していきます。
+
+```
+Outputs:
+BLEAFSI-CoreBanking-monitoring-Dev.CLIforTGWpeeringacceptancetoprimaryregion = aws ec2 accept-transit-gateway-peering-attachment --region ap-northeast-1 --transit-gateway-attachment-id tgw-attach-xxxxx --profile ct-guest-sso
+BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWrouteinprimaryregion = aws ec2 create-transit-gateway-route --region ap-northeast-1 --destination-cidr-block 10.102.0.0/16 --transit-gateway-route-table-id tgw-rtb-xxxxx --transit-gateway-attachment-id tgw-attach-xxxxx --profile ct-guest-sso
+BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWroutetoprimaryregioninmonitoringregion = aws ec2 create-transit-gateway-route --region us-west-2 --destination-cidr-block 10.100.0.0/16 --transit-gateway-route-table-id tgw-rtb-xxxxx --transit-gateway-attachment-id tgw-attach-xxxxx --profile ct-guest-sso
+BLEAFSI-CoreBanking-monitoring-Dev.CLIforTGWpeeringacceptancetosecondaryregion = aws ec2 accept-transit-gateway-peering-attachment --region ap-northeast-3 --transit-gateway-attachment-id tgw-attach-xxxxx --profile ct-guest-sso
+BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWrouteinsecondaryregion = aws ec2 create-transit-gateway-route --region ap-northeast-3 --destination-cidr-block 10.102.0.0/16 --transit-gateway-route-table-id tgw-rtb-xxxxx --transit-gateway-attachment-id tgw-attach-xxxxx --profile ct-guest-sso
+BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWroutetosecondaryregioninmonitoringregion = aws ec2 create-transit-gateway-route --region us-west-2 --destination-cidr-block 10.101.0.0/16 --transit-gateway-route-table-id tgw-rtb-xxxxx --transit-gateway-attachment-id tgw-attach-xxxxx --profile ct-guest-sso
+```
+
+| Output                                                                                     | 説明                                                                                         |
+| ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| BLEAFSI-CoreBanking-monitoring-Dev.CLIforTGWpeeringacceptancetoprimaryregion               | 主リージョンと監視リージョンの TGW をピアリングするための TGW ピアリングの承認を実施する CLI |
+| BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWrouteinprimaryregion                     | 主リージョンの Transit Gateway のルートテーブル に 監視リージョンへのルートを追加する CLI    |
+| BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWroutetoprimaryregioninmonitoringregion   | 監視リージョンの Transit Gateway のルートテーブル に 主リージョンへのルートを追加する CLI    |
+| BLEAFSI-CoreBanking-monitoring-Dev.CLIforTGWpeeringacceptancetosecondaryregion             | 副リージョンと監視リージョンの TGW をピアリングするための TGW ピアリングの承認を実施する CLI |
+| BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWrouteinsecondaryregion                   | 副リージョンの Transit Gateway のルートテーブル に 監視リージョンへのルートを追加する CLI    |
+| BLEAFSI-CoreBanking-monitoring-Dev.CLIforaddingTGWroutetosecondaryregioninmonitoringregion | 監視リージョンの Transit Gateway のルートテーブル に 副リージョンへのルートを追加する CLI    |
+
+コンソールから CLI コマンドを実行して、主リージョンと監視リージョンの TGW をピアリングするための TGW ピアリングの承認を実施します。
+
+```sh
+aws ec2 accept-transit-gateway-peering-attachment --region <主リージョン> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
+```
+
+アクセプトが有効になるには少し時間がかかりますので、2-3 分待ってから次のコマンドを入力して下さい。
+
+コンソールから CLI コマンドを実行して、主リージョンの Transit Gateway のルートテーブル に 監視リージョンへのルートを追加します。
+
+```sh
+aws ec2 create-transit-gateway-route --region <主リージョン> --destination-cidr-block <監視リージョンのCIDR> --transit-gateway-route-table-id <主リージョンのTGWのルートテーブルのID> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
+```
+
+コンソールから CLI コマンドを実行して、監視リージョンの Transit Gateway のルートテーブル に 主リージョンへのルートを追加します。
+
+```sh
+aws ec2 create-transit-gateway-route --region <監視リージョン> --destination-cidr-block <主リージョンのCIDR> --transit-gateway-route-table-id <監視リージョンのTGWのルートテーブルのID> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
+```
+
+続いて、コンソールから CLI コマンドを実行して、副リージョンと監視リージョンの TGW をピアリングするための TGW ピアリングの承認を実施します。
+
+```sh
+aws ec2 accept-transit-gateway-peering-attachment --region <副リージョン> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
+```
+
+アクセプトが有効になるには少し時間がかかりますので、2-3 分待ってから次のコマンドを入力して下さい。
+
+コンソールから CLI コマンドを実行して、副リージョンの Transit Gateway のルートテーブル に 監視リージョンへのルートを追加します。
+
+```sh
+aws ec2 create-transit-gateway-route --region <副リージョン> --destination-cidr-block <監視リージョンのCIDR> --transit-gateway-route-table-id <副リージョンのTGWのルートテーブルのID> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
+```
+
+コンソールから CLI コマンドを実行して、監視リージョンの Transit Gateway のルートテーブル に 副リージョンへのルートを追加します。
+
+```sh
+aws ec2 create-transit-gateway-route --region <監視リージョン> --destination-cidr-block <副リージョンのCIDR> --transit-gateway-route-table-id <監視リージョンのTGWのルートテーブルのID> --transit-gateway-attachment-id <TGWのPeering AttachmentのID> --profile ct-guest-sso
 ```
 
 以上で、勘定系ワークロードのデプロイは完了です。
