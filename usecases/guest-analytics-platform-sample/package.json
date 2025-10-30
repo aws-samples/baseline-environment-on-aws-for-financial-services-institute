@@ -32,7 +32,7 @@
     "typescript": "~5.0.4"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.186.0",
+    "aws-cdk-lib": "^2.189.1",
     "@aws-cdk/aws-glue-alpha": "2.144.0-alpha.0",
     "constructs": "^10.1.99",
     "source-map-support": "^0.5.21"

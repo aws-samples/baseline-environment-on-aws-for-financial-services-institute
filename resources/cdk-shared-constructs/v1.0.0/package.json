@@ -35,7 +35,7 @@
     "typedoc-plugin-markdown": "^3.15.3"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.186.0",
+    "aws-cdk-lib": "^2.189.1",
     "constructs": "^10.1.99",
     "source-map-support": "^0.5.21"
   }

@@ -47,7 +47,7 @@
     "@aws-sdk/credential-providers": "3.896.0",
     "@aws-sdk/lib-dynamodb": "3.896.0",
     "aws-appsync-auth-link": "^3.0.7",
-    "aws-cdk-lib": "^2.186.0",
+    "aws-cdk-lib": "^2.189.1",
     "aws-sdk": "^2.1333.0",
     "cdk-nag": "^2.22.33",
     "constructs": "^10.1.99",
