@@ -34,7 +34,7 @@
     "upsert-slr": "1.0.1"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.186.0",
+    "aws-cdk-lib": "^2.189.1",
     "cdk-remote-stack": "^2.0.10",
     "constructs": "^10.1.99",
     "source-map-support": "^0.5.21"
