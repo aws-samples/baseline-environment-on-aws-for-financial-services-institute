@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0] - 2025-10-09
+
+### Changed
+- 新ワークロード モバイルバンキングアーキテクチャーの提供
+- 新ワークロード サイバーレジリエンスの提供
+- 金融事例の提供
+- 勘定系ワークロードの更新
+  - Amazon CloudWatch Synthetics Canary で外形監視を行う監視リージョンの追加
+  - Amazon CloudWatch Application Signals を用いたマイクロサービスの包括的な監視機能追加
+  - Amazon Aurora DSQL の適用可能性に関する解説ドキュメント追加
+
+## [1.5.1] - 2025-06-25
+
+### Changed
+- 顧客チャネルワークロードの更新
+  - Amazon Q in Connect によるエージェント支援に対応
+  - 通話内容をリアルタイムに文字起こしして表示し、コンプライアンスチェックや要約を表示できるコールモニタリングのサンプルを追加
+  - インバウンドの業務を想定したサンプルとして、エージェントに直接接続できるコンタクトフローを追加
+  - 金融機関を模したサンプルのウェブサイトの画面を追加
+  - Amazon Connect Customer Profiles と Amazon Connect Cases の自動有効化対応
+  - コンタクトフローログの有効化を含めた、その他の軽微な修正を実施
+- OpenAPI FAPIワークロードの更新
+  - バージョンアップ対応のためデプロイ手順が工事中の旨を記載
+- メインフレーム連携ワークロードの更新
+  - ドキュメントの軽微な修正を実施
+
 ## [1.5.0] - 2024-11-10
 
 ### Added
@@ -15,20 +41,20 @@ All notable changes to this project will be documented in this file. See [standa
 
 - FSI Lens for FISC の更新
   - FISC 安全対策基準（第 12 版）対応
-  - AWS Well-Architected Frameworkアップデート対応
+  - AWS Well-Architected Framework アップデート対応
 
 ## [1.3.0] - 2024-07-24
 
 ### Changed
 
 - 勘定系ワークロード: マルチリージョン・デモアプリの強化
-	- CloudWatch synthetics canaryによるAPI (Transaction service) の死活監視
-	- Step Functionsによる自動フェールオーバー
-	- OpenTelemetryの導入 (for X-Ray)
+  - CloudWatch synthetics canary による API (Transaction service) の死活監視
+  - Step Functions による自動フェールオーバー
+  - OpenTelemetry の導入 (for X-Ray)
 - 勘定系ワークロード: ランサムウェア対策の追加
-	- ランサムウェア対策としてAWS Backup設定を追加
-- CDKテンプレートのデプロイ回数トラッキング対応
-	- CDKテンプレートのデプロイ回数をトラッキングするために、メトリックツール用の定義を各サンプルアプリに追加
+  - ランサムウェア対策として AWS Backup 設定を追加
+- CDK テンプレートのデプロイ回数トラッキング対応
+  - CDK テンプレートのデプロイ回数をトラッキングするために、メトリックツール用の定義を各サンプルアプリに追加
 
 ## [1.2.0] - 2023-12-15
 

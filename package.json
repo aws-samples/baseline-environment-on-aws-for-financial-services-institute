@@ -15,7 +15,9 @@
   "workspaces": [
     "usecases/*",
     "tools/*",
-    "resources/cdk-shared-constructs"
+    "resources/cdk-shared-constructs/v1.0.0",
+    "usecases/guest-customer-channel-sample/lib/samples/call-monitoring-sample/frontend",
+    "usecases/guest-customer-channel-sample/lib/samples/web-call-sample/mock-bank-site"
   ],
   "scripts": {
     "lint": "eslint --fix .",
@@ -29,14 +31,17 @@
     "@types/node": "18.17.6",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.45.0",
+    "@vitejs/plugin-react-swc": "^3.8.1",
     "cdk-nag": "^2.22.33",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.7.0",
+    "eslint-config-react-app": "^7.0.1",
     "lint-staged": "^13.0.4",
     "prettier": "^2.8.1",
     "simple-git-hooks": "^2.8.1",
     "standard-version": "^9.5.0",
-    "typescript": "~5.0.4"
+    "typescript": "~5.0.4",
+    "vite": "^5.4.2"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

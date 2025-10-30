@@ -1,10 +1,9 @@
-import './lib/otel';
-import { trace } from '@opentelemetry/api';
 import { QueryCommand, TransactWriteCommand } from '@aws-sdk/lib-dynamodb';
 import { DummySk, MainTableName, ddbClient } from './lib/dynamodb';
 import { setTimeout } from 'timers/promises';
 import axios from 'axios';
 import { getStopFlag } from './lib/params';
+import { trace } from '@opentelemetry/api';
 
 /**
  * 仕掛かり中でペンディング状態となっているトランザクションを処理する常駐サービス

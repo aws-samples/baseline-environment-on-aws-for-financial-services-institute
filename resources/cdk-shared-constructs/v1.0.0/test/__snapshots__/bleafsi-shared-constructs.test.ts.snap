@@ -1,0 +1,4533 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compare Snapshot test GuestAccount Stacks 1`] = `
+{
+  "Mappings": {
+    "LatestNodeRuntimeMap": {
+      "af-south-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-east-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-northeast-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-northeast-2": {
+        "value": "nodejs20.x",
+      },
+      "ap-northeast-3": {
+        "value": "nodejs20.x",
+      },
+      "ap-south-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-south-2": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-2": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-3": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-4": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-5": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-7": {
+        "value": "nodejs20.x",
+      },
+      "ca-central-1": {
+        "value": "nodejs20.x",
+      },
+      "ca-west-1": {
+        "value": "nodejs20.x",
+      },
+      "cn-north-1": {
+        "value": "nodejs20.x",
+      },
+      "cn-northwest-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-central-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-central-2": {
+        "value": "nodejs20.x",
+      },
+      "eu-isoe-west-1": {
+        "value": "nodejs18.x",
+      },
+      "eu-north-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-south-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-south-2": {
+        "value": "nodejs20.x",
+      },
+      "eu-west-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-west-2": {
+        "value": "nodejs20.x",
+      },
+      "eu-west-3": {
+        "value": "nodejs20.x",
+      },
+      "il-central-1": {
+        "value": "nodejs20.x",
+      },
+      "me-central-1": {
+        "value": "nodejs20.x",
+      },
+      "me-south-1": {
+        "value": "nodejs20.x",
+      },
+      "mx-central-1": {
+        "value": "nodejs20.x",
+      },
+      "sa-east-1": {
+        "value": "nodejs20.x",
+      },
+      "us-east-1": {
+        "value": "nodejs20.x",
+      },
+      "us-east-2": {
+        "value": "nodejs20.x",
+      },
+      "us-gov-east-1": {
+        "value": "nodejs20.x",
+      },
+      "us-gov-west-1": {
+        "value": "nodejs20.x",
+      },
+      "us-iso-east-1": {
+        "value": "nodejs18.x",
+      },
+      "us-iso-west-1": {
+        "value": "nodejs18.x",
+      },
+      "us-isob-east-1": {
+        "value": "nodejs18.x",
+      },
+      "us-west-1": {
+        "value": "nodejs20.x",
+      },
+      "us-west-2": {
+        "value": "nodejs20.x",
+      },
+    },
+  },
+  "Outputs": {
+    "Bucket1bucketname": {
+      "Value": {
+        "Ref": "sampleBucket141464A5B",
+      },
+    },
+    "Bucket2bucektname": {
+      "Value": {
+        "Ref": "sampleBucket2496DD581",
+      },
+    },
+    "Bucket3keyarn": {
+      "Value": {
+        "Ref": "sampleBucket362D5AF01",
+      },
+    },
+    "Bucket4keyarn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "sampleBucket4Key67E82353",
+          "Arn",
+        ],
+      },
+    },
+    "Bucket5keyarn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "S3EncryptionKey7851F313",
+          "Arn",
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+      "DependsOn": [
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip",
+        },
+        "Description": {
+          "Fn::Join": [
+            "",
+            [
+              "Lambda function for auto-deleting objects in ",
+              {
+                "Ref": "sampleBucket2AccessLogs7FAFC668",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
+        "Handler": "index.handler",
+        "MemorySize": 128,
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+            "Arn",
+          ],
+        },
+        "Runtime": {
+          "Fn::FindInMap": [
+            "LatestNodeRuntimeMap",
+            {
+              "Ref": "AWS::Region",
+            },
+            "value",
+          ],
+        },
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "S3EncryptionKey7851F313": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "for S3Encryption",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket141464A5B": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "sampleBucket1AccessLogs665947CD",
+          },
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket1AccessLogs665947CD": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 2555,
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 90,
+                },
+              ],
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket1AccessLogsPolicy0B1196F6": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket1AccessLogs665947CD",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket1AccessLogs665947CD",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket1AccessLogs665947CD",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:DeleteObject",
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "sampleBucket1AccessLogs665947CD",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "Restrict Delete* Actions",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket1Policy3A162F6A": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket141464A5B",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket141464A5B",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket141464A5B",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket2496DD581": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "BucketName": {
+          "Fn::Join": [
+            "",
+            [
+              "bleafsi-s3-construct-1-",
+              {
+                "Ref": "AWS::AccountId",
+              },
+            ],
+          ],
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "sampleBucket2AccessLogs7FAFC668",
+          },
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "Tags": [
+          {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+        ],
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "sampleBucket2AccessLogs7FAFC668": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "BucketName": {
+          "Fn::Join": [
+            "",
+            [
+              "bleafsi-s3-construct-1-",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              "-logs",
+            ],
+          ],
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 2555,
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 90,
+                },
+              ],
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "Tags": [
+          {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+        ],
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "sampleBucket2AccessLogsAutoDeleteObjectsCustomResourceD4FC2A63": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "sampleBucket2AccessLogsPolicy5BD396F1",
+      ],
+      "Properties": {
+        "BucketName": {
+          "Ref": "sampleBucket2AccessLogs7FAFC668",
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "sampleBucket2AccessLogsPolicy5BD396F1": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket2AccessLogs7FAFC668",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket2AccessLogs7FAFC668",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket2AccessLogs7FAFC668",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "s3:PutBucketPolicy",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::GetAtt": [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket2AccessLogs7FAFC668",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket2AccessLogs7FAFC668",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:DeleteObject",
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "sampleBucket2AccessLogs7FAFC668",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "Restrict Delete* Actions",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket2AutoDeleteObjectsCustomResource7E8A22BA": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "sampleBucket2Policy9BAD0659",
+      ],
+      "Properties": {
+        "BucketName": {
+          "Ref": "sampleBucket2496DD581",
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "sampleBucket2Policy9BAD0659": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket2496DD581",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket2496DD581",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket2496DD581",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "s3:PutBucketPolicy",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::GetAtt": [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket2496DD581",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket2496DD581",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket362D5AF01": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "sampleBucket3AccessLogsA5513103",
+          },
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket3AccessLogsA5513103": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 2555,
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 90,
+                },
+              ],
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket3AccessLogsPolicy78ED01BD": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket3AccessLogsA5513103",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket3AccessLogsA5513103",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket3AccessLogsA5513103",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:DeleteObject",
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "sampleBucket3AccessLogsA5513103",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "Restrict Delete* Actions",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket3PolicyDDC19DC6": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket362D5AF01",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket362D5AF01",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket362D5AF01",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket4A6053661": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "KMSMasterKeyID": {
+                  "Fn::GetAtt": [
+                    "sampleBucket4Key67E82353",
+                    "Arn",
+                  ],
+                },
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "sampleBucket4AccessLogs2834CC76",
+          },
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket4AccessLogs2834CC76": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 2555,
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 90,
+                },
+              ],
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket4AccessLogsPolicy22A48602": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket4AccessLogs2834CC76",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket4AccessLogs2834CC76",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket4AccessLogs2834CC76",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:DeleteObject",
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "sampleBucket4AccessLogs2834CC76",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "Restrict Delete* Actions",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket4Key67E82353": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "for S3 Encryption",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket4KeyAlias55B6D94B": {
+      "Properties": {
+        "AliasName": "alias/sampleBucket4-for-s3-encryption",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "sampleBucket4Key67E82353",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::KMS::Alias",
+    },
+    "sampleBucket4Policy438070EB": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket4A6053661",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket4A6053661",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket4A6053661",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket52864CC31": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "KMSMasterKeyID": {
+                  "Fn::GetAtt": [
+                    "S3EncryptionKey7851F313",
+                    "Arn",
+                  ],
+                },
+                "SSEAlgorithm": "aws:kms",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "sampleBucket5AccessLogs2B34ABFA",
+          },
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket5AccessLogs2B34ABFA": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 2555,
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 90,
+                },
+              ],
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "sampleBucket5AccessLogsPolicy41A5D0BD": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket5AccessLogs2B34ABFA",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket5AccessLogs2B34ABFA",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket5AccessLogs2B34ABFA",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:DeleteObject",
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "sampleBucket5AccessLogs2B34ABFA",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "Restrict Delete* Actions",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "sampleBucket5PolicyA1C4F975": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "sampleBucket52864CC31",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "sampleBucket52864CC31",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "sampleBucket52864CC31",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Compare Snapshot test GuestAccount Stacks 2`] = `
+{
+  "Outputs": {
+    "Vpc1Private": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "arn:",
+            {
+              "Ref": "AWS::Partition",
+            },
+            ":ec2:",
+            {
+              "Ref": "AWS::Region",
+            },
+            ":",
+            {
+              "Ref": "AWS::AccountId",
+            },
+            ":vpc/",
+            {
+              "Ref": "SampleVpc1VpcC5451771",
+            },
+          ],
+        ],
+      },
+    },
+    "Vpc2Private": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "arn:",
+            {
+              "Ref": "AWS::Partition",
+            },
+            ":ec2:",
+            {
+              "Ref": "AWS::Region",
+            },
+            ":",
+            {
+              "Ref": "AWS::AccountId",
+            },
+            ":vpc/",
+            {
+              "Ref": "SampleVpc2Vpc447E7635",
+            },
+          ],
+        ],
+      },
+    },
+    "Vpc3Public": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "arn:",
+            {
+              "Ref": "AWS::Partition",
+            },
+            ":ec2:",
+            {
+              "Ref": "AWS::Region",
+            },
+            ":",
+            {
+              "Ref": "AWS::AccountId",
+            },
+            ":vpc/",
+            {
+              "Ref": "SampleVpc3VpcB8DF5650",
+            },
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "SampleVpc1VpcC5451771": {
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "SampleVpc1VpcDynamoDbEndpoint830A3577": {
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1RouteTable48AAAC25",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2RouteTable1A01336C",
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".dynamodb",
+            ],
+          ],
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Gateway",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcEC2EndpointE6F5105D": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcEC2EndpointSecurityGroupF022DA6E",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ec2",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcEC2EndpointSecurityGroupF022DA6E": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/EC2Endpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcEC2MessagesEndpoint4574B15D": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcEC2MessagesEndpointSecurityGroupA32F0682",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ec2messages",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcEC2MessagesEndpointSecurityGroupA32F0682": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/EC2MessagesEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcEcrDockerEndpointB6E47C8D": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcEcrDockerEndpointSecurityGroupF826CFB2",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ecr.dkr",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcEcrDockerEndpointSecurityGroupF826CFB2": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/EcrDockerEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcEcrEndpoint72326C4C": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcEcrEndpointSecurityGroup9862E896",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ecr.api",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcEcrEndpointSecurityGroup9862E896": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/EcrEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcFlowLogsFlowLogB5FA0186": {
+      "Properties": {
+        "DeliverLogsPermissionArn": {
+          "Fn::GetAtt": [
+            "SampleVpc1VpcFlowLogsLogRole08458E3C",
+            "Arn",
+          ],
+        },
+        "LogDestinationType": "cloud-watch-logs",
+        "LogGroupName": {
+          "Ref": "SampleVpc1VpcFlowLogsLogGroup39B95DFF",
+        },
+        "ResourceId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+        "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
+        "TrafficType": "ALL",
+      },
+      "Type": "AWS::EC2::FlowLog",
+    },
+    "SampleVpc1VpcFlowLogsLogGroup39B95DFF": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RetentionInDays": 180,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleVpc1VpcFlowLogsLogRole08458E3C": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "vpc-flow-logs.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SampleVpc1VpcFlowLogsLogRoleDefaultPolicy2495190B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleVpc1VpcFlowLogsLogGroup39B95DFF",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleVpc1VpcFlowLogsLogRole08458E3C",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleVpc1VpcFlowLogsLogRoleDefaultPolicy2495190B",
+        "Roles": [
+          {
+            "Ref": "SampleVpc1VpcFlowLogsLogRole08458E3C",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleVpc1VpcGlueEndpoint34210C38": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcGlueEndpointSecurityGroup3696E8B3",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".glue",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcGlueEndpointSecurityGroup3696E8B3": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/GlueEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcKMSEndpoint78372576": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcKMSEndpointSecurityGroup6C3A7EE1",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".kms",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcKMSEndpointSecurityGroup6C3A7EE1": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/KMSEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcLogsEndpointForPrivate35CF6EC6": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcLogsEndpointForPrivateSecurityGroup27168112",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".logs",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcLogsEndpointForPrivateSecurityGroup27168112": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/LogsEndpointForPrivate/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcPrivateSubnet1RouteTable48AAAC25": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc1VpcPrivateSubnet1RouteTableAssociation15794363": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc1VpcPrivateSubnet1RouteTable48AAAC25",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/22",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc1VpcPrivateSubnet2RouteTable1A01336C": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc1VpcPrivateSubnet2RouteTableAssociationE0B49854": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc1VpcPrivateSubnet2RouteTable1A01336C",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.4.0/22",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc1VpcS3GatewayEndpointE8AC55E1": {
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1RouteTable48AAAC25",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2RouteTable1A01336C",
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".s3",
+            ],
+          ],
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Gateway",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcS3InterfaceEndpoint79F6B155": {
+      "Properties": {
+        "PrivateDnsEnabled": false,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcS3InterfaceEndpointSecurityGroupB16334FE",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".s3",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcS3InterfaceEndpointSecurityGroupB16334FE": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/S3InterfaceEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcSSMEndpoint922C4888": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcSSMEndpointSecurityGroup0838D6B0",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ssm",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcSSMEndpointSecurityGroup0838D6B0": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/SSMEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcSSMMessagesEndpointCDE4C739": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcSSMMessagesEndpointSecurityGroup9B6E4837",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".ssmmessages",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcSSMMessagesEndpointSecurityGroup9B6E4837": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/SSMMessagesEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc1VpcSecretsManagerEndpoint34F6208B": {
+      "Properties": {
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SampleVpc1VpcSecretsManagerEndpointSecurityGroup091E930C",
+              "GroupId",
+            ],
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".secretsmanager",
+            ],
+          ],
+        },
+        "SubnetIds": [
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet1Subnet74AFDF44",
+          },
+          {
+            "Ref": "SampleVpc1VpcPrivateSubnet2Subnet3AC6F30E",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Interface",
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc1VpcSecretsManagerEndpointSecurityGroup091E930C": {
+      "Properties": {
+        "GroupDescription": "Jest-Snapshot-VPC/SampleVpc1/Vpc/SecretsManagerEndpoint/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "SampleVpc1VpcC5451771",
+                "CidrBlock",
+              ],
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "SampleVpc1VpcC5451771",
+                      "CidrBlock",
+                    ],
+                  },
+                  ":443",
+                ],
+              ],
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc1/Vpc",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc1VpcC5451771",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "SampleVpc2Vpc447E7635": {
+      "Properties": {
+        "CidrBlock": "10.2.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc2/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "SampleVpc2VpcFlowLogsFlowLogAA8E389B": {
+      "Properties": {
+        "DeliverLogsPermissionArn": {
+          "Fn::GetAtt": [
+            "SampleVpc2VpcFlowLogsLogRole0BB9EBBA",
+            "Arn",
+          ],
+        },
+        "LogDestinationType": "cloud-watch-logs",
+        "LogGroupName": {
+          "Ref": "SampleVpc2VpcFlowLogsLogGroup11F7A277",
+        },
+        "ResourceId": {
+          "Ref": "SampleVpc2Vpc447E7635",
+        },
+        "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc2/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
+        "TrafficType": "ALL",
+      },
+      "Type": "AWS::EC2::FlowLog",
+    },
+    "SampleVpc2VpcFlowLogsLogGroup11F7A277": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RetentionInDays": 180,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleVpc2VpcFlowLogsLogRole0BB9EBBA": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "vpc-flow-logs.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SampleVpc2VpcFlowLogsLogRoleDefaultPolicyE14BF01F": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleVpc2VpcFlowLogsLogGroup11F7A277",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleVpc2VpcFlowLogsLogRole0BB9EBBA",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleVpc2VpcFlowLogsLogRoleDefaultPolicyE14BF01F",
+        "Roles": [
+          {
+            "Ref": "SampleVpc2VpcFlowLogsLogRole0BB9EBBA",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleVpc2VpcPrivateSubnet1RouteTableAssociationD7365100": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc2VpcPrivateSubnet1RouteTableEFE7D2A0",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc2VpcPrivateSubnet1SubnetF92F9204",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc2VpcPrivateSubnet1RouteTableEFE7D2A0": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc2/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc2Vpc447E7635",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc2VpcPrivateSubnet1SubnetF92F9204": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.2.0.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc2/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc2Vpc447E7635",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc2VpcPrivateSubnet2RouteTable490D73AF": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc2/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc2Vpc447E7635",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc2VpcPrivateSubnet2RouteTableAssociationAB150FD2": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc2VpcPrivateSubnet2RouteTable490D73AF",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc2VpcPrivateSubnet2SubnetC6775DFF",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc2VpcPrivateSubnet2SubnetC6775DFF": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.2.1.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc2/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc2Vpc447E7635",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc3NaclPublic8ADB44D9": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/NaclPublic",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::NetworkAcl",
+    },
+    "SampleVpc3NaclPublicDefaultAssociationJestSnapshotVPCSampleVpc3VpcPublicSubnet117B50A660863F48A": {
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "SampleVpc3NaclPublic8ADB44D9",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc3VpcPublicSubnet1Subnet48336A54",
+        },
+      },
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+    },
+    "SampleVpc3NaclPublicDefaultAssociationJestSnapshotVPCSampleVpc3VpcPublicSubnet2ED546C5DFDE1BC95": {
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "SampleVpc3NaclPublic8ADB44D9",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc3VpcPublicSubnet2SubnetF04C04C1",
+        },
+      },
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+    },
+    "SampleVpc3NaclPublicNaclEgressPublicD44D6E14": {
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": true,
+        "NetworkAclId": {
+          "Ref": "SampleVpc3NaclPublic8ADB44D9",
+        },
+        "Protocol": -1,
+        "RuleAction": "allow",
+        "RuleNumber": 100,
+      },
+      "Type": "AWS::EC2::NetworkAclEntry",
+    },
+    "SampleVpc3NaclPublicNaclIngressPublicAB33978F": {
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": false,
+        "NetworkAclId": {
+          "Ref": "SampleVpc3NaclPublic8ADB44D9",
+        },
+        "Protocol": -1,
+        "RuleAction": "allow",
+        "RuleNumber": 100,
+      },
+      "Type": "AWS::EC2::NetworkAclEntry",
+    },
+    "SampleVpc3VpcB8DF5650": {
+      "Properties": {
+        "CidrBlock": "10.4.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "SampleVpc3VpcFlowLogsFlowLog009BB8B0": {
+      "Properties": {
+        "DeliverLogsPermissionArn": {
+          "Fn::GetAtt": [
+            "SampleVpc3VpcFlowLogsLogRole3B9C6A0C",
+            "Arn",
+          ],
+        },
+        "LogDestinationType": "cloud-watch-logs",
+        "LogGroupName": {
+          "Ref": "SampleVpc3VpcFlowLogsLogGroupCF2EA684",
+        },
+        "ResourceId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+        "ResourceType": "VPC",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/VpcFlowLogs/VpcFlowLogs",
+          },
+        ],
+        "TrafficType": "ALL",
+      },
+      "Type": "AWS::EC2::FlowLog",
+    },
+    "SampleVpc3VpcFlowLogsLogGroupCF2EA684": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RetentionInDays": 180,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleVpc3VpcFlowLogsLogRole3B9C6A0C": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "vpc-flow-logs.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SampleVpc3VpcFlowLogsLogRoleDefaultPolicy6375C26F": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleVpc3VpcFlowLogsLogGroupCF2EA684",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SampleVpc3VpcFlowLogsLogRole3B9C6A0C",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SampleVpc3VpcFlowLogsLogRoleDefaultPolicy6375C26F",
+        "Roles": [
+          {
+            "Ref": "SampleVpc3VpcFlowLogsLogRole3B9C6A0C",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SampleVpc3VpcIGWCB22BB71": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "SampleVpc3VpcPrivateSubnet1RouteTable8B868A47": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc3VpcPrivateSubnet1RouteTableAssociation3273F2F7": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc3VpcPrivateSubnet1RouteTable8B868A47",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc3VpcPrivateSubnet1SubnetED8DF41B",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc3VpcPrivateSubnet1SubnetED8DF41B": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.4.32.0/22",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc3VpcPrivateSubnet2RouteTable136BF7F1": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc3VpcPrivateSubnet2RouteTableAssociationF92C75C2": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc3VpcPrivateSubnet2RouteTable136BF7F1",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc3VpcPrivateSubnet2SubnetDAF4FEA3",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc3VpcPrivateSubnet2SubnetDAF4FEA3": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.4.36.0/22",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc3VpcPublicSubnet1DefaultRoute633D12B3": {
+      "DependsOn": [
+        "SampleVpc3VpcVPCGWBC94953D",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "SampleVpc3VpcIGWCB22BB71",
+        },
+        "RouteTableId": {
+          "Ref": "SampleVpc3VpcPublicSubnet1RouteTable3C5CFB3E",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "SampleVpc3VpcPublicSubnet1RouteTable3C5CFB3E": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc3VpcPublicSubnet1RouteTableAssociation30F93AEC": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc3VpcPublicSubnet1RouteTable3C5CFB3E",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc3VpcPublicSubnet1Subnet48336A54",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc3VpcPublicSubnet1Subnet48336A54": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.4.0.0/20",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc3VpcPublicSubnet2DefaultRouteAFE629B6": {
+      "DependsOn": [
+        "SampleVpc3VpcVPCGWBC94953D",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "SampleVpc3VpcIGWCB22BB71",
+        },
+        "RouteTableId": {
+          "Ref": "SampleVpc3VpcPublicSubnet2RouteTable71C315C7",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "SampleVpc3VpcPublicSubnet2RouteTable71C315C7": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "SampleVpc3VpcPublicSubnet2RouteTableAssociation40575D91": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "SampleVpc3VpcPublicSubnet2RouteTable71C315C7",
+        },
+        "SubnetId": {
+          "Ref": "SampleVpc3VpcPublicSubnet2SubnetF04C04C1",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "SampleVpc3VpcPublicSubnet2SubnetF04C04C1": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.4.16.0/20",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "SampleVpc3VpcS3GatewayEndpoint9704B853": {
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "SampleVpc3VpcPrivateSubnet1RouteTable8B868A47",
+          },
+          {
+            "Ref": "SampleVpc3VpcPrivateSubnet2RouteTable136BF7F1",
+          },
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".s3",
+            ],
+          ],
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jest-Snapshot-VPC/SampleVpc3/Vpc",
+          },
+        ],
+        "VpcEndpointType": "Gateway",
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::VPCEndpoint",
+    },
+    "SampleVpc3VpcVPCGWBC94953D": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "SampleVpc3VpcIGWCB22BB71",
+        },
+        "VpcId": {
+          "Ref": "SampleVpc3VpcB8DF5650",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Compare Snapshot test GuestAccount Stacks 3`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "SamleKey1Key06C24E64": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "for SamleKey1",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleKey2Key544F5533": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "this key is used for encryption of CloudTrail trail",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+            {
+              "Action": "kms:GenerateDataKey*",
+              "Condition": {
+                "StringLike": {
+                  "kms:EncryptionContext:aws:cloudtrail:arn": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:cloudtrail:*:",
+                          {
+                            "Ref": "AWS::AccountId",
+                          },
+                          ":trail/*",
+                        ],
+                      ],
+                    },
+                  ],
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com",
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SampleKey2KeyAlias00CAF560": {
+      "Properties": {
+        "AliasName": "alias/cloudtrail",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "SampleKey2Key544F5533",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::KMS::Alias",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Compare Snapshot test GuestAccount Stacks 4`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "IamRole147B72AAE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "IamRole1PolicyEA36952A",
+          },
+        ],
+        "RoleName": "bleafsi-test-role",
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IamRole1PolicyEA36952A": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "NotAction": "iam:*",
+              "Resource": "*",
+            },
+            {
+              "Action": "aws-portal:*Billing",
+              "Effect": "Deny",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "IamRole2F7ED1C53": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "IamRole2Policy5CCFE840",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IamRole2Policy5CCFE840": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "NotAction": "iam:*",
+              "Resource": "*",
+            },
+            {
+              "Action": "aws-portal:*Billing",
+              "Effect": "Deny",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "IamRole36881F8D3": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "IamRole3PolicyF0CD25E2",
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AWSLambdaExecute",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IamRole3PolicyF0CD25E2": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "NotAction": "iam:*",
+              "Resource": "*",
+            },
+            {
+              "Action": "aws-portal:*Billing",
+              "Effect": "Deny",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "IamRole469B84317": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "IamRole4PolicyFB298DEB",
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":policy/",
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "/",
+                        {
+                          "Fn::Select": [
+                            5,
+                            {
+                              "Fn::Split": [
+                                ":",
+                                {
+                                  "Ref": "ManagedPolicy7BAB786E",
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IamRole4PolicyFB298DEB": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "NotAction": "iam:*",
+              "Resource": "*",
+            },
+            {
+              "Action": "aws-portal:*Billing",
+              "Effect": "Deny",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "ManagedPolicy7BAB786E": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "NotAction": "iam:*",
+              "Resource": "*",
+            },
+            {
+              "Action": "aws-portal:*Billing",
+              "Effect": "Deny",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Compare Snapshot test GuestAccount Stacks 5`] = `
+{
+  "Outputs": {
+    "ECRrepositoryname1": {
+      "Value": {
+        "Ref": "EcrRepository1E9316A04",
+      },
+    },
+    "ECRrepositoryname2": {
+      "Value": {
+        "Ref": "EcrRepository23BA097A4",
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "EcrRepository1E9316A04": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "ImageScanningConfiguration": {
+          "ScanOnPush": false,
+        },
+        "ImageTagMutability": "IMMUTABLE",
+        "RepositoryName": "ecr-repository1",
+      },
+      "Type": "AWS::ECR::Repository",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "EcrRepository23BA097A4": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "EncryptionConfiguration": {
+          "EncryptionType": "KMS",
+          "KmsKey": {
+            "Fn::GetAtt": [
+              "EcrRepository2EcrRepository2EcrKey37A45475",
+              "Arn",
+            ],
+          },
+        },
+        "ImageScanningConfiguration": {
+          "ScanOnPush": true,
+        },
+        "ImageTagMutability": "IMMUTABLE",
+      },
+      "Type": "AWS::ECR::Repository",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "EcrRepository2EcrRepository2EcrKey37A45475": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "for EcrRepository2-EcrKey",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "EcrRepository2ImageScanComplete568EFAC8": {
+      "Properties": {
+        "EventPattern": {
+          "detail": {
+            "repository-name": [
+              {
+                "Ref": "EcrRepository23BA097A4",
+              },
+            ],
+            "scan-status": [
+              "COMPLETE",
+            ],
+          },
+          "detail-type": [
+            "ECR Image Scan",
+          ],
+          "source": [
+            "aws.ecr",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "Resource",
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "JestSnapshotEcrSNSTopicKey55071C5D": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Description": "for Jest-Snapshot-Ecr-SNS-Topic-Key",
+        "EnableKeyRotation": true,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "kms:Decrypt",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com",
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "Policy23B91518": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com",
+              },
+              "Resource": {
+                "Ref": "Resource",
+              },
+              "Sid": "0",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Topics": [
+          {
+            "Ref": "Resource",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::TopicPolicy",
+    },
+    "Resource": {
+      "Properties": {
+        "KmsMasterKeyId": {
+          "Fn::GetAtt": [
+            "JestSnapshotEcrSNSTopicKey55071C5D",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Compare Snapshot test GuestAccount Stacks 6`] = `
+{
+  "Outputs": {
+    "WAFWebACL1": {
+      "Value": {
+        "Fn::GetAtt": [
+          "WafStack1WebAclBB51042D",
+          "Arn",
+        ],
+      },
+    },
+    "WAFWebACL2": {
+      "Value": {
+        "Fn::GetAtt": [
+          "WafStack2WebAcl619CB928",
+          "Arn",
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "WafStack1WebAclBB51042D": {
+      "Properties": {
+        "DefaultAction": {
+          "Allow": {},
+        },
+        "Description": "Web ACL for WafStack1",
+        "Name": "WafStack1",
+        "Rules": [
+          {
+            "Name": "AWSManagedRulesCommonRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 1,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesCommonRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesCommonRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 2,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesKnownBadInputsRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesAmazonIpReputationList",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 3,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesAmazonIpReputationList",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesAmazonIpReputationList",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesLinuxRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 4,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesLinuxRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesLinuxRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesSQLiRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 5,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesSQLiRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesSQLiRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+        ],
+        "Scope": "REGIONAL",
+        "VisibilityConfig": {
+          "CloudWatchMetricsEnabled": true,
+          "MetricName": "WafStack1-WebAcl",
+          "SampledRequestsEnabled": true,
+        },
+      },
+      "Type": "AWS::WAFv2::WebACL",
+    },
+    "WafStack2WebAcl619CB928": {
+      "Properties": {
+        "DefaultAction": {
+          "Allow": {},
+        },
+        "Description": "created by waf-stack",
+        "Name": "WebACL2",
+        "Rules": [
+          {
+            "Name": "AWSManagedRulesCommonRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 1,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesCommonRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesCommonRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+          {
+            "Name": "AWSManagedRulesWindowsRuleSet",
+            "OverrideAction": {
+              "Count": {},
+            },
+            "Priority": 2,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "Name": "AWSManagedRulesWindowsRuleSet",
+                "VendorName": "AWS",
+              },
+            },
+            "VisibilityConfig": {
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "AWS-AWSManagedRulesWindowsRuleSet",
+              "SampledRequestsEnabled": true,
+            },
+          },
+        ],
+        "Scope": "REGIONAL",
+        "VisibilityConfig": {
+          "CloudWatchMetricsEnabled": true,
+          "MetricName": "WebACL2-WebAcl",
+          "SampledRequestsEnabled": true,
+        },
+      },
+      "Type": "AWS::WAFv2::WebACL",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

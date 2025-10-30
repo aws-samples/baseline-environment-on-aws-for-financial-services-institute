@@ -11,6 +11,8 @@ import { SampleAppService } from './service';
 import { IAuroraGlobalCluster } from '../aurora-cluster';
 import { SampleAppWorker } from './worker';
 import { Canary } from './canary';
+import { ApplicationSignalsMonitoring } from '../application-signals-monitoring';
+import { Topic } from 'aws-cdk-lib/aws-sns';
 
 export interface SampleMultiRegionAppProps {
   balanceDatabase: IAuroraGlobalCluster;
@@ -18,6 +20,7 @@ export interface SampleMultiRegionAppProps {
   mainDynamoDbTableName: string;
   vpc: IVpc;
   hostedZone: IHostedZone;
+  alarmTopic: Topic;
 }
 
 /**
@@ -26,6 +29,8 @@ export interface SampleMultiRegionAppProps {
 export class SampleMultiRegionApp extends Construct {
   public readonly paramTable: Table;
   public readonly alb: ApplicationLoadBalancer;
+  public readonly monitoring: ApplicationSignalsMonitoring;
+  public readonly canaryName: string;
 
   constructor(scope: Construct, id: string, props: SampleMultiRegionAppProps) {
     super(scope, id);
@@ -76,29 +81,29 @@ export class SampleMultiRegionApp extends Construct {
     //マイクロサービス コンテナの作成
 
     //Balanceサービスの起動
-    new SampleAppService(this, 'Balance', {
+    const balanceService = new SampleAppService(this, 'Balance', {
       cluster,
       vpc,
       listener,
       listenerPath: 'balance',
       priority: 1,
       auroraDatabase: props.balanceDatabase,
-      enableAdot: true,
+      enableApplicationSignals: true,
     });
 
     //Countサービスの起動
-    new SampleAppService(this, 'Count', {
+    const countService = new SampleAppService(this, 'Count', {
       cluster,
       vpc,
       listener,
       listenerPath: 'count',
       priority: 2,
-      auroraDatabase: props.balanceDatabase,
-      enableAdot: true,
+      auroraDatabase: props.countDatabase,
+      enableApplicationSignals: true,
     });
 
     //Transactionサービスの起動
-    new SampleAppService(this, 'Transaction', {
+    const transactionService = new SampleAppService(this, 'Transaction', {
       cluster,
       vpc,
       listener,
@@ -106,24 +111,53 @@ export class SampleMultiRegionApp extends Construct {
       priority: 3,
       mainTableName: props.mainDynamoDbTableName,
       paramTable,
-      enableAdot: true,
+      enableApplicationSignals: true,
     });
 
     //Transaction Workerサービスの起動
-    new SampleAppWorker(this, 'TransactionWorker', {
+    const transactionWorkerService = new SampleAppWorker(this, 'TransactionWorker', {
       cluster,
       vpc,
       mainTableName: props.mainDynamoDbTableName,
       paramTable,
       balanceEndpoint: `http://${alb.loadBalancerDnsName}/balance`,
       countEndpoint: `http://${alb.loadBalancerDnsName}/count`,
-      enableAdot: true,
+      enableApplicationSignals: true,
+    });
+
+    // CloudWatch Application Signals 監視とアラートの設定
+    this.monitoring = new ApplicationSignalsMonitoring(this, 'ApplicationSignalsMonitoring', {
+      alarmTopic: props.alarmTopic,
+      envName: Stack.of(this).stackName,
+      ecsServices: [
+        {
+          serviceName: 'balance',
+          clusterName: cluster.clusterName,
+          service: balanceService.service,
+        },
+        {
+          serviceName: 'count',
+          clusterName: cluster.clusterName,
+          service: countService.service,
+        },
+        {
+          serviceName: 'transaction',
+          clusterName: cluster.clusterName,
+          service: transactionService.service,
+        },
+        {
+          serviceName: 'transaction-worker',
+          clusterName: cluster.clusterName,
+          service: transactionWorkerService.service,
+        },
+      ],
     });
 
     //CloudWatch syntheticsの設定
-    new Canary(this, 'Canary', {
+    const canary = new Canary(this, 'Canary', {
       vpc: vpc,
       targetApiUrl: `http://api.${props.hostedZone.zoneName}`,
     });
+    this.canaryName = canary.canaryName;
   }
 }

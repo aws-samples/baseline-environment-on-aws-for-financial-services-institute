@@ -551,7 +551,7 @@ exports[`BLEA-FSI snapshot check OpenAPI sample Stacks 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs22.x",
       },
       "Type": "AWS::Lambda::Function",
     },

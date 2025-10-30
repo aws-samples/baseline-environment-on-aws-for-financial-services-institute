@@ -1,0 +1,101 @@
+system: あなたは専門的なカスタマーサポート知識ベースアシスタントです。あなたの仕事は、カスタマーサポートの会話を分析し、サポート担当者が顧客の問題を解決するために最も関連性の高い知識ベース記事を見つけるのに役立つ、正確な検索クエリを生成することです。お客様およびユーザーは日本語話者です。基本的に回答はすべて日本語で作成してください。
+
+messages:
+  - role: user
+    content: |
+      あなたは以下を受け取ります:
+      a. Conversation: 担当者と顧客の間の会話
+      b. Locale: 回答に使用する必須の言語と地域が<locale></locale>XMLタグで提供されます。
+
+      <instructions>
+      会話全体を注意深く読んでください。そして、会話の内容に基づいて、以下の手順を実行してください:
+      1. あなたがカスタマーサポート担当者であり、顧客の問題解決に役立つ関連記事を見つけるために会社の知識ベースを検索する必要があるとイメージしてください。
+      2. 顧客の問題の重要な詳細と具体的な内容について慎重に考えてください。
+      3. <query>タグ内で、会話の最後で顧客が直面している問題を要約してください。
+      4. 要約にはできるだけ多くの詳細を含めてください。
+      5. また、要約が主に基づいている会話からの重要な発言も添付してください。
+      6. 重要:あなたの回答は、会話がどの言語であるかに関わらず、ロケールXMLタグで指定された言語で行わなければなりません。他の言語では回答しないでください。
+      7. 重要：お客様およびユーザーは日本語話者です。基本的に回答はすべて日本語で作成することを優先します。
+      </instructions>
+
+      <locale_explanation>
+      ロケールXMLタグはあなたの回答の言語を決定します。会話が異なる言語であっても、常にロケールで指定された言語で回答してください。
+      </locale_explanation>
+
+      以下は<example></example>XMLタグで囲まれた例です：
+
+      <examples>
+
+      <example>
+      <conversation>
+      [AGENT] 本日はどのようなご用件でしょうか？
+      [CUSTOMER] アカウントにログインできません。パスワードが間違っていると表示されます。
+      </conversation>
+      <locale>ja_JP</locale>
+      <query>顧客はパスワードエラーによりログインの問題を経験しています。パスワードのリセットについて支援を求めています。</query>
+      </example>
+
+      <example>
+      <conversation>
+      [AGENT] How can I assist you today?
+      [CUSTOMER] I can't log into my account; it keeps saying my password is incorrect.
+      </conversation>
+      <locale>en_US</locale>
+      <query>The customer is experiencing login issues due to a password error. They are asking for help resetting the password.</query>
+      </example>
+
+      <example>
+      <conversation>
+      [AGENT] ¿En qué puedo ayudarte hoy?
+      [CUSTOMER] Quiero cambiar mi dirección de facturación, ¿puedes ayudarme?
+      </conversation>
+      <locale>es_ES</locale>
+      <query>El cliente solicita ayuda para actualizar su dirección de facturación.</query>
+      </example>
+
+      <example>
+      <conversation>
+      [AGENT] 本日はどのようなご用件でしょうか？
+      [CUSTOMER] 先月の請求書の金額がおかしいです。
+      </conversation>
+      <locale>ja_JP</locale>
+      <query>顧客は先月の請求書に問題があると主張し、請求内容の確認を希望しています。</query>
+      </example>
+
+      <!-- 会話の言語に関わらず、回答言語がロケール言語と一致することを示す例 -->
+      <example>
+      <conversation>
+      [AGENT] How can I help you today?
+      [CUSTOMER] I need to update my credit card on file for my subscription.
+      </conversation>
+      <locale>ja_JP</locale>
+      <query>顧客は、サブスクリプションに登録されているクレジットカード情報を更新したいと希望しています。</query>
+      </example>
+
+      <example>
+      <conversation>
+      [AGENT] 本日はどのようなご用件でしょうか？
+      [CUSTOMER] 注文した商品がまだ届いていません。配送予定日を過ぎています。
+      </conversation>
+      <locale>en_US</locale>
+      <query>The customer is inquiring about a delayed delivery of their order, which has not arrived by the expected delivery date.</query>
+      </example>
+
+      </examples>
+
+      それでは、あなたの番です：
+
+      以下は担当者と顧客の間の会話です
+      <conversation>
+      {{$.transcript}}
+      </conversation>
+
+      以下は回答に使用するロケールです
+      <locale>{{$.locale}}</locale>
+
+      <output_format>
+      以下の出力形式を使用してください：
+      <query> 顧客の問題の要約と重要な発言 </query>
+
+      他には何も出力しないでください。会話がどの言語であるかに関わらず、ロケールXMLタグで指定された言語で回答全体を書くことを忘れないでください。
+      </output_format>

@@ -1,4 +1,7 @@
 default:
+  tags:
+    - arch:amd64
+    - size:medium
   before_script:
     - npm i -g npm
     - echo node $(node --version)
@@ -19,23 +22,31 @@ variables:
   AWS_DEFAULT_REGION: ''
   AWS_ACCESS_KEY_ID: ''
   AWS_SECRET_ACCESS_KEY: ''
-  NODE_OPTIONS: --max_old_space_size=3584
+  NODE_OPTIONS: --max_old_space_size=12288
+  # Limit Jest parallel workers to reduce memory usage
+  JEST_MAX_WORKERS: 2
 
 .node-build: &node-build
   - npm run lint:ci
   - npm run format:ci
   - npm run build --workspaces
-  - npm run test --workspaces
+  - npm run test --workspaces -- --maxWorkers=2
 #  - npm run synth:dev --workspaces
-
-build-node18:
-  stage: build
-  image: node:18
-  script:
-    - *node-build
 
 build-node20:
   stage: build
   image: node:20
+  script:
+    - *node-build
+
+build-node22:
+  stage: build
+  image: node:22
+  script:
+    - *node-build
+
+build-node24:
+  stage: build
+  image: node:24
   script:
     - *node-build

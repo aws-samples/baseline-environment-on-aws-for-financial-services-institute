@@ -1,0 +1,144 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Query @aws_cognito_user_pools @aws_iam {
+  getContact(contactId: ID!): Contact
+  getContacts(input: GetContactsInput): [Contact]
+  getAssigns(input: GetAssignsInput!): [Assign]
+  getTranscripts(contactId: ID!): [Transcript]
+  getBots: [Bot]
+}
+
+type Mutation @aws_cognito_user_pools @aws_iam {
+  addContact(input: AddContactInput!): Contact
+  addAssign(input: AddAssignInput!): Assign
+  addTranscript(input: AddTranscriptInput!): Transcript
+  addSummary(input: AddSummaryInput!): Contact
+  checkTranscript(input: CheckTranscriptInput!): Contact
+  addBot(input: AddBotInput!): Bot
+  deleteBot(input: DeleteBotInput!): DeleteBotResult
+}
+
+type Subscription @aws_cognito_user_pools @aws_iam {
+  onAddTranscript(contactId: ID): Transcript @aws_subscribe(mutations: ["addTranscript"])
+  onAddSummary(contactId: ID): Contact @aws_subscribe(mutations: ["addSummary"])
+  onAddContact(contactId: ID): Contact @aws_subscribe(mutations: ["addContact"])
+  onAddAssign(agentId: ID): Assign @aws_subscribe(mutations: ["addAssign"])
+}
+
+type Contact @aws_cognito_user_pools @aws_iam {
+  PK: ID!
+  SK: String!
+  contactId: ID!
+  startDate: String
+  endDate: String
+  createdAt: String!
+  summary: String
+  checkResult: String
+  cost: Float
+  type: String!
+}
+
+input GetContactsInput {
+  reverse: Boolean
+  limit: Int
+  lastKey: String
+}
+
+input AddContactInput {
+  contactId: ID!
+  startDate: String
+  endDate: String
+  type: String!
+}
+
+input AddSummaryInput {
+  contactId: ID!
+  summary: String!
+}
+
+type Assign @aws_iam @aws_cognito_user_pools {
+  PK: ID!
+  SK: String!
+  contactId: ID!
+  startDate: String!
+  endDate: String
+  createdAt: String!
+  agentId: ID!
+  agentName: String
+  type: String!
+}
+
+input AddAssignInput {
+  contactId: ID!
+  agentId: ID!
+  agentName: String
+  startDate: String
+  endDate: String
+  type: String!
+}
+
+input GetAssignsInput {
+  agentId: ID!
+  reverse: Boolean
+  limit: Int
+  lastKey: String
+}
+
+type Transcript @aws_cognito_user_pools @aws_iam {
+  PK: ID!
+  SK: String!
+  contactId: ID!
+  transcriptId: ID!
+  isPartial: Boolean!
+  participantRole: String!
+  begin: Int!
+  end: Int!
+  transcript: String!
+}
+
+input AddTranscriptInput {
+  contactId: ID!
+  transcriptId: ID!
+  isPartial: Boolean!
+  participantRole: String!
+  begin: Int!
+  end: Int!
+  transcript: String!
+}
+
+input CheckTranscriptInput {
+  contactId: ID!
+}
+
+type Bot @aws_cognito_user_pools @aws_iam {
+  PK: ID!
+  SK: String!
+  botId: ID!
+  botName: String!
+  botDescription: String
+  botContents: String!
+  active: Boolean!
+  createdAt: String!
+  modifiedAt: String!
+  type: String!
+}
+
+input AddBotInput {
+  botId: ID
+  botName: String!
+  botDescription: String
+  botContents: String!
+  active: Boolean!
+}
+
+type DeleteBotResult @aws_cognito_user_pools @aws_iam {
+  botId: ID!
+}
+
+input DeleteBotInput {
+  botId: ID!
+}

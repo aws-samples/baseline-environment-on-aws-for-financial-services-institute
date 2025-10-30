@@ -1,0 +1,78 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "f5b93c54-4ebe-4ab9-8cdc-a673444b6706",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "86ab045c-9558-478c-b824-3eefe04589a5": {
+        "position": {
+          "x": 370.4,
+          "y": 75.2
+        }
+      },
+      "f5b93c54-4ebe-4ab9-8cdc-a673444b6706": {
+        "position": {
+          "x": 142.4,
+          "y": 56.8
+        },
+        "parameters": {
+          "Messages": [
+            null,
+            {
+              "PromptId": {
+                "displayName": "CustomerQueue.wav"
+              }
+            }
+          ]
+        },
+        "audio": [
+          {
+            "id": "%CustomerQueuePromptArn%",
+            "text": "CustomerQueue.wav",
+            "type": "Prompt"
+          }
+        ]
+      }
+    },
+    "Annotations": [],
+    "name": "ImmediateCustomerQueueFlow",
+    "description": "",
+    "type": "customerQueue",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "86ab045c-9558-478c-b824-3eefe04589a5",
+      "Type": "EndFlowExecution",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Messages": [
+          {
+            "Text": "お電話ありがとうございます。ただいま大変電話が混み合っております。恐れ入りますが、このままお待ちいただくか、しばらく経ってからお掛け直しください。"
+          },
+          {
+            "PromptId": "%CustomerQueuePromptArn%"
+          }
+        ]
+      },
+      "Identifier": "f5b93c54-4ebe-4ab9-8cdc-a673444b6706",
+      "Type": "MessageParticipantIteratively",
+      "Transitions": {
+        "NextAction": "86ab045c-9558-478c-b824-3eefe04589a5",
+        "Errors": [
+          {
+            "NextAction": "86ab045c-9558-478c-b824-3eefe04589a5",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

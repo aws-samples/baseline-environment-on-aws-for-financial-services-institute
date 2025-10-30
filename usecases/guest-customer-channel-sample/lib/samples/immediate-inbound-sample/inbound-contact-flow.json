@@ -1,0 +1,323 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "41a1956f-1170-40ff-91a6-8aa0328bba2f",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "41a1956f-1170-40ff-91a6-8aa0328bba2f": {
+        "position": {
+          "x": 143.2,
+          "y": 40
+        }
+      },
+      "6a1d6d4c-ea06-43c3-97cd-2a516396f8de": {
+        "position": {
+          "x": 369.6,
+          "y": 36
+        },
+        "children": ["adf26be3-e36a-44e2-820a-f1a54523690d"],
+        "overrideConsoleVoice": true,
+        "fragments": {
+          "SetContactData": "adf26be3-e36a-44e2-820a-f1a54523690d"
+        },
+        "overrideLanguageAttribute": true
+      },
+      "adf26be3-e36a-44e2-820a-f1a54523690d": {
+        "position": {
+          "x": 369.6,
+          "y": 36
+        },
+        "dynamicParams": []
+      },
+      "46df9ee3-6733-412a-ac46-314480fcce1c": {
+        "position": {
+          "x": 376,
+          "y": 485.6
+        }
+      },
+      "2eb34b80-00f6-480d-a39a-0c27cac864b2": {
+        "position": {
+          "x": 134.4,
+          "y": 484
+        }
+      },
+      "a54d3e42-7be9-4b9b-abd7-8bed84c08e28": {
+        "position": {
+          "x": 591.2,
+          "y": 260.8
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "BasicQueue"
+          }
+        },
+        "queue": {
+          "text": "BasicQueue"
+        }
+      },
+      "e23b49ec-4ee7-464b-b6eb-f8515957339f": {
+        "position": {
+          "x": 362.4,
+          "y": 259.2
+        },
+        "parameters": {
+          "EventHooks": {
+            "AgentWhisper": {
+              "displayName": "ImmediateAgentWhisperFlow"
+            }
+          }
+        },
+        "contactFlow": {
+          "text": "ImmediateAgentWhisperFlow",
+          "id": "%AgentWhisperFlowArn%"
+        },
+        "customerOrAgent": false
+      },
+      "7ddfdfe0-1bdc-41d5-8ab1-f9c93d80d583": {
+        "position": {
+          "x": 593.6,
+          "y": 36
+        }
+      },
+      "aac51674-8ff7-4e97-b6f4-b338b0400072": {
+        "position": {
+          "x": 128,
+          "y": 256
+        },
+        "parameters": {
+          "EventHooks": {
+            "CustomerQueue": {
+              "displayName": "ImmediateCustomerQueueFlow"
+            }
+          }
+        },
+        "contactFlow": {
+          "text": "ImmediateCustomerQueueFlow",
+          "id": "%CustomerQueueFlowArn%"
+        },
+        "customerOrAgent": true
+      },
+      "fb3373b8-c1c6-4a7f-848d-c82cc8d68f90": {
+        "position": {
+          "x": 813.6,
+          "y": 36.8
+        },
+        "children": ["c1bc3260-bc75-4721-b1b5-367132318f0e"],
+        "parameters": {
+          "WisdomAssistantArn": {
+            "displayName": "%QconnectAssistantArn%"
+          }
+        },
+        "fragments": {
+          "SetContactData": "c1bc3260-bc75-4721-b1b5-367132318f0e"
+        }
+      },
+      "c1bc3260-bc75-4721-b1b5-367132318f0e": {
+        "position": {
+          "x": 813.6,
+          "y": 36.8
+        },
+        "dynamicParams": []
+      }
+    },
+    "Annotations": [],
+    "name": "ImmediateInboundContactFlow",
+    "description": "Accept contacts immediately.",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Identifier": "41a1956f-1170-40ff-91a6-8aa0328bba2f",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Transitions": {
+        "NextAction": "6a1d6d4c-ea06-43c3-97cd-2a516396f8de"
+      }
+    },
+    {
+      "Parameters": {
+        "TextToSpeechEngine": "Neural",
+        "TextToSpeechStyle": "None",
+        "TextToSpeechVoice": "Kazuha"
+      },
+      "Identifier": "6a1d6d4c-ea06-43c3-97cd-2a516396f8de",
+      "Type": "UpdateContactTextToSpeechVoice",
+      "Transitions": {
+        "NextAction": "adf26be3-e36a-44e2-820a-f1a54523690d",
+        "Errors": [
+          {
+            "NextAction": "7ddfdfe0-1bdc-41d5-8ab1-f9c93d80d583",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "LanguageCode": "ja-JP"
+      },
+      "Identifier": "adf26be3-e36a-44e2-820a-f1a54523690d",
+      "Type": "UpdateContactData",
+      "Transitions": {
+        "NextAction": "7ddfdfe0-1bdc-41d5-8ab1-f9c93d80d583",
+        "Errors": [
+          {
+            "NextAction": "7ddfdfe0-1bdc-41d5-8ab1-f9c93d80d583",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "46df9ee3-6733-412a-ac46-314480fcce1c",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {},
+      "Identifier": "2eb34b80-00f6-480d-a39a-0c27cac864b2",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "46df9ee3-6733-412a-ac46-314480fcce1c",
+        "Errors": [
+          {
+            "NextAction": "46df9ee3-6733-412a-ac46-314480fcce1c",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "46df9ee3-6733-412a-ac46-314480fcce1c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "%QueueArn%"
+      },
+      "Identifier": "a54d3e42-7be9-4b9b-abd7-8bed84c08e28",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "2eb34b80-00f6-480d-a39a-0c27cac864b2",
+        "Errors": [
+          {
+            "NextAction": "2eb34b80-00f6-480d-a39a-0c27cac864b2",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "EventHooks": {
+          "AgentWhisper": "%AgentWhisperFlowArn%"
+        },
+        "EventHooksConfiguration": {
+          "AgentWhisper": {
+            "DisableExecution": "false"
+          }
+        }
+      },
+      "Identifier": "e23b49ec-4ee7-464b-b6eb-f8515957339f",
+      "Type": "UpdateContactEventHooks",
+      "Transitions": {
+        "NextAction": "a54d3e42-7be9-4b9b-abd7-8bed84c08e28",
+        "Errors": [
+          {
+            "NextAction": "a54d3e42-7be9-4b9b-abd7-8bed84c08e28",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "RecordingBehavior": {
+          "RecordedParticipants": ["Agent", "Customer"],
+          "ScreenRecordedParticipants": ["Agent"],
+          "IVRRecordingBehavior": "Enabled"
+        },
+        "AnalyticsBehavior": {
+          "Enabled": "True",
+          "AnalyticsLanguage": "ja-JP",
+          "AnalyticsRedactionBehavior": "Disabled",
+          "AnalyticsRedactionResults": "None",
+          "ChannelConfiguration": {
+            "Chat": {
+              "AnalyticsModes": ["ContactLens"]
+            },
+            "Voice": {
+              "AnalyticsModes": ["RealTime"]
+            }
+          },
+          "SentimentConfiguration": {
+            "Enabled": "True"
+          }
+        }
+      },
+      "Identifier": "7ddfdfe0-1bdc-41d5-8ab1-f9c93d80d583",
+      "Type": "UpdateContactRecordingBehavior",
+      "Transitions": {
+        "NextAction": "fb3373b8-c1c6-4a7f-848d-c82cc8d68f90"
+      }
+    },
+    {
+      "Parameters": {
+        "EventHooks": {
+          "CustomerQueue": "%CustomerQueueFlowArn%"
+        }
+      },
+      "Identifier": "aac51674-8ff7-4e97-b6f4-b338b0400072",
+      "Type": "UpdateContactEventHooks",
+      "Transitions": {
+        "NextAction": "e23b49ec-4ee7-464b-b6eb-f8515957339f",
+        "Errors": [
+          {
+            "NextAction": "e23b49ec-4ee7-464b-b6eb-f8515957339f",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "WisdomAssistantArn": "%QconnectAssistantArn%"
+      },
+      "Identifier": "fb3373b8-c1c6-4a7f-848d-c82cc8d68f90",
+      "Type": "CreateWisdomSession",
+      "Transitions": {
+        "NextAction": "c1bc3260-bc75-4721-b1b5-367132318f0e",
+        "Errors": [
+          {
+            "NextAction": "aac51674-8ff7-4e97-b6f4-b338b0400072",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "WisdomSessionArn": "$.Wisdom.SessionArn"
+      },
+      "Identifier": "c1bc3260-bc75-4721-b1b5-367132318f0e",
+      "Type": "UpdateContactData",
+      "Transitions": {
+        "NextAction": "aac51674-8ff7-4e97-b6f4-b338b0400072",
+        "Errors": [
+          {
+            "NextAction": "aac51674-8ff7-4e97-b6f4-b338b0400072",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

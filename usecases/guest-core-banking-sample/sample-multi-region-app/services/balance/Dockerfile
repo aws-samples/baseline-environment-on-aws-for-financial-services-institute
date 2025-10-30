@@ -4,7 +4,7 @@ COPY package*.json ./
 COPY prisma ./prisma
 RUN npm ci
 COPY . .
-RUN npm run bundle
+RUN NODE_OPTIONS="--max-old-space-size=4096" npm run bundle
 
 FROM node:18
 

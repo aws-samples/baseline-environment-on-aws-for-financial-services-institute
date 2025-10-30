@@ -26,6 +26,8 @@ export interface AutomaticSwitchStateMachineProps {
  * source regionからdestination regionへ、Activeなリージョンを切り替えるステートマシン
  */
 export class AutomaticSwitchStateMachine extends Construct {
+  public readonly stateMachine: sfn.StateMachine;
+
   constructor(scope: Construct, id: string, props: AutomaticSwitchStateMachineProps) {
     super(scope, id);
 
@@ -214,7 +216,7 @@ export class AutomaticSwitchStateMachine extends Construct {
       .next(switchOver)
       .next(poll);
 
-    new sfn.StateMachine(this, 'StateMachine', {
+    this.stateMachine = new sfn.StateMachine(this, 'StateMachine', {
       definitionBody: sfn.DefinitionBody.fromChainable(definition),
       timeout: Duration.hours(1),
     });

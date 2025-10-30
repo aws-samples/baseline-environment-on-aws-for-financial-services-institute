@@ -22,7 +22,7 @@
     "@types/node": "18.17.6",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "aws-cdk": "^2.148.1",
+    "aws-cdk": "^2.1006.0",
     "esbuild": "^0.25.0",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
@@ -34,7 +34,7 @@
     "upsert-slr": "1.0.1"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.144.0",
+    "aws-cdk-lib": "^2.186.0",
     "cdk-remote-stack": "^2.0.10",
     "constructs": "^10.1.99",
     "source-map-support": "^0.5.21"

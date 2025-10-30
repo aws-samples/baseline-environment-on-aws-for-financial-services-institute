@@ -1,4 +1,5 @@
-import { PrimaryRegionConfig, SecondaryRegionConfig, TertiaryRegionConfig } from 'lib/config';
+import { PrimaryRegionConfig, SecondaryRegionConfig, TertiaryRegionConfig } from '../lib/config';
+import { IdentityManagementType } from '../lib/constructs-l2/connect';
 
 /*
  * BLEA-FSI Customer Channel Sample Application parameters definition
@@ -10,6 +11,7 @@ export interface AppParameter {
   readonly primaryRegion: PrimaryRegionConfig;
   readonly secondaryRegion?: SecondaryRegionConfig;
   readonly tertiaryRegion?: TertiaryRegionConfig;
+  readonly enableCallMonitoring?: boolean;
 }
 
 // Unique project prefix
@@ -22,26 +24,30 @@ export const DevParameter: AppParameter = {
     region: 'ap-northeast-1',
     connectInstance: {
       instanceAlias: 'my-connect-instance-yyyymmdd-primary', // EDIT HERE: instance alias must be unique
-      inboundCallsEnabled: true,
-      outboundCallsEnabled: true,
-      contactFlows: [
+      identityManagementType: IdentityManagementType.CONNECT_MANAGED,
+      /*adminUsers: [
         {
-          type: 'CONTACT_FLOW',
-          name: 'SampleInboundContactFlow',
+          alias: '', // EDIT HERE
+          firstName: '', // EDIT HERE
+          lastName: '', // EDIT HERE
+          email: '', // EDIT HERE
+          password: '', // EDIT HERE
         },
-      ],
-      identityManagementType: 'CONNECT_MANAGED',
+      ],*/
     },
+    connectWidgetId: '', // EDIT HERE
+    connectSnippetId: '', // EDIT HERE
   },
-  secondaryRegion: {
+  /*secondaryRegion: {
     region: 'ap-southeast-1',
     connectInstance: {
       instanceAlias: 'my-connect-instance-yyyymmdd-secondary', // EDIT HERE: instance alias must be unique
     },
-  },
+  },*/
   tertiaryRegion: {
     region: 'ap-northeast-3',
   },
+  enableCallMonitoring: true,
 };
 
 // Parameter for Staging

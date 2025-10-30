@@ -1,0 +1,54 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "22f231ca-d2aa-4da1-925d-cad43ba2a03d",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "22f231ca-d2aa-4da1-925d-cad43ba2a03d": {
+        "position": {
+          "x": 141.6,
+          "y": 40
+        },
+        "parameters": {
+          "PromptId": {
+            "displayName": "Beep.wav"
+          }
+        },
+        "promptName": "Beep.wav"
+      },
+      "75db20c6-221b-4b0b-b6e4-b96e37b991ce": {
+        "position": {
+          "x": 358.4,
+          "y": 44
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "ImmediateAgentWhisperFlow",
+    "description": "",
+    "type": "agentWhisper",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "PromptId": "%BeepPromptArn%"
+      },
+      "Identifier": "22f231ca-d2aa-4da1-925d-cad43ba2a03d",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "75db20c6-221b-4b0b-b6e4-b96e37b991ce"
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "75db20c6-221b-4b0b-b6e4-b96e37b991ce",
+      "Type": "EndFlowExecution",
+      "Transitions": {}
+    }
+  ]
+}

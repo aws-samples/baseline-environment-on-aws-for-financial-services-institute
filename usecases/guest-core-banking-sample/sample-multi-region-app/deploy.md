@@ -109,7 +109,7 @@ docker run --name client -d --restart unless-stopped -p 8089:8089 client
 aws ssm start-session\
     --target <EC2 インスタンス ID>\
     --document-name AWS-StartPortForwardingSessionToRemoteHost \
-    --parameters '{"host": ["localhost"], "portNumber":["8089"], "localPortNumber":["8089"]}'
+    --parameters '{"host": ["localhost"], "portNumber":["8089"], "localPortNumber":["8089"]}' --region ap-northeast-1
 ```
 
 > <EC2 インスタンス ID>は確認した bastion host のインスタンス ID に置き換えて下さい 例 i-0xxxx
@@ -224,3 +224,87 @@ docker build -t client .
 docker run -p 8089:8089 client
 # open http://localhost:8089
 ```
+
+## CloudWatch Application Signals による監視
+
+本サンプルアプリケーションでは、[Amazon CloudWatch Application Signals](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Signals-ECS-Sidecar.html) を使用してマイクロサービスの包括的な監視を実現しています。
+
+### Application Signals の構成
+
+- **サイドカー戦略**: 各 ECS タスクに CloudWatch Agent をサイドカーコンテナとして配置
+- **自動計装**: アプリケーションコードの変更なしに OpenTelemetry ベースの分散トレーシングを実現
+- **4 つのマイクロサービス**: Balance、Count、Transaction、TransactionWorker の各サービスを自動認識
+
+### 監視データの確認方法
+
+1. **Application Signals コンソール**
+
+   - [CloudWatch コンソール](https://console.aws.amazon.com/cloudwatch/) にアクセス
+   - 左側メニューから「Application Signals」を選択
+   - 「サービス」タブで 4 つのマイクロサービスが認識されていることを確認
+
+2. **サービスマップ**
+
+   - サービス間の依存関係と通信フローを視覚的に確認
+   - 各サービスの健全性（レイテンシ、エラー率、可用性）をリアルタイムで監視
+
+3. **CloudWatch ダッシュボード**
+   - 各マイクロサービスの状況を把握できる簡易ダッシュボードが自動作成
+   - サービス別のメトリクス（応答時間、エラー率、リクエスト数）を一元表示
+
+### 監視可能なメトリクス
+
+- **レイテンシ**: サービス間通信の応答時間
+- **エラー率**: 失敗したリクエストの割合
+- **可用性**: サービスの稼働率
+- **分散トレーシング**: リクエストの処理フローと各サービスでの処理時間
+
+Application Signals により、勘定系システム全体の健全性を効率的に監視し、問題の早期発見と迅速な対応が可能になります。
+
+### 具体的な監視設定例
+
+#### 例 1: Application Signals による自動監視機能
+
+Application Signals を導入することで、以下が自動的に利用可能になります：
+
+```
+自動検出される監視対象:
+- Balance、Transaction、Count、TransactionWorker の4つのマイクロサービス
+- サービス間の依存関係と通信フロー
+- OpenTelemetry による分散トレーシング
+
+自動収集されるメトリクス:
+- レイテンシ（応答時間）
+- エラー率
+- 可用性
+- サービスマップでの視覚的な監視
+```
+
+#### 例 2: 各マイクロサービスのアラーム設定
+
+本サンプルでは、4 つのマイクロサービスそれぞれに以下のアラームを設定しています：
+
+```
+Balance サービス:
+- balance-HighLatency: 平均応答時間が1秒超過時にSNS通知
+- balance-HighErrorRate: エラー率が5%超過時にSNS通知
+
+Transaction サービス:
+- transaction-HighLatency: 平均応答時間が1秒超過時にSNS通知
+- transaction-HighErrorRate: エラー率が5%超過時にSNS通知
+
+Count サービス:
+- count-HighLatency: 平均応答時間が1秒超過時にSNS通知
+- count-HighErrorRate: エラー率が5%超過時にSNS通知
+
+TransactionWorker サービス:
+- transaction-worker-HighLatency: 平均応答時間が1秒超過時にSNS通知
+- transaction-worker-HighErrorRate: エラー率が5%超過時にSNS通知
+
+共通設定:
+- 評価期間: 5分間隔で2回連続閾値超過時にアラート発生
+- 通知方式: アラーム発生時とOK復旧時の両方でSNS通知
+- ダッシュボード: "CoreBanking-ApplicationSignals-[環境名]" で一元監視
+```
+
+これにより、勘定系システムの各マイクロサービスで発生する性能問題やエラーを個別に検知し、迅速な対応が可能になります。

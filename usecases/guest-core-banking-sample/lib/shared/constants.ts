@@ -11,4 +11,5 @@ export class CrossRegionSsmParamName {
   static readonly PRIVATE_HOSTED_ZONE_ID = 'PrivateHostedZoneId';
   static readonly TGW_PEERING_ATTACHMENT_ID = 'TgwPeeringAttachmentId';
   static readonly TGW_PRIMARY_ID = 'TgwPrimaryId';
+  static readonly TGW_SECONDARY_ID = 'TgwSecondaryId';
 }

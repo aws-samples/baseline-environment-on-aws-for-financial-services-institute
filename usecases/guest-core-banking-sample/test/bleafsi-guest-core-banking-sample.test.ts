@@ -3,6 +3,7 @@ import { Template, Annotations, Match } from 'aws-cdk-lib/assertions';
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
 import { CoreBankingPrimaryStack } from '../lib/primary/bleafsi-core-banking-primary-stack';
 import { CoreBankingSecondaryStack } from '../lib/secondary/bleafsi-core-banking-secondary-stack';
+import { CoreBankingMonitoringStack } from '../lib/monitoring/bleafsi-core-banking-monitoring-stack';
 import { PjPrefix, StackParameter, SampleMultiRegionAppParameter, SampleEcsAppParameter } from '../bin/parameter';
 
 const app = new cdk.App();
@@ -23,6 +24,12 @@ const procEnv = {
     vpcCidr: '10.101.0.0/20',
     tgwAsn: 64513,
   },
+  monitoring: {
+    region: 'us-west-2',
+    regionCidr: '10.102.0.0/16',
+    vpcCidr: '10.102.0.0/20',
+    tgwAsn: 64514,
+  },
 };
 
 const appProps: StackParameter = {
@@ -31,6 +38,7 @@ const appProps: StackParameter = {
   dbUser: 'dbadmin',
   primary: procEnv.primary,
   secondary: procEnv.secondary,
+  monitoring: procEnv.monitoring,
   hostedZoneName: 'example.com',
 };
 
@@ -42,6 +50,7 @@ SampleMultiRegionAppParameter.deploy = true;
 
 let primaryApp: CoreBankingPrimaryStack;
 let secondaryApp: CoreBankingSecondaryStack;
+let monitoringApp: CoreBankingMonitoringStack;
 
 describe(`${PjPrefix} snapshot check`, () => {
   test('Core banking sample Stacks', () => {
@@ -64,15 +73,38 @@ describe(`${PjPrefix} snapshot check`, () => {
       dynamoDbGlobalTableName: primaryApp.dynamoDb.tableName,
       tgwRouteTableId: primaryApp.tgwRouteTableId,
     });
+    monitoringApp = new CoreBankingMonitoringStack(app, `${PjPrefix}-monitoring`, {
+      ...appProps,
+      env: {
+        account: procEnv.account,
+        region: procEnv.monitoring.region,
+      },
+      crossRegionReferences: true,
+      primaryTgwRouteTableId: primaryApp.tgwRouteTableId,
+      secondaryTgwRouteTableId: secondaryApp.tgwRouteTableId,
+    });
 
     // test with snapshot
     expect(Template.fromStack(primaryApp)).toMatchSnapshot();
     expect(Template.fromStack(secondaryApp)).toMatchSnapshot();
+    expect(Template.fromStack(monitoringApp)).toMatchSnapshot();
   });
 });
 
 describe(`${PjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
   beforeAll(() => {
+    // Ensure stacks are created first
+    if (!primaryApp) {
+      primaryApp = new CoreBankingPrimaryStack(app, `${PjPrefix}-primary`, {
+        ...appProps,
+        env: {
+          account: procEnv.account,
+          region: procEnv.primary.region,
+        },
+        crossRegionReferences: true,
+      });
+    }
+
     NagSuppressions.addResourceSuppressionsByPath(
       primaryApp,
       '/BLEAFSI-CoreBanking-primary/MonitorAlarm/Topic/Resource',
@@ -338,6 +370,32 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: primaryApp`, () => {
 
 describe(`${PjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
   beforeAll(() => {
+    // Ensure stacks are created first
+    if (!secondaryApp) {
+      if (!primaryApp) {
+        primaryApp = new CoreBankingPrimaryStack(app, `${PjPrefix}-primary`, {
+          ...appProps,
+          env: {
+            account: procEnv.account,
+            region: procEnv.primary.region,
+          },
+          crossRegionReferences: true,
+        });
+      }
+
+      secondaryApp = new CoreBankingSecondaryStack(app, `${PjPrefix}-secondary`, {
+        ...appProps,
+        env: {
+          account: procEnv.account,
+          region: procEnv.secondary.region,
+        },
+        crossRegionReferences: true,
+        auroraSecretName: primaryApp.PrimaryDB.secret.secretName,
+        dynamoDbGlobalTableName: primaryApp.dynamoDb.tableName,
+        tgwRouteTableId: primaryApp.tgwRouteTableId,
+      });
+    }
+
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEAFSI-CoreBanking-secondary/MonitorAlarm/Topic/Resource',
@@ -345,7 +403,12 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     );
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
-      '/BLEAFSI-CoreBanking-secondary/Vpc/createTgwPeeringAttachment/CustomResourcePolicy/Resource',
+      '/BLEAFSI-CoreBanking-secondary/Vpc/createTgwPeeringAttachment-TgwPrimaryId-ap-northeast-1/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/Vpc/crossRegionSsmParam-peerTgwId-TgwPrimaryId-ap-northeast-1/GetParam-TgwPrimaryId/CustomResourcePolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
@@ -356,6 +419,11 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEAFSI-CoreBanking-secondary/AssociateVpcWithHostedZone/Route53AssociateVpc/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/AssociateVpcWithHostedZone/crossRegionSsmParam/GetParam-PrivateHostedZoneId/CustomResourcePolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
@@ -366,6 +434,16 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     NagSuppressions.addResourceSuppressionsByPath(
       secondaryApp,
       '/BLEAFSI-CoreBanking-secondary/GetDefaultRouteTableId/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/ECSApp/crossRegionSsmParam/GetParam-EcrAppImageTag/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      secondaryApp,
+      '/BLEAFSI-CoreBanking-secondary/ECSApp/crossRegionSsmParam/GetParam-EcrAppRepositoryName/CustomResourcePolicy/Resource',
       [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
     );
     NagSuppressions.addResourceSuppressionsByPath(
@@ -536,6 +614,103 @@ describe(`${PjPrefix} cdk-nag AwsSolutions Pack: secondaryApp`, () => {
     try {
       expect(errors).toHaveLength(0);
       console.log('cdk-nag: no errors for stack ' + secondaryApp.stackName);
+    } catch (e) {
+      const errorMessages = errors.map((e) => ({
+        type: e.entry.type,
+        data: e.entry.data,
+        id: e.id,
+      }));
+      console.error(JSON.stringify(errorMessages, undefined, 2));
+      throw e;
+    }
+  });
+});
+
+describe(`${PjPrefix} cdk-nag AwsSolutions Pack: monitoringApp`, () => {
+  beforeAll(() => {
+    // monitoringAppが初期化されていない場合はスキップ
+    if (!monitoringApp) {
+      console.warn('monitoringApp is not initialized. Skipping monitoring app tests.');
+      return;
+    }
+
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Vpc/createTgwPeeringAttachment-TgwPrimaryId-ap-northeast-1/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Vpc/crossRegionSsmParam-peerTgwId-TgwPrimaryId-ap-northeast-1/GetParam-TgwPrimaryId/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Vpc/createTgwPeeringAttachment-TgwSecondaryId-ap-northeast-3/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Vpc/crossRegionSsmParam-peerTgwId-TgwSecondaryId-ap-northeast-3/GetParam-TgwSecondaryId/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/AssociateVpcWithHostedZone/Route53AssociateVpc/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/AssociateVpcWithHostedZone/crossRegionSsmParam/GetParam-PrivateHostedZoneId/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/GetDefaultRouteTableId/CustomResourcePolicy/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'It is used only when deploying.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/AWS679f53fac002430cb0da5b7982bd2287/Resource',
+      [{ id: 'AwsSolutions-L1', reason: 'It is used only when deploying.' }],
+    );
+
+    // CloudWatch Synthetics Canary
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Canary/Resource/ArtifactsBucket/Resource',
+      [{ id: 'AwsSolutions-S1', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM4', reason: 'This resource is a sample application.' }],
+    );
+    NagSuppressions.addResourceSuppressionsByPath(
+      monitoringApp,
+      '/BLEAFSI-CoreBanking-monitoring/Canary/Resource/ServiceRole/Resource',
+      [{ id: 'AwsSolutions-IAM5', reason: 'This resource is a sample application.' }],
+    );
+
+    cdk.Aspects.of(monitoringApp).add(new AwsSolutionsChecks());
+  });
+
+  test('No unsurpressed Errors', () => {
+    if (!monitoringApp) {
+      console.warn('monitoringApp is not initialized. Skipping test.');
+      return;
+    }
+
+    const errors = Annotations.fromStack(monitoringApp).findError('*', Match.stringLikeRegexp('AwsSolutions-.*'));
+    try {
+      expect(errors).toHaveLength(0);
+      console.log('cdk-nag: no errors for stack ' + monitoringApp.stackName);
     } catch (e) {
       const errorMessages = errors.map((e) => ({
         type: e.entry.type,
