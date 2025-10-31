@@ -11,6 +11,11 @@ AWS Well-Architected フレームワークは、一般的にすべてのタイ�
 
 なお、FISC 安全対策基準には適合制度がありません。よって本レンズが適合を保証するものではありません。業務アプリケーションを含めて各社での安全対策基準のチェックを実施していただくことを前提に本レンズをご利用ください。
 
+また、2025 年 3 月に公表された FISC 安全対策基準・解説書の第 13 版では、AI・生成 AI の利用が急速に拡大していることを踏まえ、そのリスク対応のために新たな AI の安全対策に関する基準項目が新設されました。
+AWS では、機械学習システム全般に対して「AWS Well-Architected Framework Machine Learning Lens」を提供しており、ML ライフサイクルにおける設計・運用のベストプラクティスを示しています。
+さらに、AWS は 2025 年 4 月に「AWS Well-Architected Framework Generative AI Lens」を発表し、生成 AI ワークロードの設計、デプロイ、運用に関する包括的なガイダンスを提供しています。
+金融機関が AI システムを構築・運用する際には、FISC 安全対策基準の AI 関連要件への対応手段の１つとして、従来の ML ワークロードには Machine Learning Lens を、生成 AI ワークロードには Generative AI Lens を活用することで、それぞれの技術特性に応じた最新のベストプラクティスに基づいた安全で効率的なシステムの実現が期待できます。
+
 # AWS Well-Architected フレームワーク FSI Lens for FISC の柱
 
 - [運用上の優秀性の柱](./operational_excellence.md)

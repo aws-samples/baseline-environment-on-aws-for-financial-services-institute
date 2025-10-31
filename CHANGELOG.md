@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.1] - 2025-10-31
+
+### Changed
+- FISC 安全対策基準（第 13 版）対応
+  - FSI Lens for FISC の更新
+- サイバーレジリエンスワークロードの更新
+  - 各手順書の軽微な修正およびCDKコードのリファクタリング
+- 顧客チャネルワークロードの更新
+  - デプロイガイドの更新
+  - Windows環境におけるデプロイ不具合対応
+
 ## [1.6.0] - 2025-10-09
 
 ### Changed

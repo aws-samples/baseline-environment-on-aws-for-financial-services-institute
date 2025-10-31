@@ -9,13 +9,13 @@ import {
   StageParameter,
   ProdParameter,
   SampleMultiRegionAppParameter,
-  CyberResilienceBackupParameter,
-  CyberResilienceIsolationParameter,
+  CyberResilienceParameter,
 } from './parameter';
 import { CoreBankingArcStack } from '../lib/shared/sample-multi-region-app/bleafsi-core-banking-arc-stack';
 import { CoreBankingStateMachineStack } from '../lib/shared/sample-multi-region-app/bleafsi-core-banking-statemachine-stack';
 import { DataBunkerAccountStack } from '../lib/primary/cyber-resilience/data-bunker-account';
 import { IsolationStack } from '../lib/primary/cyber-resilience/automated-isolation/isolation-stack';
+import { CyberResilienceRestore } from '../lib/primary/cyber-resilience/cyber-resilience-restore';
 /*
  * BLEA-FSI Core Banking Sample application stack
  */
@@ -97,7 +97,7 @@ if (SampleMultiRegionAppParameter.deploy) {
 }
 
 // Cyber Resilience - Network Isolation Stack (Primary Region only)
-if (CyberResilienceIsolationParameter.deploy) {
+if (CyberResilienceParameter.deploy && CyberResilienceParameter.option.includes('isolation')) {
   const DevIsolationStack = new IsolationStack(app, `${PjPrefix}-isolation-Dev`, {
     description: 'BLEA for FSI Core Banking - Cyber Resilience Network Isolation (uksb-1tupboc63)',
     ...DevParameter,
@@ -171,15 +171,32 @@ const ProdSecondaryAppStack = new CoreBankingSecondaryStack(app, `${PjPrefix}-se
 */
 
 // サイバーレジリエンス機能の設定
-if (CyberResilienceBackupParameter.deploy && CyberResilienceBackupParameter.option.includes('backup')) {
+if (CyberResilienceParameter.deploy && CyberResilienceParameter.option.includes('backup')) {
   // Data Bunkerアカウントのスタック
   const dataBunkerStack = new DataBunkerAccountStack(app, `${PjPrefix}-data-bunker-Dev`, {
     description: 'Data Bunker Account Stack for Core Banking System',
     env: {
-      account: CyberResilienceBackupParameter.dataBunkerAccount.id,
+      account: CyberResilienceParameter.dataBunkerAccount.id,
       region: DevParameter.primary.region,
     },
     crossRegionReferences: true,
+  });
+}
+
+if (CyberResilienceParameter.deploy && CyberResilienceParameter.option.includes('restore')) {
+  const restoreStack = new cdk.Stack(app, `${PjPrefix}-restore-Dev`, {
+    description: 'Restore Account Stack for Core Banking System',
+    env: {
+      account: CyberResilienceParameter.restoreAccount.id,
+      region: CyberResilienceParameter.restoreAccount.region,
+    },
+    crossRegionReferences: true,
+  });
+
+  new CyberResilienceRestore(restoreStack, 'CyberResilienceRestore', {
+    dataVaultAccountId: CyberResilienceParameter.dataBunkerAccount.id,
+    sharedBackupVaultName: CyberResilienceParameter.dataBunkerAccount.vaultName,
+    environment: DevParameter.envName,
   });
 }
 
@@ -192,7 +209,7 @@ cdk.Tags.of(DevPrimaryAppStack).add(envTagName, DevParameter.envName, {
 cdk.Tags.of(DevSecondaryAppStack).add(envTagName, DevParameter.envName);
 
 // Cyber Resilience Isolation Stack tags
-if (CyberResilienceIsolationParameter.deploy) {
+if (CyberResilienceParameter.deploy && CyberResilienceParameter.option.includes('isolation')) {
   const DevIsolationStack = app.node.tryFindChild(`${PjPrefix}-isolation-Dev`) as cdk.Stack;
   if (DevIsolationStack) {
     cdk.Tags.of(DevIsolationStack).add(envTagName, DevParameter.envName);

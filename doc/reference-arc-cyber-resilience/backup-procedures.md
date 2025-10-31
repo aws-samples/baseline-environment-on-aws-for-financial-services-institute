@@ -16,6 +16,7 @@
 
 - **ワークロードアカウント**: 勘定系ワークロードが稼働
 - **データバンカーアカウント**: 論理的に隔離されたバックアップデータを保管
+  - 両アカウントは同一の AWS Organizations に属している必要があります。
 
 ## 導入手順
 
@@ -49,7 +50,7 @@ export const CyberResilienceParameter = {
   // デプロイする場合は true に指定
   deploy: true,
   // どの機能をデプロイか選択
-  option: 'backup', //["backup","restore","isolation"],
+  option: ['backup'] as ('backup' | 'restore' | 'isolation')[],
 
   // Data Bunkerアカウントの設定
   dataBunkerAccount: {
@@ -90,9 +91,21 @@ Outputs:
 BLEAFSI-CoreBanking-data-bunker-Dev.LogicallyAirGappedVaultArn = <デプロイされたボールトのARN>
 ```
 
-### 4.勘定系ワークロードからデータバンカーアカウントへのコピー設定
+### 4. Logically air-gapped vault のアクセス許可ポリシーを設定
 
-3 によって、AWS Backup の Logically air-gapped vault が作成されているため、ワークロードアカウントの AWS Backup の既存バックアッププランを修正して、データバンカーアカウントへコピーするための設定を行います。
+3 によって、データバンカーアカウントに AWS Backup の Logically air-gapped vault が作成されているため、ワークロードアカウントの既存の AWS Backup からのアクセス許可設定を行います。
+
+データバンカーアカウントのマネージメントコンソールから **AWS Backup** を開き、**ボールト** から作成した Logically air-gapped vault を選択します。さらに **アクセスポリシー** の **アクセス許可を追加** をクリックして、**アカウントレベルでバックアップボールトにアクセスすることを許可する** を選びます。
+
+![access-policy-setting1](./images/backup-procedures/access-policy-setting1.png)
+
+ワークロードアカウントのアカウント ID からのアクションを許可するポリシーを保存します。
+
+![access-policy-setting2](./images/backup-procedures/access-policy-setting2.png)
+
+### 5.勘定系ワークロードからデータバンカーアカウントへのコピー設定
+
+ワークロードアカウントの AWS Backup の既存バックアッププランを修正して、データバンカーアカウントへコピーするための設定を行います。
 
 ワークロードアカウントのマネージメントコンソールから **AWS Backup** を開き、**設定** から **クロスアカウントバックアップ** をオンにします。
 
