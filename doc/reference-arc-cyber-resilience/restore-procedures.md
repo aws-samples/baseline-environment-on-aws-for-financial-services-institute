@@ -36,31 +36,16 @@
 ```typescript
 export const CyberResilienceParameter = {
   // デプロイする場合は true に指定
-  deploy: false,
+  deploy: true,
   // どの機能をデプロイか選択
-  option: 'restore', //["backup","restore","isolation"],
+  option: ['restore'] as ('backup' | 'restore' | 'isolation')[],
 
-  // リストアアカウント設定（要変更）
+  // リストアアカウントの設定
   restoreAccount: {
-    accountId: process.env.CDK_DEFAULT_ACCOUNT || '123456789012', // リストアアカウントID
-    region: 'ap-northeast-1', // リストアリージョン
-    notificationEmail: 'cyber-resilience-team@example.com', // SNS通知先メールアドレス（要変更）
-  },
-  // 復旧ポイント設定（リストアアカウントのデプロイ時に必要・要変更）
-  recoveryPoints: {
-    // Aurora PostgreSQL復旧ポイント（要変更）
-    aurora: {
-      recoveryPointArn: 'arn:aws:backup:ap-northeast-1:123456789012:recovery-point:11111111-2222-3333-4444-55555555555', // 復旧ポイントARN
-      snapshotArn: 'arn:aws:rds:ap-northeast-1:123456789012:cluster-snapshot:cyber-resilience-xxxxxxxx', // 共有スナップショットARN
-      description: 'Aurora PostgreSQL復旧ポイント',
-      targetClusterName: 'restored-aurora-cluster', // 復旧先クラスター名
-    },
-    // DynamoDB復旧ポイント（要変更）
-    dynamodb: {
-      recoveryPointArn: 'arn:aws:backup:ap-northeast-1:123456789012:recovery-point:11111111-2222-3333-4444-55555555555', // 復旧ポイントARN
-      description: 'DynamoDB復旧ポイント',
-      targetTableName: 'restored-dynamodb-table', // 復旧先テーブル名
-    },
+    // リストアアカウントID
+    id: '123456789012',
+    // リストアリージョン
+    region: 'ap-northeast-1',
   },
 };
 ```
@@ -70,7 +55,7 @@ export const CyberResilienceParameter = {
 ```bash
 cd usecases/guest-core-banking-sample
 npm install
-npx cdk deploy --all
+npx cdk deploy BLEAFSI-CoreBanking-restore-Dev
 ```
 
 **注意**: 初回デプロイ時は勘定系ワークロードは含まれません（復旧用 Step Functions のデプロイのみ）
@@ -164,7 +149,7 @@ aws elbv2 describe-load-balancers \
   --output text
 ```
 
-#### 3-4. 接続確認
+#### 2-4. 接続確認
 
 ```bash
 ALB_ENDPOINT=$(aws elbv2 describe-load-balancers \

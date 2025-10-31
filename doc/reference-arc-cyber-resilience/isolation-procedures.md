@@ -54,17 +54,19 @@ Amazon GuardDuty → AWS EventBridge → AWS Lambda → Amazon SNS
 
 ### 1. 機能の有効化
 
-`bin/parameter.ts`で以下の設定を`true`に変更：
+`bin/parameter.ts`の deploy パラメータを`true`に変更し、option に `isolation`を指定します。
 
 ```typescript
-export const CyberResilienceIsolationParameter = {
+export const CyberResilienceParameter = {
   deploy: true,
+  option: ['isolation'] as ('backup' | 'restore' | 'isolation')[],
+  // ...
 };
 ```
 
 ### 2. 通知先メールアドレスの設定
 
-`bin/parameter.ts`の`notifyEmail`を適切なメールアドレスに設定：
+`bin/parameter.ts`の`notifyEmail`を適切なメールアドレスに設定します。
 
 ```typescript
 export const DevParameter: StackParameter = {

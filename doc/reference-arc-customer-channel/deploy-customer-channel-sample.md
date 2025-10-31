@@ -4,26 +4,24 @@
 
 ここでは BLEA for FSI のガバナンスベースがデプロイされたアカウントに [顧客チャネル] サンプルアプリケーションを導入する手順について記述します。
 
-**本デプロイ手順は以前のバージョンのもので、新規に追加されたリソースに対応できておりません。今後更新予定です。**
-
-> `MC`はマネジメントコンソールでの作業を、`Local`は手元環境での作業を示します。
+> `MC`はマネジメントコンソールでの作業を、`ACC` は Amazon Connect コンソールでの作業を、`Local`は手元環境での作業を示します。
 
 ## 導入手順
 
-### 1. （AWS IAM Identity Center（旧 AWS SSO) との SAML 連携時のみ） AWS IAM Identity Center クラウドアプリケーションを追加する (MC)
+### 1. （AWS IAM Identity Center との SAML 連携時のみ） AWS IAM Identity Center クラウドアプリケーションを追加する (MC)
 
 AWS IAM Identity Center の設定を行うために管理者アカウントでマネジメントコンソールを開きます。
 以下の手順に従い、アプリケーションを追加します。
 
-[AWS IAM Identity Center ユーザーガイド > アプリケーションの割り当て > クラウドアプリケーション](https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/saasapps.html#saasapps-addconfigapp)
+[AWS IAM Identity Center ユーザーガイド > アプリケーションの割り当て > クラウドアプリケーション](https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/saasapps.html)
 
 - 追加するアプリケーションとして **Amazon Connect** を選択します。
 - **IAM Identity Center メタデータ** の項にある **IAM Identity Center SAML メタデータファイル** をダウンロードします。
 - それ以外の項目は一旦全てデフォルトで追加します。
 
-AWS IAM Identity Center（旧 AWS SSO) と Amazon Connect の連携については以下の資料も参照してください。
+AWS IAM Identity Center と Amazon Connect の連携については以下の資料も参照してください。
 
-[IAM アイデンティティーセンター を使用して Amazon Connect インスタンスの SAML 2.0 ベースの認証をセットアップするにはどうすればよいですか?](https://aws.amazon.com/jp/premiumsupport/knowledge-center/connect-saml-2-authentication-aws-sso/)
+[IAM アイデンティティーセンター を使用して Amazon Connect インスタンスの SAML 2.0 ベースの認証をセットアップするにはどうすればよいですか?](https://repost.aws/ja/knowledge-center/connect-saml-2-authentication-aws-sso)
 
 ### 2. サンプルアプリケーションをデプロイする (Local)
 
@@ -44,60 +42,50 @@ export const DevParameter: AppParameter = {
   primaryRegion: {
     region: 'ap-northeast-1',
     connectInstance: {
-      instanceAlias: 'my-connect-instance-yyyymmdd-primary', // EDIT HERE: instance alias must be unique, up to 45 characters
-      inboundCallsEnabled: true,
-      outboundCallsEnabled: true,
-      contactFlows: [
+      instanceAlias: 'my-connect-instance-yyyymmdd-primary', // EDIT HERE: instance alias must be unique
+      identityManagementType: IdentityManagementType.CONNECT_MANAGED,
+      /*adminUsers: [
         {
-          type: 'CONTACT_FLOW',
-          name: 'SampleInboundContactFlow',
+          alias: '', // EDIT HERE
+          firstName: '', // EDIT HERE
+          lastName: '', // EDIT HERE
+          email: '', // EDIT HERE
+          password: '', // EDIT HERE
         },
-      ],
-      identityManagementType: 'CONNECT_MANAGED',
+      ],*/
     },
-  },
-  secondaryRegion: {
-    region: 'ap-southeast-1',
-    connectInstance: {
-      instanceAlias: 'my-connect-instance-yyyymmdd-secondary', // EDIT HERE: instance alias must be unique, up to 45 characters
-    },
+    connectWidgetId: '', // EDIT HERE
+    connectSnippetId: '', // EDIT HERE
   },
   tertiaryRegion: {
     region: 'ap-northeast-3',
   },
+  enableCallMonitoring: true,
 };
 ```
 
 この設定内容は以下の通りです。
 
-| key                                                               | value                                                                                                                                                                                                                                                                                    |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| envName                                                           | 環境名                                                                                                                                                                                                                                                                                   |
-| primaryRegion.region                                              | プライマリリージョン用スタックをデプロイするリージョン                                                                                                                                                                                                                                   |
-| primaryRegion.connectInstance.instanceAlias                       | プライマリリージョン用スタックの Amazon Connect インスタンス名(4 文字以上、45 文字以内でユニークな名前を指定する)                                                                                                                                                                        |
-| primaryRegion.connectInstance.inboundCallsEnabled                 | プライマリリージョン用スタックの Amazon Connect インスタンスでインバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                   |
-| primaryRegion.connectInstance.outboundCallsEnabled                | プライマリリージョン用スタックの Amazon Connect インスタンスでアウトバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                 |
-| primaryRegion.connectInstance.identityManagementType              | プライマリリージョン用スタックの Amazon Connect インスタンスにおける ID 管理方式の指定 (`"CONNECT_MANAGED"`, `"SAML"`, `"EXISTING_DIRECTORY"` のいずれか)                                                                                                                                |
-| primaryRegion.connectInstance.contactFlows[].type                 | プライマリリージョン用スタックの Amazon Connect インスタンスに追加するコンタクトフローの種別 (`"CONTACT_FLOW"`, `"CUSTOMER_QUEUE"`, `"CUSTOMER_HOLD"`, `"CUSTOMER_WHISPER"`, `"AGENT_HOLD"`, `"AGENT_WHISPER"`, `"OUTBOUND_WHISPER"`, `"AGENT_TRANSFER"`, `"QUEUE_TRANSFER"` のいずれか) |
-| primaryRegion.connectInstance.contactFlows[].name                 | プライマリリージョン用スタックの Amazon Connect インスタンスに追加するコンタクトフローの名前 <br> `asset/`にある JSON ファイルがリソースとして使われます。                                                                                                                               |
-| primaryRegion.connectInstance.samlProvider.metadataDocumentPath   | (`identityManagementType` が `"SAML"` の場合) プライマリリージョン用スタックの Amazon Connect インスタンスが使用する SAML 連携時のメタデータのパス （`/usecases/guest-customer-channel-sample` からの相対パス）                                                                          |
-| primaryRegion.connectInstance.samlProvider.name                   | (`identityManagementType` が `"SAML"` の場合) プライマリリージョン用スタックの Amazon Connect インスタンスの SAML Provider の名前                                                                                                                                                        |
-| secondaryRegion.region                                            | セカンダリリージョン用スタックをデプロイするリージョン                                                                                                                                                                                                                                   |
-| secondaryRegion.connectInstance.instanceAlias                     | セカンダリリージョン用スタックの Amazon Connect インスタンス名(4 文字以上、45 文字以内でユニークな名前を指定する)                                                                                                                                                                        |
-| secondaryRegion.connectInstance.inboundCallsEnabled               | セカンダリリージョン用スタックの Amazon Connect インスタンスでインバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                   |
-| secondaryRegion.connectInstance.outboundCallsEnabled              | セカンダリリージョン用スタックの Amazon Connect インスタンスでアウトバウンド通話を許可するフラグ (`true` または `false`)                                                                                                                                                                 |
-| secondaryRegion.connectInstance.identityManagementType            | セカンダリリージョン用スタックの Amazon Connect インスタンスにおける ID 管理方式の指定 (`"CONNECT_MANAGED"`, `"SAML"`, `"EXISTING_DIRECTORY"` のいずれか)                                                                                                                                |
-| secondaryRegion.connectInstance.contactFlows[].type               | セカンダリリージョン用スタックの Amazon Connect インスタンスに追加するコンタクトフローの種別 (`"CONTACT_FLOW"`, `"CUSTOMER_QUEUE"`, `"CUSTOMER_HOLD"`, `"CUSTOMER_WHISPER"`, `"AGENT_HOLD"`, `"AGENT_WHISPER"`, `"OUTBOUND_WHISPER"`, `"AGENT_TRANSFER"`, `"QUEUE_TRANSFER"` のいずれか) |
-| secondaryRegion.connectInstance.contactFlows[].name               | セカンダリリージョン用スタックの Amazon Connect インスタンスに追加するコンタクトフローの名前 <br> `asset/`にある JSON ファイルがリソースとして使われます。                                                                                                                               |
-| secondaryRegion.connectInstance.samlProvider.metadataDocumentPath | (`identityManagementType` が `"SAML"` の場合) セカンダリリージョン用スタックの Amazon Connect インスタンスが使用する SAML 連携時のメタデータのパス （`/usecases/guest-customer-channel-sample` からの相対パス）                                                                          |
-| secondaryRegion.connectInstance.samlProvider.name                 | (`identityManagementType` が `"SAML"` の場合) セカンダリリージョン用スタックの Amazon Connect インスタンスの SAML Provider の名前                                                                                                                                                        |
-| tertiaryRegion.region                                             | ターシャリリージョン用スタックをデプロイするリージョン                                                                                                                                                                                                                                   |
+<!-- prettier-ignore-start -->
+| key | value |
+| --- | --- |
+| envName | 環境名 |
+| primaryRegion.region | プライマリリージョン用スタックをデプロイするリージョン |
+| primaryRegion.connectInstance.instanceAlias | プライマリリージョン用スタックの Amazon Connect インスタンス名 (4 文字以上、45 文字以内でユニークな名前を指定します。**他ユーザーと競合しない名前に更新してください。**) |
+| primaryRegion.connectInstance.identityManagementType | プライマリリージョン用スタックの Amazon Connect インスタンスにおける ID 管理方式の指定 (`CONNECT_MANAGED`, `SAML`, `EXISTING_DIRECTORY` のいずれか) |
+| primaryRegion.connectInstance.samlProvider.metadataDocumentPath | (`identityManagementType` が `SAML` の場合) プライマリリージョン用スタックの Amazon Connect インスタンスが使用する SAML 連携時のメタデータのパス （`/usecases/guest-customer-channel-sample` からの相対パス） |
+| primaryRegion.connectInstance.samlProvider.name | (`identityManagementType` が `SAML` の場合) プライマリリージョン用スタックの Amazon Connect インスタンスの SAML Provider の名前（通常は入力不要） |
+| primaryRegion.connectWidgetId | コミュニケーションウィジェットのウィジェットID（初回デプロイ時は空文字列にします。） |
+| primaryRegion.connectSnippetId | コミュニケーションウィジェットのスニペットID（初回デプロイ時は空文字列にします。） |
+| tertiaryRegion.region | ターシャリリージョン用スタックをデプロイするリージョン |
+| enableCallMonitoring | 通話モニタリング (call monitoring) 機能を有効にします (通常は変更不要) |
+<!-- prettier-ignore-end -->
 
 SAML 連携時は `identityManagementType` の部分を以下の様に書き換えます。
 
 ```js
 ...
-      identityManagementType: 'SAML',
+      identityManagementType: IdentityManagementType.SAML,
       samlProvider: {
         metadataDocumentPath: '[AWS IAM Identity Center からダウンロードしたメタデータファイルへのパス]'
       }
@@ -106,7 +94,7 @@ SAML 連携時は `identityManagementType` の部分を以下の様に書き換�
 
 #### 2-2. ゲストアプリケーションをデプロイする
 
-（ログインしていない場合） AWS IAM Identity Center（旧 AWS SSO) を使ってゲストアカウントにログインします。
+（ログインしていない場合） AWS IAM Identity Center を使ってゲストアカウントにログインします。
 
 ```sh
 aws sso login --profile ct-guest-sso
@@ -122,19 +110,15 @@ npx cdk bootstrap --profile ct-guest-sso
 サンプルアプリケーションをデプロイします。
 
 ```sh
-npx cdk deploy  "*Development*" --profile ct-guest-sso
+npx cdk deploy "*Development*" --profile ct-guest-sso
 ```
 
 > NOTE:
 >
-> - `"*Development*"` はデプロイ対象の開発環境用のスタック（スタック名に`-Development-`が含まれるスタック）を実行します。環境（開発、ステージング、本番）によって変更して下さい（例 "\*Production\*" ）
-> - デプロイ時に IAM ポリシーに関する変更確認をスキップするために `--require-approval never` オプションを指定しています
+> - `"*Development*"` はデプロイ対象の開発環境用のスタック（スタック名に`-Development-`が含まれるスタック）をデプロイします。
+> - デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は `--require-approval never` オプションを指定して下さい。
 
-> NOTE:  
-> デプロイ時に IAM ポリシーに関する変更確認をスキップしたい場合は  
-> `--require-approval never` オプションを指定して下さい
-
-### 3. （AWS IAM Identity Center（旧 AWS SSO) との SAML 連携時のみ） AWS IAM Identity Center クラウドアプリケーションの設定を変更する (MC)
+### 3. （AWS IAM Identity Center との SAML 連携時のみ） AWS IAM Identity Center クラウドアプリケーションの設定を変更する (MC)
 
 デプロイした CDK スタックの出力結果を元に、AWS IAM Identity Center の設定を変更します。
 本手順の詳細については、以下の記事も参照してください。
@@ -170,11 +154,9 @@ BLEAFSICustomerChannelPrimaryStack.ConnectInstanceSamlRoleArnD5AF7EEB = arn:aws:
 **アプリケーションのプロパティ** の項目から **リレー状態** を変更します。
 上のスタックの出力においては、 `https://ap-northeast-1.console.aws.amazon.com/connect/federate/aaaaaaaa-0000-bbbb-1111-cccccccccccc` をリレーステートとして指定します。
 
-### 4. (オプション) Amazon Connect インスタンスにアクセスして動作確認する (MC)
+### 4. Amazon Connect インスタンスにアクセスする
 
-マネジメントコンソールから Amazon Connect インスタンスを表示して動作確認を行います。
-
-#### 4-1. （AWS IAM Identity Center（旧 AWS SSO) との SAML 連携時のみ）ユーザーを追加して動作確認する
+#### 4-1. （AWS IAM Identity Center との SAML 連携時のみ）ユーザーを追加して動作確認する (MC)
 
 まず、以下の手順に基づいて、AWS IAM Identity Center 上でユーザーを作成します。
 
@@ -184,10 +166,110 @@ BLEAFSICustomerChannelPrimaryStack.ConnectInstanceSamlRoleArnD5AF7EEB = arn:aws:
 
 <https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/assignuserstoapp.html>
 
-Amazon Connect コンソールを開き、同じくユーザーを追加します。この際、AWS IAM Identity Center（旧 AWS SSO) 側で追加したメールアドレスと同様のメールアドレスでユーザーを追加します。
+Amazon Connect コンソールを開き、同じくユーザーを追加します。この際、AWS IAM Identity Center 側で追加したメールアドレスと同様のメールアドレスでユーザーを追加します。
 
 <https://docs.aws.amazon.com/ja_jp/connect/latest/adminguide/user-management.html#add-a-user>
 
 AWS IAM Identity Center のポータル画面から追加したユーザーでログインし、Amazon Connect コンソールに正常にログインできることを確認します。
+
+#### 4-2. (オプション) Amazon Connect コンソールの言語を変更する (ACC)
+
+Amazon Connect コンソールへのログイン後に表示言語を日本語に変更する場合は、右上のユーザー名をクリックして、English から日本語に変更します。
+
+### 5. コミュニケーションウィジェットを設定する
+
+#### 5-1. コミュニケーションウィジェットを追加する (ACC)
+
+Amazon Connect コンソールにログインして、以下の手順でコミュニケーションウィジットを作成します。
+
+<https://docs.aws.amazon.com/ja_jp/connect/latest/adminguide/config-com-widget1.html>
+
+- 左のサイドメニューから **チャネル** を選択し、**コミュニケーションウィジェット** を選択します。右上の **ウィジェットの追加** を選択します。
+- ウィジェットの名前は任意で指定します。
+- **チャットを追加** と **ウェブ通話を追加** を有効にし、さらに追加機能（**動画を追加** や **画面共有を追加** など）を有効化します。**チャットのコンタクトフロー** と **ウェブ通話コンタクトフロー** には `ImmediateInboundContactFlow` を指定します。そして右下の **保存して続行** を選択します。
+- レイアウトはそのままにして、**保存して続行** を選択します。
+- **コミュニケーションウィジェットに必要なドメインを追加する** という項目で、ドメイン名を指定します。CDK スタックのデプロイ時に出力された以下のパラメータから、CloudFront のドメイン名を指定します。`https://xxxxxxxxxxxxxx.cloudfront.net` をそのままコピーして入力します。
+
+```
+BLEAFSI-CustomerChannel-Development-Primary.WebCallSampleFrontendUrlAEDD095A = https://xxxxxxxxxxxxxx.cloudfront.net
+```
+
+- **新しいコミュニケーションウィジェットリクエストのためにセキュリティを追加する** の項目では、**いいえ - このウィジェットの JWT セキュリティ対策を有効にしたくありません** を選択します。この機能は今後対応予定です。そして **保存して続行** を選択します。
+- コミュニケーションウィジェットが追加され、ウィジェットのスクリプトが表示されます。
+
+#### 5-2. ウィジェット ID とスニペット ID を修正する (Local)
+
+コミュニケーションウィジェットを追加すると、次のようなスクリプトが表示されます。
+
+```html
+<script type="text/javascript">
+  (function (w, d, x, id) {
+    s = d.createElement('script');
+    s.src = 'https://[インスタンスID].my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+    s.async = 1;
+    s.id = id;
+    d.getElementsByTagName('head')[0].appendChild(s);
+    w[x] =
+      w[x] ||
+      function () {
+        (w[x].ac = w[x].ac || []).push(arguments);
+      };
+  })(window, document, 'amazon_connect', '[ウィジェットID]');
+  amazon_connect('styles', {
+    iconType: 'CHAT_VOICE',
+    openChat: { color: '#ffffff', backgroundColor: '#123456' },
+    closeChat: { color: '#ffffff', backgroundColor: '#123456' },
+  });
+  amazon_connect('snippetId', '[スニペットID]');
+  amazon_connect('supportedMessagingContentTypes', [
+    'text/plain',
+    'text/markdown',
+    'application/vnd.amazonaws.connect.message.interactive',
+    'application/vnd.amazonaws.connect.message.interactive.response',
+  ]);
+</script>
+```
+
+スクリプトをテキストエディタにコピーし、ウィジェット ID とスニペット ID を抽出します。そして、2-1 で修正した `parameter.ts` を再度修正します。
+
+```ts
+    connectWidgetId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+    connectSnippetId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=',
+```
+
+#### 5-3. デプロイを再実行する (Local)
+
+2-2 と同様に、デプロイを再度実行します。一度デプロイが完了しているので、以下のコマンドだけで再度デプロイできます。
+
+```sh
+npx cdk deploy  "*Development*" --profile ct-guest-sso
+```
+
+### 6. 通話をテストする
+
+#### 6-1. サードパーティーアプリケーションのアクセス許可を追加する (ACC)
+
+顧客チャネルサンプルアプリケーションでは、「Call monitoring」というエージェントアプリケーションが追加されていますが、
+ログインしている Amazon Connect ユーザーに権限がないと、エージェントワークスペース上に表示されません。アクセス許可を追加する場合は、Amazon Connect コンソールでセキュリティプロファイルを修正します。左のサイドメニューから **ユーザー**、**セキュリティプロファイル**と選択し、ユーザーに紐づけられたセキュリティプロファイルを選択します。**エージェントアプリケーション** にある **Call monitoring** の行で、**すべて** のチェックボックスを有効にします。
+
+<https://docs.aws.amazon.com/ja_jp/connect/latest/adminguide/security-profile-list.html#agentapplications-permissions-list>
+
+#### 6-2. Amazon Cognito のユーザーを追加する (MC)
+
+Call monitoring にログインするために、Amazon Cognito のユーザープールにユーザーを追加します。CDK スタックをデプロイすると `CallMonitoringAuthUserPool` という名前で始まるユーザープールが作成されているので、これにユーザーを追加します。追加手順は以下を参照してください。
+
+<https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/how-to-create-user-accounts.html>
+
+#### 6-3. エージェントワークスペースと Web calling を試す (ACC)
+
+Amazon Connect コンソールから、右上の **エージェント Workspace** を開くと、ソフトフォンとともに Amazon Connect 追加機能を使うことができます。**アプリ** を選択し、**Call monitoring** を選択すると、ログイン画面が表示されます。Amazon Cognito で作成したユーザーでログインすると、call monitoring を利用できるようになります。
+
+5-1 で登録した `WebCallSampleFrontendUrl` の CloudFront URL にアクセスすると、AnyBank という架空の銀行のウェブサイトが表示されます。右下のボタンからチャットと通話を開始できます。
+
+![AnyBank](./images/anybank.png)
+
+エージェントワークスペースとウェブサイトの間でチャットと通話ができ、通話のモニタリングができることを確認してください。
+
+![Agent Workspace](./images/agent-workspace.png)
 
 以上でサンプルアプリケーションのデプロイは完了です。

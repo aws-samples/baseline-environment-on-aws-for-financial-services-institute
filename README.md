@@ -94,9 +94,9 @@ AWS Well-Architected(WA) レビューを拡張する形で、専門的技術領�
 - **サイバーレジリエンス**
 
   - [金融ワークロードアーキテクチャ解説 [サイバーレジリエンス]
-    ](doc/reference-arc-mobile-banking/mobile-banking-arch-readme.md)
+    ](doc/reference-arc-cyber-resilience/README.md)
   - [FISC 実務基準対策 一覧 [サイバーレジリエンス]
-    ](doc/reference-arc-mobile-banking/fisc-mapping-mobile-banking.md)
+    ](doc/reference-arc-core-banking/fisc-mapping-core-banking.md)
   - [CDK サンプルコード [サイバーレジリエンス]
     ]
     - [サイバーレジリエンスバックアップ手順書](doc/reference-arc-cyber-resilience/backup-procedures.md)

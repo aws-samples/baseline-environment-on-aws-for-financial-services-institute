@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as backup from 'aws-cdk-lib/aws-backup';
 import { Construct } from 'constructs';
-import { CyberResilienceBackupParameter } from '../../../bin/parameter';
+import { CyberResilienceParameter } from '../../../bin/parameter';
 
 /**
  * DataBunkerAccountStackのプロパティ
@@ -22,7 +22,7 @@ export class DataBunkerAccountStack extends cdk.Stack {
 
     // Logically air-gapped vaultの作成
     const vault = new backup.CfnLogicallyAirGappedBackupVault(this, 'LogicallyAirGappedVault', {
-      backupVaultName: CyberResilienceBackupParameter.dataBunkerAccount.vaultName,
+      backupVaultName: CyberResilienceParameter.dataBunkerAccount.vaultName,
       // 論理エアギャップボールトのロック設定
       maxRetentionDays: 35, // 最大保持期間（日数）
       minRetentionDays: 7, // 最小保持期間（日数）

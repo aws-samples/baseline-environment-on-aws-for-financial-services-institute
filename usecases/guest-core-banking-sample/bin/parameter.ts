@@ -50,12 +50,6 @@ export const SampleMultiRegionAppParameter = {
   appClientVpcCidr: '10.100.16.0/24',
 };
 
-///// サイバーレジリエンス - 自動隔離機能の設定 //////
-export const CyberResilienceIsolationParameter = {
-  //デプロイする場合は true に指定
-  deploy: true,
-};
-
 ///// 勘定系ワークロードのデプロイ設定 //////
 
 // Parameter for Dev - Anonymous account & region
@@ -144,7 +138,7 @@ export const CyberResilienceParameter = {
   // デプロイする場合は true に指定
   deploy: false,
   // どの機能をデプロイか選択
-  option: '', //["backup","restore","isolation"],
+  option: [] as ('backup' | 'restore' | 'isolation')[],
 
   // Data Bunkerアカウントの設定
   dataBunkerAccount: {
@@ -152,33 +146,12 @@ export const CyberResilienceParameter = {
     id: '123456789012', // 実際のData BunkerアカウントIDに置き換える
     // Data Bunkerアカウントに作成するバックアップボールト名
     vaultName: 'logical-air-gapped-vault',
-
-    // リストアアカウント設定（要変更）
-    restoreAccount: {
-      accountId: process.env.CDK_DEFAULT_ACCOUNT || '123456789012', // リストアアカウントID
-      region: 'ap-northeast-1', // リストアリージョン
-      notificationEmail: 'cyber-resilience-team@example.com', // 通知先メールアドレス（要変更）
-    },
-    // 復旧ポイント設定（リストアアカウントのデプロイ時に必要・要変更）
-    recoveryPoints: {
-      // Aurora PostgreSQL復旧ポイント（要変更）
-      aurora: {
-        recoveryPointArn:
-          'arn:aws:backup:ap-northeast-1:123456789012:recovery-point:11111111-2222-3333-4444-55555555555', // 復旧ポイントARN
-        snapshotArn: 'arn:aws:rds:ap-northeast-1:123456789012:cluster-snapshot:cyber-resilience-xxxxxxxx', // 共有スナップショットARN
-        description: 'Aurora PostgreSQL復旧ポイント',
-        targetClusterName: 'restored-aurora-cluster', // 復旧先クラスター名
-      },
-      // DynamoDB復旧ポイント（要変更）
-      dynamodb: {
-        recoveryPointArn:
-          'arn:aws:backup:ap-northeast-1:123456789012:recovery-point:11111111-2222-3333-4444-55555555555', // 復旧ポイントARN
-        description: 'DynamoDB復旧ポイント',
-        targetTableName: 'restored-dynamodb-table', // 復旧先テーブル名
-      },
-    },
+  },
+  // リストアアカウントの設定
+  restoreAccount: {
+    // リストアアカウントID
+    id: '123456789012',
+    // リストアリージョン
+    region: 'ap-northeast-1',
   },
 };
-
-// 互換性維持のために追加（CyberResilienceBackupParameter → CyberResilienceParameter）
-export const CyberResilienceBackupParameter = CyberResilienceParameter;
