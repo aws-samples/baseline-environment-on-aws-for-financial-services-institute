@@ -2010,7 +2010,6 @@ exports[`BLEAFSI-MarketData snapshot check market data sample Stacks 1`] = `
           "ScanOnPush": true,
         },
         "ImageTagMutability": "IMMUTABLE",
-        "RepositoryName": "bleafsi-marketdata-sampleapp-repo",
       },
       "Type": "AWS::ECR::Repository",
       "UpdateReplacePolicy": "Retain",

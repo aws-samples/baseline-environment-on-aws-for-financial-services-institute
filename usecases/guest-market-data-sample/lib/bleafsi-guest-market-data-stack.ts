@@ -1,13 +1,10 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DistributorApp } from './container-distributor-app';
-import { KmsKey } from './constructs/bleafsi-kms-key';
-import { PublicVpc, VpcEndpointTypeName } from './constructs/bleafsi-vpc';
+import { KmsKey, PublicVpc, VpcEndpointTypeName, Ecr, Waf } from 'bleafsi-shared-constructs-v1';
 import { aws_ec2 as ec2 } from 'aws-cdk-lib';
 import { aws_elasticloadbalancingv2 as elbv2 } from 'aws-cdk-lib';
-import { Ecr } from './constructs/bleafsi-ecr';
 import { ImageBuilder } from './build-container';
-import { Waf } from './constructs/bleafsi-waf';
 import { BaseApp } from './container-app';
 import { DynamoDBClass } from './dynamodb';
 import { MonitorAlarm } from './monitor-alarm';
@@ -52,7 +49,6 @@ export class GuestMarketDataStack extends cdk.Stack {
 
     // Container Repository
     const ecr = new Ecr(this, 'ECR', {
-      repositoryName: `${PjPrefix.toLowerCase()}-sampleapp-repo`,
       alarmTopic: monitorAlarm.alarmTopic,
     });
 

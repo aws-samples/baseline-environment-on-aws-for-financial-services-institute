@@ -30,7 +30,6 @@ export class OnlineBankingAppFrontendStack extends cdk.Stack {
 
     // S3アクセスログ用バケット
     const accessLogsBucket = new s3.Bucket(this, 'AccessLogsBucket', {
-      bucketName: `online-banking-app-frontend-logs-${this.account}-${this.region}`,
       encryption: s3.BucketEncryption.KMS,
       encryptionKey: kmsConstruct.key,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -49,7 +48,6 @@ export class OnlineBankingAppFrontendStack extends cdk.Stack {
 
     // S3バケット（フロントエンド用）
     const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-      bucketName: `online-banking-app-frontend-${this.account}-${this.region}`,
       publicReadAccess: false,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.KMS,

@@ -233,12 +233,13 @@ BLEA for FSI 導入後はサンプルコードを起点にして、自分のユ�
 - [通常の開発の流れ](doc/how-to.md#通常の開発の流れ)
 - [依存パッケージの最新化](doc/how-to.md#依存パッケージの最新化)
 
-# 金融事例
+# ユーザー事例
 
 AWS を実際に利用いただいているお客様の事例をベースにそのアーキテクチャ上の重要ポイントを解説します。
 
 - [1. 金融ワークロードアーキテクチャ解説 [資本市場 OMS]](doc/fsi-case-study/reference-arc-capital-oms/reference-arc-capital-oms-readme.md)
 - [2. 金融ワークロードアーキテクチャ解説 [クレジットカード イシュアシステム]](doc/fsi-case-study/reference-arc-credit-card/reference-arc-credit-card-readme.md)
+- [3. 金融ワークロードアーキテクチャ解説 [保険ワークロード データ分析基盤]](doc/fsi-case-study/reference-arc-insurance/reference-arc-insurance-readme.md)
 
 # 業務ユースケース
 

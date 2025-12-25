@@ -1,4 +1,4 @@
-FROM node:18 as build
+FROM node:22 as build
 WORKDIR /build
 COPY package*.json ./
 COPY prisma ./prisma
@@ -6,7 +6,7 @@ RUN npm ci
 COPY . .
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm run bundle
 
-FROM node:18
+FROM node:22
 
 WORKDIR /app
 COPY package*.json ./

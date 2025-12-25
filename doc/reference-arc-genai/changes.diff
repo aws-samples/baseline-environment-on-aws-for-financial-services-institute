@@ -1432,3 +1432,30 @@ index 1b417e0..b27ad36 100644
  };
  
  // For backward compatibility, get parameters from CDK Context > parameter.ts
+
+diff --git a/packages/cdk/cdk.json b/packages/cdk/cdk.json
+index 1234567..abcdefg 100644
+--- a/packages/cdk/cdk.json
++++ b/packages/cdk/cdk.json
+@@ -15,7 +15,7 @@
+     ]
+   },
+   "context": {
+-    "env": "",
++    "env": "priv",
+     "tagKey": null,
+     "tagValue": null,
+     "ragEnabled": false,
+diff --git a/packages/cdk/parameter.ts b/packages/cdk/parameter.ts
+index existing..modified 100644
+--- a/packages/cdk/parameter.ts
++++ b/packages/cdk/parameter.ts
+@@ -29,7 +29,7 @@ const envs: Record<string, Partial<StackInput>> = {
+     ragKnowledgeBaseEnabled: true,
+     // CodeInterpreor は東京リージョン利用不可
+     agentEnabled: false,
+-    mcpEnabled: true,
++    mcpEnabled: false,
+     // AgentCore
+     createGenericAgentCoreRuntime: true,
+     agentCoreRegion: 'ap-northeast-1',

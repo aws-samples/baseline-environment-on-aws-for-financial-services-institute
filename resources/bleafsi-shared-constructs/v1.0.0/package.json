@@ -1,9 +1,10 @@
 {
   "private": true,
-  "name": "bleafsi-shared-constructs",
+  "name": "bleafsi-shared-constructs-v1",
   "version": "1.0.0",
   "description": "BLEA FSI Shared CDK Construtcs",
   "license": "MIT-0",
+  "main": "lib/index.js",
   "bin": {
     "bleafsi-shared-constructs": "test/bleafsi-shared-constructs-test-app.js"
   },

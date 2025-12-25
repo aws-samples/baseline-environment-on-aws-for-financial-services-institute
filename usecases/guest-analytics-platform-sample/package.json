@@ -35,6 +35,7 @@
     "aws-cdk-lib": "^2.223.0",
     "@aws-cdk/aws-glue-alpha": "2.144.0-alpha.0",
     "constructs": "^10.1.99",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "bleafsi-shared-constructs-v1": "^1.0.0"
   }
 }

@@ -9,7 +9,7 @@ import { aws_wafv2 as wafv2 } from 'aws-cdk-lib';
 import { aws_elasticloadbalancingv2 as elbv2 } from 'aws-cdk-lib';
 import { aws_s3 as s3 } from 'aws-cdk-lib';
 import { region_info as ri } from 'aws-cdk-lib';
-import { Bucket } from './constructs/bleafsi-s3-bucket';
+import { Bucket } from 'bleafsi-shared-constructs-v1';
 
 /*
  * Distributor application stack

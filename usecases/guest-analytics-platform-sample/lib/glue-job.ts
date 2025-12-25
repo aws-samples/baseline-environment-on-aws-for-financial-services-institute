@@ -1,7 +1,6 @@
 import { Construct } from 'constructs';
 import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
-import { Bucket as bucket } from './constructs/bleafsi-s3-bucket';
-import { IamRole } from './constructs/bleafsi-iam-role';
+import { Bucket as bucket, IamRole } from 'bleafsi-shared-constructs-v1';
 import { aws_logs as logs } from 'aws-cdk-lib';
 
 /*

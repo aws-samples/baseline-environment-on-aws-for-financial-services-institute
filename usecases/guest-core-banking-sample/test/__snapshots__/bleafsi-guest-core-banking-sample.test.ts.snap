@@ -1018,7 +1018,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
       "DeletionPolicy": "Snapshot",
       "Properties": {
         "CopyTagsToSnapshot": true,
-        "DBClusterParameterGroupName": "default.aurora-postgresql16",
+        "DBClusterParameterGroupName": "default.aurora-postgresql17",
         "DBSubnetGroupName": {
           "Ref": "DBAuroraPgAuroraClusterSubnets4FFFB644",
         },
@@ -1027,7 +1027,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 1`] = `
           "postgresql",
         ],
         "Engine": "aurora-postgresql",
-        "EngineVersion": "16.6",
+        "EngineVersion": "17.5",
         "KmsKeyId": {
           "Fn::GetAtt": [
             "AppKey2AF25043",
@@ -4524,7 +4524,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:b36bd5f2096f0f1b1fb9d67ec148ca2c2499f9a4f6a98b83ffd40ed15746b3b1",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:d59b5315248c41b8d12f5dde053c3198a30d162f5ed9fece00da936087204548",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -4907,7 +4907,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:b36bd5f2096f0f1b1fb9d67ec148ca2c2499f9a4f6a98b83ffd40ed15746b3b1",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:d59b5315248c41b8d12f5dde053c3198a30d162f5ed9fece00da936087204548",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -5800,7 +5800,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:12d5a9dd6d650c74ecb855e66993743f7ff64845dd461649fb9a27ab32008bb0",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:47c4f77be1827e17570961e833b9fcd600586b200a6305fd7b69861e4ec3092f",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -6183,7 +6183,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:12d5a9dd6d650c74ecb855e66993743f7ff64845dd461649fb9a27ab32008bb0",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:47c4f77be1827e17570961e833b9fcd600586b200a6305fd7b69861e4ec3092f",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -7021,7 +7021,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:3e6a1448b4805db965f38eed31d3e70a7f7e0b83d5488e34f84e35f244ca2658",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:2f0da76f51cc097cb48afe1769ec46a3d2e1058c9da3072d388fc70b301eba74",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -7833,7 +7833,7 @@ sudo -u ec2-user bash -c "docker run --name client -d --restart unless-stopped -
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:3e6a1448b4805db965f38eed31d3e70a7f7e0b83d5488e34f84e35f244ca2658",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-1:2f0da76f51cc097cb48afe1769ec46a3d2e1058c9da3072d388fc70b301eba74",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -10916,7 +10916,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
       "DeletionPolicy": "Snapshot",
       "Properties": {
         "CopyTagsToSnapshot": true,
-        "DBClusterParameterGroupName": "default.aurora-postgresql16",
+        "DBClusterParameterGroupName": "default.aurora-postgresql17",
         "DBSubnetGroupName": {
           "Ref": "DBAuroraPgAuroraClusterSubnets4FFFB644",
         },
@@ -10924,7 +10924,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "postgresql",
         ],
         "Engine": "aurora-postgresql",
-        "EngineVersion": "16.6",
+        "EngineVersion": "17.5",
         "GlobalClusterIdentifier": "core-banking-global-db",
         "KmsKeyId": {
           "Fn::GetAtt": [
@@ -13166,7 +13166,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:8c9341323e4b93271cd86cd68cc03c964cd300ad317c10453947eff89dc76cd9",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:5ff886a6a29548dce408cb7ef7a9c2232f028c4fc6d826b0ef2347e57b2fdffa",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -13740,7 +13740,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:8c9341323e4b93271cd86cd68cc03c964cd300ad317c10453947eff89dc76cd9",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:5ff886a6a29548dce408cb7ef7a9c2232f028c4fc6d826b0ef2347e57b2fdffa",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -14824,7 +14824,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:cf424555b90be351a7e0578b0dff6a7954df6e242cea9762506bedbd231fa759",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:1112d80d231b34fe96ce76ed4aab474fbb3d44cc8ddd54f8d1ce378056300eb1",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -15398,7 +15398,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:cf424555b90be351a7e0578b0dff6a7954df6e242cea9762506bedbd231fa759",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:1112d80d231b34fe96ce76ed4aab474fbb3d44cc8ddd54f8d1ce378056300eb1",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -16430,7 +16430,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:810bff37c48d02f000c751e20b7fd61c573997c5c4aa9e84867f8017e6f5db1c",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:db785109a141166f7fda1852b686a2f8360aa400262f3c449d5df63c2ee7b730",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -17242,7 +17242,7 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
             ],
             "Essential": true,
             "Image": {
-              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:810bff37c48d02f000c751e20b7fd61c573997c5c4aa9e84867f8017e6f5db1c",
+              "Fn::Sub": "111111111111.dkr.ecr.ap-northeast-3.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-111111111111-ap-northeast-3:db785109a141166f7fda1852b686a2f8360aa400262f3c449d5df63c2ee7b730",
             },
             "LogConfiguration": {
               "LogDriver": "awslogs",
@@ -19219,34 +19219,16 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment-TgwPrimaryId-ap-northeast-1"}}",
+              ""},"region":"ap-northeast-3","physicalResourceId":{"responsePath":"TransitGatewayPeeringAttachment.TransitGatewayAttachmentId"}}",
             ],
           ],
         },
+        "Delete": "{"service":"EC2","action":"deleteTransitGatewayPeeringAttachment","parameters":{"TransitGatewayAttachmentId":"PHYSICAL:RESOURCEID:"},"region":"ap-northeast-3","ignoreErrorCodesMatching":"InvalidTransitGatewayAttachmentID.NotFound"}",
         "InstallLatestAwsSdk": true,
         "ServiceToken": {
           "Fn::GetAtt": [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
             "Arn",
-          ],
-        },
-        "Update": {
-          "Fn::Join": [
-            "",
-            [
-              "{"service":"EC2","action":"createTransitGatewayPeeringAttachment","parameters":{"PeerAccountId":"111111111111","PeerRegion":"ap-northeast-1","PeerTransitGatewayId":"",
-              {
-                "Fn::GetAtt": [
-                  "VpccrossRegionSsmParampeerTgwIdTgwPrimaryIdapnortheast1GetParamTgwPrimaryId4730D181",
-                  "Parameter.Value",
-                ],
-              },
-              "","TransitGatewayId":"",
-              {
-                "Ref": "VpcTgw43A428E1",
-              },
-              ""},"region":"ap-northeast-3","physicalResourceId":{"id":"createTgwPeeringAttachment-TgwPrimaryId-ap-northeast-1"}}",
-            ],
           ],
         },
       },
@@ -19259,6 +19241,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 2`] = `
           "Statement": [
             {
               "Action": "ec2:CreateTransitGatewayPeeringAttachment",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "ec2:DeleteTransitGatewayPeeringAttachment",
               "Effect": "Allow",
               "Resource": "*",
             },
@@ -21904,34 +21891,16 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 3`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"us-west-2","physicalResourceId":{"id":"createTgwPeeringAttachment-TgwPrimaryId-ap-northeast-1"}}",
+              ""},"region":"us-west-2","physicalResourceId":{"responsePath":"TransitGatewayPeeringAttachment.TransitGatewayAttachmentId"}}",
             ],
           ],
         },
+        "Delete": "{"service":"EC2","action":"deleteTransitGatewayPeeringAttachment","parameters":{"TransitGatewayAttachmentId":"PHYSICAL:RESOURCEID:"},"region":"us-west-2","ignoreErrorCodesMatching":"InvalidTransitGatewayAttachmentID.NotFound"}",
         "InstallLatestAwsSdk": true,
         "ServiceToken": {
           "Fn::GetAtt": [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
             "Arn",
-          ],
-        },
-        "Update": {
-          "Fn::Join": [
-            "",
-            [
-              "{"service":"EC2","action":"createTransitGatewayPeeringAttachment","parameters":{"PeerAccountId":"111111111111","PeerRegion":"ap-northeast-1","PeerTransitGatewayId":"",
-              {
-                "Fn::GetAtt": [
-                  "VpccrossRegionSsmParampeerTgwIdTgwPrimaryIdapnortheast1GetParamTgwPrimaryId4730D181",
-                  "Parameter.Value",
-                ],
-              },
-              "","TransitGatewayId":"",
-              {
-                "Ref": "VpcTgw43A428E1",
-              },
-              ""},"region":"us-west-2","physicalResourceId":{"id":"createTgwPeeringAttachment-TgwPrimaryId-ap-northeast-1"}}",
-            ],
           ],
         },
       },
@@ -21944,6 +21913,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 3`] = `
           "Statement": [
             {
               "Action": "ec2:CreateTransitGatewayPeeringAttachment",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "ec2:DeleteTransitGatewayPeeringAttachment",
               "Effect": "Allow",
               "Resource": "*",
             },
@@ -21980,34 +21954,16 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 3`] = `
               {
                 "Ref": "VpcTgw43A428E1",
               },
-              ""},"region":"us-west-2","physicalResourceId":{"id":"createTgwPeeringAttachment-TgwSecondaryId-ap-northeast-3"}}",
+              ""},"region":"us-west-2","physicalResourceId":{"responsePath":"TransitGatewayPeeringAttachment.TransitGatewayAttachmentId"}}",
             ],
           ],
         },
+        "Delete": "{"service":"EC2","action":"deleteTransitGatewayPeeringAttachment","parameters":{"TransitGatewayAttachmentId":"PHYSICAL:RESOURCEID:"},"region":"us-west-2","ignoreErrorCodesMatching":"InvalidTransitGatewayAttachmentID.NotFound"}",
         "InstallLatestAwsSdk": true,
         "ServiceToken": {
           "Fn::GetAtt": [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
             "Arn",
-          ],
-        },
-        "Update": {
-          "Fn::Join": [
-            "",
-            [
-              "{"service":"EC2","action":"createTransitGatewayPeeringAttachment","parameters":{"PeerAccountId":"111111111111","PeerRegion":"ap-northeast-3","PeerTransitGatewayId":"",
-              {
-                "Fn::GetAtt": [
-                  "VpccrossRegionSsmParampeerTgwIdTgwSecondaryIdapnortheast3GetParamTgwSecondaryIdEA3626EF",
-                  "Parameter.Value",
-                ],
-              },
-              "","TransitGatewayId":"",
-              {
-                "Ref": "VpcTgw43A428E1",
-              },
-              ""},"region":"us-west-2","physicalResourceId":{"id":"createTgwPeeringAttachment-TgwSecondaryId-ap-northeast-3"}}",
-            ],
           ],
         },
       },
@@ -22020,6 +21976,11 @@ exports[`BLEAFSI-CoreBanking snapshot check Core banking sample Stacks 3`] = `
           "Statement": [
             {
               "Action": "ec2:CreateTransitGatewayPeeringAttachment",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "ec2:DeleteTransitGatewayPeeringAttachment",
               "Effect": "Allow",
               "Resource": "*",
             },

@@ -265,7 +265,7 @@ export class Vpc extends Construct {
       this,
       `createTgwPeeringAttachment-${peerTgwIdParamName}-${peerRegion}`,
       {
-        onUpdate: {
+        onCreate: {
           service: 'EC2',
           action: 'createTransitGatewayPeeringAttachment',
           parameters: {
@@ -275,15 +275,25 @@ export class Vpc extends Construct {
             TransitGatewayId: this.tgw.ref,
           },
           region: cdk.Stack.of(this).region,
-          physicalResourceId: cr.PhysicalResourceId.of(
-            `createTgwPeeringAttachment-${peerTgwIdParamName}-${peerRegion}`,
+          physicalResourceId: cr.PhysicalResourceId.fromResponse(
+            'TransitGatewayPeeringAttachment.TransitGatewayAttachmentId',
           ),
+        },
+        onDelete: {
+          service: 'EC2',
+          action: 'deleteTransitGatewayPeeringAttachment',
+          parameters: {
+            TransitGatewayAttachmentId: new cr.PhysicalResourceIdReference(),
+          },
+          region: cdk.Stack.of(this).region,
+          ignoreErrorCodesMatching: 'InvalidTransitGatewayAttachmentID.NotFound',
         },
         policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
           resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
         }),
       },
     );
+
     // TGW Peering Attachment ID
     const tgwPeeringAttachmentId = createTgwPeeringAttachment.getResponseField(
       'TransitGatewayPeeringAttachment.TransitGatewayAttachmentId',

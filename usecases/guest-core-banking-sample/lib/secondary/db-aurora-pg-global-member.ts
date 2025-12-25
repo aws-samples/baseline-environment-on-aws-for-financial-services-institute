@@ -40,7 +40,7 @@ export class DbAuroraPgGlobalMember extends Construct implements IAuroraGlobalCl
     // Aurora Cluster
     const cluster = new rds.DatabaseCluster(this, 'AuroraCluster', {
       engine: rds.DatabaseClusterEngine.auroraPostgres({
-        version: rds.AuroraPostgresEngineVersion.VER_16_6,
+        version: rds.AuroraPostgresEngineVersion.VER_17_5,
       }),
       instanceProps: {
         instanceType: ec2.InstanceType.of(ec2.InstanceClass.R7G, ec2.InstanceSize.LARGE),

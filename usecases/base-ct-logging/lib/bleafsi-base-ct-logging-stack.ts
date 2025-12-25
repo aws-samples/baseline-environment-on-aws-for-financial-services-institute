@@ -3,7 +3,7 @@ import { PjPrefix } from '../bin/parameter';
 import { Construct } from 'constructs';
 import { aws_s3 as s3 } from 'aws-cdk-lib';
 import { aws_iam as iam } from 'aws-cdk-lib';
-import { Bucket } from './constructs/bleafsi-s3-bucket';
+import { Bucket } from 'bleafsi-shared-constructs-v1';
 
 /*
  * CloudTrail S3 Data Event用の ログ集約S3バケットを作成

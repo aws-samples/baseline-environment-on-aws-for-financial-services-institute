@@ -11,7 +11,7 @@
     "synth:dev": "npx cdk synth",
     "depcheck": "npx depcheck --ignore-dirs cdk.out",
     "build": "tsc --build && npm run build:frontend",
-    "build:frontend": "cd lib/frontend && npm install && npm run build",
+    "build:frontend": "cd lib/frontend && npm ci && npm run build",
     "clean": "tsc --build --clean && rm -rf cdk.out && rm -rf lib/frontend/build",
     "watch": "tsc -w",
     "test": "jest --passWithNoTests",

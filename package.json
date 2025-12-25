@@ -13,9 +13,9 @@
     "npm": ">=8.1.0"
   },
   "workspaces": [
+    "resources/bleafsi-shared-constructs/*",
     "usecases/*",
     "tools/*",
-    "resources/cdk-shared-constructs/v1.0.0",
     "usecases/guest-customer-channel-sample/lib/samples/call-monitoring-sample/frontend",
     "usecases/guest-customer-channel-sample/lib/samples/web-call-sample/mock-bank-site"
   ],

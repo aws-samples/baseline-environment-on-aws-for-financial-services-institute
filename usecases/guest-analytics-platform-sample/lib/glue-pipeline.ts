@@ -2,11 +2,9 @@ import { Construct } from 'constructs';
 import * as cdk from 'aws-cdk-lib';
 import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
 import { aws_iam as iam } from 'aws-cdk-lib';
-import { Bucket as bucket } from './constructs/bleafsi-s3-bucket';
+import { Bucket as bucket, Bucket, KmsKey, IamRole } from 'bleafsi-shared-constructs-v1';
 import { aws_s3 as s3, RemovalPolicy } from 'aws-cdk-lib';
 import { aws_s3_deployment as s3deploy } from 'aws-cdk-lib';
-import { Bucket } from './constructs/bleafsi-s3-bucket';
-import { KmsKey } from './constructs/bleafsi-kms-key';
 import { PjPrefix, StackParameter } from '../bin/parameter';
 import { GlueIAMRole } from './glue-iam-role';
 import { GlueJob } from './glue-job';
@@ -16,7 +14,6 @@ import { Parallel, StateMachine } from 'aws-cdk-lib/aws-stepfunctions';
 import { GlueStartJobRun } from 'aws-cdk-lib/aws-stepfunctions-tasks';
 import { aws_logs as logs } from 'aws-cdk-lib';
 import { CloudWatchAlarm } from './cloudwatch-alarm';
-import { IamRole } from './constructs/bleafsi-iam-role';
 
 /*
  * Glue Pipeline stack

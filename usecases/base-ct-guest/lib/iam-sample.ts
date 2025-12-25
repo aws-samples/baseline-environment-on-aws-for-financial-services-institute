@@ -1,6 +1,6 @@
 import { Construct } from 'constructs';
 import { aws_iam as iam } from 'aws-cdk-lib';
-import { IamRole } from './constructs/bleafsi-iam-role';
+import { IamRole } from 'bleafsi-shared-constructs-v1';
 
 /*
  * 管理作業用に以下の4つの役割に対して、それぞれIAMポリシー/ロールとIAMグループを作成

@@ -629,7 +629,6 @@ exports[`Core Banking System Stack should create core banking system stack 1`] =
           },
         },
         "MemorySize": 512,
-        "ReservedConcurrentExecutions": 100,
         "Role": {
           "Fn::GetAtt": [
             "CoreApiRoleFD696CAE",
@@ -8720,7 +8719,7 @@ exports[`Online Banking App Backend Stack should create backend stack 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-111111111111-ap-northeast-1",
-          "S3Key": "a3fb5d49b203da1f8625eeb5fb3ba74662a51000c5277b533f49dcffdb2d3917.zip",
+          "S3Key": "78e47f62feb577bed93184300ed4432b27756f4f5fa4ef051747cfc8d27d825a.zip",
         },
         "Environment": {
           "Variables": {
@@ -11710,7 +11709,6 @@ exports[`Online Banking App Frontend Stack should create frontend stack 1`] = `
             },
           ],
         },
-        "BucketName": "online-banking-app-frontend-logs-111111111111-ap-northeast-1",
         "LifecycleConfiguration": {
           "Rules": [
             {
@@ -12320,7 +12318,6 @@ exports[`Online Banking App Frontend Stack should create frontend stack 1`] = `
             },
           ],
         },
-        "BucketName": "online-banking-app-frontend-111111111111-ap-northeast-1",
         "LoggingConfiguration": {
           "DestinationBucketName": {
             "Ref": "AccessLogsBucket83982689",

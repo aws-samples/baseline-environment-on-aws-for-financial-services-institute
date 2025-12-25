@@ -194,7 +194,6 @@ export class CoreBankingSystemStack extends cdk.Stack {
       role: coreApiRole,
       logGroup: coreApiLogGroup,
       tracing: lambda.Tracing.ACTIVE,
-      reservedConcurrentExecutions: 100,
       // デッドレターキューを明示的に設定
       deadLetterQueue: coreApiDeadLetterQueue,
       // VPC設定（必要に応じて）

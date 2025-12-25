@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import { PjPrefix } from '../bin/parameter';
 import { aws_s3 as s3 } from 'aws-cdk-lib';
 import { aws_iam as iam } from 'aws-cdk-lib';
-import { Bucket } from './constructs/bleafsi-s3-bucket';
+import { Bucket } from 'bleafsi-shared-constructs-v1';
 
 /*
  * SSM セッションマネージャーの監査ログ取得用のS3バケットの作成

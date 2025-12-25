@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import { aws_events as events } from 'aws-cdk-lib';
 import { aws_events_targets as targets } from 'aws-cdk-lib';
 import { aws_stepfunctions as sfn } from 'aws-cdk-lib';
-import { IamRole } from './constructs/bleafsi-iam-role';
+import { IamRole } from 'bleafsi-shared-constructs-v1';
 
 /**
  * EventBridgeスケジュール 作成時のパラメータ

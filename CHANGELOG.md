@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.3] - 2025-12-25
+
+### Changed
+- ユーザー事例集に保険ワークロードを追加
+- ハイブリッドワークロードに証券取引システムに関する記載を追加
+- 既存ワークロードの軽微な修正
+
 ## [1.6.2] - 2025-11-12
 
 ### Changed

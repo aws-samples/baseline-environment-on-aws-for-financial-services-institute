@@ -555,7 +555,6 @@ export class OnlineBankingAppBackendStack extends cdk.Stack {
       role: jwtAuthorizerRole,
       bundling: {
         externalModules: ['@aws-sdk/*'],
-        nodeModules: ['jsonwebtoken'], // jsonwebtokenを明示的に含める
         tsconfig: 'tsconfig.json',
       },
     });

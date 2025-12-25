@@ -6,6 +6,12 @@
 
 > `MC`はマネジメントコンソールでの作業を、`Local`は手元環境での作業を示します。
 
+## 前提条件
+
+- AWS CLI が設定されている
+- Node.js 18 以上
+- docker コマンドが利用できる
+
 ## 導入手順
 
 ゲストアカウントに SSO で認証している状態からのデプロイメントの手順を示します。
@@ -74,7 +80,8 @@ aws sso login --profile ct-guest-sso
 ゲストアカウントで CDK ブートストラップを実行します。
 
 ```sh
-npx cdk bootstrap --profile ct-guest-sso
+npx cdk bootstrap --profile ct-guest-sso --region ap-northeast-1
+npx cdk bootstrap --profile ct-guest-sso --region us-east-1
 ```
 
 サンプルコードをデプロイします。

@@ -44,7 +44,7 @@ export class DbAuroraPgGlobalPrimary extends Construct implements IAuroraGlobalC
     // Aurora Cluster
     const cluster = new rds.DatabaseCluster(this, 'AuroraCluster', {
       engine: rds.DatabaseClusterEngine.auroraPostgres({
-        version: rds.AuroraPostgresEngineVersion.VER_16_6,
+        version: rds.AuroraPostgresEngineVersion.VER_17_5,
       }),
       credentials: rds.Credentials.fromGeneratedSecret(props.dbUser, {
         replicaRegions: [

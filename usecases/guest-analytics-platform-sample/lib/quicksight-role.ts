@@ -1,8 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { IamRole } from './constructs/bleafsi-iam-role';
+import { IamRole, KmsKey } from 'bleafsi-shared-constructs-v1';
 import { aws_iam as iam } from 'aws-cdk-lib';
-import { KmsKey } from './constructs/bleafsi-kms-key';
 
 export interface QuickSightRolePolicyProps {
   //Athena WorkGroupを暗号化するKMS Key

@@ -1,9 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { PjPrefix, StackParameter } from '../bin/parameter';
-import { PrivateVpc, VpcEndpointTypeName } from './constructs/bleafsi-vpc';
-import { Bucket } from './constructs/bleafsi-s3-bucket';
-import { KmsKey } from './constructs/bleafsi-kms-key';
+import { PrivateVpc, VpcEndpointTypeName, Bucket, KmsKey } from 'bleafsi-shared-constructs-v1';
 import { aws_s3 as s3, RemovalPolicy } from 'aws-cdk-lib';
 import { aws_athena } from 'aws-cdk-lib';
 import { aws_ec2 as ec2 } from 'aws-cdk-lib';
