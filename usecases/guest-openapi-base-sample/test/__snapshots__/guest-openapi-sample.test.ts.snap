@@ -405,36 +405,49 @@ exports[`BLEA-FSI snapshot check OpenAPI sample Stacks 1`] = `
               ],
             },
             {
-              "Action": "s3:*",
+              "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId",
+                  },
+                  "aws:SourceArn": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:cloudfront::",
+                        {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":distribution/",
+                        {
+                          "Ref": "CloudFrontOpenApiDistribution51862AA5",
+                        },
+                      ],
+                    ],
+                  },
+                },
+              },
               "Effect": "Allow",
               "Principal": {
                 "Service": "cloudfront.amazonaws.com",
               },
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:s3:::",
-                      {
-                        "Ref": "CloudFrontAppLogBucketA1F4F698",
-                      },
-                    ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "CloudFrontAppLogBucketA1F4F698",
+                    },
+                    "/*",
                   ],
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:s3:::",
-                      {
-                        "Ref": "CloudFrontAppLogBucketA1F4F698",
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
+                ],
+              },
               "Sid": "AllowCloudFrontOnly",
             },
           ],
