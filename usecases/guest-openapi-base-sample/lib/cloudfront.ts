@@ -31,18 +31,9 @@ export class CloudFront extends Construct {
       versioned: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY, //Stack削除時に消えるようにする
     });
-    appLogBucket.addToResourcePolicy(
-      new iam.PolicyStatement({
-        sid: 'AllowCloudFrontOnly',
-        effect: iam.Effect.ALLOW,
-        actions: ['s3:*'],
-        resources: [`arn:aws:s3:::${appLogBucket.bucketName}`, `arn:aws:s3:::${appLogBucket.bucketName}/*`],
-        principals: [new iam.ServicePrincipal('cloudfront.amazonaws.com')],
-      }),
-    );
 
     // Create CF distribution
-    new cloudfront.Distribution(this, 'OpenApiDistribution', {
+    const distribution = new cloudfront.Distribution(this, 'OpenApiDistribution', {
       comment: 'OpenAPI-distribution',
       defaultBehavior: {
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
@@ -67,5 +58,23 @@ export class CloudFront extends Construct {
       logBucket: appLogBucket,
       geoRestriction: cloudfront.GeoRestriction.allowlist('US', 'GB', 'JP'),
     });
+
+    appLogBucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        sid: 'AllowCloudFrontOnly',
+        effect: iam.Effect.ALLOW,
+        actions: ['s3:GetObject', 's3:PutObject', 's3:DeleteObject'],
+        resources: [`arn:aws:s3:::${appLogBucket.bucketName}/*`],
+        principals: [new iam.ServicePrincipal('cloudfront.amazonaws.com')],
+        conditions: {
+          StringEquals: {
+            'aws:SourceArn': `arn:aws:cloudfront::${cdk.Stack.of(this).account}:distribution/${
+              distribution.distributionId
+            }`,
+            'aws:SourceAccount': cdk.Stack.of(this).account,
+          },
+        },
+      }),
+    );
   }
 }
