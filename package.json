@@ -41,7 +41,7 @@
     "simple-git-hooks": "^2.8.1",
     "standard-version": "^9.5.0",
     "typescript": "~5.0.4",
-    "vite": "^5.4.2"
+    "vite": "^8.0.8"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
