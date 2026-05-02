@@ -23,6 +23,6 @@
     "@opentelemetry/api": "^1.4.1",
     "axios": "^1.7.4",
     "express": "^4.21.0",
-    "uuid": "^9.0.0"
+    "uuid": "^14.0.0"
   }
 }
