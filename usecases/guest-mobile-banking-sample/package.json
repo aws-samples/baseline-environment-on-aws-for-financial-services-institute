@@ -63,7 +63,7 @@
     "@smithy/signature-v4": "^4.2.0",
     "aws-cdk-lib": "^2.223.0",
     "aws-lambda": "^1.0.7",
-    "axios": "^1.6.0",
+    "axios": "^1.15.2",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.5.0",
     "constructs": "^10.1.99",
