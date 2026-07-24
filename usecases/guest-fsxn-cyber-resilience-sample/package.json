@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "guest-fsxn-cyber-resilience-sample",
+  "version": "1.0.0",
+  "description": "BLEA for FSI: Cyber Resilience with FSx for NetApp ONTAP (TPS, ARP/AI, SnapLock, Air-gapped Vault)",
+  "license": "MIT-0",
+  "bin": {
+    "guest-fsxn-cyber-resilience-sample": "bin/guest-fsxn-cyber-resilience-sample.js"
+  },
+  "scripts": {
+    "synth": "cdk synth -q",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean && rm -rf cdk.out",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.1060.0",
+    "@types/aws-lambda": "^8.10.161",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "aws-cdk": "^2.236.0",
+    "cdk-nag": "^2.38.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.4.0"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.236.0",
+    "constructs": "^10.3.0",
+    "source-map-support": "^0.5.21"
+  }
+}
