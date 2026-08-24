@@ -29,19 +29,19 @@ Amazon FSx for NetApp ONTAP のネイティブセキュリティ機能を活用�
 
 ## 防御レイヤー
 
-| レイヤー | 機能 | 実装 |
-|---------|------|------|
-| 検知 | ランサムウェア自動検知 | ARP/AI (ONTAP Custom Resource) |
-| 保護 | 管理者でも削除不可な Snapshot | Tamperproof Snapshot (TPS) |
-| 保護 | WORM バックアップ | SnapLock Enterprise Volume |
-| 隔離 | バックアップの論理的隔離 | Air-gapped Vault (別アカウント) |
-| 対応 | 自動ネットワーク遮断 | GuardDuty → Lambda → NACL |
-| 復旧 | 自動リストア | StepFunctions (4時間以内) |
+| レイヤー | 機能                          | 実装                            |
+| -------- | ----------------------------- | ------------------------------- |
+| 検知     | ランサムウェア自動検知        | ARP/AI (ONTAP Custom Resource)  |
+| 保護     | 管理者でも削除不可な Snapshot | Tamperproof Snapshot (TPS)      |
+| 保護     | WORM バックアップ             | SnapLock Enterprise Volume      |
+| 隔離     | バックアップの論理的隔離      | Air-gapped Vault (別アカウント) |
+| 対応     | 自動ネットワーク遮断          | GuardDuty → Lambda → NACL       |
+| 復旧     | 自動リストア                  | StepFunctions (4 時間以内)      |
 
 ## 前提条件
 
 1. AWS CDK CLI + Node.js >= 20.x
-2. 3つの AWS アカウント（ワークロード / データバンカー / リストア）
+2. 3 つの AWS アカウント（ワークロード / データバンカー / リストア）
 3. **FSxN 管理パスワードを Secrets Manager に事前登録**:
    ```bash
    aws secretsmanager create-secret \
@@ -63,6 +63,7 @@ security anti-ransomware volume enable -volume vol_production -vserver svm-resil
 ```
 
 または ONTAP REST API:
+
 ```bash
 curl -X PATCH "https://<mgmt-endpoint>/api/storage/volumes/<vol-uuid>" \
   -H "Content-Type: application/json" \
@@ -91,21 +92,21 @@ npx cdk deploy Dev-FSxNCyberResilience-Restore --profile restore
 
 ## FISC 安全対策基準マッピング
 
-| 基準 | 対策 | 実装 |
-|------|------|------|
-| 実43 | バックアップ | Snapshot + AWS Backup + Air-gapped Vault |
-| 実44 | 復旧 | StepFunctions 自動リストア (RTO < 4h) |
-| 実116 | サイバー攻撃対策 | ARP/AI + GuardDuty + 自動隔離 |
-| 実117 | データ保護 | TPS (管理者削除不可) + SnapLock (WORM) |
-| 実8 | 可用性 | Multi-AZ + 自動フェイルオーバー |
+| 基準   | 対策             | 実装                                     |
+| ------ | ---------------- | ---------------------------------------- |
+| 実 43  | バックアップ     | Snapshot + AWS Backup + Air-gapped Vault |
+| 実 44  | 復旧             | StepFunctions 自動リストア (RTO < 4h)    |
+| 実 116 | サイバー攻撃対策 | ARP/AI + GuardDuty + 自動隔離            |
+| 実 117 | データ保護       | TPS (管理者削除不可) + SnapLock (WORM)   |
+| 実 8   | 可用性           | Multi-AZ + 自動フェイルオーバー          |
 
 ## コスト見積もり
 
-| 構成 | 月額概算 (USD) |
-|------|-------------|
-| Workload (Multi-AZ, 128MBps, 1TiB + SnapLock 50GiB) | ~$600 |
-| Data Banker (Backup Vault storage) | ~$25/TiB |
-| Restore (待機: StepFunctions のみ) | < $1 |
+| 構成                                                | 月額概算 (USD) |
+| --------------------------------------------------- | -------------- |
+| Workload (Multi-AZ, 128MBps, 1TiB + SnapLock 50GiB) | ~$600          |
+| Data Banker (Backup Vault storage)                  | ~$25/TiB       |
+| Restore (待機: StepFunctions のみ)                  | < $1           |
 
 ## ライセンス
 

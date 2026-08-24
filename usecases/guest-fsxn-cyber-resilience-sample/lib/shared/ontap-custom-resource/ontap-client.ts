@@ -15,9 +15,18 @@ export interface OntapClientConfig {
   region: string;
 }
 
+/**
+ * ONTAP REST responses vary by endpoint. Collection endpoints return `records`;
+ * the index signature keeps other fields accessible without resorting to `any`.
+ */
+export interface OntapResponseBody {
+  records?: Array<Record<string, unknown> & { uuid?: string }>;
+  [key: string]: unknown;
+}
+
 export interface OntapApiResponse {
   statusCode: number;
-  body: any;
+  body: OntapResponseBody;
 }
 
 export class OntapClient {
@@ -46,7 +55,7 @@ export class OntapClient {
   /**
    * Execute ONTAP REST API call with retry logic.
    */
-  async call(method: string, path: string, body?: any): Promise<OntapApiResponse> {
+  async call(method: string, path: string, body?: unknown): Promise<OntapApiResponse> {
     if (!this.password) {
       await this.authenticate();
     }
@@ -77,7 +86,9 @@ export class OntapClient {
         );
 
         const response = await fetch(url, options);
-        const responseBody = await response.json().catch(() => ({}));
+        // The ONTAP API contract is external, so the parsed shape is asserted here
+        // rather than propagating `unknown` through every caller.
+        const responseBody = (await response.json().catch(() => ({}))) as OntapResponseBody;
 
         console.log(
           JSON.stringify({
@@ -107,8 +118,9 @@ export class OntapClient {
         throw new Error(
           `ONTAP API failed after ${this.maxRetries} attempts: ${response.status} ${JSON.stringify(responseBody)}`,
         );
-      } catch (error: any) {
-        if (attempt >= this.maxRetries || error.message.includes('ONTAP API error')) {
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        if (attempt >= this.maxRetries || message.includes('ONTAP API error')) {
           throw error;
         }
         const delay = this.baseDelayMs * Math.pow(2, attempt - 1);
@@ -200,8 +212,9 @@ export class OntapClient {
   /** Get volume UUID by name (utility) */
   async getVolumeUuid(volumeName: string, svmName: string): Promise<string> {
     const response = await this.call('GET', `/storage/volumes?name=${volumeName}&svm.name=${svmName}&fields=uuid`);
-    if (response.body?.records?.length > 0) {
-      return response.body.records[0].uuid;
+    const uuid = response.body.records?.[0]?.uuid;
+    if (uuid) {
+      return uuid;
     }
     throw new Error(`Volume not found: ${volumeName} in SVM ${svmName}`);
   }

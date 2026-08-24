@@ -1,7 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import {
-  aws_iam as iam,
-  aws_lambda as lambda,
   aws_logs as logs,
   aws_sns as sns,
   aws_stepfunctions as sfn,
@@ -72,15 +70,10 @@ export class RestoreStack extends cdk.Stack {
       subject: '[RESTORE] FSxN Recovery Completed Successfully',
     });
 
-    // Error handler
-    const notifyFailure = new tasks.SnsPublish(this, 'NotifyFailure', {
-      topic: notifyTopic,
-      message: sfn.TaskInput.fromObject({
-        status: 'FAILED',
-        error: sfn.JsonPath.stringAt('$.error'),
-      }),
-      subject: '[RESTORE FAILED] FSxN Recovery Error - Manual Intervention Required',
-    });
+    // Error handling is not wired yet: steps 1-4 above are sfn.Pass placeholders,
+    // and Pass states do not support addCatch. Once they are replaced with
+    // Lambda-backed tasks (which extend TaskStateBase), attach a failure
+    // notification with .addCatch() so restore errors surface to notifyTopic.
 
     // State Machine Definition
     const definition = initiateRestore.next(waitForRestore).next(checkStatus).next(verifyIntegrity).next(notifySuccess);

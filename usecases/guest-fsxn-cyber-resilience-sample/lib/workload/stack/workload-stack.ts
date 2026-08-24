@@ -88,8 +88,9 @@ export class WorkloadStack extends Stack {
       arpInitialMode: props.arpInitialMode,
     });
 
-    // SnapLock Enterprise Volume (immutable backup target)
-    const snaplockVol = new SnapLockVolume(this, 'SnapLockVolume', {
+    // SnapLock Enterprise Volume (immutable backup target).
+    // Referenced by SnapVaultReplication via props.snaplockVolumeName.
+    new SnapLockVolume(this, 'SnapLockVolume', {
       svmId: fsxnStorage.svmId,
       volumeName: props.snaplockVolumeName,
       volumeSizeMiB: props.snaplockVolumeSizeMiB,

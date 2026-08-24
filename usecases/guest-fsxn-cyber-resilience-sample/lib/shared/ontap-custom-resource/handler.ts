@@ -112,16 +112,17 @@ export async function handler(event: CloudFormationCustomResourceEvent): Promise
     }
 
     return buildResponse(event, 'SUCCESS', physicalResourceId, data);
-  } catch (error: any) {
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error(
       JSON.stringify({
         event: 'custom_resource_error',
         action: props.action,
         volumeName: props.volumeName,
-        error: error.message,
+        error: message,
       }),
     );
-    return buildResponse(event, 'FAILED', `ontap-${props.action}-${props.volumeName}-failed`, {}, error.message);
+    return buildResponse(event, 'FAILED', `ontap-${props.action}-${props.volumeName}-failed`, {}, message);
   }
 }
 

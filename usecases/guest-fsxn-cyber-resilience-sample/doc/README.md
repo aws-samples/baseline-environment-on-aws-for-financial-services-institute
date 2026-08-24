@@ -29,14 +29,14 @@ A multi-layered cyber resilience solution leveraging Amazon FSx for NetApp ONTAP
 
 ## Defense Layers
 
-| Layer | Capability | Implementation |
-|-------|-----------|----------------|
-| Detection | Automatic ransomware detection | ARP/AI (ONTAP Custom Resource) |
-| Protection | Admin-proof snapshots | Tamperproof Snapshot (TPS) |
-| Protection | WORM backup | SnapLock Enterprise Volume |
-| Isolation | Logical backup isolation | Air-gapped Vault (separate account) |
-| Response | Automatic network containment | GuardDuty → Lambda → NACL |
-| Recovery | Automated restore | StepFunctions (within 4 hours) |
+| Layer      | Capability                     | Implementation                      |
+| ---------- | ------------------------------ | ----------------------------------- |
+| Detection  | Automatic ransomware detection | ARP/AI (ONTAP Custom Resource)      |
+| Protection | Admin-proof snapshots          | Tamperproof Snapshot (TPS)          |
+| Protection | WORM backup                    | SnapLock Enterprise Volume          |
+| Isolation  | Logical backup isolation       | Air-gapped Vault (separate account) |
+| Response   | Automatic network containment  | GuardDuty → Lambda → NACL           |
+| Recovery   | Automated restore              | StepFunctions (within 4 hours)      |
 
 ## Prerequisites
 
@@ -63,6 +63,7 @@ security anti-ransomware volume enable -volume vol_production -vserver svm-resil
 ```
 
 Or via ONTAP REST API:
+
 ```bash
 curl -X PATCH "https://<mgmt-endpoint>/api/storage/volumes/<vol-uuid>" \
   -H "Content-Type: application/json" \
@@ -91,21 +92,21 @@ npx cdk deploy Dev-FSxNCyberResilience-Restore --profile restore
 
 ## FISC Security Standards Mapping
 
-| Standard | Countermeasure | Implementation |
-|----------|---------------|----------------|
-| Practice 43 | Backup | Snapshot + AWS Backup + Air-gapped Vault |
-| Practice 44 | Recovery | StepFunctions automated restore (RTO < 4h) |
-| Practice 116 | Cyber attack defense | ARP/AI + GuardDuty + automatic isolation |
-| Practice 117 | Data protection | TPS (admin-undeletable) + SnapLock (WORM) |
-| Practice 8 | Availability | Multi-AZ + automatic failover |
+| Standard     | Countermeasure       | Implementation                             |
+| ------------ | -------------------- | ------------------------------------------ |
+| Practice 43  | Backup               | Snapshot + AWS Backup + Air-gapped Vault   |
+| Practice 44  | Recovery             | StepFunctions automated restore (RTO < 4h) |
+| Practice 116 | Cyber attack defense | ARP/AI + GuardDuty + automatic isolation   |
+| Practice 117 | Data protection      | TPS (admin-undeletable) + SnapLock (WORM)  |
+| Practice 8   | Availability         | Multi-AZ + automatic failover              |
 
 ## Cost Estimate
 
-| Component | Monthly Cost (USD) |
-|-----------|-------------------|
-| Workload (Multi-AZ, 128MBps, 1TiB + SnapLock 50GiB) | ~$600 |
-| Data Banker (Backup Vault storage) | ~$25/TiB |
-| Restore (standby: StepFunctions only) | < $1 |
+| Component                                           | Monthly Cost (USD) |
+| --------------------------------------------------- | ------------------ |
+| Workload (Multi-AZ, 128MBps, 1TiB + SnapLock 50GiB) | ~$600              |
+| Data Banker (Backup Vault storage)                  | ~$25/TiB           |
+| Restore (standby: StepFunctions only)               | < $1               |
 
 ## License
 

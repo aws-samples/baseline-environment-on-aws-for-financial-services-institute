@@ -2,7 +2,6 @@ import * as cdk from 'aws-cdk-lib';
 import {
   aws_backup as backup,
   aws_events as events,
-  aws_iam as iam,
   aws_sns as sns,
   aws_cloudwatch as cw,
   aws_cloudwatch_actions as cw_actions,

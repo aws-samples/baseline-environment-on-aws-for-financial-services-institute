@@ -54,24 +54,24 @@ Amazon FSx for NetApp ONTAP のネイティブセキュリティ機能を活用�
 
 ONTAP のネイティブ機能で、ファイルシステムの異常なアクティビティ（大量暗号化、拡張子変更）をリアルタイムに検知します。
 
-- **学習期間**: 30日間（正常なアクセスパターンを学習）
+- **学習期間**: 30 日間（正常なアクセスパターンを学習）
 - **検知後**: 自動 Snapshot 作成 + 管理者通知
 - **ONTAP バージョン要件**: 9.13+
 
 ### レイヤー 2: 保護 — Tamperproof Snapshot (TPS)
 
-スナップショットにロック期間を設定し、その間はいかなる管理者（fsxadmin含む）も削除できません。
+スナップショットにロック期間を設定し、その間はいかなる管理者（fsxadmin 含む）も削除できません。
 
-- **保持期間**: パラメータ設定可能（開発: 7日、本番: 14日）
+- **保持期間**: パラメータ設定可能（開発: 7 日、本番: 14 日）
 - **ONTAP バージョン要件**: 9.12+
 
 ### レイヤー 3: 保護 — SnapLock Enterprise
 
 WORM（Write Once Read Many）保護を提供するボリューム。一度コミットされたファイルは保持期間満了まで変更・削除不可能です。
 
-- **保持期間**: 最小7日〜最大7年（FISC 要件に応じて設定）
+- **保持期間**: 最小 7 日〜最大 7 年（FISC 要件に応じて設定）
 - **特権削除**: `PERMANENTLY_DISABLED`（不可逆。一度設定すると管理者でも削除不可）
-- **自動コミット**: 1時間（ファイルが1時間未変更なら WORM 化）
+- **自動コミット**: 1 時間（ファイルが 1 時間未変更なら WORM 化）
 
 ### レイヤー 4: 隔離 — Air-gapped Vault（別アカウント）
 
@@ -94,27 +94,27 @@ GuardDuty が HIGH/CRITICAL の脅威を検知した場合、自動的にネッ�
 
 データバンカーアカウントのバックアップから自動復旧します。
 
-- **RTO**: 4時間以内（FISC 実44 準拠）
+- **RTO**: 4 時間以内（FISC 実 44 準拠）
 - **ワークフロー**: StepFunctions（バックアップ特定 → リストア → 検証 → 通知）
 
 ## ONTAP バージョン要件
 
-| 機能 | 最低バージョン | 備考 |
-|------|-------------|------|
-| Tamperproof Snapshot | ONTAP 9.12+ | FSxN で利用可能 |
-| ARP/AI | ONTAP 9.13+ | learning→active 遷移は手動 |
-| SnapLock Enterprise | ONTAP 9.7+ | FSxN で利用可能 |
-| SnapVault | ONTAP 9.6+ | SnapMirror vault ポリシー |
+| 機能                 | 最低バージョン | 備考                       |
+| -------------------- | -------------- | -------------------------- |
+| Tamperproof Snapshot | ONTAP 9.12+    | FSxN で利用可能            |
+| ARP/AI               | ONTAP 9.13+    | learning→active 遷移は手動 |
+| SnapLock Enterprise  | ONTAP 9.7+     | FSxN で利用可能            |
+| SnapVault            | ONTAP 9.6+     | SnapMirror vault ポリシー  |
 
 ## コスト見積もり
 
-| 構成要素 | 月額概算 (USD) |
-|---------|--------------|
-| FSxN (Multi-AZ, 1TiB, 128MBps) + SnapLock (50GiB) | ~$600 |
-| AWS Backup ストレージ | ~$25/TiB |
-| Data Banker Vault (Vault Lock) | < $1 |
-| Restore Account (StepFunctions 待機) | < $1 |
-| **合計** | **~$625** |
+| 構成要素                                          | 月額概算 (USD) |
+| ------------------------------------------------- | -------------- |
+| FSxN (Multi-AZ, 1TiB, 128MBps) + SnapLock (50GiB) | ~$600          |
+| AWS Backup ストレージ                             | ~$25/TiB       |
+| Data Banker Vault (Vault Lock)                    | < $1           |
+| Restore Account (StepFunctions 待機)              | < $1           |
+| **合計**                                          | **~$625**      |
 
 ## セキュリティ設計
 
@@ -122,18 +122,18 @@ GuardDuty が HIGH/CRITICAL の脅威を検知した場合、自動的にネッ�
 - **暗号化**: KMS CMK（自動ローテーション有効）
 - **ネットワーク**: VPC Endpoints 経由のみ（SecretsManager, CloudWatch Logs, Backup, S3）
 - **IAM**: 最小権限（Lambda は SecretsManager 読み取りのみ、FSxN は SG で制限）
-- **監査**: CloudWatch Logs 3年保持（FISC 準拠）
+- **監査**: CloudWatch Logs 3 年保持（FISC 準拠）
 
 ## 既存サイバーレジリエンスアーキテクチャとの関係
 
 本アーキテクチャは BLEA for FSI の既存サイバーレジリエンスパターン（AWS Backup + GuardDuty 中心）を **補完** するものです：
 
-| 観点 | 既存パターン | 本パターン（FSxN） |
-|------|-----------|----------------|
-| ストレージ | EBS, S3 | FSx for NetApp ONTAP |
-| バックアップ保護 | Vault Lock | TPS + SnapLock + Vault Lock |
-| ランサムウェア検知 | GuardDuty | GuardDuty + ARP/AI |
-| 管理者侵害対策 | Vault Lock のみ | TPS（ストレージレベル不可変） |
-| 復旧方式 | 手動 | StepFunctions 自動 |
+| 観点               | 既存パターン    | 本パターン（FSxN）            |
+| ------------------ | --------------- | ----------------------------- |
+| ストレージ         | EBS, S3         | FSx for NetApp ONTAP          |
+| バックアップ保護   | Vault Lock      | TPS + SnapLock + Vault Lock   |
+| ランサムウェア検知 | GuardDuty       | GuardDuty + ARP/AI            |
+| 管理者侵害対策     | Vault Lock のみ | TPS（ストレージレベル不可変） |
+| 復旧方式           | 手動            | StepFunctions 自動            |
 
 FSxN を利用する金融機関は、ONTAP のネイティブ機能により **ストレージレイヤーでの追加の保護層** を得ることができます。

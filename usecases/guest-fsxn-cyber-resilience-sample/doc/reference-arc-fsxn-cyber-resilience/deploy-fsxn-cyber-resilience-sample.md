@@ -10,7 +10,7 @@
 
 ## 事前準備
 
-### 1. Secrets Manager にFSxN 管理パスワードを登録
+### 1. Secrets Manager に FSxN 管理パスワードを登録
 
 ワークロードアカウントで実行:
 
@@ -21,7 +21,7 @@ aws secretsmanager create-secret \
   --region ap-northeast-1
 ```
 
-> ⚠️ パスワードは十分な強度を確保してください（英大小文字 + 数字 + 特殊文字、12文字以上推奨）
+> ⚠️ パスワードは十分な強度を確保してください（英大小文字 + 数字 + 特殊文字、12 文字以上推奨）
 
 ### 2. parameter.ts の設定
 
@@ -44,7 +44,7 @@ export const devParameter: AppParameter = {
 
 ### デプロイ順序（重要）
 
-3つのスタックは以下の順序でデプロイしてください：
+3 つのスタックは以下の順序でデプロイしてください：
 
 ```
 1. Data Banker → 2. Workload → 3. Restore
@@ -74,6 +74,7 @@ npx cdk deploy Dev-FSxNCyberResilience-DataBanker \
 ```
 
 デプロイ完了後、Vault ARN を確認:
+
 ```bash
 aws backup describe-backup-vault \
   --backup-vault-name <vault-name> \
@@ -114,7 +115,7 @@ npx cdk deploy Dev-FSxNCyberResilience-Workload \
   --require-approval never
 ```
 
-### Step 7: ARP learning → active 遷移（30日後）
+### Step 7: ARP learning → active 遷移（30 日後）
 
 ARP は 30 日間の学習期間後に手動で active モードに遷移します:
 
@@ -149,6 +150,7 @@ aws cloudwatch describe-alarms \
 ### TPS 確認
 
 Lambda ログで TPS 設定成功を確認:
+
 ```bash
 aws logs filter-log-events \
   --log-group-name <log-group-name> \
@@ -159,6 +161,7 @@ aws logs filter-log-events \
 ### ネットワーク隔離テスト
 
 GuardDuty のテストイベントで隔離 Lambda が動作することを確認:
+
 ```bash
 aws guardduty create-sample-findings \
   --detector-id <detector-id> \
@@ -181,9 +184,9 @@ npx cdk destroy Dev-FSxNCyberResilience-DataBanker --profile data-banker
 
 ## トラブルシューティング
 
-| 症状 | 原因 | 対処 |
-|------|------|------|
-| SnapLock Volume 作成失敗 | `StorageEfficiencyEnabled` 未設定 | CDK コードを確認（自動設定済み） |
-| SnapVault Lambda `fetch failed` | 管理エンドポイント DNS 未解決 | `enableSnapVault: false` で初回デプロイ後、2回目で有効化 |
-| SVM 削除失敗（ROLLBACK時） | RETAIN ボリュームが存在 | 手動で Volume → SVM → FS の順に削除 |
-| Backup Vault 名前衝突 | 前回のデプロイ残骸 | Vault を手動削除してからリデプロイ |
+| 症状                            | 原因                              | 対処                                                      |
+| ------------------------------- | --------------------------------- | --------------------------------------------------------- |
+| SnapLock Volume 作成失敗        | `StorageEfficiencyEnabled` 未設定 | CDK コードを確認（自動設定済み）                          |
+| SnapVault Lambda `fetch failed` | 管理エンドポイント DNS 未解決     | `enableSnapVault: false` で初回デプロイ後、2 回目で有効化 |
+| SVM 削除失敗（ROLLBACK 時）     | RETAIN ボリュームが存在           | 手動で Volume → SVM → FS の順に削除                       |
+| Backup Vault 名前衝突           | 前回のデプロイ残骸                | Vault を手動削除してからリデプロイ                        |
